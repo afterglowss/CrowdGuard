@@ -11,8 +11,11 @@ namespace Capstone.Photon
         public GameObject playerPrefab;
         public GameObject localController;
         private void Start()
-        { 
-            PhotonManager.Instance.InstanceRunner.AddCallbacks(this);
+        {
+            if (PhotonManager.Instance)
+            {
+                PhotonManager.Instance.InstanceRunner.AddCallbacks(this);
+            }
         }
 
         public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
