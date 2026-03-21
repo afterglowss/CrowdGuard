@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Capstone.Photon
 {
-    public class TestMainMenu : MonoBehaviour
+    public class LobbyManager : MonoBehaviour
     {
         public void StartGame()
         {
