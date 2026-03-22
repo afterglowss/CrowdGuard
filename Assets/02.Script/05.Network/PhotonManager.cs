@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Fusion;
-using Fusion.Sockets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -72,7 +70,7 @@ namespace Capstone.Photon
             var startGameArgs = new StartGameArgs()
             {
                 GameMode = GameMode.Shared,
-                PlayerCount = 2,
+                PlayerCount = 4,
                 Scene = networkSceneInfo,
             };
 

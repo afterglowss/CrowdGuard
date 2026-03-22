@@ -9,7 +9,7 @@ namespace Capstone.Photon
     public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         public GameObject playerPrefab;
-        public GameObject localController;
+        public LocalPlayerController localController;
         private void Start()
         {
             if (PhotonManager.Instance)
