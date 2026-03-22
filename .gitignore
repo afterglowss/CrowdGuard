@@ -25,7 +25,8 @@
 *.VC.db
 
 # [XR]
-/Assets/XR/*
+/Assets/XR/
+
 
 # [OS generated]
 .DS_Store
