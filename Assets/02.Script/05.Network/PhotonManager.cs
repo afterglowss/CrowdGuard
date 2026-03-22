@@ -70,7 +70,7 @@ namespace Capstone.Photon
             var startGameArgs = new StartGameArgs()
             {
                 GameMode = GameMode.Shared,
-                PlayerCount = 2,
+                PlayerCount = 4,
                 Scene = networkSceneInfo,
             };
 
