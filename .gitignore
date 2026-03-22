@@ -19,9 +19,13 @@
 *.booproj
 *.svd
 *.pdb
+*.pdb.meta
 *.mdb
 *.opendb
 *.VC.db
+
+# [XR]
+/Assets/XR/*
 
 # [OS generated]
 .DS_Store
@@ -34,3 +38,4 @@ Thumbs.db
 
 # [Rider]
 .idea/**/.idea
+
