@@ -3,66 +3,165 @@
 [ExecuteAlways]
 public class RopeSag : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private Transform player1;
     [SerializeField] private Transform player2;
-    [SerializeField] private int resolution = 20; 
-    [SerializeField] private float sagAmount = 2.0f;
-    [SerializeField] private float maxRopeLength = 10.0f;
-    [SerializeField] private float baseSag = 2.0f;
-    [SerializeField] private float ropeRadius = 0.1f; // Prevents the center from clipping halfway into the floor
-    [SerializeField] private float elasticity = 5.0f;
-    [SerializeField] private float damping = 0.5f;
-    [SerializeField] private LayerMask collisionLayers;
-    
-    private Vector3 _currentControlPos;
-    private Vector3 _velocity;
-    void Start() => _currentControlPos = GetTargetControlPoint();
 
+    [Header("Rope")]
+    [SerializeField] private int segments = 20;
+    [SerializeField] private float maxRopeLength = 10f;
+    [SerializeField] private float ropeRadius = 0.05f;
+
+    [Header("Simulation")]
+    [SerializeField] private int solverIterations = 10;
+    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float damping = 0.98f;      // 0–1: energy retained per frame
+    [SerializeField] private LayerMask collisionLayers;
+
+    // --- Verlet particle ---
+    private struct Particle
+    {
+        public Vector3 pos;
+        public Vector3 prevPos;
+        public bool locked;
+    }
+
+    private Particle[] _particles;
+    private float _segmentLength;   // rest length of each segment
+
+    // ---------------------------------------------------------------
+    void OnEnable() => InitRope();
+    void OnValidate() => InitRope();    // rebuilds in Editor when you tweak values
+
+    void InitRope()
+    {
+        if (player1 == null || player2 == null) return;
+
+        _particles = new Particle[segments + 1];
+        float ropeLen = Mathf.Min(Vector3.Distance(player1.position, player2.position),
+                                  maxRopeLength);
+        _segmentLength = ropeLen / segments;
+
+        for (int i = 0; i <= segments; i++)
+        {
+            float t = (float)i / segments;
+            _particles[i] = new Particle
+            {
+                pos = Vector3.Lerp(player1.position, player2.position, t),
+                prevPos = Vector3.Lerp(player1.position, player2.position, t),
+                locked = (i == 0 || i == segments)
+            };
+        }
+
+        if (lineRenderer != null)
+            lineRenderer.positionCount = segments + 1;
+    }
+
+    // ---------------------------------------------------------------
     void Update()
     {
-        Vector3 target = GetTargetControlPoint();
+        if (_particles == null || _particles.Length != segments + 1)
+            InitRope();
 
-        // Simple Spring Physics (Acceleration toward target)
-        Vector3 force = (target - _currentControlPos) * elasticity;
-        _velocity = (_velocity + force * Time.deltaTime) * damping;
-        _currentControlPos += _velocity * Time.deltaTime;
+        // --- Recalculate rest length based on tautness ---
+        float dist = Vector3.Distance(player1.position, player2.position);
 
-        DrawBezier(_currentControlPos);
+        // If players move beyond maxRopeLength the rope goes taut:
+        // clamp total rope length so segments can't stretch further.
+        float ropeLen = Mathf.Min(dist, maxRopeLength);
+        _segmentLength = ropeLen / segments;
+
+        // --- Anchor locked ends to player positions ---
+        _particles[0].pos = player1.position;
+        _particles[segments].pos = player2.position;
+
+        float dt = Time.deltaTime;
+
+        // 1. Verlet integration (velocity = pos - prevPos, implicit)
+        Simulate(dt);
+
+        // 2. Constraint solve (N iterations for stiffness)
+        for (int iter = 0; iter < solverIterations; iter++)
+            SolveConstraints();
+
+        // 3. Re-pin anchors after solving (solver may drift them)
+        _particles[0].pos = player1.position;
+        _particles[segments].pos = player2.position;
+
+        // 4. Draw
+        UpdateLineRenderer();
     }
 
-
-    
-
-    Vector3 GetTargetControlPoint()
+    // ---------------------------------------------------------------
+    void Simulate(float dt)
     {
-        float currentDistance = Vector3.Distance(player1.position, player2.position);
+        Vector3 gravityVec = new Vector3(0, gravity * dt * dt, 0);
 
-        // Tension: 1.0 when close (full sag), 0.0 when at max length (straight)
-        float tensionFactor = Mathf.Clamp01(1.0f - (currentDistance / maxRopeLength));
-        float dynamicSag = baseSag * tensionFactor;
-
-        Vector3 midPoint = Vector3.Lerp(player1.position, player2.position, 0.5f);
-        Vector3 targetSag = midPoint + (Vector3.down * dynamicSag);
-
-        // Collision Check (Same as before, using dynamicSag)
-        if (Physics.Raycast(midPoint, Vector3.down, out RaycastHit hit, dynamicSag + ropeRadius, collisionLayers))
+        for (int i = 0; i <= segments; i++)
         {
-            return hit.point + (Vector3.up * ropeRadius);
-        }
+            if (_particles[i].locked) continue;
 
-        return targetSag;
+            Vector3 vel = (_particles[i].pos - _particles[i].prevPos) * damping;
+            _particles[i].prevPos = _particles[i].pos;
+            _particles[i].pos += vel + gravityVec;
+        }
     }
-    void DrawBezier(Vector3 controlPoint)
+
+    // ---------------------------------------------------------------
+    void SolveConstraints()
     {
-        lineRenderer.positionCount = resolution;
-        for (int i = 0; i < resolution; i++)
+        for (int i = 0; i < segments; i++)
         {
-            float t = i / (float)(resolution - 1);
-            Vector3 pos = Mathf.Pow(1 - t, 2) * player1.position +
-                          2 * (1 - t) * t * controlPoint +
-                          Mathf.Pow(t, 2) * player2.position;
-            lineRenderer.SetPosition(i, pos);
+            ref Particle a = ref _particles[i];
+            ref Particle b = ref _particles[i + 1];
+
+            Vector3 delta = b.pos - a.pos;
+            float dist = delta.magnitude;
+            if (dist < 0.0001f) continue;
+
+            float diff = (dist - _segmentLength) / dist;
+            Vector3 offset = delta * (0.5f * diff);
+
+            if (!a.locked) a.pos += offset;
+            if (!b.locked) b.pos -= offset;
+
+            // --- Per-segment sphere collision ---
+            Vector3 mid = (a.pos + b.pos) * 0.5f;
+            Vector3 dir = (b.pos - a.pos).normalized;
+            float len = Vector3.Distance(a.pos, b.pos);
+
+            if (Physics.SphereCast(a.pos, ropeRadius, dir,
+                                   out RaycastHit hit, len, collisionLayers))
+            {
+                // Push both particles out of the surface
+                Vector3 push = hit.normal * (ropeRadius - hit.distance + 0.001f);
+                if (!a.locked) a.pos += push;
+                if (!b.locked) b.pos += push;
+
+                // Kill velocity into the surface (damp prevPos along normal)
+                if (!a.locked) a.prevPos += push;
+                if (!b.locked) b.prevPos += push;
+            }
         }
+    }
+
+    // ---------------------------------------------------------------
+    void UpdateLineRenderer()
+    {
+        if (lineRenderer == null) return;
+        lineRenderer.positionCount = segments + 1;
+        for (int i = 0; i <= segments; i++)
+            lineRenderer.SetPosition(i, _particles[i].pos);
+    }
+
+    // ---------------------------------------------------------------
+    // Visual debugging
+    void OnDrawGizmosSelected()
+    {
+        if (_particles == null) return;
+        Gizmos.color = Color.yellow;
+        foreach (var p in _particles)
+            Gizmos.DrawWireSphere(p.pos, ropeRadius);
     }
 }
