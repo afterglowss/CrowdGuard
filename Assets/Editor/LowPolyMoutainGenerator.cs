@@ -100,9 +100,9 @@ internal static class MeshGenUtils
             // 2-D cross: positive = CCW in standard math = CW in Unity XZ
             float cross = (pb.x - pa.x) * (pc.y - pa.y) - (pb.y - pa.y) * (pc.x - pa.x);
             if (cross > 0)
-                result.Add(new[] { t.a, t.b, t.c });   // already CW in Unity XZ
+                result.Add(new[] { t.a, t.c, t.b });   // already CW in Unity XZ
             else
-                result.Add(new[] { t.a, t.c, t.b });   // flip to CW
+                result.Add(new[] { t.a, t.b, t.c });   // flip to CW
         }
         return result;
     }
@@ -500,8 +500,8 @@ public class LowPolyMountainGenerator : EditorWindow
             {
                 int i00 = z * vx + x, i10 = i00 + 1, i01 = i00 + vx, i11 = i01 + 1;
                 // CW winding in XZ → normal points up (+Y)
-                t.Add(new[] { i00, i10, i01 });
-                t.Add(new[] { i10, i11, i01 });
+                t.Add(new[] { i00, i01, i10 });
+                t.Add(new[] { i10, i01, i11 });
             }
         return t;
     }
@@ -797,8 +797,8 @@ public class LowPolyCliffGenerator : EditorWindow
                     Vector3 v00 = pts[col, row], v10 = pts[col + 1, row], v01 = pts[col, row + 1], v11 = pts[col + 1, row + 1];
                     int b = allVerts.Count;
                     allVerts.Add(v00); allVerts.Add(v10); allVerts.Add(v01); allVerts.Add(v11);
-                    allTris.Add(new[] { b, b + 2, b + 1 });
-                    allTris.Add(new[] { b + 1, b + 2, b + 3 });
+                    allTris.Add(new[] { b, b + 1, b + 2 });
+                    allTris.Add(new[] { b + 1, b + 3, b + 2 });
                 }
         }
 
