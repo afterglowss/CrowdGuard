@@ -10,6 +10,7 @@ namespace Capstone.Photon
     {
         public GameObject playerPrefab;
         public LocalPlayerController localController;
+        public PlayerManager playerManager;
         private void Start()
         {
             if (PhotonManager.Instance)
@@ -26,24 +27,23 @@ namespace Capstone.Photon
             {
                 model.Init(localController);
             }
+            playerManager.RPC_AddPlayer(player,playerModel);
             Debug.Log("Player joined");
-
         }
+        
+        public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
+        {
+            playerManager.RPC_RemovePlayer(player);
+        }
+        
         #region UnuseCallbacks
-
+        
         public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
         {
 
         }
 
         public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
-        {
-
-        }
-
-
-
-        public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
         {
 
         }
@@ -128,5 +128,6 @@ namespace Capstone.Photon
         }
 
         #endregion
+        
     }
 }
