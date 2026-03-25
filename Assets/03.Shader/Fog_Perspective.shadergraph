@@ -1130,7 +1130,7 @@
     "m_ObjectId": "4553058a519149bbb0df6ea8eb71869a",
     "m_Title": "Calculate World Pos from Depth",
     "m_Position": {
-        "x": -575.0000610351563,
+        "x": -575.0,
         "y": -419.0
     }
 }
