@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     public RopeSystem ropeSystem;
     private int anchoredAxeCount = 0;
 
+    [Header("Collision Settings")]
+    public LayerMask iceLayer;
+
     // FSM 상태 인스턴스 (가비지 컬렉션 방지를 위해 미리 할당)
     public PlayerIdleState IdleState { get; private set; }
     public PlayerClimbingState ClimbingState { get; private set; }

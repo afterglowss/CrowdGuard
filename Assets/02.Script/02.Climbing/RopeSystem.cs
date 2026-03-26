@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Fusion;
 
 [RequireComponent(typeof(LineRenderer))]
 public class RopeSystem : MonoBehaviour
@@ -25,14 +26,52 @@ public class RopeSystem : MonoBehaviour
 
     public event Action OnRopeTensionMax;
 
+    private Transform dummyTransform;
+    private float searchTimer = 0f;
+
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = linePoints; 
     }
 
+    private void Start()
+    {
+        // 인스펙터에 수동으로 넣어둔 객체(예: 혼자 테스트용 큐브)를 더미로 기억합니다.
+        dummyTransform = partnerTransform;
+    }
+
+    private void FindNetworkPartner()
+    {
+        // 게임씬 내에 네트워크 팀원이 만든 PlayerModel 아바타들을 싹 찾습니다.
+        PlayerModel[] allPlayers = FindObjectsOfType<PlayerModel>();
+        
+        foreach (var p in allPlayers)
+        {
+            // 네트워크 객체 중 '내 조작 권한이 없는(HasInputAuthority == false)' 객체가 바로 상대방입니다!
+            if (p.Object != null && p.Object.IsValid && !p.HasInputAuthority)
+            {
+                // 상대 플레이어의 뼈대(아바타의 최상단)를 내 로프 파트너로 강제 교체합니다.
+                partnerTransform = p.transform;
+                Debug.Log($"[RopeSystem] 파트너({p.gameObject.name}) 접속 확인! 더미 큐브를 버리고 실제 유저와 밧줄을 묶습니다!");
+                return;
+            }
+        }
+    }
+
     private void Update()
     {
+        // 파트너가 아직 안 들어와서 더미에 묶여있다면, 프레임 과부하를 막기 위해 1초에 한 번씩만 파트너를 찾습니다.
+        if (partnerTransform == null || partnerTransform == dummyTransform)
+        {
+            searchTimer += Time.deltaTime;
+            if (searchTimer >= 1.0f)
+            {
+                searchTimer = 0f;
+                FindNetworkPartner();
+            }
+        }
+
         if (partnerTransform == null || myBodyTransform == null) return;
 
         Vector3 startPos = myBodyTransform.TransformPoint(localTieOffset);

@@ -90,11 +90,17 @@ public class PlayerClimbingState : PlayerState
         Vector3 deltaLocal = currentAxeLocalPos - previousAxeLocalPos;
         Vector3 deltaWorld = player.xrRigPivot.TransformDirection(deltaLocal);
 
-        if (player.ropeSystem != null)
+        Vector3 headPosition = Camera.main.transform.position;
+        float headRadius = 0.15f; // 사람 머리 크기 정도의 반경
+
+    // 카메라 위치에서 이동하려는 방향(-deltaWorld)으로 머리 크기만 한 공을 쏴봅니다.
+        if (Physics.SphereCast(headPosition, headRadius, -deltaWorld.normalized, out RaycastHit hit, deltaWorld.magnitude, player.iceLayer))
         {
-            player.ropeSystem.LimitMovement(ref deltaWorld);
+            // 빙벽과 충돌했다면! 벽을 파고드는 방향의 이동량을 깎아냅니다. (벽을 따라 미끄러지도록 보정)
+            deltaWorld -= hit.normal * Vector3.Dot(-deltaWorld, hit.normal);
         }
 
+        // 보정된 최종 이동량 적용
         player.xrRigPivot.position -= deltaWorld;
         previousAxeLocalPos = currentAxeLocalPos;
     }
