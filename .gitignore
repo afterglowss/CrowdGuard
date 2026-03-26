@@ -28,10 +28,6 @@ Assets/XR/Settings/Open XR Package Settings.asset
 *.opendb
 *.VC.db
 
-# [XR]
-/Assets/XR/
-
-
 # [OS generated]
 .DS_Store
 .DS_Store?
@@ -56,3 +52,7 @@ Thumbs.db
 *.vsix
 .history
 .ionide
+
+# [XR, Photon Ignore]
+/Assets/XR/Settings/
+/Assets/Oculus/
