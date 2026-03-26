@@ -9,18 +9,21 @@ public class PlayerClimbingState : PlayerState
     private bool isFirstFrame;
     private CharacterController charController;
     private Rigidbody rigid;
-    
     private List<Behaviour> disabledXRScripts = new List<Behaviour>();
+
+    // 👇 [추가됨] 현재 몸을 지탱하고 있는 '메인 손'을 추적합니다.
+    private IceAxe activeAxe; 
 
     public override void Enter()
     {
         Debug.Log("[FSM] Entered Climbing State: 벽에 매달렸습니다.");
+        
+        DetermineActiveAxe(); // 처음 매달릴 때 기준 손을 정합니다.
         isFirstFrame = true;
 
         disabledXRScripts.Clear();
 
-        // 부모 오브젝트뿐만 아니라 손자/자식 오브젝트들 깊숙한 곳에 숨어있는
-        // Locomotion(이동) 관련 XR 스크립트들을 남김없이 싹 다 찾아서 잠재웁니다.
+        // Locomotion 관련 스크립트 비활성화 (기존 로직 동일)
         Behaviour[] scripts = player.xrRigPivot.GetComponentsInChildren<Behaviour>(true);
         foreach (var script in scripts)
         {
@@ -38,7 +41,6 @@ public class PlayerClimbingState : PlayerState
             }
         }
 
-        // 위 스크립트들이 Move()를 호출하려 했던 실제 CharacterController도 자식까지 싹 다 뒤져서 차단
         charController = player.xrRigPivot.GetComponentInChildren<CharacterController>(true);
         if (charController != null) charController.enabled = false;
 
@@ -62,8 +64,21 @@ public class PlayerClimbingState : PlayerState
     {
         if (player.xrRigPivot == null) return;
 
-        Vector3 currentAxeLocalPos = GetActiveAxeLocalPosition();
+        // 👇 [핵심 로직 변경] 
+        // 1. 기준 손이 없거나, 기준 손이 방금 벽에서 떨어졌다면?
+        if (activeAxe == null || !activeAxe.IsAnchored)
+        {
+            DetermineActiveAxe(); // 다른 손으로 기준을 교체!
+            isFirstFrame = true;  // ★대참사 방지★ 델타 계산을 리셋합니다!
+        }
 
+        // 2. 바꿀 손마저 없다면 (둘 다 떨어짐) 리턴 (곧 FallingState로 넘어감)
+        if (activeAxe == null) return;
+
+        // 3. 현재 기준 손의 로컬 좌표 가져오기
+        Vector3 currentAxeLocalPos = player.xrRigPivot.InverseTransformPoint(activeAxe.transform.position);
+
+        // 4. 리셋된 첫 프레임이면 이동하지 않고 좌표만 기억합니다.
         if (isFirstFrame)
         {
             previousAxeLocalPos = currentAxeLocalPos;
@@ -71,6 +86,7 @@ public class PlayerClimbingState : PlayerState
             return;
         }
         
+        // 5. 안전해진 델타 연산
         Vector3 deltaLocal = currentAxeLocalPos - previousAxeLocalPos;
         Vector3 deltaWorld = player.xrRigPivot.TransformDirection(deltaLocal);
 
@@ -83,15 +99,14 @@ public class PlayerClimbingState : PlayerState
         previousAxeLocalPos = currentAxeLocalPos;
     }
 
-    private Vector3 GetActiveAxeLocalPosition()
+    // 👇 [로직 변경] 두 손 중 어느 것을 기준으로 잡을지 결정하는 함수
+    private void DetermineActiveAxe()
     {
-        Vector3 worldPos = Vector3.zero;
-
-        if (player.leftAxe != null && player.leftAxe.IsAnchored) 
-            worldPos = player.leftAxe.transform.position;
-        else if (player.rightAxe != null && player.rightAxe.IsAnchored) 
-            worldPos = player.rightAxe.transform.position;
-
-        return player.xrRigPivot.InverseTransformPoint(worldPos);
+        if (player.leftAxe != null && player.leftAxe.IsAnchored)
+            activeAxe = player.leftAxe;
+        else if (player.rightAxe != null && player.rightAxe.IsAnchored)
+            activeAxe = player.rightAxe;
+        else
+            activeAxe = null;
     }
 }

@@ -2668,6 +2668,26 @@ MonoBehaviour:
   iceLayer:
     serializedVersion: 2
     m_Bits: 1024
+  triggerAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Trigger
+      m_Type: 0
+      m_ExpectedControlType: Button
+      m_Id: e542d1b5-8ef0-4ecb-a2f4-97feb9321407
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 3073e6f1-c9ae-47cb-ba3b-3094a9458cf6
+        m_Path: <XRController>{RightHand}/{TriggerButton}
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Trigger
+        m_Flags: 0
+      m_Flags: 0
+    m_Reference: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   useDebugKey: 1
   debugTriggerKey: 32
 --- !u!1 &249529891
@@ -10980,7 +11000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8404871649812681847, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_RequestedTrackingOriginMode
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17807,6 +17827,26 @@ MonoBehaviour:
   iceLayer:
     serializedVersion: 2
     m_Bits: 1024
+  triggerAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Trigger
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 90c94731-8f7f-4b64-bc1f-bcd9773d9f8c
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 61006a01-d6de-443f-b59d-cf7094fa873d
+        m_Path: <XRController>{LeftHand}/{TriggerButton}
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Trigger
+        m_Flags: 0
+      m_Flags: 0
+    m_Reference: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   useDebugKey: 1
   debugTriggerKey: 32
 --- !u!1 &2135202522

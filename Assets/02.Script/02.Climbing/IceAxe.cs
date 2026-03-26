@@ -1,16 +1,17 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem; // 필수
 
 public class IceAxe : MonoBehaviour
 {
     [Header("Axe Settings")]
-    [Tooltip("아이스 바일 헤드(끝부분)의 판정 반경 (구형 판정)")]
     public float anchorRadius = 0.15f;
-    [Tooltip("아이스 바일 헤드 위치로 쓸 로컬 오프셋 (Z축 앞으로 살짝 둠)")]
     public Vector3 hitOffset = new Vector3(0, 0, 0.2f);
-    [Tooltip("아이스 바일이 박힐 수 있는 지형의 레이어 (예: IceWall)")]
     public LayerMask iceLayer;
+
+    [Header("VR Input (XRI)")]
+    [Tooltip("인스펙터에서 XRI RightHand(또는 LeftHand) Interaction/Activate 를 연결하세요.")]
+    public InputActionProperty triggerAction;
 
     [Header("Debug (에디터 환경 테스트용)")]
     public bool useDebugKey = true;
@@ -22,8 +23,44 @@ public class IceAxe : MonoBehaviour
     public event Action<IceAxe> OnAxeHitIce;
     public event Action<IceAxe> OnAxeReleased;
 
+    private void OnEnable()
+    {
+        // 👇 [핵심 추가] XRI Input System 액션을 켜고 이벤트(콜백)를 연결합니다!
+        if (triggerAction.action != null)
+        {
+            triggerAction.action.Enable(); // 반드시 액션을 켜줘야 합니다.
+            triggerAction.action.started += OnTriggerActionStarted;   // 눌렀을 때
+            triggerAction.action.canceled += OnTriggerActionCanceled; // 뗐을 때
+        }
+    }
+
+    private void OnDisable()
+    {
+        // 👇 [핵심 추가] 오브젝트가 꺼질 때 이벤트를 안전하게 해제합니다.
+        if (triggerAction.action != null)
+        {
+            triggerAction.action.started -= OnTriggerActionStarted;
+            triggerAction.action.canceled -= OnTriggerActionCanceled;
+            triggerAction.action.Disable();
+        }
+    }
+
+    // Input System이 트리거를 '누른 순간' 자동으로 실행하는 함수
+    private void OnTriggerActionStarted(InputAction.CallbackContext context)
+    {
+        OnTriggerPressed();
+    }
+
+    // Input System이 트리거를 '뗀 순간' 자동으로 실행하는 함수
+    private void OnTriggerActionCanceled(InputAction.CallbackContext context)
+    {
+        OnTriggerReleased();
+    }
+
     private void Update()
     {
+        // Update() 안에는 오직 키보드 테스트 코드만 남겨둡니다. 
+        // 더 이상 여기서 triggerAction.action.WasPressedThisFrame()을 검사하지 않습니다!
         if (useDebugKey && Keyboard.current != null)
         {
             if (Keyboard.current[debugTriggerKey].wasPressedThisFrame) OnTriggerPressed();
