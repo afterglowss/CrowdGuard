@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using CrowdGuard.Environment;
-using UnityEngine.XR.Interaction.Toolkit; 
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace CrowdGuard.Climbing.Tools.IceAxe
 {
@@ -22,6 +22,11 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         private bool _isTriggerHeld = false;
         private bool _isTouchingIce = false;
         private ClimbableSurface _currentSurface = null;
+
+        // 컨트롤러 속도 직접 추적 (Velocity Damping 영향 없음)
+        private Transform _interactorTransform;
+        private Vector3 _prevControllerPos;
+        private Vector3 _controllerVelocity;
 
         private void Awake()
         {
@@ -57,12 +62,27 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         {
             Debug.Log("[IceAxeController] XRI 그랩 발동 - 플레이어가 손으로 바일을 쥐었습니다!");
             if (_model != null) _model.IsHeld = true;
+
+            // 컨트롤러 Transform 캐싱 (속도 추적용)
+            _interactorTransform = args.interactorObject.transform;
+            _prevControllerPos = _interactorTransform.position;
+            _controllerVelocity = Vector3.zero;
         }
 
         private void OnDropped(SelectExitEventArgs args)
         {
             Debug.Log("[IceAxeController] XRI 그랩 해제 - 플레이어가 손에서 바일을 놓았습니다.");
             if (_model != null) _model.IsHeld = false;
+            _interactorTransform = null;
+        }
+
+        private void Update()
+        {
+            // 컨트롤러의 실제 이동 속도를 매 프레임 계산
+            if (_interactorTransform == null) return;
+
+            _controllerVelocity = (_interactorTransform.position - _prevControllerPos) / Time.deltaTime;
+            _prevControllerPos = _interactorTransform.position;
         }
 
 
@@ -114,21 +134,18 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
             if (_currentSurface == null) return;
             if (_model.IsAttachedToWall) return;
 
-            // 추가: 유저가 꽉 쥐고 세게 내리쳤는가? 속도 검사
-            if (_rb != null)
+            // 컨트롤러의 실제 이동 속도로 스윙 세기 판정 (Velocity Damping 무관)
+            float currentSqrSpeed = _controllerVelocity.sqrMagnitude;
+            float minSqrVelocity = _minAttachVelocity * _minAttachVelocity;
+
+            if (currentSqrSpeed < minSqrVelocity)
             {
-                float currentSqrSpeed = _rb.velocity.sqrMagnitude;
-                float minSqrVelocity = _minAttachVelocity * _minAttachVelocity;
-                
-                if (currentSqrSpeed < minSqrVelocity)
-                {
-                    Debug.Log($"[IceAxeController] 스윙 속도 부족. (현재 속도^2: {currentSqrSpeed:F2} < 요구 속도^2: {minSqrVelocity:F2}) 벽에 박히지 않습니다.");
-                    return; 
-                }
+                Debug.Log($"[IceAxeController] 스윙 속도 부족. (컨트롤러 속도^2: {currentSqrSpeed:F2} < 요구 속도^2: {minSqrVelocity:F2}) 벽에 박히지 않습니다.");
+                return;
             }
 
             Debug.Log("[IceAxeController] 충돌 + 입력 조건 만족. 지형의 파괴 검사를 시작합니다.");
-            
+
             bool allowAttachment = _currentSurface.OnHitByIceAxe();
 
             if (allowAttachment)
