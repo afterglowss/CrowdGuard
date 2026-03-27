@@ -34,3 +34,6 @@ Thumbs.db
 
 # [Task Master]
 .taskmaster/
+
+# [Local tracking]
+.local/
