@@ -116,7 +116,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         {
             if (isSecured)
             {
-                Debug.Log("[IceAnchorView] ===== 앵커 완전 체결! 철컥! =====");
+                Debug.Log("[IceAnchorView] ===== 앵커 완전 체결 =====");
                 SendHapticVia(_handleSimpleInteractable, _securedHapticAmplitude, _securedHapticDuration);
             }
             else

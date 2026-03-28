@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 9087073316450375096}
   - component: {fileID: 6004585773346984118}
   m_Layer: 0
-  m_Name: Ice Axe(Efficiency IV, Silk Touch)
+  m_Name: Ice Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
