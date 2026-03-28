@@ -1130,8 +1130,8 @@
     "m_ObjectId": "4553058a519149bbb0df6ea8eb71869a",
     "m_Title": "Calculate World Pos from Depth",
     "m_Position": {
-        "x": -575.0,
-        "y": -419.0
+        "x": -576.0,
+        "y": -426.0
     }
 }
 
@@ -1906,7 +1906,7 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_Space": 0
+    "m_Space": 2
 }
 
 {
@@ -2727,7 +2727,7 @@
 }
 
 {
-    "m_SGVersion": 0,
+    "m_SGVersion": 1,
     "m_Type": "UnityEditor.ShaderGraph.ViewDirectionNode",
     "m_ObjectId": "f4719b2af2f56182a274e88d080d9ba3",
     "m_Group": {
@@ -2738,10 +2738,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -550.0,
-            "y": -355.0,
-            "width": 208.0,
-            "height": 316.0
+            "x": -551.0,
+            "y": -367.0000305175781,
+            "width": 207.99996948242188,
+            "height": 314.0000305175781
         }
     },
     "m_Slots": [
