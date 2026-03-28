@@ -9,7 +9,7 @@ namespace Capstone.Photon
         [Networked]
         public NetworkDictionary<int, NetworkObject> Players { get; }
 
-        public event Action<int> OnPlayerAdded;
+        public event Action<int> OnPlayerChanged;
 
         [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
         public void RPC_AddPlayer(PlayerRef player, NetworkObject obj)
@@ -20,10 +20,8 @@ namespace Capstone.Photon
             Debug.Log(Players.Count);
             
             // NOTE : 게임 시작 로직(2인 시 시작, 1인 시 중지)
-            OnPlayerAdded?.Invoke(Players.Count);
+            OnPlayerChanged?.Invoke(Players.Count);
             
-            if (Players.Count < 2) return;
-            Debug.Log("Let's Start Game");
         }
 
         [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
@@ -31,6 +29,8 @@ namespace Capstone.Photon
         {
             Debug.Log($"Player Added {player} : {Players.Get(player.AsIndex).name}");
             Players.Remove(player.AsIndex);
+            
+            OnPlayerChanged?.Invoke(Players.Count);
         }
 
     }
