@@ -63,3 +63,8 @@ Thumbs.db
 
 # [Local tracking]
 .local/
+
+# [Visual Studio]
+.vs/
+.vsconfig
+*.userprefs
