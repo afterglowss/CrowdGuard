@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/01.Scenes/Sandbox/Network/Test_Network.unity
     guid: e59c68de37dfc604193d919972334a87
   - enabled: 1
+    path: Assets/01.Scenes/Sandbox/Network/Test_RoomNetwork.unity
+    guid: 3a985c8408fe00c4db7b38e148ffaf4a
+  - enabled: 1
     path: Assets/01.Scenes/Sandbox/Network/Test_GameNetwork.unity
     guid: 8dc7387995c2f8447990ca1892a6dd03
   m_configObjects:

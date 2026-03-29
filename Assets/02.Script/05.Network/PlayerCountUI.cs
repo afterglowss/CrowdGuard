@@ -5,7 +5,7 @@ using Capstone.Photon;
 using TMPro;
 using UnityEngine;
 
-public class RoomManager : MonoBehaviour
+public class PlayerCountUI : MonoBehaviour
 {
     public PlayerManager playerManager;
 

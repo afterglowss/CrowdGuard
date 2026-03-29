@@ -9,7 +9,6 @@ namespace Capstone.Fusion
         {
             if (Object.HasStateAuthority)
             {
-                
                 Runner.LoadScene(SceneRef.FromIndex(sceneIndex));
             }
         }
