@@ -1,12 +1,13 @@
 using Fusion;
-using UnityEngine.SceneManagement;
+using UnityEngine;
 
-namespace Capstone.Fusion
+namespace Capstone.Photon
 {
     public class InGameLoader : NetworkBehaviour
     {
         public void ChangeLevel(int sceneIndex)
         {
+            Debug.Log($"Changing level to {sceneIndex}");
             if (Object.HasStateAuthority)
             {
                 Runner.LoadScene(SceneRef.FromIndex(sceneIndex));

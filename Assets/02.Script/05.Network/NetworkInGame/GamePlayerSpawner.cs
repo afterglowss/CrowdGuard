@@ -1,16 +1,17 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Fusion;
 using Fusion.Sockets;
 using UnityEngine;
 
-namespace Capstone.Photon
+namespace Capstone.Photon.Game
 {
-    public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
+    public class GamePlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         public GameObject playerPrefab;
         public LocalPlayerController localController;
-        public PlayerManager playerManager;
+
         private void Start()
         {
             if (PhotonManager.Instance)
@@ -19,24 +20,27 @@ namespace Capstone.Photon
             }
         }
 
-        public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+        public void OnSceneLoadDone(NetworkRunner runner)
         {
-            if (runner.LocalPlayer != player) return;
-            var playerModel = runner.Spawn(playerPrefab,Vector3.zero,Quaternion.identity, player);
+            var playerModel = runner.Spawn(playerPrefab,Vector3.zero,Quaternion.identity,runner.LocalPlayer);
             if (playerModel.TryGetComponent(out PlayerModel model))
             {
                 model.Init(localController);
             }
-            playerManager.RPC_AddPlayer(player,playerModel);
-            Debug.Log("Player joined");
+            Debug.Log($"LocalPlayer {runner.LocalPlayer} Model Set");
         }
         
         public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
         {
-            playerManager.RPC_RemovePlayer(player);
+            
         }
         
         #region UnuseCallbacks
+        
+        public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+        {
+            
+        }
         
         public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
         {
@@ -117,17 +121,11 @@ namespace Capstone.Photon
 
         }
 
-        public void OnSceneLoadDone(NetworkRunner runner)
-        {
-
-        }
-
         public void OnSceneLoadStart(NetworkRunner runner)
         {
 
         }
 
         #endregion
-        
     }
 }

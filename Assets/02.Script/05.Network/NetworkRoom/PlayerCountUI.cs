@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Capstone.Photon;
+using Capstone.Photon.Room;
 using TMPro;
 using UnityEngine;
 

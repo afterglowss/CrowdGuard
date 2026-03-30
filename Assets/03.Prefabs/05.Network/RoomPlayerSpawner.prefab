@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: 2599161334128264562}
   - component: {fileID: 9019952474075189788}
   m_Layer: 0
-  m_Name: PlayerSpawner
+  m_Name: RoomPlayerSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
