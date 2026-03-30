@@ -106,7 +106,10 @@ public class PlayerFallingState : PlayerState
     {
         // 세이브 지점으로 순간이동
         player.xrRigPivot.position = SavePointManager.Instance.GetRespawnPosition();
-        
+
+        if (player.leftAxe != null) player.leftAxe.IsAttachedToWall = false;
+        if (player.rightAxe != null) player.rightAxe.IsAttachedToWall = false;
+
         // 다시 Idle 상태로 (이때 Exit()가 불리면서 마비가 풀리고 카메라가 똑바로 섬)
         player.ChangeState(player.IdleState);
     }

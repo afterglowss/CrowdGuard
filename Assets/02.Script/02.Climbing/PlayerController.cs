@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
     public Transform xrRigPivot;
 
     [Header("Equipment")]
-    public IceAxe leftAxe;
-    public IceAxe rightAxe;
+    public CrowdGuard.Climbing.Tools.IceAxe.IceAxeModel leftAxe;
+    public CrowdGuard.Climbing.Tools.IceAxe.IceAxeModel rightAxe;
     public RopeSystem ropeSystem;
     private int anchoredAxeCount = 0;
 
@@ -44,13 +44,14 @@ public class PlayerController : MonoBehaviour
     {
         if (leftAxe != null)
         {
-            leftAxe.OnAxeHitIce += HandleAxeHit;
-            leftAxe.OnAxeReleased += HandleAxeReleased;
+            // 박히거나 빠질 때, 잡거나 놓을 때 모두 하나의 평가 함수를 호출합니다.
+            leftAxe.OnAttachedStateChanged += OnStateChangedHandler;
+            leftAxe.OnHeldStateChanged += OnStateChangedHandler;
         }
         if (rightAxe != null)
         {
-            rightAxe.OnAxeHitIce += HandleAxeHit;
-            rightAxe.OnAxeReleased += HandleAxeReleased;
+            rightAxe.OnAttachedStateChanged += OnStateChangedHandler;
+            rightAxe.OnHeldStateChanged += OnStateChangedHandler;
         }
     }
 
@@ -58,13 +59,30 @@ public class PlayerController : MonoBehaviour
     {
         if (leftAxe != null)
         {
-            leftAxe.OnAxeHitIce -= HandleAxeHit;
-            leftAxe.OnAxeReleased -= HandleAxeReleased;
+            leftAxe.OnAttachedStateChanged -= OnStateChangedHandler;
+            leftAxe.OnHeldStateChanged -= OnStateChangedHandler;
         }
         if (rightAxe != null)
         {
-            rightAxe.OnAxeHitIce -= HandleAxeHit;
-            rightAxe.OnAxeReleased -= HandleAxeReleased;
+            rightAxe.OnAttachedStateChanged -= OnStateChangedHandler;
+            rightAxe.OnHeldStateChanged -= OnStateChangedHandler;
+        }
+    }
+
+    private void OnStateChangedHandler(bool dummyValue)
+    {
+        // "벽에 박혀있고(Attached) AND 내 손에 쥐고있는(Held)" 바일만 유효한 등반 도구로 인정합니다.
+        bool isLeftValid = leftAxe != null && leftAxe.IsAttachedToWall && leftAxe.IsHeld;
+        bool isRightValid = rightAxe != null && rightAxe.IsAttachedToWall && rightAxe.IsHeld;
+
+        // 둘 중 하나라도 유효하다면 매달리기 상태 유지
+        if (isLeftValid || isRightValid)
+        {
+            if (CurrentState != ClimbingState) ChangeState(ClimbingState);
+        }
+        else // 둘 다 놓았거나, 둘 다 벽에서 빠졌다면 무조건 추락!
+        {
+            if (CurrentState == ClimbingState) ChangeState(FallingState);
         }
     }
 
@@ -85,7 +103,7 @@ public class PlayerController : MonoBehaviour
         FallingState = new PlayerFallingState(this);
     }
 
-    private void HandleAxeHit(IceAxe axe)
+    private void HandleAxeHit(CrowdGuard.Climbing.Tools.IceAxe.IceAxeModel axe)
     {
         anchoredAxeCount++;
         if (CurrentState != ClimbingState)
@@ -94,7 +112,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void HandleAxeReleased(IceAxe axe)
+    private void HandleAxeReleased(CrowdGuard.Climbing.Tools.IceAxe.IceAxeModel axe)
     {
         anchoredAxeCount--;
         if (anchoredAxeCount < 0) anchoredAxeCount = 0;

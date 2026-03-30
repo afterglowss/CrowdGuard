@@ -37,7 +37,26 @@ public class RopeSystem : MonoBehaviour
 
     private void Start()
     {
-        // 인스펙터에 수동으로 넣어둔 객체(예: 혼자 테스트용 큐브)를 더미로 기억합니다.
+        // [해결 1] 프리팹 스폰 시 날아간 내 머리(카메라) 참조를 실시간으로 다시 찾습니다!
+        if (myBodyTransform == null && Camera.main != null)
+        {
+            myBodyTransform = Camera.main.transform;
+            Debug.Log("[RopeSystem] 내 카메라 트랜스폼을 성공적으로 찾았습니다!");
+        }
+
+        // [해결 2] 씬에 있는 더미 큐브 참조도 날아갔을 테니, 이름으로 찾아서 연결해줍니다.
+        if (partnerTransform == null)
+        {
+            // ⚠️ 주의: 하이어라키에 있는 혼자 테스트용 더미 큐브 이름을 꼭 "DummyPartner"로 변경해 주세요!
+            GameObject dummy = GameObject.Find("DummyPartner");
+            if (dummy != null)
+            {
+                partnerTransform = dummy.transform;
+                Debug.Log("[RopeSystem] 씬에서 더미 파트너를 찾았습니다!");
+            }
+        }
+
+        // 인스펙터나 코드에서 찾은 객체를 더미로 확실히 기억합니다.
         dummyTransform = partnerTransform;
     }
 
