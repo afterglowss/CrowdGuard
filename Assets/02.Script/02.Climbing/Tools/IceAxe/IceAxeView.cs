@@ -199,6 +199,9 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
                 }
 
                 transform.SetPositionAndRotation(_pouchTransform.position, _pouchTransform.rotation);
+
+                // 부모-자식 관계 설정 (파우치에 붙어있도록)
+                transform.SetParent(_pouchTransform);
             }
         }
     }

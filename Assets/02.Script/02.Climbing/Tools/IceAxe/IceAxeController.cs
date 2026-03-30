@@ -61,6 +61,10 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         private void OnGrabbed(SelectEnterEventArgs args)
         {
             Debug.Log("[IceAxeController] XRI 그랩 발동 - 플레이어가 손으로 바일을 쥐었습니다!");
+
+            // 파우치와의 부모-자식 관계 해제 (잡는 순간부터 독립적으로 움직이도록)
+            transform.SetParent(null);
+
             if (_model != null) _model.IsHeld = true;
 
             // 컨트롤러 Transform 캐싱 (속도 추적용 및 FSM 등반 연산용)
