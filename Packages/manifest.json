@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "com.meta.xr.sdk.all": "85.0.0",
-    "com.meta.xr.simulator": "77.0.0",
     "com.unity.burst": "1.8.28",
     "com.unity.collab-proxy": "2.11.4",
     "com.unity.feature.development": "1.0.1",
