@@ -109,7 +109,11 @@
             "m_Id": "3d42973cd79c4866a15d0e8e400a4b70"
         }
     ],
-    "m_GroupDatas": [],
+    "m_GroupDatas": [
+        {
+            "m_Id": "8325075b218a434e9901ecefedf1aa19"
+        }
+    ],
     "m_StickyNoteDatas": [
         {
             "m_Id": "eeefca1654a941178bc591ccba32269f"
@@ -570,7 +574,7 @@
         "height": 160.0
     },
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "8325075b218a434e9901ecefedf1aa19"
     }
 }
 
@@ -1025,7 +1029,7 @@
     "m_Type": "UnityEditor.ShaderGraph.PowerNode",
     "m_ObjectId": "4c02835e954e40748dccb79d40e37d81",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "8325075b218a434e9901ecefedf1aa19"
     },
     "m_Name": "Power",
     "m_DrawState": {
@@ -1237,7 +1241,7 @@
         "height": 197.0
     },
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "8325075b218a434e9901ecefedf1aa19"
     }
 }
 
@@ -1432,7 +1436,7 @@
     "m_Type": "UnityEditor.ShaderGraph.SmoothstepNode",
     "m_ObjectId": "7cd74567fc5a498e80578565efdde382",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "8325075b218a434e9901ecefedf1aa19"
     },
     "m_Name": "Smoothstep",
     "m_DrawState": {
@@ -1531,6 +1535,17 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "VertexDescription.Tangent"
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.GroupData",
+    "m_ObjectId": "8325075b218a434e9901ecefedf1aa19",
+    "m_Title": "Fog Shader",
+    "m_Position": {
+        "x": -1038.0001220703125,
+        "y": -226.00001525878907
+    }
 }
 
 {
@@ -1675,7 +1690,7 @@
     "m_Type": "UnityEditor.ShaderGraph.ScreenPositionNode",
     "m_ObjectId": "8fa7eab5cc914deebcfa406296d6d947",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "8325075b218a434e9901ecefedf1aa19"
     },
     "m_Name": "Screen Position",
     "m_DrawState": {
@@ -2303,7 +2318,7 @@
     "m_Type": "UnityEditor.ShaderGraph.SceneDepthNode",
     "m_ObjectId": "c5289982f08c4a6b8126d941c738666f",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "8325075b218a434e9901ecefedf1aa19"
     },
     "m_Name": "Scene Depth",
     "m_DrawState": {
@@ -2343,7 +2358,7 @@
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "cca6fa273c384c46a76cbbfcd9f0d3ea",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "8325075b218a434e9901ecefedf1aa19"
     },
     "m_Name": "Property",
     "m_DrawState": {
@@ -2494,7 +2509,7 @@
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "d7b63e653a8f48ec996fc991bedd2673",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "8325075b218a434e9901ecefedf1aa19"
     },
     "m_Name": "Property",
     "m_DrawState": {
@@ -2676,7 +2691,7 @@
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "e43d3804b5d5497fa6774c2aa5394a70",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "8325075b218a434e9901ecefedf1aa19"
     },
     "m_Name": "Property",
     "m_DrawState": {
@@ -2727,7 +2742,7 @@
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "e89b497665de4ef4b7fb4c8cbfca2ba1",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "8325075b218a434e9901ecefedf1aa19"
     },
     "m_Name": "Property",
     "m_DrawState": {
@@ -2823,7 +2838,7 @@
         "height": 160.0
     },
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "8325075b218a434e9901ecefedf1aa19"
     }
 }
 
