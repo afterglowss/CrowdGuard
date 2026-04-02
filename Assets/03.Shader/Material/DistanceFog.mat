@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: DistanceFog
-  m_Shader: {fileID: -6465566751694194690, guid: 3441c7f034ea83047bd26dd632193a15, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: dfc0261db4eef4d4a9f9219c9d19d480, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
