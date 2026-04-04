@@ -11,6 +11,7 @@ namespace Capstone.Photon
             if (Object.HasStateAuthority)
             {
                 Runner.LoadScene(SceneRef.FromIndex(sceneIndex));
+                
             }
         }
     }

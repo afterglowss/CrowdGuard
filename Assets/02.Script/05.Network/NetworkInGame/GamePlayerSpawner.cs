@@ -1,6 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using System.Linq;
 using Fusion;
 using Fusion.Sockets;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Capstone.Photon.Game
     {
         public GameObject playerPrefab;
         public LocalPlayerController localController;
+        public Room.PlayerManager playerManager;
 
         private void Start()
         {
@@ -28,11 +30,21 @@ namespace Capstone.Photon.Game
                 model.Init(localController);
             }
             Debug.Log($"LocalPlayer {runner.LocalPlayer} Model Set");
+            //playerManager.RPC_AddPlayer(runner.LocalPlayer,playerModel);
         }
+
+
         
         public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
         {
-            
+            Debug.Log($"Player {runner.ActivePlayers.ToList().Count} remain");
+            if (runner.ActivePlayers.ToList().Count < 2)
+            {
+                Debug.Log("게임을 진행할 수 없습니다. 메인화면으로 이동합니다.");
+                runner.Shutdown();
+                SceneManager.LoadScene(0);
+                //runner.LoadScene(SceneRef.FromIndex(1));
+            }
         }
         
         #region UnuseCallbacks

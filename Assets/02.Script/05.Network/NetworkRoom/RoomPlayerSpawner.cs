@@ -19,6 +19,18 @@ namespace Capstone.Photon.Room
             }
         }
 
+        public void OnSceneLoadDone(NetworkRunner runner)
+        {
+            /*// 본인 플레이어 프리팹 생성
+            var playerModel = runner.Spawn(playerPrefab,Vector3.zero,Quaternion.identity, runner.LocalPlayer);
+            if (playerModel.TryGetComponent(out PlayerModel model))
+            {
+                model.Init(localController);
+            }
+            playerManager.RPC_AddPlayer(runner.LocalPlayer,playerModel);
+            Debug.Log("Player joined");*/
+
+        }
         // 플레이어 입장 시 실행
         public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
         {
@@ -118,11 +130,6 @@ namespace Capstone.Photon.Room
         }
 
         public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
-        {
-
-        }
-
-        public void OnSceneLoadDone(NetworkRunner runner)
         {
 
         }
