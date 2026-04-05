@@ -11,12 +11,20 @@ namespace Capstone.Photon.Room
         public GameObject playerPrefab;
         public LocalPlayerController localController;
         public PlayerManager playerManager;
+        
+        private NetworkRunner _currentRunner;
         private void Start()
         {
             if (PhotonManager.Instance)
             {
-                PhotonManager.Instance.InstanceRunner.AddCallbacks(this);
+                _currentRunner = PhotonManager.Instance.InstanceRunner;
+                _currentRunner.AddCallbacks(this);
             }
+        }
+        
+        private void OnDestroy()
+        {
+            _currentRunner.RemoveCallbacks(this);
         }
 
         public void OnSceneLoadDone(NetworkRunner runner)

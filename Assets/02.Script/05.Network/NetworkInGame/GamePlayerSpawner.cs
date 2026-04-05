@@ -14,12 +14,19 @@ namespace Capstone.Photon.Game
         public LocalPlayerController localController;
         public Room.PlayerManager playerManager;
 
+        private NetworkRunner _currentRunner;
         private void Start()
         {
             if (PhotonManager.Instance)
             {
-                PhotonManager.Instance.InstanceRunner.AddCallbacks(this);
+                _currentRunner = PhotonManager.Instance.InstanceRunner;
+                _currentRunner.AddCallbacks(this);
             }
+        }
+        
+        private void OnDestroy()
+        {
+            _currentRunner.RemoveCallbacks(this);
         }
 
         public void OnSceneLoadDone(NetworkRunner runner)
@@ -43,7 +50,6 @@ namespace Capstone.Photon.Game
                 Debug.Log("게임을 진행할 수 없습니다. 메인화면으로 이동합니다.");
                 runner.Shutdown();
                 SceneManager.LoadScene(0);
-                //runner.LoadScene(SceneRef.FromIndex(1));
             }
         }
         
