@@ -60,6 +60,9 @@ Thumbs.db
 
 # [Task Master]
 .taskmaster/
+.planning/
+.agent/
+.agents/
 
 # [Local tracking]
 .local/
