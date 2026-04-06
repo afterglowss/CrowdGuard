@@ -8,10 +8,50 @@ public class ScreenEffectManager : MonoBehaviour
 
     public Image vignetteImage;
     public Image blackScreenImage;
+    [Tooltip("2016년도 에셋 기반의 화면 가장자리 서리 이미지")]
+    public Image frostImage;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
+    }
+
+    private void Start()
+    {
+        if (SurvivalManager.Instance != null)
+        {
+            SurvivalManager.Instance.OnFreezeGaugeChanged += UpdateFrostEffect;
+        }
+        
+        // 시작할 때 서리 이미지 투명 상태로 초기화
+        SetAlpha(frostImage, 0f);
+    }
+
+    private void OnDestroy()
+    {
+        if (SurvivalManager.Instance != null)
+        {
+            SurvivalManager.Instance.OnFreezeGaugeChanged -= UpdateFrostEffect;
+        }
+    }
+
+    private void UpdateFrostEffect(float currentGauge)
+    {
+        if (frostImage == null) return;
+
+        // 동결 게이지가 120 미만이면 효과 없음
+        if (currentGauge < SurvivalManager.EFFECT_START_GAUGE)
+        {
+            SetAlpha(frostImage, 0f);
+            return;
+        }
+
+        // 120 ~ 600 구간에서 알파값을 0 -> 1로 부드럽게 증가
+        float effectRange = SurvivalManager.MAX_FREEZE_GAUGE - SurvivalManager.EFFECT_START_GAUGE;
+        float currentProgress = currentGauge - SurvivalManager.EFFECT_START_GAUGE;
+        float alpha = Mathf.Clamp01(currentProgress / effectRange);
+
+        SetAlpha(frostImage, alpha);
     }
 
     public void StartFallEffect(float duration)
@@ -48,6 +88,31 @@ public class ScreenEffectManager : MonoBehaviour
             SetAlpha(vignetteImage, alpha); // 비네팅도 같이 없앰
             yield return null;
         }
+    }
+
+    /// <summary>
+    /// 외부(텐트 진입 등)에서 부를 수 있는 단순 화면 페이드 인/아웃 코루틴
+    /// </summary>
+    public IEnumerator FadeScreenRoutine(float duration, bool fadeIn)
+    {
+        if (blackScreenImage == null) yield break;
+        
+        float timer = 0f;
+        float startAlpha = fadeIn ? 1f : 0f; // fadeIn==true면 검은화면(1)->투명(0)
+        float endAlpha = fadeIn ? 0f : 1f;
+
+        // 원초에 명확히 세팅
+        SetAlpha(blackScreenImage, startAlpha);
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float currentAlpha = Mathf.Lerp(startAlpha, endAlpha, timer / duration);
+            SetAlpha(blackScreenImage, currentAlpha);
+            yield return null;
+        }
+
+        SetAlpha(blackScreenImage, endAlpha);
     }
 
     private void SetAlpha(Image img, float alpha)

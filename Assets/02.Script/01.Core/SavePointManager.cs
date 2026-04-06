@@ -41,4 +41,13 @@ public class SavePointManager : MonoBehaviour
         // 벽을 뚫지 않게 앵커 지점에서 살짝 떨어진 공중으로 보정 오프셋(예: 뒤로 0.5미터) 적용 가능
         return lastSafePosition + new Vector3(0, 0, -0.5f);
     }
+
+    /// <summary>
+    /// 텐트 진입 등 수동 체결 기믹 없이 강제로 위치를 최신 세이브 포인트로 저장하고 싶을 때 사용합니다.
+    /// </summary>
+    public void ForceSetSavePoint(Vector3 position)
+    {
+        lastSafePosition = position;
+        Debug.Log($"[SavePointManager] 텐트 로직에 의해 세이브 포인트 강제 갱신! 이제 추락하면 이곳({lastSafePosition})에서 부활합니다.");
+    }
 }
