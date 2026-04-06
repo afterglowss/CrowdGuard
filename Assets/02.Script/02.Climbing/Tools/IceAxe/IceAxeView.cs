@@ -29,6 +29,8 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         [SerializeField] private Transform _pouchTransform;
         [Tooltip("허공에 떨어뜨리고 몇 초 뒤에 파우치로 돌아올지 결정")]
         [SerializeField] private float _autoReturnDelay = 3.0f;
+        [Tooltip("복귀 속도 (Lerp)")]
+        [SerializeField] private float _autoReturnSpeed = 10f;
 
         private Coroutine _returnCoroutine;
 
@@ -183,12 +185,23 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
             {
                 Debug.Log("[IceAxeView] 코이! ");
 
-                // 허리 위치로 순간이동
                 _rb.velocity = Vector3.zero;
                 _rb.angularVelocity = Vector3.zero;
                 _rb.isKinematic = true;
 
+                while (Vector3.Distance(transform.position, _pouchTransform.position) > 0.01f)
+                {
+                    if (_model.IsHeld || _model.IsAttachedToWall) yield break;
+
+                    transform.position = Vector3.Lerp(transform.position, _pouchTransform.position, Time.deltaTime * _autoReturnSpeed);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, _pouchTransform.rotation, Time.deltaTime * _autoReturnSpeed);
+                    yield return null;
+                }
+
                 transform.SetPositionAndRotation(_pouchTransform.position, _pouchTransform.rotation);
+
+                // 부모-자식 관계 설정 (파우치에 붙어있도록)
+                transform.SetParent(_pouchTransform);
             }
         }
     }

@@ -23,6 +23,16 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         public event Action<bool> OnHeldStateChanged;
         public event Action<bool> OnAttachedStateChanged;
 
+        // --- Tracker ---
+        [Tooltip("현재 바일을 쥐고 있는 진짜 손(XR Controller)의 물리적 Transform")]
+        [SerializeField] private Transform _interactorTransform;
+
+        public Transform InteractorTransform
+        {
+            get => _interactorTransform;
+            set => _interactorTransform = value;
+        }
+
         // --- Properties ---
         public bool IsHeld
         {

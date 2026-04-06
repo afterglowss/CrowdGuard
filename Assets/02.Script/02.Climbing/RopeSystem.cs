@@ -1,115 +1,60 @@
-using System;
 using UnityEngine;
+using System;
 using Fusion;
+using GogoGaga.OptimizedRopesAndCables;
 
-[RequireComponent(typeof(LineRenderer))]
+// [RequireComponent(typeof(LineRenderer))] <- 기존의 이 줄은 지워주세요!
 public class RopeSystem : MonoBehaviour
 {
     [Header("Rope Settings")]
-    [Tooltip("내 등반자 기준 트랜스폼 (보통 Main Camera인 HMD를 넣습니다)")]
     public Transform myBodyTransform;
-    [Tooltip("파트너 플레이어(임시 더미 큐브) 트랜스폼")]
     public Transform partnerTransform;
-    [Tooltip("기준(HMD)에서 줄이 묶여있는 오프셋 (머리 기준 반 미터 아래: Y=-0.5)")]
-    public Vector3 localTieOffset = new Vector3(0, -0.5f, 0); 
-    [Tooltip("가상 로프의 최대 도달 허용 거리")]
+    public Vector3 localTieOffset = new Vector3(0, -0.5f, 0);
     public float maxRopeLength = 3.0f;
 
-    [Header("Visuals (Curve)")]
-    [Tooltip("부드러운 곡선을 그리기 위한 점의 개수")]
-    public int linePoints = 15;
-    [Tooltip("거리가 가까울 때 밧줄이 아래로 축 쳐지는 중력 강도")]
-    public float sagMultiplier = 1.0f; 
-    public Color normalColor = Color.white;
-    public Color tensionColor = Color.red;
-    private LineRenderer lineRenderer;
+    [Header("Asset Reference")]
+    [Tooltip("방금 만든 VisualRope 오브젝트를 여기에 넣으세요.")]
+    // 👇 [수정] MonoBehaviour 대신 명확하게 Rope 타입으로 변경합니다!
+    public Rope assetRope;
 
-    public event Action OnRopeTensionMax;
+    // 기존에 있던 Visuals (Curve), LineRenderer 관련 변수들은 모두 삭제합니다!
 
     private Transform dummyTransform;
-    private float searchTimer = 0f;
-
-    private void Awake()
-    {
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.positionCount = linePoints; 
-    }
 
     private void Start()
     {
-        // 인스펙터에 수동으로 넣어둔 객체(예: 혼자 테스트용 큐브)를 더미로 기억합니다.
-        dummyTransform = partnerTransform;
-    }
-
-    private void FindNetworkPartner()
-    {
-        // 게임씬 내에 네트워크 팀원이 만든 PlayerModel 아바타들을 싹 찾습니다.
-        PlayerModel[] allPlayers = FindObjectsOfType<PlayerModel>();
-        
-        foreach (var p in allPlayers)
+        // 1. 카메라(내 몸통) 실시간 찾기
+        if (myBodyTransform == null && Camera.main != null)
         {
-            // 네트워크 객체 중 '내 조작 권한이 없는(HasInputAuthority == false)' 객체가 바로 상대방입니다!
-            if (p.Object != null && p.Object.IsValid && !p.HasInputAuthority)
-            {
-                // 상대 플레이어의 뼈대(아바타의 최상단)를 내 로프 파트너로 강제 교체합니다.
-                partnerTransform = p.transform;
-                Debug.Log($"[RopeSystem] 파트너({p.gameObject.name}) 접속 확인! 더미 큐브를 버리고 실제 유저와 밧줄을 묶습니다!");
-                return;
-            }
-        }
-    }
-
-    private void Update()
-    {
-        // 파트너가 아직 안 들어와서 더미에 묶여있다면, 프레임 과부하를 막기 위해 1초에 한 번씩만 파트너를 찾습니다.
-        if (partnerTransform == null || partnerTransform == dummyTransform)
-        {
-            searchTimer += Time.deltaTime;
-            if (searchTimer >= 1.0f)
-            {
-                searchTimer = 0f;
-                FindNetworkPartner();
-            }
+            myBodyTransform = Camera.main.transform;
         }
 
-        if (partnerTransform == null || myBodyTransform == null) return;
-
-        Vector3 startPos = myBodyTransform.TransformPoint(localTieOffset);
-        Vector3 endPos = partnerTransform.position;
-
-        float distance = Vector3.Distance(startPos, endPos);
-        float tensionRatio = Mathf.Clamp01(distance / maxRopeLength);
-
-        // 시각적 텐션 그라데이션 적용 (거리가 멀수록 붉게)
-        Color currentColor = Color.Lerp(normalColor, tensionColor, Mathf.Pow(tensionRatio, 4));
-        lineRenderer.startColor = currentColor;
-        lineRenderer.endColor = currentColor;
-
-        // 거리가 팽팽해지면 sag(늘어짐)가 0이 되고, 가까우면 둥글게 쳐집니다 (가짜 곡선 수학)
-        float currentSag = sagMultiplier * (1f - tensionRatio);
-        Vector3 midPos = (startPos + endPos) / 2f;
-        midPos.y -= currentSag; // 중력
-
-        for (int i = 0; i < linePoints; i++)
+        // 2. 더미 파트너 실시간 찾기
+        if (partnerTransform == null)
         {
-            float t = i / (float)(linePoints - 1);
-            Vector3 pointOnCurve = CalculateQuadraticBezierPoint(t, startPos, midPos, endPos);
-            lineRenderer.SetPosition(i, pointOnCurve);
+            GameObject dummy = GameObject.Find("DummyPartner");
+            if (dummy != null) partnerTransform = dummy.transform;
         }
+
+        // 3. 에셋에 시작점과 끝점 묶어주기!
+        AttachRopeToAsset();
     }
 
-    // 간단한 베지어 곡선(이차) 공식을 이용해 곡선을 그립니다.
-    private Vector3 CalculateQuadraticBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
+    private void AttachRopeToAsset()
     {
-        float u = 1 - t;
-        float tt = t * t;
-        float uu = u * u;
-        Vector3 p = uu * p0; 
-        p += 2 * u * t * p1; 
-        p += tt * p2;        
-        return p;
+        if (assetRope == null || myBodyTransform == null || partnerTransform == null) return;
+
+        // 에셋(Rope.cs)이 제공하는 함수를 호출하여 내 몸과 파트너를 양 끝단에 묶어버립니다!
+        // (true를 넣으면 즉시 밧줄이 해당 위치로 이동하여 계산을 시작합니다)
+        assetRope.SetStartPoint(myBodyTransform, true);
+        assetRope.SetEndPoint(partnerTransform, true);
+
+        Debug.Log("[RopeSystem] 시각적 에셋 로프가 양 플레이어에게 성공적으로 연결되었습니다!");
     }
 
+    // 기존의 Update()에 있던 베지어 곡선 그리기 로직은 전부 삭제합니다! (에셋이 대신 해줌)
+
+    // 👇 구면 교차(Ray-Sphere Intersection)를 적용한 완벽한 텐션 제한 로직
     public void LimitMovement(ref Vector3 proposedDeltaWorld)
     {
         if (partnerTransform == null || myBodyTransform == null) return;
@@ -118,15 +63,49 @@ public class RopeSystem : MonoBehaviour
         Vector3 partnerPos = partnerTransform.position;
 
         Vector3 predictedPos = myTiePoint - proposedDeltaWorld;
+
+        float currentDistance = Vector3.Distance(myTiePoint, partnerPos);
         float predictedDistance = Vector3.Distance(predictedPos, partnerPos);
 
-        if (predictedDistance > maxRopeLength)
+        // 로프 길이를 초과하려고 하며, 동시에 현재보다 더 멀어지려고 할 때만 막습니다.
+        if (predictedDistance > maxRopeLength && predictedDistance > currentDistance)
         {
-            Vector3 directionFromPartner = (predictedPos - partnerPos).normalized;
-            Vector3 clampedPos = partnerPos + (directionFromPartner * maxRopeLength);
-            proposedDeltaWorld = myTiePoint - clampedPos;
+            // 이미 로프가 팽팽한(최대 길이 도달) 상태에서 더 멀어지려 하면, 이동을 아예 차단합니다! (벽에서 안 밀려남)
+            if (currentDistance >= maxRopeLength)
+            {
+                proposedDeltaWorld = Vector3.zero;
+                return;
+            }
 
-            OnRopeTensionMax?.Invoke();
+            // --- Ray-Sphere Intersection (구면 교차 연산) ---
+            // 플레이어가 의도한 방향(V)으로 이동할 때, 구의 표면(maxRopeLength)에 닿을 때까지의
+            // '허용 가능한 이동 비율(t)'을 구하는 2차 방정식입니다.
+
+            Vector3 V = -proposedDeltaWorld;
+            Vector3 L = myTiePoint - partnerPos;
+
+            float a = Vector3.Dot(V, V);
+            if (a < 0.0001f) return; // 미세한 움직임 무시
+
+            float b = 2f * Vector3.Dot(V, L);
+            float c = Vector3.Dot(L, L) - (maxRopeLength * maxRopeLength);
+
+            float discriminant = (b * b) - (4f * a * c);
+
+            if (discriminant >= 0)
+            {
+                // 0 ~ 1 사이의 허용 비율 t를 구합니다.
+                float t = (-b + Mathf.Sqrt(discriminant)) / (2f * a);
+                t = Mathf.Clamp01(t);
+
+                // 플레이어가 의도한 이동 방향은 그대로 두고, 이동량만 t만큼 축소시킵니다!
+                proposedDeltaWorld *= t;
+            }
+            else
+            {
+                // 예외 상황 방어
+                proposedDeltaWorld = Vector3.zero;
+            }
         }
     }
 }
