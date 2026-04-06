@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Anchor
+  - IceWall
   layers:
   - Default
   - TransparentFX
@@ -12,8 +13,8 @@ TagManager:
   - 
   - Water
   - UI
-  - Player1
-  - Player2
+  - 
+  - 
   - 
   - 
   - IceWall

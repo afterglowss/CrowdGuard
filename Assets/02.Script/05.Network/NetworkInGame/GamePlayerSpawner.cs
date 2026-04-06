@@ -1,42 +1,64 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using System.Linq;
 using Fusion;
 using Fusion.Sockets;
 using UnityEngine;
 
-namespace Capstone.Photon
+namespace Capstone.Photon.Game
 {
-    public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
+    public class GamePlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         public GameObject playerPrefab;
         public LocalPlayerController localController;
-        public PlayerManager playerManager;
+        public Room.PlayerManager playerManager;
+
+        private NetworkRunner _currentRunner;
         private void Start()
         {
             if (PhotonManager.Instance)
             {
-                PhotonManager.Instance.InstanceRunner.AddCallbacks(this);
+                _currentRunner = PhotonManager.Instance.InstanceRunner;
+                _currentRunner.AddCallbacks(this);
             }
         }
-
-        public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+        
+        private void OnDestroy()
         {
-            if (runner.LocalPlayer != player) return;
-            var playerModel = runner.Spawn(playerPrefab,Vector3.zero,Quaternion.identity, player);
+            _currentRunner.RemoveCallbacks(this);
+        }
+
+        public void OnSceneLoadDone(NetworkRunner runner)
+        {
+            var playerModel = runner.Spawn(playerPrefab,Vector3.zero,Quaternion.identity,runner.LocalPlayer);
             if (playerModel.TryGetComponent(out PlayerModel model))
             {
                 model.Init(localController);
             }
-            playerManager.RPC_AddPlayer(player,playerModel);
-            Debug.Log("Player joined");
+            Debug.Log($"LocalPlayer {runner.LocalPlayer} Model Set");
+            //playerManager.RPC_AddPlayer(runner.LocalPlayer,playerModel);
         }
+
+
         
         public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
         {
-            playerManager.RPC_RemovePlayer(player);
+            Debug.Log($"Player {runner.ActivePlayers.ToList().Count} remain");
+            if (runner.ActivePlayers.ToList().Count < 2)
+            {
+                Debug.Log("게임을 진행할 수 없습니다. 메인화면으로 이동합니다.");
+                runner.Shutdown();
+                SceneManager.LoadScene(0);
+            }
         }
         
         #region UnuseCallbacks
+        
+        public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+        {
+            
+        }
         
         public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
         {
@@ -117,17 +139,11 @@ namespace Capstone.Photon
 
         }
 
-        public void OnSceneLoadDone(NetworkRunner runner)
-        {
-
-        }
-
         public void OnSceneLoadStart(NetworkRunner runner)
         {
 
         }
 
         #endregion
-        
     }
 }

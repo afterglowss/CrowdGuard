@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class PlayerModel : NetworkBehaviour
 {
-    public static PlayerModel LocalPlayer;
     private Transform _target;
 
+    [SerializeField] private Renderer headObj;
+    [SerializeField] private Renderer leftHandObj;
+    [SerializeField] private Renderer rightHandObj;
+    
     public ObjectTracker body;
     public ObjectTracker head;
     public ObjectTracker leftHand;
@@ -13,6 +16,12 @@ public class PlayerModel : NetworkBehaviour
 
     public void Init(LocalPlayerController controller)
     {
+        //render disable
+        headObj.enabled = false;
+        leftHandObj.enabled = false;
+        rightHandObj.enabled = false;
+        
+        // start tracking
         body.Init(controller.head);
         head.Init(controller.head);
         leftHand.Init(controller.leftHand);
