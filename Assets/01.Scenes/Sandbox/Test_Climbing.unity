@@ -134,6 +134,18 @@ PrefabInstance:
       propertyPath: _pouchTransform
       value: 
       objectReference: {fileID: 1323225993}
+    - target: {fileID: 3168809630084096474, guid: 2c87f39e8b21dea4482dade86c915203, type: 3}
+      propertyPath: Flags
+      value: 262145
+      objectReference: {fileID: 0}
+    - target: {fileID: 3168809630084096474, guid: 2c87f39e8b21dea4482dade86c915203, type: 3}
+      propertyPath: SortKey
+      value: 2370067448
+      objectReference: {fileID: 0}
+    - target: {fileID: 3168809630084096474, guid: 2c87f39e8b21dea4482dade86c915203, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4466384370462047434, guid: 2c87f39e8b21dea4482dade86c915203, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.431
@@ -215,6 +227,10 @@ PrefabInstance:
       propertyPath: _pouchTransform
       value: 
       objectReference: {fileID: 330635055}
+    - target: {fileID: 7756677041516902922, guid: b3430b4683ffa334784cf9f6f279b928, type: 3}
+      propertyPath: SortKey
+      value: 2803653954
+      objectReference: {fileID: 0}
     - target: {fileID: 8135215745608715210, guid: b3430b4683ffa334784cf9f6f279b928, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.226
@@ -965,7 +981,7 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!43 &1583694669
+--- !u!43 &1500561431
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2390,7 +2406,7 @@ PrefabInstance:
     - target: {fileID: 8230167282576325141, guid: 4d567180b16a53347a313e1282a8cafb, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1583694669}
+      objectReference: {fileID: 1500561431}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
