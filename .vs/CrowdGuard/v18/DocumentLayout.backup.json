@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Fork\\CrowdGuard\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Fork\\CrowdGuard\\Library\\PackageCache\\com.unity.xr.openxr@1.14.3\\Editor\\FeatureSupport\\FeatureHelpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Library\\PackageCache\\com.unity.xr.openxr@1.14.3\\Editor\\FeatureSupport\\FeatureHelpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FeatureHelpers.cs",
+              "DocumentMoniker": "C:\\Fork\\CrowdGuard\\Library\\PackageCache\\com.unity.xr.openxr@1.14.3\\Editor\\FeatureSupport\\FeatureHelpers.cs",
+              "RelativeDocumentMoniker": "Library\\PackageCache\\com.unity.xr.openxr@1.14.3\\Editor\\FeatureSupport\\FeatureHelpers.cs",
+              "ToolTip": "C:\\Fork\\CrowdGuard\\Library\\PackageCache\\com.unity.xr.openxr@1.14.3\\Editor\\FeatureSupport\\FeatureHelpers.cs",
+              "RelativeToolTip": "Library\\PackageCache\\com.unity.xr.openxr@1.14.3\\Editor\\FeatureSupport\\FeatureHelpers.cs",
+              "ViewState": "AgIAAIMAAAAAAAAAAAArwJIAAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-19T10:46:34.94Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
