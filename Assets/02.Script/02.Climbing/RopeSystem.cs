@@ -29,41 +29,45 @@ public class RopeSystem : MonoBehaviour
             myBodyTransform = Camera.main.transform;
         }
 
-        // 2. 파트너가 네트워크를 타고 스폰될 때까지 인내심 있게 기다립니다.
-        while (partnerTransform == null)
+        // 👇 [핵심 수정] 더미 모드인지 멀티 모드인지 먼저 판별합니다.
+        GameObject dummy = GameObject.Find("DummyPartner");
+
+        // 씬에 더미가 켜져있다면 -> "혼자 테스트하는 중이구나!" (기다리지 않고 더미 연결)
+        if (dummy != null && dummy.activeInHierarchy)
         {
-            // 씬에 있는 모든 'Player' 태그를 가진 오브젝트를 찾습니다.
-            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            partnerTransform = dummy.transform;
+            Debug.Log("[RopeSystem] 더미 파트너와 연결되었습니다. (솔로 테스트 모드)");
+        }
+        else
+        {
+            // 씬에 더미가 없다면 -> "멀티플레이 상황이구나!" (2P가 올 때까지 무한 대기)
+            Debug.Log("[RopeSystem] 멀티플레이어 접속 대기 중...");
 
-            foreach (var p in players)
+            while (partnerTransform == null)
             {
-                // 찾은 플레이어가 '나 자신'이 아니라면? 그 사람이 바로 내 파트너입니다!
-                if (p.transform.root != this.transform.root)
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+                foreach (var p in players)
                 {
-                    partnerTransform = p.transform;
-                    Debug.Log("[RopeSystem] 드디어 네트워크 파트너를 찾았습니다!");
-                    break;
+                    if (p.transform.root != this.transform.root)
+                    {
+                        partnerTransform = p.transform;
+                        Debug.Log("[RopeSystem] 드디어 네트워크 파트너를 찾았습니다!");
+                        break;
+                    }
                 }
-            }
 
-            // 멀티 접속 전 혼자 테스트할 때를 위한 Dummy 방어 코드 유지
-            if (partnerTransform == null)
-            {
-                GameObject dummy = GameObject.Find("DummyPartner");
-                if (dummy != null) partnerTransform = dummy.transform;
-            }
-
-            // 여전히 파트너를 못 찾았다면, 0.5초 대기 후 다시 찾습니다. (과부하 방지)
-            if (partnerTransform == null)
-            {
-                yield return new WaitForSeconds(0.5f);
+                if (partnerTransform == null)
+                {
+                    yield return new WaitForSeconds(0.5f); // 0.5초마다 재확인
+                }
             }
         }
 
-        // 3. 파트너를 무사히 찾았다면, 에셋(VisualRope)이 세팅될 수 있도록 딱 1프레임만 더 양보합니다.
+        // 3. 파트너를 찾았다면, 에셋(VisualRope)이 세팅될 수 있도록 1프레임 양보
         yield return null;
 
-        // 4. 에셋에 시작점과 끝점 묶어주기!
+        // 4. 에셋 묶기
         AttachRopeToAsset();
     }
 
