@@ -21,7 +21,7 @@ public class RopeSystem : MonoBehaviour
 
     private Transform dummyTransform;
 
-    private void Start()
+    private System.Collections.IEnumerator Start()
     {
         // 1. 카메라(내 몸통) 실시간 찾기
         if (myBodyTransform == null && Camera.main != null)
@@ -29,14 +29,41 @@ public class RopeSystem : MonoBehaviour
             myBodyTransform = Camera.main.transform;
         }
 
-        // 2. 더미 파트너 실시간 찾기
-        if (partnerTransform == null)
+        // 2. 파트너가 네트워크를 타고 스폰될 때까지 인내심 있게 기다립니다.
+        while (partnerTransform == null)
         {
-            GameObject dummy = GameObject.Find("DummyPartner");
-            if (dummy != null) partnerTransform = dummy.transform;
+            // 씬에 있는 모든 'Player' 태그를 가진 오브젝트를 찾습니다.
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+            foreach (var p in players)
+            {
+                // 찾은 플레이어가 '나 자신'이 아니라면? 그 사람이 바로 내 파트너입니다!
+                if (p.transform.root != this.transform.root)
+                {
+                    partnerTransform = p.transform;
+                    Debug.Log("[RopeSystem] 드디어 네트워크 파트너를 찾았습니다!");
+                    break;
+                }
+            }
+
+            // 멀티 접속 전 혼자 테스트할 때를 위한 Dummy 방어 코드 유지
+            if (partnerTransform == null)
+            {
+                GameObject dummy = GameObject.Find("DummyPartner");
+                if (dummy != null) partnerTransform = dummy.transform;
+            }
+
+            // 여전히 파트너를 못 찾았다면, 0.5초 대기 후 다시 찾습니다. (과부하 방지)
+            if (partnerTransform == null)
+            {
+                yield return new WaitForSeconds(0.5f);
+            }
         }
 
-        // 3. 에셋에 시작점과 끝점 묶어주기!
+        // 3. 파트너를 무사히 찾았다면, 에셋(VisualRope)이 세팅될 수 있도록 딱 1프레임만 더 양보합니다.
+        yield return null;
+
+        // 4. 에셋에 시작점과 끝점 묶어주기!
         AttachRopeToAsset();
     }
 
