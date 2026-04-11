@@ -19,22 +19,17 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         [SerializeField] private Rigidbody _rb;
 
         [Header("Haptics")]
-        [Tooltip("XR Gameplay Rig의 XRHapticManager를 연결")]
-        [SerializeField] private XRHapticManager _hapticManager;
+        [Tooltip("앵커 삽입 시 재생할 햅틱 프로파일")]
+        [SerializeField] private CrowdGuard.XR.Haptics.HapticProfile _onInsertHaptic;
+
+        [Tooltip("앵커 체결 완료 시 재생할 햅틱 프로파일")]
+        [SerializeField] private CrowdGuard.XR.Haptics.HapticProfile _onSecuredHaptic;
 
         [Tooltip("삽입 햅틱 — Body의 XRGrabInteractable")]
         [SerializeField] private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable _bodyGrabInteractable;
 
         [Tooltip("체결 햅틱 — Handle의 XRSimpleInteractable")]
         [SerializeField] private UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable _handleSimpleInteractable;
-
-        [Header("Haptics — 삽입 피드백")]
-        [SerializeField][Range(0f, 1f)] private float _insertHapticAmplitude = 1.0f;
-        [SerializeField] private float _insertHapticDuration = 0.3f;
-
-        [Header("Haptics — 체결 완료 피드백")]
-        [SerializeField][Range(0f, 1f)] private float _securedHapticAmplitude = 0.8f;
-        [SerializeField] private float _securedHapticDuration = 0.15f;
 
         [Header("Handle Visual (손잡이 회전 피드백)")]
         [Tooltip("회전할 손잡이의 Transform")]
@@ -93,7 +88,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             if (isInserted)
             {
                 _rb.constraints = RigidbodyConstraints.FreezeAll;
-                SendHapticVia(_bodyGrabInteractable, _insertHapticAmplitude, _insertHapticDuration);
+                SendHapticVia(_bodyGrabInteractable, _onInsertHaptic);
             }
             else
             {
@@ -117,7 +112,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             if (isSecured)
             {
                 Debug.Log("[IceAnchorView] ===== 앵커 완전 체결 =====");
-                SendHapticVia(_handleSimpleInteractable, _securedHapticAmplitude, _securedHapticDuration);
+                SendHapticVia(_handleSimpleInteractable, _onSecuredHaptic);
             }
             else
             {
@@ -133,17 +128,15 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         /// </summary>
         private void SendHapticVia(
             UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable interactable,
-            float amplitude, float duration)
+            CrowdGuard.XR.Haptics.HapticProfile hapticProfile)
         {
-            if (interactable == null || _hapticManager == null) return;
+            if (interactable == null || hapticProfile == null) return;
 
             var interactors = interactable.interactorsSelecting;
             if (interactors.Count == 0) return;
 
-            var hapticPlayer = (interactors[0] as MonoBehaviour)?.GetComponentInParent<HapticImpulsePlayer>();
-            if (hapticPlayer == null) return;
-
-            _hapticManager.SendHaptic(hapticPlayer, amplitude, duration);
+            var provider = (interactors[0] as MonoBehaviour)?.GetComponentInParent<CrowdGuard.XR.Haptics.IHapticProvider>();
+            provider?.PlayHaptic(hapticProfile);
         }
     }
 }

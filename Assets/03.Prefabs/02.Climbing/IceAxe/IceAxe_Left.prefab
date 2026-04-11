@@ -219,8 +219,7 @@ GameObject:
   - component: {fileID: 507929398366802236}
   - component: {fileID: 3955560420505873634}
   - component: {fileID: 6057210960142916234}
-  - component: {fileID: 3168809630084096474}
-  - component: {fileID: 6430166097526867427}
+  - component: {fileID: 3602996980538840477}
   m_Layer: 0
   m_Name: IceAxe_Left
   m_TagString: Untagged
@@ -279,9 +278,6 @@ MonoBehaviour:
   _hapticManager: {fileID: 0}
   _attachHapticAmplitude: 1
   _attachHapticDuration: 0.3
-  _pouchTransform: {fileID: 0}
-  _autoReturnDelay: 0.2
-  _autoReturnSpeed: 10
 --- !u!114 &2156498362495983278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,7 +462,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
---- !u!114 &3168809630084096474
+--- !u!114 &3602996980538840477
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -475,33 +471,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6777047405850613272}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Script: {fileID: 11500000, guid: a17f2fe668148b9409d3675e251c7d8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 3104772038
-  ObjectInterest: 1
-  Flags: 262145
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 6430166097526867427}
-  ForceRemoteRenderTimeframe: 0
---- !u!114 &6430166097526867427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6777047405850613272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stateAuthorityChangeErrorCorrectionDelta: 0
-  SyncScale: 0
-  SyncParent: 0
-  _autoAOIOverride: 1
-  DisableSharedModeInterpolation: 0
+  pouchTransform: {fileID: 0}
+  _autoReturnDelay: 3
+  _autoReturnSpeed: 10
 --- !u!1 &7787038276267039727
 GameObject:
   m_ObjectHideFlags: 0

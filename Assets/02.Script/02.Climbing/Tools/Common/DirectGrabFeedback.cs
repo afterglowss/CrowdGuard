@@ -19,18 +19,11 @@ namespace CrowdGuard.Climbing.Tools
         [SerializeField] private GameObject _highlightObject;
 
         [Header("Haptics")]
-        [Tooltip("XR Gameplay Rig의 XRHapticManager를 연결")]
-        [SerializeField] private XRHapticManager _hapticManager;
+        [Tooltip("Hover(손이 근접할 때) 재생할 햅틱 프로파일")]
+        [SerializeField] private CrowdGuard.XR.Haptics.HapticProfile _onHoverHaptic;
 
-        [Tooltip("Hover 시 진동 강도 (0~1)")]
-        [SerializeField][Range(0f, 1f)] private float _hoverHapticAmplitude = 0.1f;
-        [Tooltip("Hover 시 진동 지속 시간 (초)")]
-        [SerializeField] private float _hoverHapticDuration = 0.05f;
-
-        [Tooltip("Grab 시 진동 강도 (0~1)")]
-        [SerializeField][Range(0f, 1f)] private float _grabHapticAmplitude = 0.4f;
-        [Tooltip("Grab 시 진동 지속 시간 (초)")]
-        [SerializeField] private float _grabHapticDuration = 0.1f;
+        [Tooltip("Grab(잡았을 때) 재생할 햅틱 프로파일")]
+        [SerializeField] private CrowdGuard.XR.Haptics.HapticProfile _onGrabHaptic;
 
         private XRGrabInteractable _interactable;
 
@@ -66,7 +59,7 @@ namespace CrowdGuard.Climbing.Tools
             if (_highlightObject != null) _highlightObject.SetActive(true);
 
             // 약한 진동 (손이 근처에 왔다는 촉각 신호)
-            SendHaptic(args.interactorObject, _hoverHapticAmplitude, _hoverHapticDuration);
+            SendHaptic(args.interactorObject, _onHoverHaptic);
         }
 
         private void OnHoverExit(HoverExitEventArgs args)
@@ -80,19 +73,19 @@ namespace CrowdGuard.Climbing.Tools
             if (_highlightObject != null) _highlightObject.SetActive(false);
 
             // 중간 강도 진동
-            SendHaptic(args.interactorObject, _grabHapticAmplitude, _grabHapticDuration);
+            SendHaptic(args.interactorObject, _onGrabHaptic);
         }
 
-        private void SendHaptic(IXRInteractor interactor, float amplitude, float duration)
+        private void SendHaptic(IXRInteractor interactor, CrowdGuard.XR.Haptics.HapticProfile profile)
         {
-            if (_hapticManager == null) return;
+            if (profile == null) return;
 
-            var player = (interactor as MonoBehaviour)?
-                .GetComponentInParent<HapticImpulsePlayer>();
+            var provider = (interactor as MonoBehaviour)?
+                .GetComponentInParent<CrowdGuard.XR.Haptics.IHapticProvider>();
 
-            if (player != null)
+            if (provider != null)
             {
-                _hapticManager.SendHaptic(player, amplitude, duration);
+                provider.PlayHaptic(profile);
             }
         }
     }
