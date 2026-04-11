@@ -3,6 +3,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using CrowdGuard.XR;
+using CrowdGuard.Climbing.Tools.Common;
 
 namespace CrowdGuard.Climbing.Tools.IceAxe
 {
@@ -17,28 +18,17 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable _grabInteractable;
 
         [Header("Haptics (진동 피드백)")]
-        [Tooltip("XR Gameplay Rig의 XRHapticManager를 연결")]
-        [SerializeField] private XRHapticManager _hapticManager;
-        [Tooltip("벽 타격 시 진동 강도 (0~1)")]
-        [SerializeField][Range(0f, 1f)] private float _attachHapticAmplitude = 1.0f;
-        [Tooltip("벽 타격 시 진동 지속 시간 (초)")]
-        [SerializeField] private float _attachHapticDuration = 0.3f;
+        [Tooltip("빙벽 타격 시 재생할 햅틱 프로파일 (에셋)")]
+        [SerializeField] private CrowdGuard.XR.Haptics.HapticProfile _onAttachHaptic;
 
-        [Header("파우치 시스템 (장착/복구)")]
-        [Tooltip("플레이어 허리쯤에 위치할 빈 오브젝트(파우치 위치)를 연결")]
-        [SerializeField] private Transform _pouchTransform;
-        [Tooltip("허공에 떨어뜨리고 몇 초 뒤에 파우치로 돌아올지 결정")]
-        [SerializeField] private float _autoReturnDelay = 3.0f;
-        [Tooltip("복귀 속도 (Lerp)")]
-        [SerializeField] private float _autoReturnSpeed = 10f;
-
-        private Coroutine _returnCoroutine;
+        private RetractableObject _retractableObject;
 
         private void Awake()
         {
             if (_model == null) _model = GetComponent<IceAxeModel>();
             if (_rb == null) _rb = GetComponent<Rigidbody>();
             _grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+            _retractableObject = GetComponent<RetractableObject>();
         }
 
         private void OnEnable()
@@ -67,8 +57,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
                 Debug.Log($"[IceAxeView - {_model.Side}] 손에 장착되었습니다. (컨트롤러 Transform 매칭 시작)");
                 _rb.useGravity = false;
                 _rb.isKinematic = false;
-                // 잡았으므로 복구 타이머 취소
-                CancelReturnCoroutine();
+                // 잡았으므로 복구 타이머 취소 (RetractableObject가 자체적으로 처리)
             }
             else
             {
@@ -77,10 +66,6 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
                     Debug.Log($"[IceAxeView - {_model.Side}] 허공에서 바일을 놓았습니다! (낙하 및 자동 복구 대기)");
                     _rb.useGravity = true;
                     _rb.isKinematic = false;
-
-                    // 복구 타이머 시작
-                    CancelReturnCoroutine();
-                    _returnCoroutine = StartCoroutine(ReturnToPouchRoutine());
                 }
             }
         }
@@ -98,8 +83,8 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
                     _grabInteractable.trackRotation = false;
                 }
                 _rb.constraints = RigidbodyConstraints.FreezeAll;
-                CancelReturnCoroutine();
-                SendHaptic(_attachHapticAmplitude, _attachHapticDuration);
+                if (_retractableObject != null) _retractableObject.CancelReturn();
+                SendHaptic();
             }
             else
             {
@@ -120,8 +105,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
                     _rb.useGravity = true;
 
                     // 벽에서 빠졌는데 잡고 있지도 않다면 다시 추락 타이머 가동
-                    CancelReturnCoroutine();
-                    _returnCoroutine = StartCoroutine(ReturnToPouchRoutine());
+                    if (_retractableObject != null) _retractableObject.RequestReturn();
                 }
                 else
                 {
@@ -133,16 +117,16 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
 
         // ---------- Haptics ----------
 
-        private void SendHaptic(float amplitude, float duration)
+        private void SendHaptic()
         {
             if (_grabInteractable == null)
             {
                 Debug.LogWarning("[IceAxeView] SendHaptic 실패: _grabInteractable == null");
                 return;
             }
-            if (_hapticManager == null)
+            if (_onAttachHaptic == null)
             {
-                Debug.LogWarning("[IceAxeView] SendHaptic 실패: _hapticManager == null (인스펙터에서 연결 확인!)");
+                Debug.LogWarning("[IceAxeView] SendHaptic 실패: _onAttachHaptic 프로파일이 연결되지 않음");
                 return;
             }
 
@@ -153,56 +137,16 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
                 return;
             }
 
-            var hapticPlayer = (interactors[0] as MonoBehaviour)?.GetComponentInParent<HapticImpulsePlayer>();
-            if (hapticPlayer == null)
+            var provider = (interactors[0] as MonoBehaviour)?.GetComponentInParent<CrowdGuard.XR.Haptics.IHapticProvider>();
+            if (provider == null)
             {
-                Debug.LogWarning("[IceAxeView] SendHaptic 실패: HapticImpulsePlayer를 컨트롤러 계층에서 찾을 수 없음");
+                Debug.LogWarning("[IceAxeView] SendHaptic 실패: 이 컨트롤러/인터랙터 계층에서 IHapticProvider를 찾을 수 없음");
                 return;
             }
 
-            Debug.Log($"[IceAxeView] SendHaptic 성공! amplitude={amplitude}, duration={duration}, player={hapticPlayer.gameObject.name}");
-            _hapticManager.SendHaptic(hapticPlayer, amplitude, duration);
+            Debug.Log($"[IceAxeView] SendHaptic: IceAxeAttach, provider={((MonoBehaviour)provider).gameObject.name}");
+            provider.PlayHaptic(_onAttachHaptic);
         }
 
-        // ---------- Coroutines ----------
-
-        private void CancelReturnCoroutine()
-        {
-            if (_returnCoroutine != null)
-            {
-                StopCoroutine(_returnCoroutine);
-                _returnCoroutine = null;
-            }
-        }
-
-        private System.Collections.IEnumerator ReturnToPouchRoutine()
-        {
-            // 정해진 시간 대기
-            yield return new WaitForSeconds(_autoReturnDelay);
-
-            // 시간이 끝났는데 여전히 잡지도 않고 박히지도 않았다면
-            if (!_model.IsHeld && !_model.IsAttachedToWall && _pouchTransform != null)
-            {
-                Debug.Log("[IceAxeView] 코이! ");
-
-                _rb.velocity = Vector3.zero;
-                _rb.angularVelocity = Vector3.zero;
-                _rb.isKinematic = true;
-
-                while (Vector3.Distance(transform.position, _pouchTransform.position) > 0.01f)
-                {
-                    if (_model.IsHeld || _model.IsAttachedToWall) yield break;
-
-                    transform.position = Vector3.Lerp(transform.position, _pouchTransform.position, Time.deltaTime * _autoReturnSpeed);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, _pouchTransform.rotation, Time.deltaTime * _autoReturnSpeed);
-                    yield return null;
-                }
-
-                transform.SetPositionAndRotation(_pouchTransform.position, _pouchTransform.rotation);
-
-                // 부모-자식 관계 설정 (파우치에 붙어있도록)
-                transform.SetParent(_pouchTransform);
-            }
-        }
     }
 }

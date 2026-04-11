@@ -15,8 +15,7 @@ GameObject:
   - component: {fileID: 7655919103853895319}
   - component: {fileID: 7685695253541491673}
   - component: {fileID: 6872161304702766353}
-  - component: {fileID: 7047646192785235954}
-  - component: {fileID: 7756677041516902922}
+  - component: {fileID: 2149610196811854160}
   m_Layer: 0
   m_Name: IceAxe_Right
   m_TagString: Untagged
@@ -75,9 +74,6 @@ MonoBehaviour:
   _hapticManager: {fileID: 0}
   _attachHapticAmplitude: 1
   _attachHapticDuration: 0.3
-  _pouchTransform: {fileID: 0}
-  _autoReturnDelay: 0.2
-  _autoReturnSpeed: 10
 --- !u!114 &9197600556284530350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,7 +258,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
---- !u!114 &7047646192785235954
+--- !u!114 &2149610196811854160
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -271,33 +267,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4064600577140126354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Script: {fileID: 11500000, guid: a17f2fe668148b9409d3675e251c7d8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stateAuthorityChangeErrorCorrectionDelta: 0
-  SyncScale: 0
-  SyncParent: 0
-  _autoAOIOverride: 1
-  DisableSharedModeInterpolation: 0
---- !u!114 &7756677041516902922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4064600577140126354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SortKey: 1330887048
-  ObjectInterest: 1
-  Flags: 262145
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 7047646192785235954}
-  ForceRemoteRenderTimeframe: 0
+  pouchTransform: {fileID: 0}
+  _autoReturnDelay: 3
+  _autoReturnSpeed: 10
 --- !u!1 &6772054354810296206
 GameObject:
   m_ObjectHideFlags: 0

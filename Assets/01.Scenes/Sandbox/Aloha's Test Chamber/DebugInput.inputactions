@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "DebugInput",
     "maps": [
         {
@@ -45,6 +46,15 @@
                     "name": "New action",
                     "type": "Button",
                     "id": "cba41e47-fbac-467b-871c-b985983c1414",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Grip.L",
+                    "type": "Button",
+                    "id": "0384969a-d588-4dfe-acc5-a5dd6cabb802",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -137,6 +147,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "13b1a80a-8444-4381-a838-76fa7e84e39f",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grip.L",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
