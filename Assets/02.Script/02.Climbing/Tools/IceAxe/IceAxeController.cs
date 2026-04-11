@@ -21,7 +21,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
 
         private bool _isTriggerHeld = false;
         private bool _isTouchingIce = false;
-        private ClimbableSurface _currentSurface = null;
+        private BaseSurface _currentSurface = null;
 
         // 컨트롤러 속도 직접 추적 (Velocity Damping 영향 없음)
         private Transform _interactorTransform;
@@ -123,21 +123,15 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         }
 
 
-        public void OnIceContactEnter(ClimbableSurface surface)
+        public void OnIceContactEnter(BaseSurface surface)
         {
-            if (surface.Type == SurfaceType.Rock)
-            {
-                Debug.Log("[IceAxeController] 단단한 바위에 부딪혀 바일이 박히지 않습니다.");
-                return;
-            }
-
-            Debug.Log("[IceAxeController] 박힐 가능성이 있는 얼음벽 표면에 닿았습니다.");
+            Debug.Log($"[IceAxeController] 지형 청크에 접근했습니다: {surface.gameObject.name}");
             _isTouchingIce = true;
             _currentSurface = surface;
             TryAttachToWall();
         }
 
-        public void OnIceContactExit(ClimbableSurface surface)
+        public void OnIceContactExit(BaseSurface surface)
         {
             if (_currentSurface == surface)
             {
