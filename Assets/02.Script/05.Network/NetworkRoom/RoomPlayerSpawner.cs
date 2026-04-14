@@ -11,6 +11,7 @@ namespace Capstone.Photon.Room
         public GameObject playerPrefab;
         public LocalPlayerController localController;
         public PlayerManager playerManager;
+        public RoleManager roleManager;
         
         private NetworkRunner _currentRunner;
         private void Start()
@@ -27,18 +28,7 @@ namespace Capstone.Photon.Room
             _currentRunner.RemoveCallbacks(this);
         }
 
-        public void OnSceneLoadDone(NetworkRunner runner)
-        {
-            /*// 본인 플레이어 프리팹 생성
-            var playerModel = runner.Spawn(playerPrefab,Vector3.zero,Quaternion.identity, runner.LocalPlayer);
-            if (playerModel.TryGetComponent(out PlayerModel model))
-            {
-                model.Init(localController);
-            }
-            playerManager.RPC_AddPlayer(runner.LocalPlayer,playerModel);
-            Debug.Log("Player joined");*/
 
-        }
         // 플레이어 입장 시 실행
         public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
         {
@@ -57,8 +47,12 @@ namespace Capstone.Photon.Room
         
         public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
         {
+            Debug.Log($" master : {runner.IsSharedModeMasterClient}");
+            //if (!runner.IsSharedModeMasterClient) return;
             playerManager.RPC_RemovePlayer(player);
+            roleManager.RPC_RemovePlayer(player);
             Debug.Log("Player Left");
+            
         }
         
         #region UnuseCallbacks
@@ -74,11 +68,6 @@ namespace Capstone.Photon.Room
         }
 
         public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
-        {
-
-        }
-
-        public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
         {
 
         }
@@ -145,6 +134,14 @@ namespace Capstone.Photon.Room
         public void OnSceneLoadStart(NetworkRunner runner)
         {
 
+        }
+        
+        public void OnSceneLoadDone(NetworkRunner runner)
+        {
+        }
+                
+        public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
+        {
         }
 
         #endregion

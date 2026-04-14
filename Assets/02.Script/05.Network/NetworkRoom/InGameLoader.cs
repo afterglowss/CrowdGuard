@@ -10,6 +10,7 @@ namespace Capstone.Photon
             Debug.Log($"Changing level to {sceneIndex}");
             if (Object.HasStateAuthority)
             {
+                Runner.MakeDontDestroyOnLoad(RoleManager.Instance.gameObject);
                 Runner.LoadScene(SceneRef.FromIndex(sceneIndex));
                 
             }

@@ -131,6 +131,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 5379304984727071042, guid: afcd9f4ca9b51c54ebf5eeea3f140850, type: 3}
   localController: {fileID: 0}
   playerManager: {fileID: 2694954837463435294}
+  roleManager: {fileID: 0}
 --- !u!114 &7970448086249145261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,9 +144,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067d13dcccded4e4aa80b319c174d4a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 2694954837463435294}
+  roleManager: {fileID: 0}
   interactor: {fileID: 7460422078391651976}
-  playerCount: {fileID: 6110848964926144351}
+  playerRoleText: {fileID: 6110848964926144351}
 --- !u!1 &4624673679499194080
 GameObject:
   m_ObjectHideFlags: 0
