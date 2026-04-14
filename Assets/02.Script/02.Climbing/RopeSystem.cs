@@ -6,6 +6,10 @@ using GogoGaga.OptimizedRopesAndCables;
 // [RequireComponent(typeof(LineRenderer))] <- 기존의 이 줄은 지워주세요!
 public class RopeSystem : MonoBehaviour
 {
+    [Header("Testing")]
+    [Tooltip("체크하면 로프 시스템을 완전히 비활성화합니다. (나홀로 등반 테스트용)")]
+    public bool disableRopeForTesting = false;
+
     [Header("Rope Settings")]
     public Transform myBodyTransform;
     public Transform partnerTransform;
@@ -23,6 +27,12 @@ public class RopeSystem : MonoBehaviour
 
     private System.Collections.IEnumerator Start()
     {
+        if (disableRopeForTesting)
+        {
+            Debug.Log("[RopeSystem] 테스트용 토글이 켜져 있어 로프 시스템이 작동하지 않습니다.");
+            yield break; 
+        }
+
         // 1. 카메라(내 몸통) 실시간 찾기
         if (myBodyTransform == null && Camera.main != null)
         {
@@ -88,6 +98,8 @@ public class RopeSystem : MonoBehaviour
     // 👇 구면 교차(Ray-Sphere Intersection)를 적용한 완벽한 텐션 제한 로직
     public void LimitMovement(ref Vector3 proposedDeltaWorld)
     {
+        if (disableRopeForTesting) return;
+
         if (partnerTransform == null || myBodyTransform == null) return;
 
         Vector3 myTiePoint = myBodyTransform.TransformPoint(localTieOffset);

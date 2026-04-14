@@ -17,9 +17,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         private void OnTriggerEnter(Collider other)
         {
             if (_controller == null) return;
-
-            
-            ClimbableSurface surface = other.GetComponent<ClimbableSurface>();
+            BaseSurface surface = other.GetComponentInParent<BaseSurface>();
             if (surface == null) return;
 
             _controller.OnIceContactEnter(surface);
@@ -29,7 +27,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         {
             if (_controller == null) return;
 
-            ClimbableSurface surface = other.GetComponent<ClimbableSurface>();
+            BaseSurface surface = other.GetComponentInParent<BaseSurface>();
             if (surface == null) return;
 
             _controller.OnIceContactExit(surface);

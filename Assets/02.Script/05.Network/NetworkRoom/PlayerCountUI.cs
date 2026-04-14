@@ -1,27 +1,43 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Capstone.Photon.Room;
 using TMPro;
 using UnityEngine;
 
 public class PlayerCountUI : MonoBehaviour
 {
-    public PlayerManager playerManager;
 
+    public RoleManager roleManager;
     public GameObject interactor;
-    public TextMeshPro playerCount;
+    public TextMeshPro playerRoleText;
     private void Start()
     {
-        playerManager.OnPlayerChanged += OnPlayerChanged;
-
+        roleManager.OnRoleAccepted += RoleSet;
     }
 
-    private void OnPlayerChanged(int player)
+    private void RoleSet(bool isRoleSet)
     {
-        playerCount.text = $"Player : {player}/2";
-        interactor.SetActive(player >= 2);
+        playerRoleText.text = "";
+        foreach (var role in roleManager.Roles)
+        {
+            if (role.Value == RoleManager.Role.Supporter)
+            {
+                playerRoleText.text += "Supporter : ";
+            }
+            else if (role.Value == RoleManager.Role.Leader)
+            {
+                playerRoleText.text += "Leader : ";
+            }
+            else
+            {
+                break;
+            }
+            playerRoleText.text += $"{role.Key}\n";
+            
+        }
+        interactor.SetActive(isRoleSet);
     }
-    
-    
+
+    private void OnDestroy()
+    {
+        roleManager.OnRoleAccepted -= RoleSet;
+    }
 }
