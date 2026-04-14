@@ -477,12 +477,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744377172}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.71673936, y: -0.158291, z: 0.17273565, w: 0.6568038}
-  m_LocalPosition: {x: 12.036354, y: 16.888233, z: -46.115788}
+  m_LocalRotation: {x: 0.70298415, y: -0.07624503, z: 0.07624504, w: 0.7029842}
+  m_LocalPosition: {x: -2.107595, y: 10, z: 9.859034}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1854813895}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!199 &744377174
 ParticleSystemRenderer:
@@ -505,7 +505,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 429e5ef3284db7a419d29ad2f7d19678, type: 2}
+  - {fileID: 2100000, guid: 034e8cce0c431cc43a36c0c19f67d965, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -541,7 +541,7 @@ ParticleSystemRenderer:
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1
-  m_ApplyActiveColorSpace: 0
+  m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
@@ -5802,6 +5802,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 185060604}
+  - {fileID: 744377173}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 4.881, y: -14.674, z: 1.074}
 --- !u!114 &1854813896
@@ -6168,7 +6169,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1854813895}
-  - {fileID: 744377173}
   - {fileID: 553370197}
   - {fileID: 1336238371}
   - {fileID: 2123248173}

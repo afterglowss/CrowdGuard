@@ -31,6 +31,7 @@ public class PlayerFallingState : PlayerState
         Behaviour[] scripts = player.xrRigPivot.GetComponentsInChildren<Behaviour>(true);
         foreach (var script in scripts)
         {
+            if (script == null) continue;
             string name = script.GetType().Name;
             if (name.Contains("XRBodyTransformer") ||
                 name.Contains("CharacterControllerDriver") ||
