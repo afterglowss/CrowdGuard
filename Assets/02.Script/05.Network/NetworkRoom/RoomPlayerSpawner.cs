@@ -11,6 +11,7 @@ namespace Capstone.Photon.Room
         public GameObject playerPrefab;
         public LocalPlayerController localController;
         public PlayerManager playerManager;
+        public RoleManager roleManager;
         
         private NetworkRunner _currentRunner;
         private void Start()
@@ -47,16 +48,11 @@ namespace Capstone.Photon.Room
         public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
         {
             Debug.Log($" master : {runner.IsSharedModeMasterClient}");
-            if (!runner.IsSharedModeMasterClient) return;
+            //if (!runner.IsSharedModeMasterClient) return;
             playerManager.RPC_RemovePlayer(player);
+            roleManager.RPC_RemovePlayer(player);
             Debug.Log("Player Left");
             
-        }
-        
-        public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
-        {
-            Debug.Log("I Left");
-            //playerManager.RPC_RemovePlayer(runner.LocalPlayer);
         }
         
         #region UnuseCallbacks
@@ -141,6 +137,10 @@ namespace Capstone.Photon.Room
         }
         
         public void OnSceneLoadDone(NetworkRunner runner)
+        {
+        }
+                
+        public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
         {
         }
 
