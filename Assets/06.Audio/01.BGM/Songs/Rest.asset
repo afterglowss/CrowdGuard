@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1727db5f4f489848a541c9857af5ff1, type: 3}
+  m_Name: Rest
+  m_EditorClassIdentifier: 
+  reverbTail: 0
+  intensityClips:
+  - {fileID: 8300000, guid: 39fd0ba4a45b3394688f20d7cdcb2e26, type: 3}
+  - {fileID: 8300000, guid: 6db248b3261e7074ab01eb98e5155635, type: 3}
+  - {fileID: 8300000, guid: b663efe5ec339a94399a64781970533c, type: 3}

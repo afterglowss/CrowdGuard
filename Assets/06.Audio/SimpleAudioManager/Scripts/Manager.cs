@@ -1,23 +1,42 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace SimpleAudioManager
 {
-    public class Manager : MonoBehaviour
+    
+    public class AudioManager : MonoBehaviour
     {
+        [Serializable]
+        public enum SFXType
+        {
+            None = 0,
+            PickIce = 1,
+            PickRock = 2,
+            Avalanche = 3,
+            Blizzard = 4,
+            IceBreak = 5,
+            
+        }
+        [Serializable]
+        public class SFXEntry
+        {
+            public SFXType type;
+            public List<AudioClip> clips = new List<AudioClip>();
+        }
         #region PROPERTIES
 
         /// <summary>
         /// Singleton
         /// </summary>
-        public static Manager instance => _instance;
-        private static Manager _instance = null;
+        public static AudioManager instance => _instance;
+        private static AudioManager _instance = null;
 
         /// <summary>
         /// The attached audio source
         /// </summary>
-        [Header("CONFIGURATIONS")]
+        [Header("MUSIC CONFIGURATIONS")]
         [Tooltip("The audio source prefab which will be used in the audio source pool.")] public GameObject audioSourcePrefab = null;
         private List<AudioSource> sourcePool = new List<AudioSource>();
         private int _currentSourceIndex = -1;
@@ -28,11 +47,11 @@ namespace SimpleAudioManager
         private Song.Data _currentSongData;
         private int _currentSongIndex = 0;
         private int _currentIntensityIndex = 0;
-        
+
         /// <summary>
         /// The time before either a non-looping clip ends or the next loop of a looping clip begins
         /// </summary>
-        public float clipTimeRemaining => (_nextLoopStartTime != 0f) ? ((float)(_nextLoopStartTime - AudioSettings.dspTime) + ((!loopCurrentSong)? _currentSongData.reverbTail : 0f)) : 0f;
+        public float clipTimeRemaining => (_nextLoopStartTime != 0f) ? ((float)(_nextLoopStartTime - AudioSettings.dspTime) + ((!loopCurrentSong) ? _currentSongData.reverbTail : 0f)) : 0f;
         private double _nextLoopStartTime = 0;
         [Tooltip("Should the manager play the first song on awake?")] public bool playOnAwake = true;
         [Tooltip("The maximum volume for the audio clips.")][Range(0f, 1f)] public float maxVolume = 1f;
@@ -52,9 +71,21 @@ namespace SimpleAudioManager
             "  -Set the reverb tail time\n" +
             "    (Seconds before the end of a clip to loop it)\n" +
             "    (Shown in parentheses on Ovani Folders)\n" +
-            "  -Drag & Drop your songs onto this list")] [SerializeField] private List<Song> _songs = new List<Song>();
+            "  -Drag & Drop your songs onto this list")]
+        [SerializeField] private List<Song> _songs = new List<Song>();
         private List<Song.Data> _data = new List<Song.Data>();
+        [Tooltip("AudioSource prefab used for pooled SFX playback.")]
+        [SerializeField] private AudioSource sfxObject;
 
+        [SerializeField] private int initialSFXPoolSize = 10;
+        [SerializeField] private float minPitch = 0.9f;
+        [SerializeField] private float maxPitch = 1.1f;
+        [SerializeField][Range(0f, 1f)] private float sfxVolume = 1f;
+
+        [SerializeField] private List<SFXEntry> sfxEntries = new List<SFXEntry>();
+
+        private Dictionary<SFXType, List<AudioClip>> sfxDict;
+        private readonly List<AudioSource> sfxPool = new List<AudioSource>();
         #endregion
 
         #region PUBLIC METHODS
@@ -69,9 +100,11 @@ namespace SimpleAudioManager
         /// </summary>
         public void SetIntensity(int pIntensity, float pBlendOutDuration, float pBlendInDuration)
         {
+            Debug.Log(_currentSongData.intensityClips);
             if (_currentSongData.intensityClips.Count > Mathf.Max(pIntensity, 0))
             {
-                PlaySong( new PlaySongOptions() {
+                PlaySong(new PlaySongOptions()
+                {
                     song = _currentSongIndex,
                     intensity = Mathf.Max(pIntensity, 0),
                     startTime = sourcePool[_currentSourceIndex].time,
@@ -84,12 +117,13 @@ namespace SimpleAudioManager
         /// <summary>
         /// Plays the specified song and attempts to match the current intensity
         /// </summary>
-        public void PlaySong(int pSong) => PlaySong( new PlaySongOptions() {
-                song = pSong,
-                intensity = _currentIntensityIndex,
-                blendOutTime = defaultSongBlendDuration,
-                blendInTime = defaultSongBlendDuration
-            });
+        public void PlaySong(int pSong) => PlaySong(new PlaySongOptions()
+        {
+            song = pSong,
+            intensity = _currentIntensityIndex,
+            blendOutTime = defaultSongBlendDuration,
+            blendInTime = defaultSongBlendDuration
+        });
 
         /// <summary>
         /// Plays the specified song
@@ -157,7 +191,46 @@ namespace SimpleAudioManager
             StartCoroutine(_FadeVolume(_current, _current.volume, 0f, pFadeOutDuration));
         }
 
+        public void SetMusicVolume(float pVolume)
+        {
+            _currentSource.volume = pVolume;
+        }
+
+
+        public void PlaySFX(SFXType type, Transform spawnTransform, float volume = 1f)
+        {
+            if (sfxDict == null || !sfxDict.TryGetValue(type, out List<AudioClip> clips) || clips == null || clips.Count == 0)
+            {
+                Debug.LogWarning($"No SFX found for {type}");
+                return;
+            }
+
+            AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Count)];
+            PlaySFXInternal(clip, spawnTransform, volume);
+        }
+
+        public class PooledSFXSourceState : MonoBehaviour
+        {
+            [HideInInspector] public float baseVolume = 1f;
+        }
+        public void SetSFXVolume(float volume)
+        {
+            sfxVolume = Mathf.Clamp01(volume);
+
+            for (int i = 0; i < sfxPool.Count; i++)
+            {
+                AudioSource source = sfxPool[i];
+                if (source == null)
+                    continue;
+
+                PooledSFXSourceState state = source.GetComponent<PooledSFXSourceState>();
+                float baseVolume = state != null ? state.baseVolume : 1f;
+
+                source.volume = baseVolume * sfxVolume;
+            }
+        }
         #endregion
+
 
         #region PRIVATE METHODS
 
@@ -172,14 +245,122 @@ namespace SimpleAudioManager
                 DestroyImmediate(gameObject);
                 return;
             }
-            if (playOnAwake) StartCoroutine(_delay());
-            IEnumerator _delay()
+
+            DontDestroyOnLoad(this.gameObject);
+
+
+            if (playOnAwake) PlaySong(0);
+            //if (playOnAwake) StartCoroutine(_delay());
+            // IEnumerator _delay()
+            // {
+            //     yield return new WaitForSecondsRealtime(0.25f);
+            //     PlaySong(0);
+            // }
+
+            BuildSFXDictionary();
+            InitializeSFXPool();
+            SetSFXVolume(sfxVolume);
+
+
+        }
+        private void BuildSFXDictionary()
+        {
+            sfxDict = new Dictionary<SFXType, List<AudioClip>>();
+
+            foreach (var entry in sfxEntries)
             {
-                yield return new WaitForSecondsRealtime(0.25f);
-                PlaySong(0);
+                if (entry == null || entry.type == SFXType.None || entry.clips == null || entry.clips.Count == 0)
+                    continue;
+
+                List<AudioClip> validClips = new List<AudioClip>();
+
+                foreach (AudioClip clip in entry.clips)
+                {
+                    if (clip != null)
+                        validClips.Add(clip);
+                }
+
+                if (validClips.Count == 0)
+                    continue;
+
+                if (sfxDict.ContainsKey(entry.type))
+                {
+                    Debug.LogWarning($"Duplicate SFX entry found for {entry.type}. Overwriting previous clip list.");
+                }
+
+                sfxDict[entry.type] = validClips;
             }
         }
 
+        private void InitializeSFXPool()
+        {
+            if (sfxObject == null)
+            {
+                Debug.LogWarning("SFX AudioSource prefab is not assigned.");
+                return;
+            }
+
+            for (int i = 0; i < Mathf.Max(1, initialSFXPoolSize); i++)
+            {
+                CreateSFXSource();
+            }
+        }
+
+        private AudioSource CreateSFXSource()
+        {
+            AudioSource source = Instantiate(sfxObject, transform);
+            source.playOnAwake = false;
+            source.loop = false;
+            source.gameObject.name = $"SFX_Source_{sfxPool.Count}";
+
+            PooledSFXSourceState state = source.GetComponent<PooledSFXSourceState>();
+            if (state == null)
+                state = source.gameObject.AddComponent<PooledSFXSourceState>();
+
+            state.baseVolume = 1f;
+
+            sfxPool.Add(source);
+            return source;
+        }
+
+        private AudioSource GetAvailableSFXSource()
+        {
+            for (int i = 0; i < sfxPool.Count; i++)
+            {
+                if (!sfxPool[i].isPlaying)
+                    return sfxPool[i];
+            }
+
+            return CreateSFXSource();
+        }
+
+        private void PlaySFXInternal(AudioClip clip, Transform spawnTransform, float volume)
+        {
+            if (clip == null)
+                return;
+
+            if (sfxObject == null)
+            {
+                Debug.LogWarning("SFX AudioSource prefab is not assigned.");
+                return;
+            }
+
+            AudioSource source = GetAvailableSFXSource();
+            Transform target = spawnTransform != null ? spawnTransform : transform;
+
+            source.transform.position = target.position;
+            source.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
+            source.clip = clip;
+
+            float clampedVolume = Mathf.Clamp01(volume);
+
+            PooledSFXSourceState state = source.GetComponent<PooledSFXSourceState>();
+            if (state != null)
+                state.baseVolume = clampedVolume;
+
+            source.volume = clampedVolume * sfxVolume;
+            source.Play();
+        }
         /// <summary>
         /// Clear out the pseudo-singleton
         /// </summary>
@@ -264,14 +445,41 @@ namespace SimpleAudioManager
             }
 
             //  If looping, play the song
-            PlaySong( new PlaySongOptions() {
-                    song = _currentSongIndex,
-                    intensity = _currentIntensityIndex,
-                    blendOutTime = -1f,
-                    blendInTime = 0.01f
-                });
+            PlaySong(new PlaySongOptions()
+            {
+                song = _currentSongIndex,
+                intensity = _currentIntensityIndex,
+                blendOutTime = -1f,
+                blendInTime = 0.01f
+            });
+        }
+        #endregion
+
+        #region TEST CODE
+        public void PlayPickIceSFX()
+        {
+            PlaySFX(SFXType.PickIce, transform, 1f);
         }
 
+        public void PlayPickRockSFX()
+        {
+            PlaySFX(SFXType.PickRock, transform, 1f);
+        }
+
+        public void PlayAvalancheSFX()
+        {
+            PlaySFX(SFXType.Avalanche, transform, 1f);
+        }
+
+        public void PlayBlizzardSFX()
+        {
+            PlaySFX(SFXType.Blizzard, transform, 1f);
+        }
+
+        public void PlayIceBreakSFX()
+        {
+            PlaySFX(SFXType.IceBreak, transform, 1f);
+        }
         #endregion
     }
 }
