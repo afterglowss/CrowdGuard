@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/01.Scenes/Sandbox/Network/Test_RoomNetwork.unity
     guid: 3a985c8408fe00c4db7b38e148ffaf4a
   - enabled: 1
-    path: Assets/01.Scenes/Sandbox/Network/Test_GameNetwork.unity
-    guid: 8dc7387995c2f8447990ca1892a6dd03
+    path: Assets/01.Scenes/Sandbox/Test_Climbing.unity
+    guid: 2da9818b2ab361b499c1f13a10ccc86f
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}

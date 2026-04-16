@@ -20,6 +20,10 @@ public class TentSavePoint : MonoBehaviour
         StartCoroutine(TentSequenceRoutine());
     }
 
+    public Transform interiorPos; // 3단계의 Interior_Target
+    public Transform exteriorPos; // 2단계의 RespawnPoint
+    public GameObject playerObj;  // 플레이어 리깅 오브젝트
+
     private IEnumerator TentSequenceRoutine()
     {
         isInteracting = true;
@@ -31,8 +35,9 @@ public class TentSavePoint : MonoBehaviour
             yield return StartCoroutine(ScreenEffectManager.Instance.FadeScreenRoutine(1f, false));
         }
 
-        // 텐트 안에서 정비하는 시간 대기
-        yield return new WaitForSeconds(1.5f);
+        playerObj.transform.position = interiorPos.position;
+
+        yield return new WaitForSeconds(1.5f); // 정비 시간 대기
 
         // 2. 동결 수치 완전 회복
         if (SurvivalManager.Instance != null)

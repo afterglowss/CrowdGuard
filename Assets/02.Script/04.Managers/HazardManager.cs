@@ -11,9 +11,9 @@ public abstract class HazardData
 
 public class AvalancheData : HazardData
 {
-    [Tooltip("눈사태의 영향을 받는 범위 폭")]
-    public float Width;        // 예: 4명 너비
-    public float Speed;        // 떨어지는 속도
+    public AvalanchePathSystem PathSystem;
+    public float Width;
+    public float Speed;
 }
 
 public class BlizzardData : HazardData
