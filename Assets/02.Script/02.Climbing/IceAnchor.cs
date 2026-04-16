@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[Obsolete("MVC 구조의 IceAnchorController/Model로 교체되었습니다. 이 컴포넌트는 더 이상 사용되지 않습니다.")]
 public class IceAnchor : MonoBehaviour
 {
     [Header("Anchor Settings")]

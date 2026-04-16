@@ -105,42 +105,47 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             _interactorTransform = null;
         }
 
-        // ===================== 게이트밸브 회전 (양방향) =====================
+        // ===================== 태엽식 회전 (X축, 절대값 누적) =====================
 
         private void TrackScrewRotation()
         {
+            // 영구 고정: 한 번 완전 체결되면 손잡이가 더 이상 돌아가지 않음
+            if (_model.IsFullySecured) return;
+
             float currentAngle = GetControllerAngleAroundInsertionAxis();
             float deltaAngle = Mathf.DeltaAngle(_previousAngle, currentAngle);
 
-            _accumulatedAngle += deltaAngle;
-            _accumulatedAngle = Mathf.Max(0f, _accumulatedAngle);
+            // 태엽 감기: 어느 방향으로 돌려도 진행도가 오르기만 함 (절대값 누적)
+            _accumulatedAngle += Mathf.Abs(deltaAngle);
 
             float totalRequired = _requiredTurns * 360f;
             float newProgress = Mathf.Clamp01(_accumulatedAngle / totalRequired);
             _model.ScrewProgress = newProgress;
 
-            if (newProgress >= 1.0f && !_model.IsFullySecured)
+            // 완전 체결 판정 (영구 고정 + 세이브포인트 전역 이벤트 발화)
+            if (newProgress >= 1.0f)
             {
                 _model.IsFullySecured = true;
-                Debug.Log("[HandleController] ===== 앵커 완전 체결! =====");
-            }
-            else if (newProgress < 1.0f && _model.IsFullySecured)
-            {
-                _model.IsFullySecured = false;
-                Debug.Log("[HandleController] 앵커 체결 해제됨.");
+                Debug.Log("[HandleController] ===== 앵커 완전 체결! (영구 고정) =====");
+                IceAnchorController.RaiseAnchorSecured(_model.transform.position);
             }
 
             _previousAngle = currentAngle;
         }
 
+        /// <summary>
+        /// X축(Right) 기준으로 컨트롤러 각도를 측정합니다 (태엽 감기 모션).
+        /// </summary>
         private float GetControllerAngleAroundInsertionAxis()
         {
             Transform root = _model.transform;
-            Vector3 insertionAxis = root.forward;
-            Vector3 controllerUp = _interactorTransform.up;
-            Vector3 projected = Vector3.ProjectOnPlane(controllerUp, insertionAxis).normalized;
-            Vector3 referenceUp = Vector3.ProjectOnPlane(root.up, insertionAxis).normalized;
-            return Vector3.SignedAngle(referenceUp, projected, insertionAxis);
+            Vector3 rotationAxis = root.right; // X축 태엽 감기
+
+            Vector3 controllerForward = _interactorTransform.forward;
+            Vector3 projected = Vector3.ProjectOnPlane(controllerForward, rotationAxis).normalized;
+
+            Vector3 referenceForward = Vector3.ProjectOnPlane(root.forward, rotationAxis).normalized;
+            return Vector3.SignedAngle(referenceForward, projected, rotationAxis);
         }
     }
 }

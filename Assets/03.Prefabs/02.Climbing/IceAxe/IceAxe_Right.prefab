@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pouchTransform: {fileID: 0}
-  _autoReturnDelay: 3
+  _autoReturnDelay: 0.66
   _autoReturnSpeed: 10
 --- !u!114 &678613907822406281
 MonoBehaviour:

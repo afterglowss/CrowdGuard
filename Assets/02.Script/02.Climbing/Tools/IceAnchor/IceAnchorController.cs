@@ -23,6 +23,19 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable _grabInteractable;
         private Rigidbody _rb;
 
+        /// <summary>
+        /// 앵커 완전 체결 시 발생하는 전역 이벤트 (세이브포인트 등에서 구독)
+        /// </summary>
+        public static event System.Action<Vector3> OnAnchorSecuredGlobal;
+
+        /// <summary>
+        /// 외부 스크립트(HandleController 등)에서 체결 이벤트를 발화할 수 있도록 제공하는 릴레이 메서드
+        /// </summary>
+        public static void RaiseAnchorSecured(Vector3 position)
+        {
+            OnAnchorSecuredGlobal?.Invoke(position);
+        }
+
         [Header("Screw Settings (회전 체결)")]
         [Tooltip("체결에 필요한 바퀴 수. 1.0 = 360° 한 바퀴")]
         [SerializeField] private float _requiredTurns = 1.0f;
@@ -266,44 +279,45 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
 
         private void TrackScrewRotation()
         {
+            // 영구 고정: 한 번 완전 체결되면 손잡이가 더 이상 돌아가지 않음
+            if (_model.IsFullySecured) return;
+
             float currentAngle = GetControllerAngleAroundInsertionAxis();
             float deltaAngle = Mathf.DeltaAngle(_previousAngle, currentAngle);
 
-            // 양방향: 정방향(+) = 체결, 역방향(−) = 해체
-            _accumulatedAngle += deltaAngle;
-
-            // 0 미만 클램핑 (완전 분리 이하는 없음)
-            _accumulatedAngle = Mathf.Max(0f, _accumulatedAngle);
+            // 태엽 감기: 역방향 회전이나 손목 떨림에 의해 진행도가 깎이지 않도록 절대값을 누적하여 100% 도달 보장
+            _accumulatedAngle += Mathf.Abs(deltaAngle);
 
             float totalRequired = _requiredTurns * 360f;
             float newProgress = Mathf.Clamp01(_accumulatedAngle / totalRequired);
             _model.ScrewProgress = newProgress;
 
-            // 완전 체결 / 해체 판정
+            // 완전 체결 판정
             if (newProgress >= 1.0f && !_model.IsFullySecured)
             {
                 _model.IsFullySecured = true;
-                Debug.Log("[IceAnchorController] ===== 앵커 완전 체결! =====");
-            }
-            else if (newProgress < 1.0f && _model.IsFullySecured)
-            {
-                _model.IsFullySecured = false;
-                Debug.Log("[IceAnchorController] 앵커 체결 해제됨.");
+                Debug.Log("[IceAnchorController] ===== 앵커 완전 체결! (영구 고정) =====");
+                OnAnchorSecuredGlobal?.Invoke(transform.position);
             }
 
             _previousAngle = currentAngle;
         }
 
         /// <summary>
-        /// 삽입축(앵커의 forward = 벽 안쪽 방향) 기준으로 컨트롤러의 현재 각도를 계산합니다.
+        /// 태엽 감기처럼 X축(오른쪽) 기준으로 컨트롤러 각도를 측정합니다.
         /// </summary>
         private float GetControllerAngleAroundInsertionAxis()
         {
-            Vector3 insertionAxis = transform.forward;
-            Vector3 controllerUp = _interactorTransform.up;
-            Vector3 projected = Vector3.ProjectOnPlane(controllerUp, insertionAxis).normalized;
-            Vector3 referenceUp = Vector3.ProjectOnPlane(transform.up, insertionAxis).normalized;
-            float angle = Vector3.SignedAngle(referenceUp, projected, insertionAxis);
+            Vector3 rotationAxis = transform.right; // Z에서 X축(Right)으로 변경
+            
+            // 태엽을 감듯 손목을 위아래로 까딱이는 모션(Pitch)은 컨트롤러의 Forward 벡터 변화로 감지하는 것이 가장 직관적
+            Vector3 controllerForward = _interactorTransform.forward;
+            Vector3 projected = Vector3.ProjectOnPlane(controllerForward, rotationAxis).normalized;
+            
+            // 기준축은 모델의 Forward 방향
+            Vector3 referenceForward = Vector3.ProjectOnPlane(transform.forward, rotationAxis).normalized;
+            
+            float angle = Vector3.SignedAngle(referenceForward, projected, rotationAxis);
             return angle;
         }
     }

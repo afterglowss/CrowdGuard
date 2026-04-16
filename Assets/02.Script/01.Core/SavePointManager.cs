@@ -22,12 +22,12 @@ public class SavePointManager : MonoBehaviour
     private void OnEnable()
     {
         // 앵커가 돌려져서 체결될 때 발생하는 글로벌 옵저버 이벤트 구독
-        IceAnchor.OnAnchorSecured += HandleAnchorSecured;
+        CrowdGuard.Climbing.Tools.IceAnchor.IceAnchorController.OnAnchorSecuredGlobal += HandleAnchorSecured;
     }
 
     private void OnDisable()
     {
-        IceAnchor.OnAnchorSecured -= HandleAnchorSecured;
+        CrowdGuard.Climbing.Tools.IceAnchor.IceAnchorController.OnAnchorSecuredGlobal -= HandleAnchorSecured;
     }
 
     private void HandleAnchorSecured(Vector3 anchorPos)
