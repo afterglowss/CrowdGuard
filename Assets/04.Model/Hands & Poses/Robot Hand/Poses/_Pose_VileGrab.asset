@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 450586b6fe1e3c4409299dc6edd58dc4, type: 3}
+  m_Name: _Pose_VileGrab
+  m_EditorClassIdentifier: 
+  joints:
+  - jointName: Hand_R_Jnt
+    localPosition: {x: -0, y: 0, z: 0}
+    localRotation: {x: -0.4454931, y: -0.5233299, z: 0.4698291, w: -0.5540058}
+  - jointName: Index1_R_Jnt_aux
+    localPosition: {x: -0.067745626, y: 0.0033991602, z: -0.02539782}
+    localRotation: {x: -0.704291, y: -0.068573266, z: 0.10091728, w: 0.6993481}
+  - jointName: Index2_R_Jnt
+    localPosition: {x: -0.028008947, y: -0.0000000047683715, z: -0.000000019073486}
+    localRotation: {x: 0.00029399502, y: 0.5620347, z: 0.0034168516, w: -0.8271066}
+  - jointName: Index3_R_Jnt
+    localPosition: {x: -0.03290926, y: 0, z: 0.0000000035762786}
+    localRotation: {x: 0.00016182553, y: -0.60921794, z: 0.000028523118, w: 0.79300284}
+  - jointName: Index4_R_Jnt
+    localPosition: {x: -0.021589432, y: 0.0000000035762786, z: -0.000000019073486}
+    localRotation: {x: -0.0000000024638855, y: 0.5028162, z: 0.0000000012049263, w: -0.86439335}
+  - jointName: Middle1_R_Jnt_aux
+    localPosition: {x: -0.07512863, y: 0.009641629, z: -0.0058642887}
+    localRotation: {x: -0.6946551, y: -0.09817448, z: 0.1288948, w: 0.70085824}
+  - jointName: Middle2_R_Jnt
+    localPosition: {x: -0.023896817, y: 0, z: 0.0000000047683715}
+    localRotation: {x: 0.000045153185, y: 0.5355233, z: 0.00044239877, w: -0.84452033}
+  - jointName: Middle3_R_Jnt
+    localPosition: {x: -0.036074314, y: 0, z: 0.000000007152557}
+    localRotation: {x: -0.00009576085, y: 0.6036607, z: -0.00048624116, w: -0.7972413}
+  - jointName: Middle4_R_Jnt
+    localPosition: {x: -0.023493031, y: 0, z: -0.000000009536743}
+    localRotation: {x: -0.0000000031259235, y: 0.5087411, z: -0.0000000011917098, w: -0.8609196}
+  - jointName: Pinky1_R_Jnt_aux
+    localPosition: {x: -0.06559814, y: 0.012067363, z: 0.029795442}
+    localRotation: {x: -0.6833307, y: -0.21483424, z: 0.23199065, w: 0.6580925}
+  - jointName: Pinky2_R_Jnt
+    localPosition: {x: -0.023896808, y: 0.000000011920928, z: 0.000000038146972}
+    localRotation: {x: -0.00077013613, y: 0.45349514, z: -0.004118877, w: -0.89124894}
+  - jointName: Pinky3_R_Jnt
+    localPosition: {x: -0.02784339, y: 0, z: -0.000000009536743}
+    localRotation: {x: 0.0000000036716603, y: 0.49007097, z: -0.0000000021741675, w: -0.8716825}
+  - jointName: Pinky4_R_Jnt
+    localPosition: {x: -0.01817017, y: 0.000000007152557, z: 0}
+    localRotation: {x: 5.8813543e-10, y: 0.50047195, z: -0.0000000032630312, w: -0.86575276}
+  - jointName: Ring1_R_Jnt_aux
+    localPosition: {x: -0.073604345, y: 0.011179611, z: 0.011003823}
+    localRotation: {x: -0.6831212, y: -0.1604991, z: 0.19393921, w: 0.68554586}
+  - jointName: Ring2_R_Jnt
+    localPosition: {x: -0.023896808, y: 0, z: 0.000000023841856}
+    localRotation: {x: -0.000053339056, y: 0.52968687, z: -0.001481873, w: -0.848192}
+  - jointName: Ring3_R_Jnt
+    localPosition: {x: -0.032414027, y: -5.9604643e-10, z: -0.000000009536743}
+    localRotation: {x: -0.0000000124343735, y: 0.56150836, z: 0.00000007255073, w: -0.8274711}
+  - jointName: Ring4_R_Jnt
+    localPosition: {x: -0.021078033, y: 0, z: -0.000000009536743}
+    localRotation: {x: -0.0000000036486885, y: 0.5040098, z: 0.000000002736123, w: -0.86369795}
+  - jointName: Thumb1_R_Jnt
+    localPosition: {x: -0.03935596, y: -0.016383162, z: -0.030200781}
+    localRotation: {x: -0.8777587, y: -0.44251424, z: -0.18202308, w: 0.024260603}
+  - jointName: Thumb2_R_Jnt
+    localPosition: {x: -0.03368904, y: 0.00000000834465, z: 0.0000000047683715}
+    localRotation: {x: -0.000000032311828, y: 0.52828044, z: 0.00000008402273, w: -0.84907}
+  - jointName: Thumb3_R_Jnt
+    localPosition: {x: -0.023863167, y: -0.0000000011920929, z: 0}
+    localRotation: {x: -0.00000005559574, y: 0.4104381, z: -0.0000000014757315, w: -0.9118885}
