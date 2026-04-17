@@ -599,6 +599,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 5761725650441667049, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RequestChangeLevel
+      objectReference: {fileID: 0}
     - target: {fileID: 6110848964926144351, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
       propertyPath: m_text
       value: 
@@ -661,7 +665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb2cab4ff94d8d48b63a362beee0e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _roles:
+  _Roles:
     _items: []
 --- !u!114 &1028052023
 MonoBehaviour:

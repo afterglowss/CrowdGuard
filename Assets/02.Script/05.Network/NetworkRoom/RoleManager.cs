@@ -40,6 +40,13 @@ public class RoleManager : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RPC_SetPlayerRole(PlayerRef player, Role role)
     {
+        foreach (var item in Roles)
+        {
+            if (item.Value == role)
+            {
+                Roles.Remove(item.Key);
+            }
+        }
         Roles.Set(player,role);
     }
     

@@ -16,13 +16,13 @@ public class PlayerCountUI : MonoBehaviour
     private void RoleSet(bool isRoleSet)
     {
         playerRoleText.text = "";
-        foreach (var role in roleManager.Roles)
+        foreach (var player in roleManager.Roles)
         {
-            if (role.Value == RoleManager.Role.Supporter)
+            if (player.Value == RoleManager.Role.Supporter)
             {
                 playerRoleText.text += "Supporter : ";
             }
-            else if (role.Value == RoleManager.Role.Leader)
+            else if (player.Value == RoleManager.Role.Leader)
             {
                 playerRoleText.text += "Leader : ";
             }
@@ -30,7 +30,7 @@ public class PlayerCountUI : MonoBehaviour
             {
                 break;
             }
-            playerRoleText.text += $"{role.Key}\n";
+            playerRoleText.text += $"{player.Key}\n";
             
         }
         interactor.SetActive(isRoleSet);

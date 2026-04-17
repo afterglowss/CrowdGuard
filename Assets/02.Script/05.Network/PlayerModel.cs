@@ -1,8 +1,11 @@
+using System;
+using Capstone.Photon.Room;
 using Fusion;
 using UnityEngine;
 
 public class PlayerModel : NetworkBehaviour
 {
+    public static PlayerModel LocalPlayerModel;
     private Transform _target;
 
     [SerializeField] private Renderer headObj;
@@ -13,6 +16,13 @@ public class PlayerModel : NetworkBehaviour
     public ObjectTracker head;
     public ObjectTracker leftHand;
     public ObjectTracker rightHand;
+
+
+    public override void Spawned()
+    {
+        base.Spawned();
+        Debug.Log("IsSpawned");
+    }
 
     public void Init(LocalPlayerController controller)
     {
@@ -26,6 +36,7 @@ public class PlayerModel : NetworkBehaviour
         head.Init(controller.head);
         leftHand.Init(controller.leftHand);
         rightHand.Init(controller.rightHand);
+        
     }
     
 }

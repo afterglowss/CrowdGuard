@@ -17,16 +17,17 @@ namespace Capstone.Photon.Game
         private NetworkRunner _currentRunner;
         private void Start()
         {
-            if (PhotonManager.Instance)
-            {
-                _currentRunner = PhotonManager.Instance.InstanceRunner;
-                _currentRunner.AddCallbacks(this);
-            }
+            if (!PhotonManager.Instance) return;
+            _currentRunner = PhotonManager.Instance.InstanceRunner;
+            _currentRunner.AddCallbacks(this);
         }
         
         private void OnDestroy()
         {
-            _currentRunner.RemoveCallbacks(this);
+            if (_currentRunner)
+            {
+                _currentRunner.RemoveCallbacks(this);
+            }
         }
 
         public void OnSceneLoadDone(NetworkRunner runner)
@@ -35,6 +36,7 @@ namespace Capstone.Photon.Game
             if (playerModel.TryGetComponent(out PlayerModel model))
             {
                 model.Init(localController);
+                PlayerModel.LocalPlayerModel = model;
             }
             Debug.Log($"LocalPlayer {runner.LocalPlayer} Model Set");
             //playerManager.RPC_AddPlayer(runner.LocalPlayer,playerModel);
