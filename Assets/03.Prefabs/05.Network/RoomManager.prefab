@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3120651408108824185}
   - component: {fileID: 4186172157900527192}
-  - component: {fileID: 2694954837463435294}
   - component: {fileID: 853448492944955239}
   m_Layer: 0
   m_Name: NetworkDataManager
@@ -51,23 +50,9 @@ MonoBehaviour:
   Flags: 131073
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 2694954837463435294}
+  - {fileID: 0}
   - {fileID: 853448492944955239}
   ForceRemoteRenderTimeframe: 0
---- !u!114 &2694954837463435294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2629187495785759914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a632d4f602a58045be88358b1e00779, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Players:
-    _items: []
 --- !u!114 &853448492944955239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 5379304984727071042, guid: afcd9f4ca9b51c54ebf5eeea3f140850, type: 3}
   localController: {fileID: 0}
-  playerManager: {fileID: 2694954837463435294}
+  playerManager: {fileID: 0}
   roleManager: {fileID: 0}
 --- !u!114 &7970448086249145261
 MonoBehaviour:

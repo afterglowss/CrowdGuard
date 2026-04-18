@@ -1,24 +1,20 @@
 using System;
+using System.Collections.Generic;
 using Fusion;
 using UnityEngine;
 
-namespace Capstone.Photon.Room
+namespace Capstone.Photon.Game
 {
     public class PlayerManager : NetworkBehaviour
     {
-        [Networked,OnChangedRender(nameof(PlayerChanged)), Capacity(8)]
-        public NetworkDictionary<int, NetworkObject> Players { get; }
-
-        public event Action<int> OnPlayerChanged;
-
-        public override void Spawned()
+        public static PlayerManager Instance;
+        public Dictionary<Role.Role, NetworkObject> players;
+        
+        private void Awake()
         {
-            OnPlayerChanged?.Invoke(Players.Count);
-        }
-
-        void PlayerChanged()
-        {
-            OnPlayerChanged?.Invoke(Players.Count);
+            if(!Instance) Instance = this;
+            else if(Instance != this) Destroy(gameObject);
+            players = new Dictionary<Role.Role, NetworkObject>();
         }
         
         /// <summary>
@@ -26,23 +22,31 @@ namespace Capstone.Photon.Room
         /// </summary>
         /// <param name="player"></param>
         /// <param name="obj"></param>
-        [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-        public void RPC_AddPlayer(PlayerRef player, NetworkObject obj)
+        public void SetPlayer(Role.Role role, NetworkObject obj)
         {
-            Players.Set(player.AsIndex, obj);
-            Debug.Log($"{player} Added, Player Object's name : {obj.name}, Current Players Count : {Players.Count} ");
+            players[role] = obj;
+            
+            foreach (var player in players)
+            {
+                Debug.Log($"{players.Count} ---- {player.Key} : {player.Value}");
+            }
+
+            if (players.Count >= 2)
+            {
+                SetGameSystem(players[Role.Role.Leader],players[Role.Role.Supporter]);
+                
+                
+            }
         }
 
-        /// <summary>
-        /// 플레이어 퇴장 시 dictionary에서 값 제거
-        /// </summary>
-        /// <param name="player"></param>
-        [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-        public void RPC_RemovePlayer(PlayerRef player)
+        public void SetGameSystem(NetworkObject leader, NetworkObject supporter)
         {
-            Players.Remove(player.AsIndex);
-            Debug.Log($"{player} Removed, Current Players Count : {Players.Count}");
+            //TODO : 로프 연결 및 두 플레이어 간 필요한 세팅 구현
+            
+            // TODO : 게임 시작 기능 구현, 기록 타이머, 재난 세팅
+            GameManager.Instance.GameStart();
         }
+        
 
     }
 }

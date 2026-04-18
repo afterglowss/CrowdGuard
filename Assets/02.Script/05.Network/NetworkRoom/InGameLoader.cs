@@ -16,7 +16,6 @@ namespace Capstone.Photon
         public void RPC_ChangeLevel(int sceneIndex)
         {
             Debug.Log($"Changing level to {sceneIndex}");
-            Runner.MakeDontDestroyOnLoad(RoleManager.Instance.gameObject);
             Runner.LoadScene(SceneRef.FromIndex(sceneIndex));
         }
     }

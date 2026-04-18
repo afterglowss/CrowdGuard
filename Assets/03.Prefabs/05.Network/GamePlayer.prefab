@@ -338,7 +338,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTrackingPos: 0
-  isTrackingRot: 1
+  isTrackingRotX: 0
+  isTrackingRotY: 0
+  isTrackingRotZ: 0
 --- !u!114 &2339762975654165936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,7 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 3293231224
+  SortKey: 2540327407
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
@@ -475,7 +477,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTrackingPos: 1
-  isTrackingRot: 1
+  isTrackingRotX: 0
+  isTrackingRotY: 0
+  isTrackingRotZ: 0
 --- !u!114 &733225447020874720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,7 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 1850738214
+  SortKey: 1097834397
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
@@ -643,7 +647,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTrackingPos: 1
-  isTrackingRot: 1
+  isTrackingRotX: 0
+  isTrackingRotY: 0
+  isTrackingRotZ: 0
 --- !u!114 &81361764211507153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,7 +662,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 3070410999
+  SortKey: 2317507182
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
@@ -809,9 +815,9 @@ GameObject:
   - component: {fileID: 4659755530066307855}
   - component: {fileID: -8242952608237055723}
   - component: {fileID: 5669866011447768538}
-  - component: {fileID: 4059543211188913134}
+  - component: {fileID: 4422011977856918670}
   m_Layer: 0
-  m_Name: Player
+  m_Name: GamePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -851,7 +857,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 4130458374
+  SortKey: 3377554557
   ObjectInterest: 1
   Flags: 262145
   NestedObjects:
@@ -864,7 +870,7 @@ MonoBehaviour:
   - {fileID: 4659755530066307855}
   - {fileID: -8242952608237055723}
   - {fileID: 5669866011447768538}
-  - {fileID: 4059543211188913134}
+  - {fileID: 4422011977856918670}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &4659755530066307855
 MonoBehaviour:
@@ -908,8 +914,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTrackingPos: 1
-  isTrackingRot: 0
---- !u!114 &4059543211188913134
+  isTrackingRotX: 0
+  isTrackingRotY: 1
+  isTrackingRotZ: 0
+--- !u!114 &4422011977856918670
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -918,7 +926,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5379304984727071042}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 934b1cd291d29b841baf8beb500743a8, type: 3}
+  m_Script: {fileID: 11500000, guid: bdadc025a0cf60c408eb277a5df2b4a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   headObj: {fileID: 5430553869439985662}
@@ -1010,7 +1018,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 1934370740
+  SortKey: 1181466923
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
@@ -1120,7 +1128,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 3705603831
+  SortKey: 2952700014
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []

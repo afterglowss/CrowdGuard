@@ -1,18 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Fusion;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static GameManager Instance;
+    
+    private void Awake()
     {
-        
+        if(!Instance)Instance = this;
+        else if(Instance != this) Destroy(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GameStart()
     {
-        
+        // TODO : 게임 매니저 NetworkBehaviour로 변경 및 함수에 RPC 추가,
+        Debug.Log($"GameStart");
     }
 }

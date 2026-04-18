@@ -18,11 +18,11 @@ public class PlayerCountUI : MonoBehaviour
         playerRoleText.text = "";
         foreach (var player in roleManager.Roles)
         {
-            if (player.Value == RoleManager.Role.Supporter)
+            if (player.Value == Role.Role.Supporter)
             {
                 playerRoleText.text += "Supporter : ";
             }
-            else if (player.Value == RoleManager.Role.Leader)
+            else if (player.Value == Role.Role.Leader)
             {
                 playerRoleText.text += "Leader : ";
             }

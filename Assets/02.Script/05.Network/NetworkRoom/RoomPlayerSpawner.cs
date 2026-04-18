@@ -10,7 +10,6 @@ namespace Capstone.Photon.Room
     {
         public GameObject playerPrefab;
         public LocalPlayerController localController;
-        public PlayerManager playerManager;
         public RoleManager roleManager;
         
         private NetworkRunner _currentRunner;
@@ -41,15 +40,12 @@ namespace Capstone.Photon.Room
             {
                 model.Init(localController);
             }
-            playerManager.RPC_AddPlayer(player,playerModel);
             Debug.Log("Player joined");
         }
         
         public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
         {
             Debug.Log($" master : {runner.IsSharedModeMasterClient}");
-            //if (!runner.IsSharedModeMasterClient) return;
-            playerManager.RPC_RemovePlayer(player);
             roleManager.RPC_RemovePlayer(player);
             Debug.Log("Player Left");
             

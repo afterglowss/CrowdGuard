@@ -1,19 +1,13 @@
 using System;
+using System.Collections.Generic;
 using Fusion;
-
+using UnityEngine;
 
 public class RoleManager : NetworkBehaviour
 {
     public static RoleManager Instance{ get; private set;} 
-    
-    public enum Role
-    {
-        None = 0,
-        Leader,
-        Supporter
-    }
 
-    [Networked,OnChangedRender(nameof(RoleChanged))] public NetworkDictionary<PlayerRef,Role> Roles { get; }
+    [Networked,OnChangedRender(nameof(RoleChanged))] public NetworkDictionary<PlayerRef,Role.Role> Roles { get; }
 
     public event Action<bool> OnRoleAccepted;
     
@@ -23,6 +17,8 @@ public class RoleManager : NetworkBehaviour
         Instance = this;
         RoleChanged();
         base.Spawned();
+        Runner.MakeDontDestroyOnLoad(gameObject);
+        
     }
 
     // 싱글턴 제거
@@ -38,7 +34,7 @@ public class RoleManager : NetworkBehaviour
     /// <param name="player"></param>
     /// <param name="role"></param>
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void RPC_SetPlayerRole(PlayerRef player, Role role)
+    public void RPC_SetPlayerRole(PlayerRef player, Role.Role role)
     {
         foreach (var item in Roles)
         {
@@ -65,11 +61,11 @@ public class RoleManager : NetworkBehaviour
     /// </summary>
     private void RoleChanged()
     {
-        var role = Role.None;
+        var role = Role.Role.None;
 
         foreach (var item in Roles)
         {
-            if (role == Role.None)
+            if (role == Role.Role.None)
             {
                 role = item.Value;
             }
@@ -82,5 +78,17 @@ public class RoleManager : NetworkBehaviour
             }
         }
         OnRoleAccepted?.Invoke(false);
+
     }
 }
+
+namespace Role
+{
+    public enum Role
+    {
+        None = 0,
+        Leader = 1,
+        Supporter = 2
+    }
+}
+

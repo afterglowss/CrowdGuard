@@ -599,6 +599,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 4186172157900527192, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4186172157900527192, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
+      propertyPath: NetworkedBehaviours.Array.data[0]
+      value: 
+      objectReference: {fileID: 1001808619}
     - target: {fileID: 5761725650441667049, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RequestChangeLevel
@@ -635,6 +643,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
+--- !u!114 &1001808619 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 853448492944955239, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
+  m_PrefabInstance: {fileID: 1001808618}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28106d1bc1a2ae642a4f547933af5dec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1028052021
 GameObject:
   m_ObjectHideFlags: 0
