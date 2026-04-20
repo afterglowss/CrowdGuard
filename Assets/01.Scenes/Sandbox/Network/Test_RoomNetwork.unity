@@ -607,26 +607,10 @@ PrefabInstance:
       propertyPath: NetworkedBehaviours.Array.data[0]
       value: 
       objectReference: {fileID: 1001808619}
-    - target: {fileID: 5761725650441667049, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: RequestChangeLevel
-      objectReference: {fileID: 0}
-    - target: {fileID: 6110848964926144351, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
-      propertyPath: m_text
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7970448086249145261, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
       propertyPath: roleManager
       value: 
       objectReference: {fileID: 1028052022}
-    - target: {fileID: 8642539569457798474, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 8642539569457798474, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 9019952474075189788, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
       propertyPath: roleManager
       value: 
@@ -645,7 +629,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
 --- !u!114 &1001808619 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 853448492944955239, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1056184864921655234, guid: 45404095f5db62a47b969ee27f43b595, type: 3}
   m_PrefabInstance: {fileID: 1001808618}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

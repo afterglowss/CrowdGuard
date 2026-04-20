@@ -12,7 +12,6 @@ public class GamePlayerModel : PlayerModel
         base.Spawned();
         // TODO : 오브젝트 등록하기 현재 권한, 해당 오브젝트
         Debug.Log($"{RoleManager.Instance}");
-        Debug.Log($"{RoleManager.Instance.Roles[Object.StateAuthority]}");
         CurrentRole = RoleManager.Instance.Roles[Object.StateAuthority];
         Debug.Log($"{CurrentRole}");
         PlayerManager.Instance.SetPlayer(CurrentRole, Object);

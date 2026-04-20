@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3120651408108824185}
   - component: {fileID: 4186172157900527192}
-  - component: {fileID: 853448492944955239}
+  - component: {fileID: 1056184864921655234}
   m_Layer: 0
   m_Name: NetworkDataManager
   m_TagString: Untagged
@@ -49,11 +49,9 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 131073
   NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 0}
-  - {fileID: 853448492944955239}
+  NetworkedBehaviours: []
   ForceRemoteRenderTimeframe: 0
---- !u!114 &853448492944955239
+--- !u!114 &1056184864921655234
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,7 +113,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 5379304984727071042, guid: afcd9f4ca9b51c54ebf5eeea3f140850, type: 3}
   localController: {fileID: 0}
-  playerManager: {fileID: 0}
   roleManager: {fileID: 0}
 --- !u!114 &7970448086249145261
 MonoBehaviour:
@@ -167,7 +164,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 2}
-  m_SizeDelta: {x: 20, y: 5}
+  m_SizeDelta: {x: 35, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8355451276073739482
 MeshRenderer:
@@ -231,7 +228,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player  0/2
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -458,9 +455,9 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 853448492944955239}
+      - m_Target: {fileID: 1056184864921655234}
         m_TargetAssemblyTypeName: Capstone.Photon.InGameLoader, Assembly-CSharp
-        m_MethodName: ChangeLevel
+        m_MethodName: RequestChangeLevel
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
