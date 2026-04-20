@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Photon.Voice.Unity.Demos;
 using UnityEngine;
 using System.Collections;
@@ -22,7 +22,7 @@ public class AvalanchePathSystem : MonoBehaviour
     public bool collidersAreTriggers = true;
     public PhysicMaterial colliderMaterial;
     [SerializeField] private float colliderCleanupDelay = 1.0f;
-    
+
     [Header("Debug")]
     [SerializeField] private float travelledDistance;
     [SerializeField] private float totalLength;
@@ -252,15 +252,27 @@ public class AvalanchePathSystem : MonoBehaviour
 
     private void UpdateParticleFront()
     {
-        if (avalancheParticles == null) return;
+        if (avalancheParticles == null && snowParticles == null) return;
 
         GetPointAndForwardAtDistance(travelledDistance, out Vector3 position, out Vector3 forward);
 
-        avalancheParticles.transform.position = position;
-        snowParticles.transform.position = position;
+        Quaternion rot = Quaternion.identity;
         if (forward.sqrMagnitude > 0.0001f)
-            avalancheParticles.transform.rotation = Quaternion.LookRotation(forward.normalized, Vector3.up);
-            snowParticles.transform.rotation = Quaternion.LookRotation(forward.normalized, Vector3.up);
+            rot = Quaternion.LookRotation(forward.normalized, Vector3.up);
+
+        if (avalancheParticles != null)
+        {
+            avalancheParticles.transform.position = position;
+            if (forward.sqrMagnitude > 0.0001f)
+                avalancheParticles.transform.rotation = rot;
+        }
+
+        if (snowParticles != null)
+        {
+            snowParticles.transform.position = position;
+            if (forward.sqrMagnitude > 0.0001f)
+                snowParticles.transform.rotation = rot;
+        }
     }
 
     private void UpdateSegmentCollider(int i)

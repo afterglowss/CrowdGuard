@@ -17,7 +17,19 @@ namespace SimpleAudioManager
             Avalanche = 3,
             Blizzard = 4,
             IceBreak = 5,
+            Falling = 6,
+            AnchorInstall = 7,
+            TakeFromPouch = 8,
+            PutInPouch = 9,
+            AnchorBreak = 10,
+            TentDoor = 11,
             
+            SensorBeep = 12,
+            SensorSwitch =13,
+            
+            Confirm = 90,
+            Cancel = 91,
+
         }
         [Serializable]
         public class SFXEntry
@@ -57,7 +69,7 @@ namespace SimpleAudioManager
         [Tooltip("The maximum volume for the audio clips.")][Range(0f, 1f)] public float maxVolume = 1f;
         [Tooltip("The amount of time it will take for different songs to blend between one-another.")] public float defaultSongBlendDuration = 1f;
         [Tooltip("The amount of time it will take for different intensities of the same song to blend between one-another.")] public float defaultIntensityBlendDuration = 1f;
-
+        [SerializeField][Range(0f, 1f)] private float musicVolume = 1f;
         [Space(8f)]
         /// <summary>
         /// The available songs for the manager
@@ -164,7 +176,7 @@ namespace SimpleAudioManager
             //  Kill the previous loop and start a new loop routine with the updated song information
             if (_loop != null) StopCoroutine(_loop);
             _loop = StartCoroutine(_Loop(pOptions.startTime));
-            StartCoroutine(_FadeVolume(_nextSource, 0f, maxVolume, pOptions.blendInTime));
+            StartCoroutine(_FadeVolume(_nextSource, 0f, maxVolume * musicVolume, pOptions.blendInTime));
             _nextSource.clip = _clip;
             _nextSource.time = pOptions.startTime;
             _nextSource.Play();
@@ -193,7 +205,13 @@ namespace SimpleAudioManager
 
         public void SetMusicVolume(float pVolume)
         {
-            _currentSource.volume = pVolume;
+            musicVolume = Mathf.Clamp01(pVolume);
+
+            for (int i = 0; i < sourcePool.Count; i++)
+            {
+                if (sourcePool[i] != null && sourcePool[i].gameObject.activeSelf)
+                    sourcePool[i].volume = Mathf.Min(sourcePool[i].volume, maxVolume * musicVolume);
+            }
         }
 
 
@@ -227,6 +245,22 @@ namespace SimpleAudioManager
                 float baseVolume = state != null ? state.baseVolume : 1f;
 
                 source.volume = baseVolume * sfxVolume;
+            }
+        }
+        public void StopAllSFX()
+        {
+            for (int i = 0; i < sfxPool.Count; i++)
+            {
+                AudioSource source = sfxPool[i];
+                if (source == null)
+                    continue;
+
+                source.Stop();
+                source.clip = null;
+
+                PooledSFXSourceState state = source.GetComponent<PooledSFXSourceState>();
+                if (state != null)
+                    state.baseVolume = 1f;
             }
         }
         #endregion

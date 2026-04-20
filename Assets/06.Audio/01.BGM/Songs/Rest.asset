@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1727db5f4f489848a541c9857af5ff1, type: 3}
   m_Name: Rest
   m_EditorClassIdentifier: 
-  reverbTail: 0
+  reverbTail: 4.193
   intensityClips:
   - {fileID: 8300000, guid: 39fd0ba4a45b3394688f20d7cdcb2e26, type: 3}
   - {fileID: 8300000, guid: 6db248b3261e7074ab01eb98e5155635, type: 3}
