@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Capstone.Photon
 {
-    public class InGameLoader : NetworkBehaviour
+    public class SceneLoader : NetworkBehaviour
     {
         public void RequestChangeLevel(int sceneIndex)
         {
