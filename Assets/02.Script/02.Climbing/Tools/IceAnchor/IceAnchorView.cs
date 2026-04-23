@@ -1,28 +1,23 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics;
-using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using CrowdGuard.XR;
 
 namespace CrowdGuard.Climbing.Tools.IceAnchor
 {
     /// <summary>
     /// Model 이벤트를 구독하여 시각·물리·햅틱 피드백을 처리하는 View.
-    /// Rigidbody는 Body 자식 오브젝트에 있으므로 SerializeField로 참조합니다.
+    /// Rigidbody 조작은 이 클래스에서만 담당합니다.
     /// </summary>
     [RequireComponent(typeof(IceAnchorModel))]
     public class IceAnchorView : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] private IceAnchorModel _model;
-        [Tooltip("Body 오브젝트의 Rigidbody를 연결")]
+        [Tooltip("Body 오브젝트의 Rigidbody")]
         [SerializeField] private Rigidbody _rb;
 
         [Header("Haptics")]
-        [Tooltip("앵커 삽입 시 재생할 햅틱 프로파일")]
         [SerializeField] private CrowdGuard.XR.Haptics.HapticProfile _onInsertHaptic;
-
-        [Tooltip("앵커 체결 완료 시 재생할 햅틱 프로파일")]
         [SerializeField] private CrowdGuard.XR.Haptics.HapticProfile _onSecuredHaptic;
 
         [Tooltip("삽입 햅틱 — Body의 XRGrabInteractable")]
@@ -32,7 +27,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         [SerializeField] private UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable _handleSimpleInteractable;
 
         [Header("Handle Visual (손잡이 회전 피드백)")]
-        [Tooltip("회전할 손잡이의 Transform")]
+        [Tooltip("회전할 손잡이의 Transform (콜라이더+메시 포함)")]
         [SerializeField] private Transform _handleVisual;
         [Tooltip("체결 완료 시 손잡이 총 회전 각도 (도)")]
         [SerializeField] private float _totalHandleAngle = 360f;
@@ -65,7 +60,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             }
         }
 
-        // ===================== State Handlers =====================
+        // ===================== 물리 피드백 (Rigidbody 단독 관할) =====================
 
         private void HandleHeldState(bool isHeld)
         {
@@ -77,8 +72,10 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             }
             else if (!_model.IsInserted)
             {
+                // 잡고 있지 않고, 벽에도 안 박혀 있으면 → 낙하
                 _rb.useGravity = true;
                 _rb.isKinematic = false;
+                _rb.constraints = RigidbodyConstraints.None;
             }
         }
 
@@ -87,23 +84,31 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             if (_rb == null) return;
             if (isInserted)
             {
+                // 벽에 박힘 → 물리 완전 고정
+                _rb.velocity = Vector3.zero;
+                _rb.angularVelocity = Vector3.zero;
                 _rb.constraints = RigidbodyConstraints.FreezeAll;
                 SendHapticVia(_bodyGrabInteractable, _onInsertHaptic);
             }
             else
             {
+                // 벽에서 빠짐 → 물리 해제 + 낙하 + 핸들 시각 초기화
                 _rb.constraints = RigidbodyConstraints.None;
+                _rb.useGravity = true;
+                _rb.isKinematic = false;
                 if (_handleVisual != null)
                     _handleVisual.localRotation = Quaternion.identity;
             }
         }
+
+        // ===================== 시각 피드백 =====================
 
         private void HandleScrewProgress(float progress)
         {
             if (_handleVisual != null)
             {
                 float angle = -(progress * _totalHandleAngle);
-                _handleVisual.localRotation = Quaternion.AngleAxis(angle, Vector3.right);
+                _handleVisual.localRotation = Quaternion.AngleAxis(angle, Vector3.back);
             }
         }
 
@@ -111,12 +116,8 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         {
             if (isSecured)
             {
-                Debug.Log("[IceAnchorView] ===== 앵커 완전 체결 =====");
+                Debug.Log("[AnchorView] ===== 앵커 완전 체결 =====");
                 SendHapticVia(_handleSimpleInteractable, _onSecuredHaptic);
-            }
-            else
-            {
-                Debug.Log("[IceAnchorView] 앵커 체결 해제됨.");
             }
         }
 
@@ -124,7 +125,6 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
 
         /// <summary>
         /// 지정한 Interactable을 현재 잡고 있는 컨트롤러에 햅틱을 전송합니다.
-        /// XRGrabInteractable과 XRSimpleInteractable 모두 지원 (XRBaseInteractable 베이스).
         /// </summary>
         private void SendHapticVia(
             UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable interactable,

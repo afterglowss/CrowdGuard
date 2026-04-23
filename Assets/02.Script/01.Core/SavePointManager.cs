@@ -30,9 +30,9 @@ public class SavePointManager : MonoBehaviour
         CrowdGuard.Climbing.Tools.IceAnchor.IceAnchorController.OnAnchorSecuredGlobal -= HandleAnchorSecured;
     }
 
-    private void HandleAnchorSecured(Vector3 anchorPos)
+    private void HandleAnchorSecured(CrowdGuard.Climbing.Tools.IceAnchor.IceAnchorModel model)
     {
-        lastSafePosition = anchorPos;
+        lastSafePosition = model.transform.position;
         Debug.Log($"[SavePointManager] 세이브 포인트 갱신! 이제 추락하면 이곳({lastSafePosition})에서 부활합니다.");
     }
 
