@@ -197,7 +197,7 @@ namespace SimpleAudioManager
         }
 
 
-        public void PlaySFX(SFXType type, Transform spawnTransform, float volume = 1f)
+        public void PlaySFX(SFXType type, Transform spawnTransform)
         {
             if (sfxDict == null || !sfxDict.TryGetValue(type, out List<AudioClip> clips) || clips == null || clips.Count == 0)
             {
@@ -206,7 +206,7 @@ namespace SimpleAudioManager
             }
 
             AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Count)];
-            PlaySFXInternal(clip, spawnTransform, volume);
+            PlaySFXInternal(clip, spawnTransform, sfxVolume);
         }
 
         public class PooledSFXSourceState : MonoBehaviour
@@ -458,27 +458,27 @@ namespace SimpleAudioManager
         #region TEST CODE
         public void PlayPickIceSFX()
         {
-            PlaySFX(SFXType.PickIce, transform, 1f);
+            PlaySFX(SFXType.PickIce, transform);
         }
 
         public void PlayPickRockSFX()
         {
-            PlaySFX(SFXType.PickRock, transform, 1f);
+            PlaySFX(SFXType.PickRock, transform);
         }
 
         public void PlayAvalancheSFX()
         {
-            PlaySFX(SFXType.Avalanche, transform, 1f);
+            PlaySFX(SFXType.Avalanche, transform);
         }
 
         public void PlayBlizzardSFX()
         {
-            PlaySFX(SFXType.Blizzard, transform, 1f);
+            PlaySFX(SFXType.Blizzard, transform);
         }
 
         public void PlayIceBreakSFX()
         {
-            PlaySFX(SFXType.IceBreak, transform, 1f);
+            PlaySFX(SFXType.IceBreak, transform);
         }
         #endregion
     }

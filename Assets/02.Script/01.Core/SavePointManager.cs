@@ -22,17 +22,17 @@ public class SavePointManager : MonoBehaviour
     private void OnEnable()
     {
         // 앵커가 돌려져서 체결될 때 발생하는 글로벌 옵저버 이벤트 구독
-        IceAnchor.OnAnchorSecured += HandleAnchorSecured;
+        CrowdGuard.Climbing.Tools.IceAnchor.IceAnchorController.OnAnchorSecuredGlobal += HandleAnchorSecured;
     }
 
     private void OnDisable()
     {
-        IceAnchor.OnAnchorSecured -= HandleAnchorSecured;
+        CrowdGuard.Climbing.Tools.IceAnchor.IceAnchorController.OnAnchorSecuredGlobal -= HandleAnchorSecured;
     }
 
-    private void HandleAnchorSecured(Vector3 anchorPos)
+    private void HandleAnchorSecured(CrowdGuard.Climbing.Tools.IceAnchor.IceAnchorModel model)
     {
-        lastSafePosition = anchorPos;
+        lastSafePosition = model.transform.position;
         Debug.Log($"[SavePointManager] 세이브 포인트 갱신! 이제 추락하면 이곳({lastSafePosition})에서 부활합니다.");
     }
 
