@@ -41,7 +41,7 @@ public class SurvivalManager : NetworkBehaviour
     private void OnValidate()
     {
         // 인스펙터에서 드래그할 때마다 셰이더를 강제로 업데이트합니다.
-        UpdateShaderEffect(); 
+        UpdateShaderEffect(editorFreezeGauge); 
     }
     #endif
 
