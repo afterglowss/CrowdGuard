@@ -111,7 +111,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
             {
                 _model.InteractorTransform = args.interactorObject.transform;
             }
-            
+
             TryAttachToWall();
         }
 
