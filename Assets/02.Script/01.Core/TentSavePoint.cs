@@ -1,77 +1,22 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class TentSavePoint : MonoBehaviour
 {
-    [Tooltip("텐트에서 나올 때 자동으로 세이브/부활 처리될 앵커 위치")]
-    public Transform autoAnchorSpawnPos;
+    [Tooltip("이 텐트 밖으로 나갈 때 플레이어들이 서 있게 될 중앙 위치")]
+    public Transform exteriorPos;
 
-    [Tooltip("(선택) 시각적으로 세이브를 알리기 위해 텐트 옆에 소환할 앵커 프리팹")]
-    public GameObject anchorPrefab;
-
-    private bool isInteracting = false;
-
-    /// <summary>
-    /// XR 시스템(그립 트리거 등)에서 텐트와 상호작용할 때 외부에서 호출
-    /// </summary>
-    public void InteractWithTent()
+    public void EnterTent()
     {
-        if (isInteracting) return;
-        StartCoroutine(TentSequenceRoutine());
-    }
+        Debug.Log($"[TentSavePoint] {gameObject.name}에서 2인 진입 시퀀스를 시작합니다.");
 
-    public Transform interiorPos; // 3단계의 Interior_Target
-    public Transform exteriorPos; // 2단계의 RespawnPoint
-    public GameObject playerObj;  // 플레이어 리깅 오브젝트
+        // 1. "Player" 태그를 가진 모든 오브젝트를 찾습니다.
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-    private IEnumerator TentSequenceRoutine()
-    {
-        isInteracting = true;
-
-        // 1. 화면 암전 처리 (Fade Out: 밝은 화면 -> 검은 화면)
-        Debug.Log("[TentSavePoint] 텐트 진입 완료. 화면을 암전합니다.");
-        if (ScreenEffectManager.Instance != null)
+        if (TentInteriorController.Instance != null && players.Length > 0)
         {
-            yield return StartCoroutine(ScreenEffectManager.Instance.FadeScreenRoutine(1f, false));
+            // 2. 내부 컨트롤러에 들어온 텐트 정보와 플레이어 목록을 넘깁니다.
+            TentInteriorController.Instance.EnterFromTent(this, players);
         }
-
-        playerObj.transform.position = interiorPos.position;
-
-        yield return new WaitForSeconds(1.5f); // 정비 시간 대기
-
-        // 2. 동결 수치 완전 회복
-        if (SurvivalManager.Instance != null)
-        {
-            SurvivalManager.Instance.RestoreFreezeGauge();
-        }
-
-        // 3. 앵커 보급 (최소 5개 유지)
-        if (EquipmentManager.Instance != null)
-        {
-            EquipmentManager.Instance.SupplyAnchorsAtTent();
-        }
-
-        // 4. 세이브 포인트 강제 지정
-        Vector3 savePosition = autoAnchorSpawnPos != null ? autoAnchorSpawnPos.position : transform.position;
-        if (SavePointManager.Instance != null)
-        {
-            SavePointManager.Instance.ForceSetSavePoint(savePosition);
-        }
-
-        // (옵션) XR 팀에서 실제로 벽에 박힌 시각적 프리팹을 요구한다면 생성
-        if (anchorPrefab != null && autoAnchorSpawnPos != null)
-        {
-            Instantiate(anchorPrefab, autoAnchorSpawnPos.position, autoAnchorSpawnPos.rotation);
-        }
-
-        Debug.Log("[TentSavePoint] 텐트 정비 완료. 화면을 다시 밝힙니다.");
-
-        // 5. 화면 암전 해제 (Fade In: 검은 화면 -> 밝은 화면)
-        if (ScreenEffectManager.Instance != null)
-        {
-            yield return StartCoroutine(ScreenEffectManager.Instance.FadeScreenRoutine(1f, true));
-        }
-        
-        isInteracting = false;
     }
 }
