@@ -121,5 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfada326a74a0bc4185a17ee6447ab9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 5379304984727071042, guid: afcd9f4ca9b51c54ebf5eeea3f140850, type: 3}
+  playerPrefab: {fileID: 5379304984727071042, guid: 0bb6c91ca0c2e0b42a309bc4d8be0ac4, type: 3}
   localController: {fileID: 0}
