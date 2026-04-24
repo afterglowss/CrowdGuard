@@ -10,6 +10,10 @@ public class TentInteriorController : MonoBehaviour
     public Transform player1InteriorPos; // 플레이어 1용 위치
     public Transform player2InteriorPos; // 플레이어 2용 위치
 
+    [Header("로컬 플레이어")]
+    [Tooltip("씬의 XR Origin Rig 루트 오브젝트를 여기에 연결하세요.")]
+    public Transform localXRRig;
+
     [Header("랜턴 세팅 (이중 제어)")]
     public Light lanternLight;             // 실제 빛 컴포넌트
     public GameObject lanternEmissionObj;  // Emission 머테리얼이 적용된 메시 오브젝트
@@ -41,9 +45,14 @@ public class TentInteriorController : MonoBehaviour
         if (ScreenEffectManager.Instance != null)
             yield return StartCoroutine(ScreenEffectManager.Instance.FadeScreenRoutine(0.5f, false));
 
-        // 플레이어들을 각각의 위치로 분산 배치
-        if (currentPlayers.Length >= 1) currentPlayers[0].transform.position = player1InteriorPos.position;
-        if (currentPlayers.Length >= 2) currentPlayers[1].transform.position = player2InteriorPos.position;
+        // 로컬 플레이어는 XR 리그를 직접 이동 (PlayerModel 아바타가 아닌 실제 리그)
+        if (localXRRig != null)
+            localXRRig.position = player1InteriorPos.position;
+        else if (currentPlayers.Length >= 1)
+            currentPlayers[0].transform.position = player1InteriorPos.position;
+
+        if (currentPlayers.Length >= 2)
+            currentPlayers[1].transform.position = player2InteriorPos.position;
 
         if (ScreenEffectManager.Instance != null)
             yield return StartCoroutine(ScreenEffectManager.Instance.FadeScreenRoutine(0.5f, true));
@@ -88,8 +97,13 @@ public class TentInteriorController : MonoBehaviour
 
         // 밖으로 나갈 때는 겹치지 않게 약간의 오프셋을 줍니다.
         Vector3 exitPos = currentEnteredTent.exteriorPos.position;
-        if (currentPlayers.Length >= 1) currentPlayers[0].transform.position = exitPos + new Vector3(0.5f, 0, 0);
-        if (currentPlayers.Length >= 2) currentPlayers[1].transform.position = exitPos + new Vector3(-0.5f, 0, 0);
+        if (localXRRig != null)
+            localXRRig.position = exitPos + new Vector3(0.5f, 0, 0);
+        else if (currentPlayers.Length >= 1)
+            currentPlayers[0].transform.position = exitPos + new Vector3(0.5f, 0, 0);
+
+        if (currentPlayers.Length >= 2)
+            currentPlayers[1].transform.position = exitPos + new Vector3(-0.5f, 0, 0);
 
         if (ScreenEffectManager.Instance != null)
             yield return StartCoroutine(ScreenEffectManager.Instance.FadeScreenRoutine(0.5f, true));

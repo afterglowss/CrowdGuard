@@ -13,9 +13,10 @@ public class TentSavePoint : MonoBehaviour
         // 1. "Player" 태그를 가진 모든 오브젝트를 찾습니다.
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        if (TentInteriorController.Instance != null && players.Length > 0)
+        if (TentInteriorController.Instance != null)
         {
             // 2. 내부 컨트롤러에 들어온 텐트 정보와 플레이어 목록을 넘깁니다.
+            // (솔로 테스트 시 players가 비어있어도 localXRRig로 이동)
             TentInteriorController.Instance.EnterFromTent(this, players);
         }
     }

@@ -13,31 +13,32 @@ namespace Capstone.Photon.Game
         public GameObject playerPrefab;
         public LocalPlayerController localController;
         public Room.PlayerManager playerManager;
+        public RopeSystem ropeSystem;
 
         private NetworkRunner _currentRunner;
+
         private void Start()
         {
-            if (PhotonManager.Instance)
-            {
-                _currentRunner = PhotonManager.Instance.InstanceRunner;
-                _currentRunner.AddCallbacks(this);
-            }
+            if (!PhotonManager.Instance) return;
+            _currentRunner = PhotonManager.Instance.InstanceRunner;
+            _currentRunner.AddCallbacks(this);
         }
-        
+
         private void OnDestroy()
         {
-            _currentRunner.RemoveCallbacks(this);
+            if (_currentRunner)
+            {
+                _currentRunner.RemoveCallbacks(this);
+            }
         }
 
         public void OnSceneLoadDone(NetworkRunner runner)
         {
             var playerModel = runner.Spawn(playerPrefab,Vector3.zero,Quaternion.identity,runner.LocalPlayer);
-            if (playerModel.TryGetComponent(out PlayerModel model))
+            if (playerModel.TryGetComponent(out GamePlayerModel model))
             {
                 model.Init(localController);
             }
-            Debug.Log($"LocalPlayer {runner.LocalPlayer} Model Set");
-            //playerManager.RPC_AddPlayer(runner.LocalPlayer,playerModel);
         }
 
 
