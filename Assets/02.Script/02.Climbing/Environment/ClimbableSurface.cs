@@ -17,6 +17,7 @@ namespace CrowdGuard.Environment
     /// 아이스 바일이 이 컴포넌트를 감지하여 벽의 종류를 판별하고, 
     /// 약한 얼음의 파괴 및 낙석 이벤트를 처리합니다.
     /// </summary>
+    [System.Obsolete("BaseSurface 계층 구조(BlueIceSurface, RockSurface 등)로 대체되었습니다. 추후 삭제 예정.")]
     public class ClimbableSurface : MonoBehaviour
     {
         [Header("Surface Properties")]
@@ -32,21 +33,21 @@ namespace CrowdGuard.Environment
             {
                 Debug.Log("[ClimbableSurface] 바위를 타격했습니다. 바일이 박히지 않고 튕깁니다.");
                 // Todo: 금속 파찰음 및 스파크 이펙트 발생
-                return false; 
+                return false;
             }
 
             if (Type == SurfaceType.WeakIce)
             {
                 Debug.Log("[ClimbableSurface] 약한 얼음을 타격했습니다. 파괴 확률 계산 중...");
-                
+
                 // 70% 확률로 얼음 파괴
                 float randomVal = Random.Range(0f, 1f);
                 if (randomVal <= 0.7f)
                 {
                     BreakIce();
-                    
+
                     // 얼음이 파괴될 때 50% 확률로 낙석 트리거
-                    if (Random.Range(0f, 1f) <= 0.5f) 
+                    if (Random.Range(0f, 1f) <= 0.5f)
                     {
                         TriggerRockfall();
                     }
