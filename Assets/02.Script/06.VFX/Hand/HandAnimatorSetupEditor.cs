@@ -1,6 +1,8 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.Animations;
+
 
 namespace CrowdGuard.Editor.Hand
 {
@@ -142,3 +144,5 @@ namespace CrowdGuard.Editor.Hand
         }
     }
 }
+#endif
+

@@ -57,7 +57,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         // Body 관련
         private bool _isTriggerHeld;
         private bool _isTouchingWall;
-        private ClimbableSurface _currentSurface;
+        private BaseSurface _currentSurface;
         private Vector3 _wallContactPoint;
         private Vector3 _wallNormal;
 
@@ -216,11 +216,11 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
 
         // ===================== 벽 접촉 (from IceAnchorTip) =====================
 
-        public void OnWallContactEnter(ClimbableSurface surface, Vector3 contactPoint, Vector3 normal)
+        public void OnWallContactEnter(BaseSurface surface, Vector3 contactPoint, Vector3 normal)
         {
-            if (surface.Type == SurfaceType.Rock)
+            if (!surface.CanInstallAnchor())
             {
-                Debug.Log("[Anchor] 바위에는 앵커를 설치할 수 없습니다.");
+                Debug.Log("[Anchor] 이 표면에는 앵커를 설치할 수 없습니다.");
                 return;
             }
 
@@ -236,7 +236,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             }
         }
 
-        public void OnWallContactExit(ClimbableSurface surface)
+        public void OnWallContactExit(BaseSurface surface)
         {
             if (_currentSurface == surface)
             {
@@ -246,6 +246,37 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             }
         }
 
+        // ===================== 벽 접촉 — 레거시 ClimbableSurface 폴백 =====================
+
+#pragma warning disable CS0618
+        public void OnWallContactEnterLegacy(ClimbableSurface surface, Vector3 contactPoint, Vector3 normal)
+        {
+            if (surface.Type == SurfaceType.Rock)
+            {
+                Debug.Log("[Anchor] 바위에는 앵커를 설치할 수 없습니다. (legacy)");
+                return;
+            }
+
+            _isTouchingWall = true;
+            _currentSurface = null; // 레거시 표면은 BaseSurface가 아님
+            _wallContactPoint = contactPoint;
+            _wallNormal = normal;
+            _model.IsContactingWall = true;
+
+            if (_isTriggerHeld && !_model.IsInserted)
+            {
+                TryInsertIntoWall();
+            }
+        }
+
+        public void OnWallContactExitLegacy(ClimbableSurface surface)
+        {
+            _isTouchingWall = false;
+            _currentSurface = null;
+            _model.IsContactingWall = false;
+        }
+#pragma warning restore CS0618
+
         // ===================== 삽입 / 분리 =====================
 
         private void TryInsertIntoWall()
@@ -253,7 +284,6 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             if (!_isTriggerHeld) return;
             if (!_model.IsHeld) return;
             if (!_isTouchingWall) return;
-            if (_currentSurface == null) return;
             if (_model.IsInserted) return;
 
             Debug.Log("[Anchor] 벽면에 앵커를 삽입합니다.");

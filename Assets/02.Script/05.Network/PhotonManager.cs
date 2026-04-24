@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 namespace Capstone.Photon
 {
+    /// <summary>
+    /// Photon 실행 객체
+    /// </summary>
     public class PhotonManager : MonoBehaviour
     {
         /// <summary>
@@ -61,7 +64,12 @@ namespace Capstone.Photon
             yield return new WaitUntil(() => runner.IsInSession);
             Debug.Log("Reconnected to the Cloud!");
         }
-
+        
+        
+        /// <summary>
+        /// 멀티 로비 씬으로 입장
+        /// </summary>
+        /// <returns></returns>
         public async Task<bool> StartGame()
         {
             NetworkSceneInfo networkSceneInfo = default;
@@ -85,7 +93,6 @@ namespace Capstone.Photon
                 {
                     InstanceRunner = null;
                 }
-
                 return result.Ok;
             }
             catch (Exception e)
@@ -96,7 +103,7 @@ namespace Capstone.Photon
         }
         NetworkRunner InstantiateRunner(string runnerName)
         {
-            var runner = Instantiate(runnerPrefab);
+            var runner = Instantiate(runnerPrefab,transform);
             runner.name = runnerName;
             runner.ProvideInput = true;
             //runner.AddCallbacks(this);

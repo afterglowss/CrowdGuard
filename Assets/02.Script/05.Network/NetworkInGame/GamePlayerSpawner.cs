@@ -12,18 +12,15 @@ namespace Capstone.Photon.Game
     {
         public GameObject playerPrefab;
         public LocalPlayerController localController;
-        public Room.PlayerManager playerManager;
-        public RopeSystem ropeSystem;
 
         private NetworkRunner _currentRunner;
-
         private void Start()
         {
             if (!PhotonManager.Instance) return;
             _currentRunner = PhotonManager.Instance.InstanceRunner;
             _currentRunner.AddCallbacks(this);
         }
-
+        
         private void OnDestroy()
         {
             if (_currentRunner)

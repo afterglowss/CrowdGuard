@@ -17,23 +17,44 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         {
             if (_controller == null) return;
 
-            ClimbableSurface surface = other.GetComponent<ClimbableSurface>();
-            if (surface == null) return;
+            // BaseSurface 우선, ClimbableSurface 폴백
+            BaseSurface baseSurface = other.GetComponentInParent<BaseSurface>();
+            if (baseSurface != null)
+            {
+                Vector3 contactPoint = other.ClosestPoint(transform.position);
+                Vector3 normal = (transform.position - contactPoint).normalized;
+                _controller.OnWallContactEnter(baseSurface, contactPoint, normal);
+                return;
+            }
 
-            Vector3 contactPoint = other.ClosestPoint(transform.position);
-            Vector3 normal = (transform.position - contactPoint).normalized;
-
-            _controller.OnWallContactEnter(surface, contactPoint, normal);
+#pragma warning disable CS0618 // Obsolete 경고 무시 (테스트용 폴백)
+            ClimbableSurface legacySurface = other.GetComponentInParent<ClimbableSurface>();
+#pragma warning restore CS0618
+            if (legacySurface != null)
+            {
+                Vector3 contactPoint = other.ClosestPoint(transform.position);
+                Vector3 normal = (transform.position - contactPoint).normalized;
+                _controller.OnWallContactEnterLegacy(legacySurface, contactPoint, normal);
+                return;
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (_controller == null) return;
 
-            ClimbableSurface surface = other.GetComponent<ClimbableSurface>();
-            if (surface == null) return;
+            BaseSurface baseSurface = other.GetComponentInParent<BaseSurface>();
+            if (baseSurface != null)
+            {
+                _controller.OnWallContactExit(baseSurface);
+                return;
+            }
 
-            _controller.OnWallContactExit(surface);
+#pragma warning disable CS0618
+            ClimbableSurface legacySurface = other.GetComponentInParent<ClimbableSurface>();
+#pragma warning restore CS0618
+            if (legacySurface != null)
+                _controller.OnWallContactExitLegacy(legacySurface);
         }
     }
 }
