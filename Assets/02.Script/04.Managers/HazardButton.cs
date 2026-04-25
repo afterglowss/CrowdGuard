@@ -11,6 +11,6 @@ public class HazardButton : MonoBehaviour
     /// </summary>
     public void TriggerAvalanche()
     {
-        HazardManager.Instance?.TriggerAvalanche(avalancheIndex);
+        HazardManager.Instance?.RPC_TriggerAvalanche(avalancheIndex);
     }
 }
