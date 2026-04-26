@@ -673,7 +673,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Apine \n\tAscent"
+  m_text: "Alpine \n\tAscent"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a6ec41d40a02d643955c7408c8d8cf9, type: 2}
   m_sharedMaterial: {fileID: -5066382080206739745, guid: 6a6ec41d40a02d643955c7408c8d8cf9, type: 2}
