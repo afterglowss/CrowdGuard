@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
         }
         else // 둘 다 놓았거나, 둘 다 벽에서 빠졌다면 무조건 추락!
         {
-            if (CurrentState == ClimbingState && !AnchorSafeZone.IsPlayerSafe)
+            if (CurrentState == ClimbingState && !AnchorSafeZone.CheckSafety(xrRigPivot.position))
                 ChangeState(FallingState);
         }
     }
