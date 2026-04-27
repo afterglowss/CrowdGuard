@@ -24,7 +24,9 @@ namespace Capstone.Photon.Room
         
         private void OnDestroy()
         {
-            _currentRunner.RemoveCallbacks(this);
+            if(_currentRunner){
+                _currentRunner.RemoveCallbacks(this);
+            }
         }
 
 
