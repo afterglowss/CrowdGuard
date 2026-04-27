@@ -346,6 +346,35 @@ public class AvalanchePathSystem : MonoBehaviour
         forward = (waypoints[waypoints.Count - 1].position - waypoints[waypoints.Count - 2].position).normalized;
     }
 
+    // ─────────────────────────────────────────────────────────────
+    //  외부 공개 API (센서 등에서 현재 선두 위치 조회용)
+    // ─────────────────────────────────────────────────────────────
+
+    /// <summary>
+    /// 눈사태 시작 위치 (waypoints[0]).
+    /// 경고 단계에서 센서가 가리킬 기준점으로 사용합니다.
+    /// </summary>
+    public Vector3 GetStartPosition()
+    {
+        if (waypoints == null || waypoints.Count == 0)
+            return transform.position;
+        return waypoints[0].position;
+    }
+
+    /// <summary>
+    /// 현재 눈사태 선두 위치를 반환합니다.
+    /// 재생 중이면 이동 중인 실제 위치, 아니면 시작 지점을 반환합니다.
+    /// 센서가 실시간으로 눈사태를 추적할 때 사용합니다.
+    /// </summary>
+    public Vector3 GetHeadPosition()
+    {
+        if (!HasValidPath())
+            return transform.position;
+
+        GetPointAndForwardAtDistance(travelledDistance, out Vector3 pos, out _);
+        return pos;
+    }
+
     void OnDrawGizmos()
     {
         CacheWaypoints();

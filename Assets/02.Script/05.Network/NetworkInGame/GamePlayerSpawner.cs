@@ -35,6 +35,17 @@ namespace Capstone.Photon.Game
             if (playerModel.TryGetComponent(out GamePlayerModel model))
             {
                 model.Init(localController);
+
+                // IceAxe 참조를 PlayerController에 주입 (네트워크 스폰 이후 타이밍 보정)
+                var playerController = localController.GetComponent<PlayerController>();
+                if (playerController != null)
+                {
+                    playerController.InjectAxes(model.leftIceAxe, model.rightIceAxe);
+                }
+                else
+                {
+                    Debug.LogWarning("[GamePlayerSpawner] localController 오브젝트에 PlayerController 컴포넌트가 없습니다!");
+                }
             }
         }
 

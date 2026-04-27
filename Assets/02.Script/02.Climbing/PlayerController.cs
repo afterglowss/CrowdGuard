@@ -125,6 +125,44 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
+    /// 네트워크 스폰 이후 GamePlayerModel에서 바일 참조를 주입받을 때 사용.
+    /// OnEnable() 타이밍 문제를 우회하기 위해 별도 메서드로 분리.
+    /// </summary>
+    public void InjectAxes(CrowdGuard.Climbing.Tools.IceAxe.IceAxeModel left,
+                           CrowdGuard.Climbing.Tools.IceAxe.IceAxeModel right)
+    {
+        // 기존 구독이 있다면 먼저 해제 (중복 방지)
+        if (leftAxe != null)
+        {
+            leftAxe.OnAttachedStateChanged -= OnStateChangedHandler;
+            leftAxe.OnHeldStateChanged -= OnStateChangedHandler;
+        }
+        if (rightAxe != null)
+        {
+            rightAxe.OnAttachedStateChanged -= OnStateChangedHandler;
+            rightAxe.OnHeldStateChanged -= OnStateChangedHandler;
+        }
+
+        // 실제 참조 주입
+        leftAxe = left;
+        rightAxe = right;
+
+        // 주입 후 즉시 이벤트 재구독
+        if (leftAxe != null)
+        {
+            leftAxe.OnAttachedStateChanged += OnStateChangedHandler;
+            leftAxe.OnHeldStateChanged += OnStateChangedHandler;
+        }
+        if (rightAxe != null)
+        {
+            rightAxe.OnAttachedStateChanged += OnStateChangedHandler;
+            rightAxe.OnHeldStateChanged += OnStateChangedHandler;
+        }
+
+        Debug.Log("[PlayerController] IceAxe 참조 주입 완료.");
+    }
+
+    /// <summary>
     /// 상태 전환 메서드. OnStateChanged 이벤트를 자동 발동시킵니다.
     /// </summary>
     public void ChangeState(PlayerState newState)
