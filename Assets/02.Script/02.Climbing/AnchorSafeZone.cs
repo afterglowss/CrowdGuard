@@ -1,37 +1,28 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 앵커가 완전 체결될 때 안전 반경 트리거를 활성화합니다.
-/// 플레이어가 반경 안에 있으면 IsPlayerSafe = true가 되어 추락을 막습니다.
+/// 앵커가 완전 체결될 때 안전 반경을 활성화합니다.
+/// 플레이어가 반경 안에 있으면 추락을 막습니다.
 ///
-/// XR팀 전달 사항 - PlayerController.cs OnStateChangedHandler() 수정:
-///   else
-///   {
-///       if (CurrentState == ClimbingState && !AnchorSafeZone.IsPlayerSafe)
-///           ChangeState(FallingState);
-///   }
+/// [설계 변경 이유]
+/// 이전 방식(OnTriggerEnter/Exit 기반 static bool)은 두 가지 문제가 있었습니다.
+///   1) ClimbingState 진입 시 CharacterController가 비활성화되면 Unity가
+///      OnTriggerExit를 호출하지 않아 IsPlayerSafe가 true에 고착됩니다.
+///   2) 멀티플레이 시 파트너의 NetworkObject 콜라이더도 트리거에 반응해
+///      로컬 플레이어와 무관하게 IsPlayerSafe가 true가 됩니다.
+///
+/// 현재 방식: CheckSafety(localPlayerPos)를 호출 시점에 거리 계산으로 직접 판정합니다.
 /// </summary>
-[RequireComponent(typeof(SphereCollider))]
 public class AnchorSafeZone : MonoBehaviour
 {
-    /// <summary>
-    /// 플레이어가 어떤 앵커의 안전 반경 안에 있으면 true.
-    /// PlayerController에서 추락 전환 전에 이 값을 체크하세요.
-    /// </summary>
-    public static bool IsPlayerSafe { get; private set; } = false;
-
     [Tooltip("추락을 막는 안전 반경 (m). 인스펙터에서 조절하세요.")]
     public float safeRadius = 2.0f;
 
-    private SphereCollider _trigger;
+    // 체결이 완료된 모든 AnchorSafeZone을 추적합니다.
+    private static readonly List<AnchorSafeZone> _activeZones = new List<AnchorSafeZone>();
 
-    private void Awake()
-    {
-        _trigger = GetComponent<SphereCollider>();
-        _trigger.isTrigger = true;
-        _trigger.radius = safeRadius;
-        _trigger.enabled = false; // 체결 전까지 비활성
-    }
+    private bool _isSecured = false;
 
     private void OnEnable()
     {
@@ -41,33 +32,45 @@ public class AnchorSafeZone : MonoBehaviour
     private void OnDisable()
     {
         CrowdGuard.Climbing.Tools.IceAnchor.IceAnchorController.OnAnchorSecuredGlobal -= OnAnchorSecured;
+        _activeZones.Remove(this);
     }
 
     private void OnAnchorSecured(CrowdGuard.Climbing.Tools.IceAnchor.IceAnchorModel model)
     {
-        // 이 앵커 오브젝트가 체결된 경우에만 트리거 활성화
+        if (_isSecured) return;
         if (model.transform == transform || model.transform.IsChildOf(transform) || transform.IsChildOf(model.transform))
         {
-            _trigger.enabled = true;
-            _trigger.radius = safeRadius;
+            _isSecured = true;
+            if (!_activeZones.Contains(this))
+                _activeZones.Add(this);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    /// <summary>
+    /// 로컬 플레이어 위치가 체결된 앵커 안전 반경 안에 있는지 직접 판정합니다.
+    /// PlayerController.OnStateChangedHandler에서 추락 전환 전에 호출하세요.
+    /// </summary>
+    public static bool CheckSafety(Vector3 localPlayerPos)
     {
-        if (other.CompareTag("Player") || other.GetComponentInParent<PlayerController>() != null)
-            IsPlayerSafe = true;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player") || other.GetComponentInParent<PlayerController>() != null)
-            IsPlayerSafe = false;
+        foreach (var zone in _activeZones)
+        {
+            if (zone == null) continue;
+            if (Vector3.Distance(localPlayerPos, zone.transform.position) <= zone.safeRadius)
+                return true;
+        }
+        return false;
     }
 
     private void OnValidate()
     {
-        var col = GetComponent<SphereCollider>();
-        if (col != null) col.radius = safeRadius;
+        // 씬 뷰 Gizmo 업데이트용
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(0f, 1f, 0.5f, 0.25f);
+        Gizmos.DrawSphere(transform.position, safeRadius);
+        Gizmos.color = new Color(0f, 1f, 0.5f, 0.8f);
+        Gizmos.DrawWireSphere(transform.position, safeRadius);
     }
 }

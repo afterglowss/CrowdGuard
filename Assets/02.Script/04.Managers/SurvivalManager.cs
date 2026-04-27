@@ -35,7 +35,7 @@ public class SurvivalManager : NetworkBehaviour
         else Destroy(gameObject);
     }
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     [Range(0f, 600f)]
     public float editorFreezeGauge = 0f;
     // 🚨 [핵심 추가] 인스펙터에서 값을 수정할 때마다 자동으로 불리는 유니티 마법의 함수!
@@ -46,18 +46,6 @@ public class SurvivalManager : NetworkBehaviour
         UpdateShaderEffect(editorFreezeGauge); 
     }
     #endif
-
-    /// <summary>
-    /// 오프라인(솔로 테스트) 폴백: Fusion Runner 없이도 게이지가 증가합니다.
-    /// 실제 멀티플레이에서는 FixedUpdateNetwork()가 대신 실행됩니다.
-    /// </summary>
-    private void Update()
-    {
-        // Runner가 없거나 네트워크가 비활성 상태일 때만 실행
-        if (Runner != null && Runner.IsRunning) return;
-
-        TickGauge(Time.deltaTime);
-    }
 
     /// <summary>
     /// 네트워크 연결 상태에서 게이지 업데이트 (State Authority만 실행)
@@ -119,8 +107,10 @@ public class SurvivalManager : NetworkBehaviour
     }
 
     // 👇 [핵심] 랜턴을 켜고 끌 때 외부에서 호출할 함수
-    public void SetRestoringState(bool state)
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_SetRestoringState(bool state)
     {
+        
         isRestoring = state;
         Debug.Log(state ? "[SurvivalManager] 랜턴 불이 켜져 몸을 녹입니다." : "[SurvivalManager] 회복을 중단합니다.");
         

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace CrowdGuard.Climbing.Tools.Common
@@ -13,10 +14,14 @@ namespace CrowdGuard.Climbing.Tools.Common
 
         private ToolIdentity[] _tools;
 
-        private void Start()
+        private void Awake()
         {
             _tools = GetComponentsInChildren<ToolIdentity>(true);
             InitializeTools();
+        }
+
+        private void Start()
+        {
             ApplyRole(_currentRole);
         }
 

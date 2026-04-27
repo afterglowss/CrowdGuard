@@ -109,7 +109,7 @@ public class PlayerClimbingState : PlayerState
         }
 
         // ---------------- [오른손 연산] ----------------
-        if (player.rightAxe != null && player.rightAxe.IsAttachedToWall)
+        if (player.rightAxe != null && player.rightAxe.IsAttachedToWall && player.rightAxe.IsHeld)
         {
             Transform trueHand = player.rightAxe.InteractorTransform != null ? player.rightAxe.InteractorTransform : player.rightAxe.transform;
             Vector3 currentLocal = player.xrRigPivot.InverseTransformPoint(trueHand.position);

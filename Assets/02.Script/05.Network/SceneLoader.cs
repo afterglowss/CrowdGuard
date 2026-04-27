@@ -9,11 +9,12 @@ public class SceneLoader : NetworkSceneManagerDefault
     [SerializeField] private FadeUI fadeUI;
     public override NetworkSceneAsyncOp LoadScene(SceneRef sceneRef, NetworkLoadSceneParameters parameters)
     {
+        return base.LoadScene(sceneRef, parameters);
         // 씬 전환 Task 생성
-        Task sceneLoadTask = PerformSceneLoadWithFade(sceneRef, parameters);
+        /*Task sceneLoadTask = PerformSceneLoadWithFade(sceneRef, parameters);
 
         // Task 객체 반환
-        return NetworkSceneAsyncOp.FromTask(sceneRef,sceneLoadTask);
+        return NetworkSceneAsyncOp.FromTask(sceneRef,sceneLoadTask);*/
     }
 
     private async Task PerformSceneLoadWithFade(SceneRef sceneRef, NetworkLoadSceneParameters parameters)

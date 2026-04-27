@@ -58,7 +58,7 @@ namespace Capstone.Photon.Game
             }
 
             // TODO : 게임 시작 기능 구현, 기록 타이머, 재난 세팅
-            GameManager.Instance.GameStart();
+            //GameManager.Instance.GameStart();
         }
         
 
