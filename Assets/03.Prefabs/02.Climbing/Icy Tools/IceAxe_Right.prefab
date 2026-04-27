@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 6872161304702766353}
   - component: {fileID: 2149610196811854160}
   - component: {fileID: 678613907822406281}
+  - component: {fileID: 565826441246432471}
   m_Layer: 0
   m_Name: IceAxe_Right
   m_TagString: Untagged
@@ -364,6 +365,21 @@ MonoBehaviour:
   WaitTillEaseInTimeToMaintainPosition: 1
   overrideEaseTime: 0
   easeInTimeOverride: 0
+--- !u!114 &565826441246432471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4064600577140126354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8d2eb00164c3f4cbc4aa3c3c724c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _toolType: 0
+  _validRoles: 0000000001000000
+  homePouch: {fileID: 0}
 --- !u!1 &6772054354810296206
 GameObject:
   m_ObjectHideFlags: 0
