@@ -15,7 +15,7 @@ namespace CrowdGuard.Climbing.Tools.Common
     public class RetractableObject : MonoBehaviour
     {
         [Header("Retract Settings")]
-        [Tooltip("도구가 돌아갈 파우치의 위치 (빈 Transform)")]
+        [Tooltip("도구가 돌아갈 파우치 위치. 비워두면 Awake 시 부모 Transform으로 자동 설정.")]
         public Transform pouchTransform;
         
         [Tooltip("놓은 후 복귀 시작까지의 대기 시간 (초)")]
@@ -32,6 +32,10 @@ namespace CrowdGuard.Climbing.Tools.Common
         {
             _grabInteractable = GetComponent<XRGrabInteractable>();
             _rb = GetComponent<Rigidbody>();
+
+            // pouchTransform이 할당되지 않았으면 부모에서 자동 설정
+            if (pouchTransform == null)
+                pouchTransform = transform.parent;
         }
 
         private void OnEnable()

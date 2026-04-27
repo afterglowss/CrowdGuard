@@ -97,6 +97,11 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             }
         }
 
+        /// <summary>
+        /// 가방 반환 가능 여부. ReturnZone을 한 번 벗어나면 true.
+        /// </summary>
+        public bool IsReturnable { get; set; }
+
         public void ResetState()
         {
             _isHeld = false;
@@ -104,6 +109,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             _isInserted = false;
             _isFullySecured = false;
             _screwProgress = 0f;
+            IsReturnable = false;
         }
     }
 }
