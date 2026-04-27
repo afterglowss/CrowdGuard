@@ -50,6 +50,8 @@ namespace CrowdGuard.Climbing.Tools.Common
         /// </summary>
         public void SetRole(PlayerRole newRole)
         {
+            _tools = GetComponentsInChildren<ToolIdentity>(true);
+            InitializeTools();
             _currentRole = newRole;
             ApplyRole(_currentRole);
         }

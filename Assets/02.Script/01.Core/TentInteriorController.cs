@@ -67,7 +67,7 @@ public class TentInteriorController : MonoBehaviour
         if (lanternEmissionObj != null) lanternEmissionObj.SetActive(true);
 
         if (SurvivalManager.Instance != null)
-            SurvivalManager.Instance.SetRestoringState(true);
+            SurvivalManager.Instance.RPC_SetRestoringState(true);
 
         if (EquipmentManager.Instance != null)
             EquipmentManager.Instance.SupplyAnchorsAtTent();
@@ -81,7 +81,7 @@ public class TentInteriorController : MonoBehaviour
         if (lanternLight != null) lanternLight.enabled = false;
         if (lanternEmissionObj != null) lanternEmissionObj.SetActive(false);
         if (SurvivalManager.Instance != null)
-            SurvivalManager.Instance.SetRestoringState(false);
+            SurvivalManager.Instance.RPC_SetRestoringState(false);
 
         // 퇴장 시 위치 세이브 (중앙 위치 저장)
         if (SavePointManager.Instance != null)
