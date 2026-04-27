@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Fusion;
 using UnityEngine;
 
 // --- Payload Data Classes (재난별 다형성 데이터 구조) ---
@@ -28,7 +29,7 @@ public class RockfallData : HazardData
     public float FallRadius;
 }
 
-public class HazardManager : MonoBehaviour
+public class HazardManager : NetworkBehaviour
 {
     public static HazardManager Instance { get; private set; }
 
@@ -52,7 +53,8 @@ public class HazardManager : MonoBehaviour
     /// <summary>
     /// 인덱스로 눈사태 시스템을 선택해 트리거합니다. HazardButton 등에서 호출하세요.
     /// </summary>
-    public void TriggerAvalanche(int index)
+    [Rpc(RpcSources.All,RpcTargets.All)]
+    public void RPC_TriggerAvalanche(int index)
     {
         if (index < 0 || index >= avalancheSystems.Count)
         {
@@ -60,6 +62,7 @@ public class HazardManager : MonoBehaviour
             return;
         }
 
+        Debug.Log("AvalancheTrigger");
         AvalanchePathSystem system = avalancheSystems[index];
         var data = new AvalancheData
         {
@@ -72,7 +75,8 @@ public class HazardManager : MonoBehaviour
     /// <summary>
     /// 인덱스로 낙석 프리팹을 선택해 지정 위치에 스폰합니다.
     /// </summary>
-    public void TriggerRockfall(int index, Vector3 location, int rockCount = 5, float fallRadius = 2f)
+    [Rpc(RpcSources.All,RpcTargets.All)]
+    public void RPC_TriggerRockfall(int index, Vector3 location, int rockCount = 5, float fallRadius = 2f)
     {
         if (index < 0 || index >= rockfallPrefabs.Count)
         {
@@ -80,6 +84,7 @@ public class HazardManager : MonoBehaviour
             return;
         }
 
+        Debug.Log("RockFall");
         var data = new RockfallData
         {
             Location = location,
@@ -92,8 +97,10 @@ public class HazardManager : MonoBehaviour
     /// <summary>
     /// 눈보라를 직접 트리거합니다.
     /// </summary>
-    public void TriggerBlizzard(Vector3 location, float duration = 5f, float freezeMultiplier = 4f)
+    [Rpc(RpcSources.All,RpcTargets.All)]
+    public void RPC_TriggerBlizzard(Vector3 location, float duration = 5f, float freezeMultiplier = 4f)
     {
+        Debug.Log("Blizzard");
         var data = new BlizzardData
         {
             Location = location,
@@ -180,7 +187,7 @@ public class HazardManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(interval);
-            TriggerBlizzard(loc);
+            RPC_TriggerBlizzard(loc);
         }
     }
 
@@ -194,7 +201,7 @@ public class HazardManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(interval);
-            TriggerRockfall(prefabIndex, loc);
+            RPC_TriggerRockfall(prefabIndex, loc);
         }
     }
 }
