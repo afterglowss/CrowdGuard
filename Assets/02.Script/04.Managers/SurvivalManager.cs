@@ -35,12 +35,6 @@ public class SurvivalManager : NetworkBehaviour
         else Destroy(gameObject);
     }
 
-    public override void Spawned()
-    {
-        isRestoring = false;
-        base.Spawned();
-    }
-
 #if UNITY_EDITOR
     [Range(0f, 600f)]
     public float editorFreezeGauge = 0f;
@@ -52,18 +46,6 @@ public class SurvivalManager : NetworkBehaviour
         UpdateShaderEffect(editorFreezeGauge); 
     }
     #endif
-
-    /// <summary>
-    /// 오프라인(솔로 테스트) 폴백: Fusion Runner 없이도 게이지가 증가합니다.
-    /// 실제 멀티플레이에서는 FixedUpdateNetwork()가 대신 실행됩니다.
-    /// </summary>
-    private void Update()
-    {
-        // Runner가 없거나 네트워크가 비활성 상태일 때만 실행
-        if (Runner != null && Runner.IsRunning) return;
-
-        TickGauge(Time.deltaTime);
-    }
 
     /// <summary>
     /// 네트워크 연결 상태에서 게이지 업데이트 (State Authority만 실행)
@@ -128,6 +110,7 @@ public class SurvivalManager : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RPC_SetRestoringState(bool state)
     {
+        
         isRestoring = state;
         Debug.Log(state ? "[SurvivalManager] 랜턴 불이 켜져 몸을 녹입니다." : "[SurvivalManager] 회복을 중단합니다.");
         
