@@ -86,10 +86,23 @@ namespace MSEX.Climbing.Tools
             // 실시간 신호 강도 추적
             if (activeHazard != null)
             {
-                Vector3 diff = activeHazard.Location - transform.position;
-                diff.y = 0; 
+                // 눈사태: 이동 중인 선두 위치를 실시간으로 추적
+                // 그 외 재난: HazardData.Location 고정값 사용
+                Vector3 targetPos;
+                if (activeHazard is AvalancheData avalancheData
+                    && avalancheData.PathSystem != null)
+                {
+                    targetPos = avalancheData.PathSystem.GetHeadPosition();
+                }
+                else
+                {
+                    targetPos = activeHazard.Location;
+                }
+
+                Vector3 diff = targetPos - transform.position;
+                diff.y = 0;
                 diff.Normalize();
-                
+
                 float dot = Vector3.Dot(transform.forward, diff);
                 CurrentIntensity = Mathf.Clamp01((dot + 1f) / 2f);
             }

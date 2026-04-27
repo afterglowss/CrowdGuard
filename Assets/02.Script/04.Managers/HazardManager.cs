@@ -66,7 +66,8 @@ public class HazardManager : NetworkBehaviour
         AvalanchePathSystem system = avalancheSystems[index];
         var data = new AvalancheData
         {
-            Location = system.transform.position,
+            // 피봇이 아닌 실제 경로 시작점(waypoints[0])을 사용
+            Location = system.GetStartPosition(),
             PathSystem = system
         };
         TriggerHazardExternal(data);
@@ -177,9 +178,12 @@ public class HazardManager : NetworkBehaviour
 
     // ===================== 주기 재난 =====================
 
-    public void StartCyclicBlizzard(Vector3 centerLocation, float intervalSeconds = 60f)
+    /// <summary>
+    /// 반환된 Coroutine을 보관해두면 BlizzardZone 등 외부에서 StopCoroutine()으로 중단 가능.
+    /// </summary>
+    public Coroutine StartCyclicBlizzard(Vector3 centerLocation, float intervalSeconds = 60f)
     {
-        StartCoroutine(CyclicBlizzardRoutine(centerLocation, intervalSeconds));
+        return StartCoroutine(CyclicBlizzardRoutine(centerLocation, intervalSeconds));
     }
 
     private IEnumerator CyclicBlizzardRoutine(Vector3 loc, float interval)

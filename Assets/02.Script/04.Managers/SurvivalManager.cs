@@ -13,14 +13,16 @@ public class SurvivalManager : NetworkBehaviour
 
     [Networked]
     public float currentFreezeGauge { get; set; }
-    
-    
-    [Tooltip("눈보라 또는 로프 패널티 시 급격한 증가를 적용할 지 여부")]
-    public bool isRapidFreezing = false;
+
+    // [Networked]: 한 클라이언트에서 설정해도 양쪽에 동기화됨
+    [Networked, Tooltip("눈보라 또는 로프 패널티 시 급격한 증가를 적용할 지 여부")]
+    public bool isRapidFreezing { get; set; }
+
+    [Networked, Tooltip("텐트 랜턴 켤 때 회복 중 여부")]
+    public bool isRestoring { get; set; }
+
     private bool isPlayerFrozen = false;
 
-    // 👇 [추가] 텐트 안에서 회복 중인지 체크하는 변수와 회복 속도
-    public bool isRestoring = false;
     [Tooltip("초당 동결 게이지 회복량 (예: 100이면 600 회복에 6초 소요)")]
     public float restoreRate = 100f;
 
@@ -45,30 +47,51 @@ public class SurvivalManager : NetworkBehaviour
     }
     #endif
 
+    /// <summary>
+    /// 오프라인(솔로 테스트) 폴백: Fusion Runner 없이도 게이지가 증가합니다.
+    /// 실제 멀티플레이에서는 FixedUpdateNetwork()가 대신 실행됩니다.
+    /// </summary>
+    private void Update()
+    {
+        // Runner가 없거나 네트워크가 비활성 상태일 때만 실행
+        if (Runner != null && Runner.IsRunning) return;
+
+        TickGauge(Time.deltaTime);
+    }
+
+    /// <summary>
+    /// 네트워크 연결 상태에서 게이지 업데이트 (State Authority만 실행)
+    /// </summary>
     public override void FixedUpdateNetwork()
+    {
+        // StateAuthority(이 오브젝트를 소유한 클라이언트)만 게이지를 계산
+        if (!HasStateAuthority) return;
+
+        TickGauge(Runner.DeltaTime);
+    }
+
+    /// <summary>
+    /// 실제 게이지 증감 로직. Update/FixedUpdateNetwork 양쪽에서 공용으로 사용.
+    /// </summary>
+    private void TickGauge(float deltaTime)
     {
         if (isPlayerFrozen) return;
 
-        // 👇 [수정] 회복 중일 때와 아닐 때를 분리해서 계산합니다.
         if (isRestoring)
         {
-            // 회복 중: 수치가 깎입니다.
-            currentFreezeGauge -= restoreRate * Time.deltaTime;
+            currentFreezeGauge -= restoreRate * deltaTime;
         }
         else
         {
-            // 밖일 때: 수치가 오릅니다.
             float increaseRate = isRapidFreezing ? 4f : 1f;
-            currentFreezeGauge += increaseRate * Time.deltaTime;
+            currentFreezeGauge += increaseRate * deltaTime;
         }
 
         currentFreezeGauge = Mathf.Clamp(currentFreezeGauge, 0f, MAX_FREEZE_GAUGE);
         OnFreezeGaugeChanged?.Invoke(currentFreezeGauge);
 
         if (currentFreezeGauge >= MAX_FREEZE_GAUGE)
-        {
             TriggerFreezeDeath();
-        }
     }
 
     public override void Render()
