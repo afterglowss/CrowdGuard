@@ -55,6 +55,16 @@ public class RoleManager : NetworkBehaviour
     }
 
     /// <summary>
+    /// 게임 씬에서 역할 배분이 끝난 뒤 GameManager 등에서 호출.
+    /// StateAuthority가 네트워크 오브젝트를 Despawn해 모든 클라이언트에서 파괴합니다.
+    /// </summary>
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_DestroyAfterRoleDistributed()
+    {
+        Runner.Despawn(Object);
+    }
+
+    /// <summary>
     /// 역할 변화 시 게임 시작 가능한지 판별하기
     /// </summary>
     private void RoleChanged()

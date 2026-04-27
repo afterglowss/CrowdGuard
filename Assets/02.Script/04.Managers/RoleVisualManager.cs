@@ -1,15 +1,8 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class RoleVisualManager : MonoBehaviour
 {
     public static RoleVisualManager Instance { get; private set; }
-
-    [Header("Current Role Settings")]
-    public bool isLeader = true;
-
-    [Header("Debug Input Actions")]
-    public InputActionProperty toggleRoleAction;
 
     private void Awake()
     {
@@ -17,45 +10,38 @@ public class RoleVisualManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private void OnEnable()
+    private void OnDestroy()
     {
-        if (toggleRoleAction.action != null)
-        {
-            toggleRoleAction.action.performed += OnToggleRolePressed;
-            toggleRoleAction.action.Enable();
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (toggleRoleAction.action != null)
-        {
-            toggleRoleAction.action.performed -= OnToggleRolePressed;
-            toggleRoleAction.action.Disable();
-        }
+        if (Instance == this) Instance = null;
     }
 
     private void Start()
     {
-        UpdateShaderGlobal();
+        // RoleManager가 살아있다면 역할을 즉시 읽어 적용
+        // (Spawned() 타이밍보다 Start()가 늦게 올 경우의 안전망)
+        if (RoleManager.Instance != null && RoleManager.Instance.Runner != null)
+        {
+            var runner = RoleManager.Instance.Runner;
+            if (RoleManager.Instance.Roles.TryGet(runner.LocalPlayer, out Role.Role role))
+            {
+                UpdateShaderGlobal(role == Role.Role.Leader);
+                return;
+            }
+        }
+        // 역할 데이터가 아직 없으면 기본값(Leader) 유지 — Spawned()에서 덮어씀
+        UpdateShaderGlobal(true);
     }
 
-    private void OnToggleRolePressed(InputAction.CallbackContext context)
+    /// <summary>
+    /// GamePlayerModel.Spawned()에서 역할 확정 후 호출
+    /// </summary>
+    public void SetRole(bool isLeader)
     {
-        isLeader = !isLeader;
-        Debug.Log($"[RoleVisualManager] Role Toggled! IsLeader: {isLeader}");
-        UpdateShaderGlobal();
+        UpdateShaderGlobal(isLeader);
     }
 
-    public void SetRole(bool leader)
+    private void UpdateShaderGlobal(bool isLeader)
     {
-        isLeader = leader;
-        UpdateShaderGlobal();
-    }
-
-    private void UpdateShaderGlobal()
-    {
-        // 기획서 렌더링 최적화 1원칙: 글로벌 셰이더 변수를 통한 수만 개의 얼음 텍스처 1프레임 즉각 스왑
         Shader.SetGlobalFloat("_IsLeader", isLeader ? 1f : 0f);
     }
 }
