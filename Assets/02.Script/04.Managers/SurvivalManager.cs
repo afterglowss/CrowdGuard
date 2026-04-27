@@ -35,7 +35,13 @@ public class SurvivalManager : NetworkBehaviour
         else Destroy(gameObject);
     }
 
-    #if UNITY_EDITOR
+    public override void Spawned()
+    {
+        isRestoring = false;
+        base.Spawned();
+    }
+
+#if UNITY_EDITOR
     [Range(0f, 600f)]
     public float editorFreezeGauge = 0f;
     // 🚨 [핵심 추가] 인스펙터에서 값을 수정할 때마다 자동으로 불리는 유니티 마법의 함수!
@@ -119,7 +125,8 @@ public class SurvivalManager : NetworkBehaviour
     }
 
     // 👇 [핵심] 랜턴을 켜고 끌 때 외부에서 호출할 함수
-    public void SetRestoringState(bool state)
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_SetRestoringState(bool state)
     {
         isRestoring = state;
         Debug.Log(state ? "[SurvivalManager] 랜턴 불이 켜져 몸을 녹입니다." : "[SurvivalManager] 회복을 중단합니다.");

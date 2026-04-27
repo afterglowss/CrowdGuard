@@ -6,6 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using CrowdGuard.Climbing.Tools.IceAnchor;
+using Fusion;
 
 namespace CrowdGuard.Climbing.Tools.Common
 {
@@ -14,7 +15,7 @@ namespace CrowdGuard.Climbing.Tools.Common
     /// XRSimpleInteractable을 사용하여 가방은 벨트에 고정된 채, 앵커만 스폰/회수합니다.
     /// </summary>
     [RequireComponent(typeof(UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable))]
-    public class AnchorBag : MonoBehaviour
+    public class AnchorBag : NetworkBehaviour
     {
         [Header("Anchor Pool")]
         [Tooltip("풀에서 관리할 앵커 프리팹")]
@@ -80,9 +81,9 @@ namespace CrowdGuard.Climbing.Tools.Common
 
             for (int i = 0; i < _initialCount; i++)
             {
-                var anchor = Instantiate(_anchorPrefab, transform.position, Quaternion.identity);
-                anchor.SetActive(false);
-                _pool.Add(anchor);
+                var anchor = Runner.Spawn(_anchorPrefab, transform.position, Quaternion.identity);
+                anchor.gameObject.SetActive(false);
+                _pool.Add(anchor.gameObject);
             }
             Debug.Log($"[AnchorBag] 풀 초기화 완료. 풀 크기={_pool.Count}, 초기 개수={_currentCount}");
         }
