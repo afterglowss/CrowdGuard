@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3120651408108824185}
   - component: {fileID: 4186172157900527192}
-  - component: {fileID: 2694954837463435294}
-  - component: {fileID: 853448492944955239}
+  - component: {fileID: 1056184864921655234}
   m_Layer: 0
   m_Name: NetworkDataManager
   m_TagString: Untagged
@@ -50,25 +49,9 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 131073
   NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 2694954837463435294}
-  - {fileID: 853448492944955239}
+  NetworkedBehaviours: []
   ForceRemoteRenderTimeframe: 0
---- !u!114 &2694954837463435294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2629187495785759914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a632d4f602a58045be88358b1e00779, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Players:
-    _items: []
---- !u!114 &853448492944955239
+--- !u!114 &1056184864921655234
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 5379304984727071042, guid: afcd9f4ca9b51c54ebf5eeea3f140850, type: 3}
   localController: {fileID: 0}
-  playerManager: {fileID: 2694954837463435294}
+  roleManager: {fileID: 0}
 --- !u!114 &7970448086249145261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,9 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067d13dcccded4e4aa80b319c174d4a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 2694954837463435294}
+  roleManager: {fileID: 0}
   interactor: {fileID: 7460422078391651976}
-  playerCount: {fileID: 6110848964926144351}
+  playerRoleText: {fileID: 6110848964926144351}
 --- !u!1 &4624673679499194080
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +164,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 2}
-  m_SizeDelta: {x: 20, y: 5}
+  m_SizeDelta: {x: 35, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8355451276073739482
 MeshRenderer:
@@ -245,7 +228,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player  0/2
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -472,9 +455,9 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 853448492944955239}
+      - m_Target: {fileID: 1056184864921655234}
         m_TargetAssemblyTypeName: Capstone.Photon.InGameLoader, Assembly-CSharp
-        m_MethodName: ChangeLevel
+        m_MethodName: RequestChangeLevel
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

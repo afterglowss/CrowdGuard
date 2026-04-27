@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3741836650130590303}
   - component: {fileID: 6299939758324879252}
   - component: {fileID: 8923902849604296054}
+  - component: {fileID: 7722329631031408107}
   m_Layer: 0
   m_Name: NetworkDataManager
   m_TagString: Untagged
@@ -63,8 +64,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a632d4f602a58045be88358b1e00779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Players:
-    _items: []
+--- !u!114 &7722329631031408107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6141766428545726573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28106d1bc1a2ae642a4f547933af5dec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8954784660313483780
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,6 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfada326a74a0bc4185a17ee6447ab9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 5379304984727071042, guid: afcd9f4ca9b51c54ebf5eeea3f140850, type: 3}
+  playerPrefab: {fileID: 5379304984727071042, guid: 0bb6c91ca0c2e0b42a309bc4d8be0ac4, type: 3}
   localController: {fileID: 0}
-  playerManager: {fileID: 8923902849604296054}

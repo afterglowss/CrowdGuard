@@ -1,24 +1,23 @@
-using System;
 using Fusion;
+using Mono.Cecil;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Capstone.Photon.Room
+namespace Capstone.Photon.Game
 {
     public class PlayerManager : NetworkBehaviour
     {
-        [Networked,OnChangedRender(nameof(PlayerChanged)), Capacity(8)]
-        public NetworkDictionary<int, NetworkObject> Players { get; }
+        public static PlayerManager Instance;
+        public Dictionary<Role.Role, NetworkObject> players;
 
-        public event Action<int> OnPlayerChanged;
+        public RopeSystem ropeSystem;
 
-        public override void Spawned()
+        private void Awake()
         {
-            OnPlayerChanged?.Invoke(Players.Count);
-        }
-
-        void PlayerChanged()
-        {
-            OnPlayerChanged?.Invoke(Players.Count);
+            if(!Instance) Instance = this;
+            else if(Instance != this) Destroy(gameObject);
+            players = new Dictionary<Role.Role, NetworkObject>();
         }
         
         /// <summary>
@@ -26,23 +25,44 @@ namespace Capstone.Photon.Room
         /// </summary>
         /// <param name="player"></param>
         /// <param name="obj"></param>
-        [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-        public void RPC_AddPlayer(PlayerRef player, NetworkObject obj)
+        public void SetPlayer(Role.Role role, NetworkObject obj)
         {
-            Players.Set(player.AsIndex, obj);
-            Debug.Log($"{player} Added, Player Object's name : {obj.name}, Current Players Count : {Players.Count} ");
+            players[role] = obj;
+            
+            foreach (var player in players)
+            {
+                Debug.Log($"{players.Count} ---- {player.Key} : {player.Value}");
+            }
+
+            if (players.Count >= 2)
+            {
+                SetGameSystem(players[Role.Role.Leader],players[Role.Role.Supporter]);
+                
+                
+            }
         }
 
-        /// <summary>
-        /// 플레이어 퇴장 시 dictionary에서 값 제거
-        /// </summary>
-        /// <param name="player"></param>
-        [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-        public void RPC_RemovePlayer(PlayerRef player)
+        public void SetGameSystem(NetworkObject leader, NetworkObject supporter)
         {
-            Players.Remove(player.AsIndex);
-            Debug.Log($"{player} Removed, Current Players Count : {Players.Count}");
+            if (ropeSystem != null)
+            {
+                // 로컬 플레이어가 Leader인지 Supporter인지 판별
+                bool isLeader = leader.HasStateAuthority;
+
+                NetworkObject myObj = isLeader ? leader : supporter;
+                NetworkObject partnerObj = isLeader ? supporter : leader;
+
+                if (myObj.TryGetComponent(out GamePlayerModel myModel) &&
+                    partnerObj.TryGetComponent(out GamePlayerModel partnerModel))
+                {
+                    ropeSystem.SetPartners(myModel.body.transform, partnerModel.body.transform);
+                }
+            }
+
+            // TODO : 게임 시작 기능 구현, 기록 타이머, 재난 세팅
+            GameManager.Instance.GameStart();
         }
+        
 
     }
 }
