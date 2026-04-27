@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Colliders:
   - {fileID: 5835105437435497132}
   m_InteractionLayers:
-    m_Bits: 4294967295
+    m_Bits: 3
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -543,7 +543,7 @@ MonoBehaviour:
   m_Colliders:
   - {fileID: 6620998124449834220}
   m_InteractionLayers:
-    m_Bits: 2
+    m_Bits: 3
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -764,7 +764,7 @@ Transform:
   m_GameObject: {fileID: 8993429403725291819}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2099, y: 0.0972, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
