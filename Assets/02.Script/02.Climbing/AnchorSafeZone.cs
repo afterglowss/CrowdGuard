@@ -61,16 +61,66 @@ public class AnchorSafeZone : MonoBehaviour
         return false;
     }
 
-    private void OnValidate()
+    // ── Gizmo ──────────────────────────────────────────────────────
+
+    private void OnDrawGizmos()
     {
-        // 씬 뷰 Gizmo 업데이트용
+        // 미체결: 회색 점선 와이어
+        if (!_isSecured)
+        {
+            Gizmos.color = new Color(0.6f, 0.6f, 0.6f, 0.25f);
+            Gizmos.DrawWireSphere(transform.position, safeRadius);
+            return;
+        }
+
+        // 체결됨: 초록 반투명 구체 + 와이어
+        Gizmos.color = new Color(0f, 1f, 0.5f, 0.12f);
+        Gizmos.DrawSphere(transform.position, safeRadius);
+        Gizmos.color = new Color(0f, 1f, 0.5f, 0.8f);
+        Gizmos.DrawWireSphere(transform.position, safeRadius);
     }
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(0f, 1f, 0.5f, 0.25f);
+#if UNITY_EDITOR
+        // 체결 여부에 따라 색상 구분
+        bool secured = _isSecured;
+        Color zoneColor = secured ? new Color(0f, 1f, 0.5f, 0.2f) : new Color(0.6f, 0.6f, 0.6f, 0.15f);
+
+        Gizmos.color = zoneColor;
         Gizmos.DrawSphere(transform.position, safeRadius);
-        Gizmos.color = new Color(0f, 1f, 0.5f, 0.8f);
+        Gizmos.color = secured ? new Color(0f, 1f, 0.5f, 1f) : new Color(0.7f, 0.7f, 0.7f, 0.8f);
         Gizmos.DrawWireSphere(transform.position, safeRadius);
+
+        // 판정 기준점(머리)과 거리 표시 — 플레이 모드에서만
+        if (Application.isPlaying && Camera.main != null)
+        {
+            Vector3 headPos  = Camera.main.transform.position;
+            float   dist     = Vector3.Distance(headPos, transform.position);
+            bool    isSafe   = secured && dist <= safeRadius;
+
+            // 앵커 → 머리 연결선
+            Gizmos.color = isSafe ? new Color(0f, 1f, 0.3f, 0.9f) : new Color(1f, 0.3f, 0.3f, 0.9f);
+            Gizmos.DrawLine(transform.position, headPos);
+
+            // 머리 위치 점
+            Gizmos.DrawSphere(headPos, 0.07f);
+
+            // 거리 & 상태 레이블
+            string status = isSafe ? "SAFE" : (secured ? "UNSAFE" : "미체결");
+            UnityEditor.Handles.color = isSafe ? Color.green : Color.red;
+            UnityEditor.Handles.Label(
+                (transform.position + headPos) * 0.5f + Vector3.up * 0.15f,
+                $"{status}  {dist:F2}m / {safeRadius:F1}m");
+        }
+        else
+        {
+            // 편집 모드: 반경 레이블만
+            UnityEditor.Handles.color = Color.white;
+            UnityEditor.Handles.Label(
+                transform.position + Vector3.up * (safeRadius + 0.1f),
+                $"SafeZone r={safeRadius:F1}m  {(_isSecured ? "체결됨" : "미체결")}");
+        }
+#endif
     }
 }

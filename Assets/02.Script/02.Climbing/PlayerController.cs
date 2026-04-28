@@ -16,6 +16,20 @@ public class PlayerController : MonoBehaviour
     [Header("Collision Settings")]
     public LayerMask iceLayer;
 
+    [Header("Fall Settings")]
+    [Tooltip("최대 추락 시간(초). 이 시간이 지나면 리스폰 페이드 시작.")]
+    public float fallMaxTime = 2.5f;
+
+    [Tooltip("리스폰 암전 페이드 아웃 시간(초).")]
+    public float respawnFadeOutDuration = 0.35f;
+
+    [Tooltip("리스폰 후 페이드 인 시간(초).")]
+    public float respawnFadeInDuration = 0.8f;
+
+    [Tooltip("경사면 충돌 시 튕김 강도. 0 = 완전 슬라이드(얼음), 1 = 완전 반사")]
+    [Range(0f, 1f)]
+    public float fallBounciness = 0.1f;
+
     // FSM 상태 인스턴스 (가비지 컬렉션 방지를 위해 미리 할당)
     public PlayerIdleState IdleState { get; private set; }
     public PlayerClimbingState ClimbingState { get; private set; }
@@ -80,10 +94,28 @@ public class PlayerController : MonoBehaviour
         {
             if (CurrentState != ClimbingState) ChangeState(ClimbingState);
         }
-        else // 둘 다 놓았거나, 둘 다 벽에서 빠졌다면 무조건 추락!
+        else // 둘 다 놓았거나, 둘 다 벽에서 빠졌다면
         {
-            if (CurrentState == ClimbingState && !AnchorSafeZone.CheckSafety(xrRigPivot.position))
-                ChangeState(FallingState);
+            if (CurrentState == ClimbingState)
+            {
+                // 발 위치(xrRigPivot) 대신 머리(Camera) 기준으로 거리 계산
+                // 앵커는 벽 허리~가슴 높이에 있어 발 기준이면 2m 초과가 빈번함
+                var safetyPos = Camera.main != null ? Camera.main.transform.position : xrRigPivot.position;
+
+                if (!AnchorSafeZone.CheckSafety(safetyPos))
+                {
+                    ChangeState(FallingState);
+                }
+                else
+                {
+                    // 안전 구역 내에서 바일을 모두 놓은 경우:
+                    // IsAttachedToWall을 명시적으로 해제하지 않으면 다시 잡는 순간
+                    // ClimbingState.Update()가 벽에 박힌 것으로 오인해 카메라가 움직이는 버그 발생.
+                    if (leftAxe  != null) leftAxe.IsAttachedToWall  = false;
+                    if (rightAxe != null) rightAxe.IsAttachedToWall = false;
+                    ChangeState(IdleState);
+                }
+            }
         }
     }
 
