@@ -326,8 +326,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xrRigPivot: {fileID: 7009954472663365137}
-  leftAxe: {fileID: 6577405140214645665}
-  rightAxe: {fileID: 7169485498880831973}
+  leftAxe: {fileID: 0}
+  rightAxe: {fileID: 0}
   ropeSystem: {fileID: 5531971603606318472}
   iceLayer:
     serializedVersion: 2
@@ -346,6 +346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHand: {fileID: 8547615358914400047}
   rightHand: {fileID: 8547615359426219982}
+  body: {fileID: 7009954472663365137}
   head: {fileID: 8547615359532724045}
 --- !u!4 &8547615358914400047 stripped
 Transform:
