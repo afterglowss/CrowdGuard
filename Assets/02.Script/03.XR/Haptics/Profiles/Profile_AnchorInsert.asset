@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b5a850ac8bd6a649ac7b9da1f537552, type: 3}
+  m_Name: Profile_AnchorInsert
+  m_EditorClassIdentifier: 
+  hapticType: 2
+  clip: {fileID: 2460798210113038985, guid: 668593fef1659624b84664a6021a6b58, type: 3}
+  isLooping: 0
+  fallbackAmplitude: 1
+  fallbackDuration: 0.3

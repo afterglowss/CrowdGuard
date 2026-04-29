@@ -3,26 +3,28 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Anchor
+  - IceWall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Overlay UI
   - Water
   - UI
   - 
   - 
   - 
   - 
+  - IceWall
+  - Ice Anchor Bag
+  - Ice Anchor
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - TentDoor
   - 
   - 
   - 
