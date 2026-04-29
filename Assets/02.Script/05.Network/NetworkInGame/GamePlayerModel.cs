@@ -10,6 +10,9 @@ namespace Capstone.Photon.Game
         public static GamePlayerModel LocalPlayerModel;
         [Networked] private Role.Role CurrentRole { get; set; }
 
+        /// <summary>로컬 클라이언트에서 이 모델이 리더인지 빠르게 확인합니다.</summary>
+        public bool IsLeader => CurrentRole == Role.Role.Leader;
+
         [Header("Equipment (프리팹 인스펙터에서 연결)")]
         [Tooltip("왼손 IceAxeModel 컴포넌트 — 프리팹 자식 오브젝트에서 드래그")]
         public IceAxeModel leftIceAxe;

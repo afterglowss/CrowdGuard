@@ -246,6 +246,11 @@ namespace GogoGaga.OptimizedRopesAndCables
                 return;
             }
 
+            // 런타임에 StartPoint/EndPoint가 동적으로 주입되는 경우를 위해
+            // Awake() 시점의 판정값을 매 호출마다 재확인합니다.
+            if (Application.isPlaying)
+                isStartOrEndPointMissing = (rope.StartPoint == null || rope.EndPoint == null);
+
             if (isStartOrEndPointMissing)
             {
                 if (meshFilter.sharedMesh != null)

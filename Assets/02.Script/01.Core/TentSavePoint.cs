@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections.Generic;
+using Capstone.Photon.Game;
 
 public class TentSavePoint : MonoBehaviour
 {
@@ -10,14 +10,24 @@ public class TentSavePoint : MonoBehaviour
     {
         Debug.Log($"[TentSavePoint] {gameObject.name}에서 2인 진입 시퀀스를 시작합니다.");
 
-        // 1. "Player" 태그를 가진 모든 오브젝트를 찾습니다.
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        TentInteriorController ctrl = TentInteriorController.Instance;
+        if (ctrl == null) return;
 
-        if (TentInteriorController.Instance != null)
+        // 내부 배치 위치와 퇴장 위치를 RPC 파라미터로 전달합니다.
+        // 각 클라이언트는 수신 후 자신의 역할에 맞는 위치로 이동합니다.
+        Vector3 leaderPos    = ctrl.player1InteriorPos != null ? ctrl.player1InteriorPos.position : transform.position;
+        Vector3 navigatorPos = ctrl.player2InteriorPos != null ? ctrl.player2InteriorPos.position : transform.position;
+        Vector3 exitPos      = exteriorPos != null ? exteriorPos.position : transform.position;
+
+        if (PlayerManager.Instance != null)
         {
-            // 2. 내부 컨트롤러에 들어온 텐트 정보와 플레이어 목록을 넘깁니다.
-            // (솔로 테스트 시 players가 비어있어도 localXRRig로 이동)
-            TentInteriorController.Instance.EnterFromTent(this, players);
+            PlayerManager.Instance.RPC_TentEnter(leaderPos, navigatorPos, exitPos);
+        }
+        else
+        {
+            // 솔로 테스트용 폴백 (PlayerManager 없을 때)
+            Debug.LogWarning("[TentSavePoint] PlayerManager 없음. 로컬에서만 입장 처리합니다.");
+            ctrl.ExecuteTentEnterLocal(leaderPos, navigatorPos, exitPos);
         }
     }
 }

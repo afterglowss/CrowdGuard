@@ -1,25 +1,30 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Capstone.Photon.Game;
 
 public class TentInteriorController : MonoBehaviour
 {
     public static TentInteriorController Instance { get; private set; }
 
     [Header("플레이어 배치 위치")]
-    public Transform player1InteriorPos; // 플레이어 1용 위치
-    public Transform player2InteriorPos; // 플레이어 2용 위치
+    [Tooltip("리더(Leader)가 앉는 위치 — 텐트 문 쪽을 바라보는 자리")]
+    public Transform player1InteriorPos;
+    [Tooltip("서포터(Supporter)가 앉는 위치")]
+    public Transform player2InteriorPos;
 
     [Header("로컬 플레이어")]
     [Tooltip("씬의 XR Origin Rig 루트 오브젝트를 여기에 연결하세요.")]
     public Transform localXRRig;
 
     [Header("랜턴 세팅 (이중 제어)")]
-    public Light lanternLight;             // 실제 빛 컴포넌트
-    public GameObject lanternEmissionObj;  // Emission 머테리얼이 적용된 메시 오브젝트
+    public Light lanternLight;
+    public GameObject lanternEmissionObj;
 
-    private TentSavePoint currentEnteredTent;
-    private GameObject[] currentPlayers;
+    // RPC 수신 측에서도 퇴장 위치를 알 수 있도록 캐시합니다.
+    private Vector3 _cachedExitPos;
+
+    // 중복 요청 방지 (양쪽 동시 버튼 클릭 등)
+    private bool _isExiting = false;
 
     private void Awake()
     {
@@ -27,43 +32,50 @@ public class TentInteriorController : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    // 입장 로직: 두 명을 서로 마주 보는 위치로 보냅니다.
-    public void EnterFromTent(TentSavePoint tent, GameObject[] players)
-    {
-        currentEnteredTent = tent;
-        currentPlayers = players;
+    // ── 입장 ────────────────────────────────────────────────────────
 
-        // 입장 시 랜턴 상태 초기화 (둘 다 끔)
-        if (lanternLight != null) lanternLight.enabled = false;
+    /// <summary>
+    /// PlayerManager.RPC_TentEnter()에서 전 클라이언트에 호출됩니다.
+    /// 각 클라이언트는 자신의 역할에 맞는 위치로 이동합니다.
+    ///   리더    → leaderPos (pos1, 텐트 문 앞 자리)
+    ///   서포터  → supporterPos (pos2)
+    /// </summary>
+    public void ExecuteTentEnterLocal(Vector3 leaderPos, Vector3 navigatorPos, Vector3 exitPos)
+    {
+        _cachedExitPos = exitPos;
+        _isExiting = false; // 재입장 시 초기화
+
+        if (lanternLight != null)      lanternLight.enabled = false;
         if (lanternEmissionObj != null) lanternEmissionObj.SetActive(false);
 
-        StartCoroutine(TransitionToInterior());
+        // 텐트 안에서는 세이프티 로프 숨기기
+        PlayerManager.Instance?.leaderSafetyRope?.SetVisible(false);
+
+        bool isLeader = GamePlayerModel.LocalPlayerModel?.IsLeader ?? true;
+        Vector3 myPos = isLeader ? leaderPos : navigatorPos;
+
+        StartCoroutine(TransitionToInterior(myPos));
     }
 
-    private IEnumerator TransitionToInterior()
+    private IEnumerator TransitionToInterior(Vector3 targetPos)
     {
         if (ScreenEffectManager.Instance != null)
             yield return StartCoroutine(ScreenEffectManager.Instance.FadeScreenRoutine(0.5f, false));
 
-        // 로컬 플레이어는 XR 리그를 직접 이동 (PlayerModel 아바타가 아닌 실제 리그)
         if (localXRRig != null)
-            localXRRig.position = player1InteriorPos.position;
-        else if (currentPlayers.Length >= 1)
-            currentPlayers[0].transform.position = player1InteriorPos.position;
-
-        if (currentPlayers.Length >= 2)
-            currentPlayers[1].transform.position = player2InteriorPos.position;
+            localXRRig.position = targetPos;
 
         if (ScreenEffectManager.Instance != null)
             yield return StartCoroutine(ScreenEffectManager.Instance.FadeScreenRoutine(0.5f, true));
     }
 
-    // 랜턴 켜기: 빛과 Emission 오브젝트를 동시에 켭니다.
+    // ── 랜턴 ────────────────────────────────────────────────────────
+
     public void TurnOnLantern()
     {
         Debug.Log("[TentInteriorController] 랜턴 가동: 빛과 발광 메시를 모두 활성화합니다.");
 
-        if (lanternLight != null) lanternLight.enabled = true;
+        if (lanternLight != null)      lanternLight.enabled = true;
         if (lanternEmissionObj != null) lanternEmissionObj.SetActive(true);
 
         if (SurvivalManager.Instance != null)
@@ -73,39 +85,73 @@ public class TentInteriorController : MonoBehaviour
             EquipmentManager.Instance.SupplyAnchorsAtTent();
     }
 
-    // 퇴장 로직: 모든 플레이어를 다시 밖으로 보냅니다.
+    // ── 퇴장 ────────────────────────────────────────────────────────
+
+    /// <summary>
+    /// 텐트 문(퇴장 트리거)에서 호출됩니다.
+    /// 리더만 퇴장을 트리거할 수 있으며, RPC를 통해 양쪽이 동시에 퇴장합니다.
+    /// </summary>
     public void ExitTent()
     {
-        if (currentEnteredTent == null || currentPlayers == null) return;
+        // 리더만 퇴장 트리거 가능
+        bool isLeader = GamePlayerModel.LocalPlayerModel?.IsLeader ?? true;
+        if (!isLeader)
+        {
+            Debug.Log("[TentInteriorController] 서포터는 퇴장을 트리거할 수 없습니다.");
+            return;
+        }
 
-        if (lanternLight != null) lanternLight.enabled = false;
-        if (lanternEmissionObj != null) lanternEmissionObj.SetActive(false);
-        if (SurvivalManager.Instance != null)
-            SurvivalManager.Instance.RPC_SetRestoringState(false);
+        if (_isExiting) return;
+        _isExiting = true;
 
-        // 퇴장 시 위치 세이브 (중앙 위치 저장)
-        if (SavePointManager.Instance != null)
-            SavePointManager.Instance.ForceSetSavePoint(currentEnteredTent.exteriorPos.position);
-
-        StartCoroutine(TransitionToExterior());
+        if (PlayerManager.Instance != null)
+        {
+            PlayerManager.Instance.RPC_TentExit(_cachedExitPos);
+        }
+        else
+        {
+            Debug.LogWarning("[TentInteriorController] PlayerManager 없음. 로컬에서만 퇴장 처리합니다.");
+            ExecuteTentExitLocal(_cachedExitPos);
+        }
     }
 
-    private IEnumerator TransitionToExterior()
+    /// <summary>
+    /// PlayerManager.RPC_TentExit()에서 전 클라이언트에 호출됩니다.
+    /// 페이드 아웃 → 텔레포트 → 페이드 인 시퀀스를 로컬에서 실행합니다.
+    /// </summary>
+    public void ExecuteTentExitLocal(Vector3 exitPos)
+    {
+        if (lanternLight != null)      lanternLight.enabled = false;
+        if (lanternEmissionObj != null) lanternEmissionObj.SetActive(false);
+
+        // 세이브 포인트 갱신 (양쪽 클라이언트 모두 실행)
+        if (SavePointManager.Instance != null)
+            SavePointManager.Instance.ForceSetSavePoint(exitPos);
+
+        StartCoroutine(TransitionToExterior(exitPos));
+    }
+
+    private IEnumerator TransitionToExterior(Vector3 exitPos)
     {
         if (ScreenEffectManager.Instance != null)
             yield return StartCoroutine(ScreenEffectManager.Instance.FadeScreenRoutine(0.5f, false));
 
-        // 밖으로 나갈 때는 겹치지 않게 약간의 오프셋을 줍니다.
-        Vector3 exitPos = currentEnteredTent.exteriorPos.position;
         if (localXRRig != null)
-            localXRRig.position = exitPos + new Vector3(0.5f, 0, 0);
-        else if (currentPlayers.Length >= 1)
-            currentPlayers[0].transform.position = exitPos + new Vector3(0.5f, 0, 0);
-
-        if (currentPlayers.Length >= 2)
-            currentPlayers[1].transform.position = exitPos + new Vector3(-0.5f, 0, 0);
+        {
+            // 리더와 서포터가 겹치지 않도록 역할에 따라 반대 방향으로 배치합니다.
+            bool isLeader = GamePlayerModel.LocalPlayerModel?.IsLeader ?? true;
+            Vector3 offset = isLeader
+                ? new Vector3(-0.5f, 0f, 0f)   // 리더: 왼쪽
+                : new Vector3( 0.5f, 0f, 0f);   // 서포터: 오른쪽
+            localXRRig.position = exitPos + offset;
+        }
 
         if (ScreenEffectManager.Instance != null)
             yield return StartCoroutine(ScreenEffectManager.Instance.FadeScreenRoutine(0.5f, true));
+
+        // 텐트 밖으로 나왔으니 세이프티 로프 다시 표시
+        PlayerManager.Instance?.leaderSafetyRope?.SetVisible(true);
+
+        _isExiting = false; // 코루틴 완료 후 초기화 (재입장 대비)
     }
 }
