@@ -6,6 +6,11 @@ public class TentSavePoint : MonoBehaviour
     [Tooltip("이 텐트 밖으로 나갈 때 플레이어들이 서 있게 될 중앙 위치")]
     public Transform exteriorPos;
 
+    private static bool IsNetworkActive() =>
+        PlayerManager.Instance != null &&
+        PlayerManager.Instance.Runner != null &&
+        PlayerManager.Instance.Runner.IsRunning;
+
     public void EnterTent()
     {
         Debug.Log($"[TentSavePoint] {gameObject.name}에서 2인 진입 시퀀스를 시작합니다.");
@@ -19,14 +24,12 @@ public class TentSavePoint : MonoBehaviour
         Vector3 navigatorPos = ctrl.player2InteriorPos != null ? ctrl.player2InteriorPos.position : transform.position;
         Vector3 exitPos      = exteriorPos != null ? exteriorPos.position : transform.position;
 
-        if (PlayerManager.Instance != null)
+        if (IsNetworkActive())
         {
             PlayerManager.Instance.RPC_TentEnter(leaderPos, navigatorPos, exitPos);
         }
         else
         {
-            // 솔로 테스트용 폴백 (PlayerManager 없을 때)
-            Debug.LogWarning("[TentSavePoint] PlayerManager 없음. 로컬에서만 입장 처리합니다.");
             ctrl.ExecuteTentEnterLocal(leaderPos, navigatorPos, exitPos);
         }
     }

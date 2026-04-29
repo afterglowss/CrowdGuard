@@ -26,6 +26,9 @@ public class TentInteriorController : MonoBehaviour
     // 중복 요청 방지 (양쪽 동시 버튼 클릭 등)
     private bool _isExiting = false;
 
+    // 랜턴 현재 상태
+    private bool _isLanternOn = false;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -45,8 +48,7 @@ public class TentInteriorController : MonoBehaviour
         _cachedExitPos = exitPos;
         _isExiting = false; // 재입장 시 초기화
 
-        if (lanternLight != null)      lanternLight.enabled = false;
-        if (lanternEmissionObj != null) lanternEmissionObj.SetActive(false);
+        SetLantern(false);
 
         // 텐트 안에서는 세이프티 로프 숨기기
         PlayerManager.Instance?.leaderSafetyRope?.SetVisible(false);
@@ -71,17 +73,24 @@ public class TentInteriorController : MonoBehaviour
 
     // ── 랜턴 ────────────────────────────────────────────────────────
 
-    public void TurnOnLantern()
+    public void ToggleLantern()
     {
-        Debug.Log("[TentInteriorController] 랜턴 가동: 빛과 발광 메시를 모두 활성화합니다.");
+        _isLanternOn = !_isLanternOn;
+        SetLantern(_isLanternOn);
+    }
 
-        if (lanternLight != null)      lanternLight.enabled = true;
-        if (lanternEmissionObj != null) lanternEmissionObj.SetActive(true);
+    private void SetLantern(bool on)
+    {
+        Debug.Log($"[TentInteriorController] 랜턴 {(on ? "켜짐" : "꺼짐")}");
+
+        if (lanternLight != null)       lanternLight.enabled = on;
+        if (lanternEmissionObj != null)  lanternEmissionObj.SetActive(on);
 
         if (SurvivalManager.Instance != null)
-            SurvivalManager.Instance.RPC_SetRestoringState(true);
+            SurvivalManager.Instance.RPC_SetRestoringState(on);
 
-        if (EquipmentManager.Instance != null)
+        // 앵커 보급은 처음 켤 때 한 번만
+        if (on && EquipmentManager.Instance != null)
             EquipmentManager.Instance.SupplyAnchorsAtTent();
     }
 
@@ -93,24 +102,33 @@ public class TentInteriorController : MonoBehaviour
     /// </summary>
     public void ExitTent()
     {
-        // 리더만 퇴장 트리거 가능
-        bool isLeader = GamePlayerModel.LocalPlayerModel?.IsLeader ?? true;
-        if (!isLeader)
+        Debug.Log("[TentInteriorController] ExitTent() 호출됨");
+
+        // 네트워크 세션 중일 때만 리더 체크 (솔로 테스트에서는 항상 허용)
+        bool networkActive = PlayerManager.Instance != null &&
+                             PlayerManager.Instance.Runner != null &&
+                             PlayerManager.Instance.Runner.IsRunning;
+        if (networkActive)
         {
-            Debug.Log("[TentInteriorController] 서포터는 퇴장을 트리거할 수 없습니다.");
-            return;
+            bool isLeader = GamePlayerModel.LocalPlayerModel?.IsLeader ?? true;
+            if (!isLeader)
+            {
+                Debug.Log("[TentInteriorController] 서포터는 퇴장을 트리거할 수 없습니다.");
+                return;
+            }
         }
 
         if (_isExiting) return;
         _isExiting = true;
 
-        if (PlayerManager.Instance != null)
+        if (PlayerManager.Instance != null &&
+            PlayerManager.Instance.Runner != null &&
+            PlayerManager.Instance.Runner.IsRunning)
         {
             PlayerManager.Instance.RPC_TentExit(_cachedExitPos);
         }
         else
         {
-            Debug.LogWarning("[TentInteriorController] PlayerManager 없음. 로컬에서만 퇴장 처리합니다.");
             ExecuteTentExitLocal(_cachedExitPos);
         }
     }
@@ -121,8 +139,7 @@ public class TentInteriorController : MonoBehaviour
     /// </summary>
     public void ExecuteTentExitLocal(Vector3 exitPos)
     {
-        if (lanternLight != null)      lanternLight.enabled = false;
-        if (lanternEmissionObj != null) lanternEmissionObj.SetActive(false);
+        SetLantern(false);
 
         // 세이브 포인트 갱신 (양쪽 클라이언트 모두 실행)
         if (SavePointManager.Instance != null)

@@ -94,7 +94,6 @@ namespace GogoGaga.OptimizedRopesAndCables
             if (rope.StartPoint == null || rope.EndPoint == null)
             {
                 isStartOrEndPointMissing = true;
-                Debug.LogError("StartPoint or EndPoint is not assigned.", gameObject);
             }
             else
             {
@@ -151,6 +150,7 @@ namespace GogoGaga.OptimizedRopesAndCables
             for (int i = 0; i < points.Length; i++)
             {
                 Vector3 direction = i < points.Length - 1 ? points[i + 1] - points[i] : points[i] - points[i - 1];
+                if (direction == Vector3.zero) direction = Vector3.forward; // 동일 위치 포인트 방어
                 Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
 
                 // Create vertices around a circle at this point
@@ -247,9 +247,8 @@ namespace GogoGaga.OptimizedRopesAndCables
             }
 
             // 런타임에 StartPoint/EndPoint가 동적으로 주입되는 경우를 위해
-            // Awake() 시점의 판정값을 매 호출마다 재확인합니다.
-            if (Application.isPlaying)
-                isStartOrEndPointMissing = (rope.StartPoint == null || rope.EndPoint == null);
+            // 에디터/플레이 모드 관계없이 매 호출마다 재확인합니다.
+            isStartOrEndPointMissing = (rope.StartPoint == null || rope.EndPoint == null);
 
             if (isStartOrEndPointMissing)
             {
