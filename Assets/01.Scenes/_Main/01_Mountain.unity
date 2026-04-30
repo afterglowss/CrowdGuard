@@ -1949,7 +1949,7 @@ PrefabInstance:
     - target: {fileID: 8230167282576325141, guid: 4d567180b16a53347a313e1282a8cafb, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1961813512}
+      objectReference: {fileID: 1987772770}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3021,7 +3021,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!43 &1961813512
+--- !u!43 &1987772770
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
