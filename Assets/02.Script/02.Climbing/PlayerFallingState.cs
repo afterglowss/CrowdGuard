@@ -1,117 +1,179 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 추락 상태.
+///
+/// [물리]
+/// - 단순 Y축 이동 대신 Vector3 velocity + CapsuleCast 충돌 해결.
+/// - 경사면 충돌 시 hit.normal 기준으로 slide / bounce 혼합.
+///   fallBounciness = 0 → 완전 슬라이드(얼음 표면)
+///   fallBounciness = 1 → 완전 반사(단단한 바위)
+/// - 바닥(groundLayer) 감지 없음. 인게임에서 바닥 지형 미사용이므로
+///   fallMaxTime 초과 시 리스폰 시퀀스로 진입.
+///
+/// [리스폰 시퀀스]
+///   암전 → (검은 화면에서) 텔레포트 → 밝아짐
+///   텔레포트가 플레이어에게 보이지 않아 자연스러운 복귀 연출.
+/// </summary>
 public class PlayerFallingState : PlayerState
 {
-    private float verticalVelocity;
-    private float fallTimer;
-    private float maxFallTime = 2.5f;
+    // ── 캡슐 형태 (ClimbingState와 동일한 값 사용) ─────────────────
+    private const float _capsuleBottomOffset = 0.5f;  // 허리 높이부터 체크
+    private const float _capsuleTopOffset    = 1.7f;  // 머리 높이
+    private const float _bodyRadius          = 0.15f;
+    private const float _wallMargin          = 0.05f;
 
-    private CharacterController charController;
-    private Rigidbody rigid;
-    private LayerMask groundLayer; // 바닥 충돌 감지용
+    // ── 상태 ───────────────────────────────────────────────────────
+    private Vector3 _velocity;
+    private float   _fallTimer;
+    private bool    _respawnTriggered;
 
-    private List<Behaviour> disabledXRScripts = new List<Behaviour>();
+    private CharacterController      _charController;
+    private Rigidbody                _rigid;
+    private List<Behaviour>          _disabledXRScripts = new List<Behaviour>();
 
-    public PlayerFallingState(PlayerController player) : base(player) 
-    {
-        // 바닥이나 일반 지형을 감지하기 위한 레이어 (Default 등)
-        groundLayer = LayerMask.GetMask("Default", "Ground", "IceWall"); 
-    }
+    public PlayerFallingState(PlayerController player) : base(player) { }
+
+    // ── Enter / Exit ───────────────────────────────────────────────
 
     public override void Enter()
     {
-        Debug.Log("[FSM] Entered Falling State: 으아아아악!");
-        
-        // 🚨 1. 추락 딜레이 해결: 초기 하강 속도를 강제로 줘서 '훅!' 떨어지는 체감 극대화
-        verticalVelocity = -3.0f; 
-        fallTimer = 0f;
+        Debug.Log("[FSM] Entered Falling State");
 
-        disabledXRScripts.Clear();
-        Behaviour[] scripts = player.xrRigPivot.GetComponentsInChildren<Behaviour>(true);
-        foreach (var script in scripts)
+        _velocity         = new Vector3(0f, -3.0f, 0f); // 초기 하강 킥
+        _fallTimer        = 0f;
+        _respawnTriggered = false;
+
+        // XR 이동 스크립트 비활성화
+        _disabledXRScripts.Clear();
+        foreach (var script in player.xrRigPivot.GetComponentsInChildren<Behaviour>(true))
         {
             if (script == null) continue;
-            string name = script.GetType().Name;
-            if (name.Contains("XRBodyTransformer") ||
-                name.Contains("CharacterControllerDriver") ||
-                name.Contains("MoveProvider") ||
-                name.Contains("Locomotion"))
+            string n = script.GetType().Name;
+            if ((n.Contains("XRBodyTransformer") || n.Contains("CharacterControllerDriver") ||
+                 n.Contains("MoveProvider")       || n.Contains("Locomotion")) && script.enabled)
             {
-                if (script.enabled)
-                {
-                    script.enabled = false;
-                    disabledXRScripts.Add(script);
-                }
+                script.enabled = false;
+                _disabledXRScripts.Add(script);
             }
         }
 
-        charController = player.xrRigPivot.GetComponentInChildren<CharacterController>(true);
-        if (charController != null) charController.enabled = false;
+        _charController = player.xrRigPivot.GetComponentInChildren<CharacterController>(true);
+        if (_charController != null) _charController.enabled = false;
 
-        rigid = player.xrRigPivot.GetComponentInChildren<Rigidbody>(true);
-        if (rigid != null) rigid.isKinematic = true;
+        _rigid = player.xrRigPivot.GetComponentInChildren<Rigidbody>(true);
+        if (_rigid != null) _rigid.isKinematic = true;
 
-        // 시각 효과 시작 (아래 2번 항목에서 만들 스크립트 호출)
-        if (ScreenEffectManager.Instance != null)
-        {
-            ScreenEffectManager.Instance.StartFallEffect(maxFallTime);
-        }
+        // 추락 비네팅 시작 (리스폰 타이밍과 분리됨)
+        ScreenEffectManager.Instance?.StartFallVignette(player.fallMaxTime);
     }
 
     public override void Exit()
     {
-        foreach (var script in disabledXRScripts)
-        {
+        foreach (var script in _disabledXRScripts)
             if (script != null) script.enabled = true;
-        }
-        disabledXRScripts.Clear();
+        _disabledXRScripts.Clear();
 
-        // 🚨 2. 마비 버그 해결: 상태를 나갈 때 반드시 물리 엔진을 원상복구!
-        if (charController != null) charController.enabled = true;
-        if (rigid != null) rigid.isKinematic = false;
-        
-        // 눕혀놨던 카메라 원상 복구
+        if (_charController != null) _charController.enabled = true;
+        if (_rigid != null) _rigid.isKinematic = false;
+
         player.xrRigPivot.rotation = Quaternion.Euler(0, player.xrRigPivot.eulerAngles.y, 0);
     }
 
+    // ── Update ─────────────────────────────────────────────────────
+
     public override void Update()
     {
-        if (player.xrRigPivot == null) return;
+        if (player.xrRigPivot == null || _respawnTriggered) return;
 
-        // 가짜 중력 적용 (점점 더 빨리 떨어짐)
-        verticalVelocity += Physics.gravity.y * Time.deltaTime; 
-        player.xrRigPivot.position += new Vector3(0, verticalVelocity * Time.deltaTime, 0);
+        // 중력 누적 (3D velocity)
+        _velocity += Physics.gravity * Time.deltaTime;
 
-        // 카메라를 더 빠르게 눕힘 (딜레이 체감 개선)
-        Quaternion targetRotation = Quaternion.Euler(-60f, player.xrRigPivot.eulerAngles.y, 0);
-        player.xrRigPivot.rotation = Quaternion.Lerp(player.xrRigPivot.rotation, targetRotation, Time.deltaTime * 5f);
+        // CapsuleCast로 충돌 해결 후 이동
+        Vector3 move = ResolveMovement(_velocity * Time.deltaTime);
+        player.xrRigPivot.position += move;
 
-        // 🚨 3. 바닥 뚫기 해결: 떨어지는 중에 내 발밑에 바닥이 닿을 것 같으면 즉시 암전/부활!
-        Vector3 rayStart = Camera.main.transform.position;
-        if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, 1.0f, groundLayer))
+        // 카메라 눕힘 (추락 체감)
+        Quaternion target = Quaternion.Euler(-60f, player.xrRigPivot.eulerAngles.y, 0);
+        player.xrRigPivot.rotation = Quaternion.Lerp(
+            player.xrRigPivot.rotation, target, Time.deltaTime * 5f);
+
+        // 최대 시간 초과 → 리스폰
+        _fallTimer += Time.deltaTime;
+        if (_fallTimer >= player.fallMaxTime)
+            TriggerRespawn();
+    }
+
+    // ── 충돌 해결 ──────────────────────────────────────────────────
+
+    /// <summary>
+    /// 제안된 이동량에 대해 CapsuleCast를 수행합니다.
+    /// 충돌이 없으면 그대로 반환.
+    /// 충돌이 있으면 안전 거리만큼 이동 후, 속도를 slide/bounce 혼합으로 갱신합니다.
+    ///
+    /// 다음 프레임부터 갱신된 velocity가 수평 성분을 가지므로
+    /// 경사면을 따라 자연스럽게 흘러내리거나 튕겨나가는 효과가 생깁니다.
+    /// </summary>
+    private Vector3 ResolveMovement(Vector3 proposed)
+    {
+        if (proposed.sqrMagnitude < 0.000001f) return proposed;
+
+        float   dist    = proposed.magnitude;
+        Vector3 dir     = proposed / dist;
+
+        Vector3 capsuleBottom = player.xrRigPivot.position + Vector3.up * _capsuleBottomOffset;
+        Vector3 capsuleTop    = player.xrRigPivot.position + Vector3.up * _capsuleTopOffset;
+
+        if (!Physics.CapsuleCast(
+                capsuleBottom, capsuleTop, _bodyRadius,
+                dir, out RaycastHit hit,
+                dist + _wallMargin,
+                player.iceLayer))
+            return proposed; // 충돌 없음
+
+        // 안전 거리 = 충돌 지점 - 여백
+        float allowed = Mathf.Max(0f, hit.distance - _wallMargin);
+
+        // 속도를 슬라이드(0) ↔ 반사(1) 사이에서 혼합
+        Vector3 slideVel   = Vector3.ProjectOnPlane(_velocity, hit.normal);
+        Vector3 bounceVel  = Vector3.Reflect(_velocity, hit.normal);
+        _velocity = Vector3.Lerp(slideVel, bounceVel, player.fallBounciness);
+
+        // 충돌 방향으로는 안전 거리만큼만 이동
+        return dir * allowed;
+    }
+
+    // ── 리스폰 ─────────────────────────────────────────────────────
+
+    private void TriggerRespawn()
+    {
+        _respawnTriggered = true;
+
+        if (ScreenEffectManager.Instance != null)
         {
-            Debug.Log("[FSM] 윽! 바닥에 부딪힘. 즉시 리스폰.");
-            Respawn();
-            return;
+            ScreenEffectManager.Instance.StartRespawnSequence(
+                player.respawnFadeOutDuration,
+                onBlackScreen: DoRespawnTeleport,
+                player.respawnFadeInDuration);
         }
-
-        fallTimer += Time.deltaTime;
-        if (fallTimer >= maxFallTime)
+        else
         {
-            Respawn();
+            DoRespawnTeleport();
         }
     }
 
-    private void Respawn()
+    /// <summary>
+    /// 완전히 검은 화면에서 호출됩니다. 순간이동이 플레이어에게 보이지 않습니다.
+    /// </summary>
+    private void DoRespawnTeleport()
     {
-        // 세이브 지점으로 순간이동
-        player.xrRigPivot.position = SavePointManager.Instance.GetRespawnPosition();
+        if (SavePointManager.Instance != null)
+            player.xrRigPivot.position = SavePointManager.Instance.GetRespawnPosition();
 
-        if (player.leftAxe != null) player.leftAxe.IsAttachedToWall = false;
+        if (player.leftAxe  != null) player.leftAxe.IsAttachedToWall  = false;
         if (player.rightAxe != null) player.rightAxe.IsAttachedToWall = false;
 
-        // 다시 Idle 상태로 (이때 Exit()가 불리면서 마비가 풀리고 카메라가 똑바로 섬)
         player.ChangeState(player.IdleState);
     }
 }

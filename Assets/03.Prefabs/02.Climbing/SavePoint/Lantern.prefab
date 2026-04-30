@@ -146,7 +146,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -240,7 +240,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8190682287633097625}
         m_TargetAssemblyTypeName: TentInteriorController, Assembly-CSharp
-        m_MethodName: TurnOnLantern
+        m_MethodName: ToggleLantern
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -415,7 +415,7 @@ Transform:
   m_GameObject: {fileID: 5513166916045624391}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.0025000565, y: 0.21524993, z: -0.006500245}
+  m_LocalPosition: {x: -0.0025000565, y: 0.22, z: -0.006500245}
   m_LocalScale: {x: 0.49999988, y: 0.5, z: 0.49999988}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -432,9 +432,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8584906, g: 0.8520808, b: 0.74105555, a: 1}
   m_Intensity: 1
-  m_Range: 0.72484875
+  m_Range: 1.35
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10

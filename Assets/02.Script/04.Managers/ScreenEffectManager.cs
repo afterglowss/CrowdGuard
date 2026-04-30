@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -34,6 +35,9 @@ public class ScreenEffectManager : MonoBehaviour
     // 내부 Material 캐시
     private Material _fadeMat;
     private Material _vignetteMat;
+
+    // 현재 실행 중인 효과 코루틴 (중단 가능하도록 추적)
+    private Coroutine _activeEffectCoroutine;
 
     private void Awake()
     {
@@ -174,47 +178,88 @@ public class ScreenEffectManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 추락 연출: 비네팅 점점 짙어짐 → 암전 → duration 후 서서히 밝아짐.
-    /// PlayerFallingState 또는 추락 감지 시스템에서 호출합니다.
+    /// 추락 중 비네팅만 서서히 짙어집니다.
+    /// 리스폰 타이밍과 분리되어 있으며, StopAllEffects()로 언제든 중단 가능.
     /// </summary>
-    public void StartFallEffect(float duration)
+    public void StartFallVignette(float fallDuration)
     {
-        StartCoroutine(FallEffectCoroutine(duration));
+        StopAllEffects();
+        _activeEffectCoroutine = StartCoroutine(FallVignetteCoroutine(fallDuration));
     }
 
-    private IEnumerator FallEffectCoroutine(float duration)
+    private IEnumerator FallVignetteCoroutine(float duration)
     {
         float timer = 0f;
-        float vignetteTime = Mathf.Max(duration - 0.5f, 0.1f);
-
-        // 1. 비네팅 점점 짙어짐
-        while (timer < vignetteTime)
+        while (timer < duration)
         {
             timer += Time.deltaTime;
-            SetQuadAlpha(_vignetteMat, Mathf.Lerp(0f, 1f, timer / vignetteTime));
+            SetQuadAlpha(_vignetteMat, Mathf.Lerp(0f, 1f, timer / duration));
             yield return null;
         }
+    }
 
-        // 2. 순간 암전
-        SetQuadAlpha(_fadeMat, 1f);
-
-        yield return new WaitForSeconds(0.5f);
-
-        // 3. 서서히 밝아지며 부활 (비네팅도 같이 해제)
-        float fadeTimer = 0f;
-        const float fadeInDuration = 1.0f;
-        while (fadeTimer < fadeInDuration)
+    /// <summary>
+    /// 현재 실행 중인 모든 효과를 즉시 중단하고 화면을 초기화합니다.
+    /// Respawn 직전에 호출하여 엇박자 페이드를 방지합니다.
+    /// </summary>
+    public void StopAllEffects()
+    {
+        if (_activeEffectCoroutine != null)
         {
-            fadeTimer += Time.deltaTime;
-            float t = fadeTimer / fadeInDuration;
+            StopCoroutine(_activeEffectCoroutine);
+            _activeEffectCoroutine = null;
+        }
+    }
+
+    /// <summary>
+    /// 리스폰 시퀀스:
+    ///   1. 빠르게 암전 (fadeOutDuration)
+    ///   2. onBlackScreen 콜백 실행 → 이 시점에 텔레포트
+    ///   3. 서서히 밝아짐 (fadeInDuration)
+    ///
+    /// 텔레포트가 검은 화면 뒤에서 일어나므로 순간이동이 보이지 않습니다.
+    /// </summary>
+    public void StartRespawnSequence(float fadeOutDuration, Action onBlackScreen, float fadeInDuration)
+    {
+        StopAllEffects();
+        _activeEffectCoroutine = StartCoroutine(RespawnSequenceCoroutine(fadeOutDuration, onBlackScreen, fadeInDuration));
+    }
+
+    private IEnumerator RespawnSequenceCoroutine(float fadeOut, Action onBlack, float fadeIn)
+    {
+        // 1. 현재 비네팅 유지하면서 빠르게 암전
+        float startVignette = _vignetteMat != null ? _vignetteMat.color.a : 0f;
+        float timer = 0f;
+        while (timer < fadeOut)
+        {
+            timer += Time.deltaTime;
+            float t = timer / fadeOut;
+            SetQuadAlpha(_fadeMat, Mathf.Lerp(0f, 1f, t));
+            SetQuadAlpha(_vignetteMat, Mathf.Lerp(startVignette, 1f, t));
+            yield return null;
+        }
+        SetQuadAlpha(_fadeMat, 1f);
+        SetQuadAlpha(_vignetteMat, 1f);
+
+        // 2. 완전히 검은 화면에서 텔레포트 (플레이어는 아무것도 안 보임)
+        onBlack?.Invoke();
+
+        // 3. 서서히 밝아짐
+        timer = 0f;
+        while (timer < fadeIn)
+        {
+            timer += Time.deltaTime;
+            float t = timer / fadeIn;
             SetQuadAlpha(_fadeMat, Mathf.Lerp(1f, 0f, t));
             SetQuadAlpha(_vignetteMat, Mathf.Lerp(1f, 0f, t));
             yield return null;
         }
-
         SetQuadAlpha(_fadeMat, 0f);
         SetQuadAlpha(_vignetteMat, 0f);
+        _activeEffectCoroutine = null;
     }
+
+    // ─── 기존 API 유지 (텐트 등 다른 곳에서 사용) ───────────────────
 
     // ───────────────────────────────────────────────
     //  내부 유틸

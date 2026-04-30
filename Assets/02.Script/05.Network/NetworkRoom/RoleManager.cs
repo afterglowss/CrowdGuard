@@ -55,13 +55,18 @@ public class RoleManager : NetworkBehaviour
         Roles.Remove(player);
     }
 
+    private bool _despawnRequested = false;
+
     /// <summary>
-    /// 게임 씬에서 역할 배분이 끝난 뒤 GameManager 등에서 호출.
-    /// StateAuthority가 네트워크 오브젝트를 Despawn해 모든 클라이언트에서 파괴합니다.
+    /// 게임 씬에서 역할 배분이 끝난 뒤 GameManager에서 호출.
+    /// StateAuthority가 Despawn → 모든 클라이언트에서 동시 파괴.
+    /// 양쪽 클라이언트 모두 호출해도 한 번만 실행됩니다.
     /// </summary>
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RPC_DestroyAfterRoleDistributed()
     {
+        if (_despawnRequested) return;
+        _despawnRequested = true;
         Runner.Despawn(Object);
     }
 
