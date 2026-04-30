@@ -8,7 +8,7 @@ namespace Capstone.Photon.Game
     public class GamePlayerModel : PlayerModel
     {
         public static GamePlayerModel LocalPlayerModel;
-        [Networked] private Role.Role CurrentRole { get; set; }
+        [Networked] private PlayerRole CurrentRole { get; set; }
 
         /// <summary>로컬 클라이언트에서 이 모델이 리더인지 빠르게 확인합니다.</summary>
         public bool IsLeader => CurrentRole == Role.Role.Leader;
@@ -38,6 +38,17 @@ namespace Capstone.Photon.Game
             CurrentRole = role;
             PlayerManager.Instance.SetPlayer(CurrentRole, Object);
 
+            bool isLeader = CurrentRole == PlayerRole.Leader;
+
+            // 1. ToolBeltManager: 역할에 따라 도구 활성화/비활성화
+            // (ToolBeltManager.Start()는 네트워크 Role 확정 전에 실행되므로 여기서 재적용)
+            var toolBelt = GetComponentInChildren<ToolBeltManager>();
+            if (toolBelt != null)
+            {
+                toolBelt.SetRole(CurrentRole);
+                Debug.Log($"[GamePlayerModel] ToolBeltManager 역할 적용: {CurrentRole}");
+            }
+            
             // 이 오브젝트를 소유한 로컬 머신에서만 클라이언트 측 역할 반영 처리
             if (Object.HasInputAuthority)
             {

@@ -26,7 +26,7 @@ namespace Capstone.Photon
             rightHandObj.enabled = false;
 
             // start tracking
-            body.Init(controller.head);
+            body.Init(controller.body);
             head.Init(controller.head);
             leftHand.Init(controller.leftHand);
             rightHand.Init(controller.rightHand);

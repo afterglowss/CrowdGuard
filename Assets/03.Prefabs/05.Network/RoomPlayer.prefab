@@ -307,9 +307,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTrackingPos: 0
-  isTrackingRotX: 0
-  isTrackingRotY: 0
-  isTrackingRotZ: 0
+  isTrackingRotX: 1
+  isTrackingRotY: 1
+  isTrackingRotZ: 1
 --- !u!114 &2339762975654165936
 MonoBehaviour:
   m_ObjectHideFlags: 0

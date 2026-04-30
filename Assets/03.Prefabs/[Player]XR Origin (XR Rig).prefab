@@ -4272,12 +4272,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5527918875485290495}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ac48fadc63e8044f807c637dd1e9c8f, type: 3}
+  m_Script: {fileID: 11500000, guid: ecb1a23faffd0b745b90a5f64b9150f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _globalAmplitudeMultiplier: 1
-  _leftHapticPlayer: {fileID: 968102791800215170}
-  _rightHapticPlayer: {fileID: 2324016450201961554}
+  leftHand: {fileID: 5803012890575142689}
+  rightHand: {fileID: 6231980740641379681}
+  body: {fileID: 1522841110663128215}
+  head: {fileID: 1117182085520804352}
 --- !u!1 &5562083883181166991
 GameObject:
   m_ObjectHideFlags: 0

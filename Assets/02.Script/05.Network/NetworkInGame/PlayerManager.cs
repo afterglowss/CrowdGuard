@@ -1,5 +1,6 @@
 using Fusion;
 using System.Collections.Generic;
+using CrowdGuard.Climbing.Tools.Common;
 using UnityEngine;
 
 namespace Capstone.Photon.Game
@@ -7,7 +8,7 @@ namespace Capstone.Photon.Game
     public class PlayerManager : NetworkBehaviour
     {
         public static PlayerManager Instance;
-        public Dictionary<Role.Role, NetworkObject> players;
+        public Dictionary<PlayerRole, NetworkObject> players;
 
         public RopeSystem ropeSystem;
 
@@ -18,7 +19,7 @@ namespace Capstone.Photon.Game
         {
             if(!Instance) Instance = this;
             else if(Instance != this) Destroy(gameObject);
-            players = new Dictionary<Role.Role, NetworkObject>();
+            players = new Dictionary<PlayerRole, NetworkObject>();
         }
         
         /// <summary>
@@ -26,7 +27,7 @@ namespace Capstone.Photon.Game
         /// </summary>
         /// <param name="player"></param>
         /// <param name="obj"></param>
-        public void SetPlayer(Role.Role role, NetworkObject obj)
+        public void SetPlayer(PlayerRole role, NetworkObject obj)
         {
             players[role] = obj;
 
