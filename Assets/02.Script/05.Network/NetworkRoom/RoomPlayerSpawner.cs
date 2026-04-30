@@ -33,16 +33,7 @@ namespace Capstone.Photon.Room
         // 플레이어 입장 시 실행
         public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
         {
-            // 해당 함수는 들어온 플레이어 본인만 실행
-            if (runner.LocalPlayer != player) return;
             
-            // 본인 플레이어 프리팹 생성
-            var playerModel = runner.Spawn(playerPrefab,Vector3.zero,Quaternion.identity, player);
-            if (playerModel.TryGetComponent(out PlayerModel model))
-            {
-                model.Init(localController);
-            }
-            Debug.Log("Player joined");
         }
         
         public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -51,6 +42,20 @@ namespace Capstone.Photon.Room
             roleManager.RPC_RemovePlayer(player);
             Debug.Log("Player Left");
             
+        }
+        
+        public void OnSceneLoadDone(NetworkRunner runner)
+        {
+            // 해당 함수는 들어온 플레이어 본인만 실행
+            //if (runner.LocalPlayer != player) return;
+            
+            // 본인 플레이어 프리팹 생성
+            var playerModel = runner.Spawn(playerPrefab,Vector3.zero,Quaternion.identity, runner.LocalPlayer);
+            if (playerModel.TryGetComponent(out PlayerModel model))
+            {
+                model.Init(localController);
+            }
+            Debug.Log("Player joined");
         }
         
         #region UnuseCallbacks
@@ -132,10 +137,6 @@ namespace Capstone.Photon.Room
         public void OnSceneLoadStart(NetworkRunner runner)
         {
 
-        }
-        
-        public void OnSceneLoadDone(NetworkRunner runner)
-        {
         }
                 
         public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)

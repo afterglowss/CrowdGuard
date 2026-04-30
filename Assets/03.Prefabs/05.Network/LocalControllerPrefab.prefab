@@ -99,7 +99,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHand: {fileID: 8135240349692524813}
   rightHand: {fileID: 8135240348157426156}
+  body: {fileID: 7435807389273440307}
   head: {fileID: 8135240347992332655}
+--- !u!4 &7435807389273440307 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 8135240349759516189}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8135240347992332655 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
