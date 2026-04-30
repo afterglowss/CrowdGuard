@@ -793,6 +793,7 @@ GameObject:
   - component: {fileID: 6772774632505641360}
   - component: {fileID: 1980777650916136036}
   - component: {fileID: -8302912553190036241}
+  - component: {fileID: -8056019070804926060}
   m_Layer: 0
   m_Name: Ice Anchor 2000!
   m_TagString: Untagged
@@ -891,3 +892,16 @@ MonoBehaviour:
   - {fileID: 2371931068997508133}
   NetworkedBehaviours: []
   ForceRemoteRenderTimeframe: 0
+--- !u!114 &-8056019070804926060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8993429403725291819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a105d9c3d46ab544bab074633993001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  safeRadius: 2
