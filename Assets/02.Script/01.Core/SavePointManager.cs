@@ -1,9 +1,21 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SavePointManager : MonoBehaviour
 {
     public static SavePointManager Instance { get; private set; }
+
+    /// <summary>
+    /// 세이브 포인트가 갱신될 때마다 발행됩니다. (앵커 체결 / 텐트 퇴장)
+    /// LeaderSafetyRope 등 시각화 컴포넌트가 구독합니다.
+    ///
+    /// ※ 앵커 체결은 IceAnchorController RPC를 통해 전 클라이언트에 전파되므로
+    ///    양쪽에서 자동 발행됩니다.
+    ///    텐트 퇴장은 ForceSetSavePoint()를 호출하는 쪽에서만 발행되므로,
+    ///    팔로워에게도 보여야 한다면 호출부에서 별도 RPC 처리가 필요합니다.
+    /// </summary>
+    public static event Action<Vector3> OnSavePointChanged;
 
     [Tooltip("게임 시작 기본 위치 (앵커를 한 번도 안 박고 떨어졌을 때 부활할 곳)")]
     public Vector3 defaultSpawnPosition;
@@ -15,6 +27,9 @@ public class SavePointManager : MonoBehaviour
     public float twoPlayerSpacing = 0.6f;
 
     private Vector3 lastSafePosition;
+
+    /// <summary>가장 최근 세이브 포인트 위치 (리스폰 오프셋 미포함 순수 좌표).</summary>
+    public Vector3 LastSavePosition => lastSafePosition;
 
     // 체결된 앵커 위치 전체 목록 (AnchorSafeZone에서 참조)
     private readonly List<Vector3> _securedAnchorPositions = new List<Vector3>();
@@ -43,6 +58,7 @@ public class SavePointManager : MonoBehaviour
         lastSafePosition = model.transform.position;
         _securedAnchorPositions.Add(lastSafePosition);
         Debug.Log($"[SavePointManager] 세이브 포인트 갱신! ({lastSafePosition}) / 전체 앵커 수: {_securedAnchorPositions.Count}");
+        OnSavePointChanged?.Invoke(lastSafePosition);
     }
 
     /// <summary>
@@ -78,5 +94,6 @@ public class SavePointManager : MonoBehaviour
     {
         lastSafePosition = position;
         Debug.Log($"[SavePointManager] 세이브 포인트 강제 갱신! ({lastSafePosition})");
+        OnSavePointChanged?.Invoke(lastSafePosition);
     }
 }
