@@ -840,6 +840,10 @@ PrefabInstance:
       propertyPath: SortKey
       value: 380911686
       objectReference: {fileID: 0}
+    - target: {fileID: 3721438152798085241, guid: 02eab91a8c906244c981a51455e01304, type: 3}
+      propertyPath: _validRoles.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3996016071203159195, guid: 02eab91a8c906244c981a51455e01304, type: 3}
       propertyPath: SortKey
       value: 3540182258
