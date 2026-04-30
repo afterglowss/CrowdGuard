@@ -1004,6 +1004,10 @@ MonoBehaviour:
   iceLayer:
     serializedVersion: 2
     m_Bits: 1024
+  fallMaxTime: 2.5
+  respawnFadeOutDuration: 0.35
+  respawnFadeInDuration: 0.8
+  fallBounciness: 0.1
 --- !u!114 &1625070712429544987
 MonoBehaviour:
   m_ObjectHideFlags: 0
