@@ -11,7 +11,7 @@ namespace Capstone.Photon.Game
         [Networked] private PlayerRole CurrentRole { get; set; }
 
         /// <summary>로컬 클라이언트에서 이 모델이 리더인지 빠르게 확인합니다.</summary>
-        public bool IsLeader => CurrentRole == Role.Role.Leader;
+        public bool IsLeader => CurrentRole == PlayerRole.Leader;
 
         [Header("Equipment (프리팹 인스펙터에서 연결)")]
         [Tooltip("왼손 IceAxeModel 컴포넌트 — 프리팹 자식 오브젝트에서 드래그")]
@@ -29,7 +29,7 @@ namespace Capstone.Photon.Game
                 return;
             }
 
-            if (!RoleManager.Instance.Roles.TryGet(Object.StateAuthority, out Role.Role role))
+            if (!RoleManager.Instance.Roles.TryGet(Object.StateAuthority, out PlayerRole role))
             {
                 Debug.LogWarning($"[GamePlayerModel] Roles 딕셔너리에 {Object.StateAuthority} 항목이 없습니다.");
                 return;
@@ -52,15 +52,6 @@ namespace Capstone.Photon.Game
             // 이 오브젝트를 소유한 로컬 머신에서만 클라이언트 측 역할 반영 처리
             if (Object.HasInputAuthority)
             {
-                bool isLeader = CurrentRole == Role.Role.Leader;
-
-                // 1. ToolBeltManager: 역할에 따라 도구 활성화/비활성화
-                var toolBelt = GetComponentInChildren<ToolBeltManager>();
-                if (toolBelt != null)
-                {
-                    PlayerRole mappedRole = isLeader ? PlayerRole.Leader : PlayerRole.Navigator;
-                    toolBelt.SetRole(mappedRole);
-                }
 
                 // 2. RoleVisualManager: 역할별 셰이더 글로벌 변수 적용
                 if (RoleVisualManager.Instance != null)

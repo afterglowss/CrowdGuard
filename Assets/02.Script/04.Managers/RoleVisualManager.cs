@@ -27,7 +27,7 @@ public class RoleVisualManager : MonoBehaviour
             var runner = RoleManager.Instance.Runner;
             if (RoleManager.Instance.Roles.TryGet(runner.LocalPlayer, out PlayerRole role))
             {
-                SetRole(role == Role.Role.Leader);
+                SetRole(role == PlayerRole.Leader);
                 return;
             }
         }
