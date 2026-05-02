@@ -17,7 +17,7 @@ namespace CrowdGuard.Environment
             if (roll <= breakProbability)
             {
                 Debug.Log("[WeakIceSurface] 약한 얼음 파괴 확률에 당첨되어 파괴됩니다!");
-                SetBrokenSafe(true);
+                RPC_SetBrokenSafe(true);
 
                 // 기획: 얼음 파괴시 50% 확률로 낙석 트리거 시그널 발송
                 if (Random.Range(0f, 1f) <= 0.5f)
