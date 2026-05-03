@@ -35,7 +35,7 @@ public class AnchorSafeZone : MonoBehaviour
         _activeZones.Remove(this);
     }
 
-    private void OnAnchorSecured(CrowdGuard.Climbing.Tools.IceAnchor.IceAnchorModel model)
+    private void OnAnchorSecured(CrowdGuard.Climbing.Tools.IceAnchor.IceAnchorModel model, Vector3 wallNormal)
     {
         if (_isSecured) return;
         if (model.transform == transform || model.transform.IsChildOf(transform) || transform.IsChildOf(model.transform))

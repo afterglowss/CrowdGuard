@@ -83,6 +83,10 @@ public class TentInteriorController : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.All)]
     private void RPC_SetLantern(bool on)
     {
+        // 모든 클라이언트의 _isLanternOn을 RPC 결과와 동기화합니다.
+        // 이 값이 어긋나면 ToggleLantern()이 잘못된 상태를 전송하게 됩니다.
+        _isLanternOn = on;
+
         Debug.Log($"[TentInteriorController] 랜턴 {(on ? "켜짐" : "꺼짐")}");
 
         if (lanternLight != null)       lanternLight.enabled = on;
