@@ -49,8 +49,9 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
 
         /// <summary>
         /// 앵커 완전 체결 시 발생하는 전역 이벤트. SavePointManager 등에서 구독.
+        /// 두 번째 인자는 체결 당시의 벽 법선(wall normal) 벡터입니다.
         /// </summary>
-        public static event Action<IceAnchorModel> OnAnchorSecuredGlobal;
+        public static event Action<IceAnchorModel, Vector3> OnAnchorSecuredGlobal;
 
         // ===================== Internal State =====================
 
@@ -368,7 +369,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             {
                 _model.IsFullySecured = true;
                 Debug.Log("[Anchor] ===== 앵커 완전 체결! (영구 고정) =====");
-                OnAnchorSecuredGlobal?.Invoke(_model);
+                OnAnchorSecuredGlobal?.Invoke(_model, _wallNormal);
             }
 
             _previousAngle = currentAngle;

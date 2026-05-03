@@ -8,8 +8,8 @@ public class RopeSystem : MonoBehaviour
     public bool disableRopeForTesting = false;
 
     [Header("Rope Settings")]
-    [Tooltip("카메라(머리) 기준으로 로프가 묶이는 위치 오프셋. Y=-0.5 정도면 가슴 높이.")]
-    public Vector3 localTieOffset = new Vector3(0, -0.5f, 0);
+    [Tooltip("body 트랜스폼 기준 로프 묶음 위치 로컬 오프셋. body가 발 기준이면 Y=1.2~1.4 정도가 가슴 높이.")]
+    public Vector3 localTieOffset = new Vector3(0, 1.2f, 0);
     public float maxRopeLength = 3.0f;
 
     [Header("Asset Reference")]
