@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Fusion;
 using UnityEngine;
 
-public class SavePointManager : MonoBehaviour
+public class SavePointManager : NetworkBehaviour
 {
     public static SavePointManager Instance { get; private set; }
 
@@ -55,9 +56,16 @@ public class SavePointManager : MonoBehaviour
 
     private void HandleAnchorSecured(CrowdGuard.Climbing.Tools.IceAnchor.IceAnchorModel model)
     {
-        lastSafePosition = model.transform.position;
+        RPC_SetLastSafePosition(model.transform.position);
         _securedAnchorPositions.Add(lastSafePosition);
         Debug.Log($"[SavePointManager] 세이브 포인트 갱신! ({lastSafePosition}) / 전체 앵커 수: {_securedAnchorPositions.Count}");
+        
+    }
+
+    [Rpc(RpcSources.All,RpcTargets.All)]
+    public void RPC_SetLastSafePosition(Vector3 position)
+    {
+        lastSafePosition = position;
         OnSavePointChanged?.Invoke(lastSafePosition);
     }
 
@@ -92,8 +100,7 @@ public class SavePointManager : MonoBehaviour
 
     public void ForceSetSavePoint(Vector3 position)
     {
-        lastSafePosition = position;
+        RPC_SetLastSafePosition(position);
         Debug.Log($"[SavePointManager] 세이브 포인트 강제 갱신! ({lastSafePosition})");
-        OnSavePointChanged?.Invoke(lastSafePosition);
     }
 }

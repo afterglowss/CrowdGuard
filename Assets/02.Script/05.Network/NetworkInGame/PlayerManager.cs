@@ -1,5 +1,6 @@
 using Fusion;
 using System.Collections.Generic;
+using CrowdGuard.Climbing.Tools.Common;
 using UnityEngine;
 
 namespace Capstone.Photon.Game
@@ -7,7 +8,7 @@ namespace Capstone.Photon.Game
     public class PlayerManager : NetworkBehaviour
     {
         public static PlayerManager Instance;
-        public Dictionary<Role.Role, NetworkObject> players;
+        public Dictionary<PlayerRole, NetworkObject> players;
 
         public RopeSystem ropeSystem;
 
@@ -18,7 +19,7 @@ namespace Capstone.Photon.Game
         {
             if(!Instance) Instance = this;
             else if(Instance != this) Destroy(gameObject);
-            players = new Dictionary<Role.Role, NetworkObject>();
+            players = new Dictionary<PlayerRole, NetworkObject>();
         }
         
         /// <summary>
@@ -26,7 +27,7 @@ namespace Capstone.Photon.Game
         /// </summary>
         /// <param name="player"></param>
         /// <param name="obj"></param>
-        public void SetPlayer(Role.Role role, NetworkObject obj)
+        public void SetPlayer(PlayerRole role, NetworkObject obj)
         {
             players[role] = obj;
 
@@ -37,13 +38,13 @@ namespace Capstone.Photon.Game
 
             if (players.Count >= 2)
             {
-                SetGameSystem(players[Role.Role.Leader], players[Role.Role.Supporter]);
+                SetGameSystem(players[PlayerRole.Leader], players[PlayerRole.Navigator]);
             }
             else
             {
                 // 솔로 테스트: 리더 한 명만 스폰되어도 세이프티 로프는 바로 초기화합니다.
                 // (RopeSystem 파트너 연결은 2명이 필요하므로 그쪽은 생략)
-                if (leaderSafetyRope != null && role == Role.Role.Leader)
+                if (leaderSafetyRope != null && role == PlayerRole.Leader)
                 {
                     if (obj.TryGetComponent(out GamePlayerModel leaderModel))
                         leaderSafetyRope.SetLeaderBody(leaderModel.body.transform);

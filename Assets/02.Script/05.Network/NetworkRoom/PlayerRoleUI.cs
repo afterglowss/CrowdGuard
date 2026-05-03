@@ -1,3 +1,4 @@
+using CrowdGuard.Climbing.Tools.Common;
 using TMPro;
 using UnityEngine;
 
@@ -20,11 +21,11 @@ namespace Capstone.Photon.Room
             playerRoleText.text = "";
             foreach (var player in roleManager.Roles)
             {
-                if (player.Value == Role.Role.Supporter)
+                if (player.Value == PlayerRole.Navigator)
                 {
-                    playerRoleText.text += "Supporter : ";
+                    playerRoleText.text += "Navigator : ";
                 }
-                else if (player.Value == Role.Role.Leader)
+                else if (player.Value == PlayerRole.Leader)
                 {
                     playerRoleText.text += "Leader : ";
                 }

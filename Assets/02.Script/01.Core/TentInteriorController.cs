@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using Capstone.Photon.Game;
+using Fusion;
 
-public class TentInteriorController : MonoBehaviour
+public class TentInteriorController : NetworkBehaviour
 {
     public static TentInteriorController Instance { get; private set; }
 
@@ -48,7 +49,7 @@ public class TentInteriorController : MonoBehaviour
         _cachedExitPos = exitPos;
         _isExiting = false; // 재입장 시 초기화
 
-        SetLantern(false);
+        RPC_SetLantern(false);
 
         // 텐트 안에서는 세이프티 로프 숨기기
         PlayerManager.Instance?.leaderSafetyRope?.SetVisible(false);
@@ -76,10 +77,11 @@ public class TentInteriorController : MonoBehaviour
     public void ToggleLantern()
     {
         _isLanternOn = !_isLanternOn;
-        SetLantern(_isLanternOn);
+        RPC_SetLantern(_isLanternOn);
     }
 
-    private void SetLantern(bool on)
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    private void RPC_SetLantern(bool on)
     {
         Debug.Log($"[TentInteriorController] 랜턴 {(on ? "켜짐" : "꺼짐")}");
 
@@ -139,7 +141,7 @@ public class TentInteriorController : MonoBehaviour
     /// </summary>
     public void ExecuteTentExitLocal(Vector3 exitPos)
     {
-        SetLantern(false);
+        RPC_SetLantern(false);
 
         // 세이브 포인트 갱신 (양쪽 클라이언트 모두 실행)
         if (SavePointManager.Instance != null)

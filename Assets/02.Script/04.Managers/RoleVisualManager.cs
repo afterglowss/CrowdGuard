@@ -1,3 +1,4 @@
+using CrowdGuard.Climbing.Tools.Common;
 using UnityEngine;
 
 public class RoleVisualManager : MonoBehaviour
@@ -24,9 +25,9 @@ public class RoleVisualManager : MonoBehaviour
         if (RoleManager.Instance != null && RoleManager.Instance.Runner != null)
         {
             var runner = RoleManager.Instance.Runner;
-            if (RoleManager.Instance.Roles.TryGet(runner.LocalPlayer, out Role.Role role))
+            if (RoleManager.Instance.Roles.TryGet(runner.LocalPlayer, out PlayerRole role))
             {
-                SetRole(role == Role.Role.Leader);
+                SetRole(role == PlayerRole.Leader);
                 return;
             }
         }

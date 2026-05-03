@@ -5,7 +5,8 @@ namespace CrowdGuard.Climbing.Tools.Common
     /// </summary>
     public enum PlayerRole
     {
-        Leader,
-        Navigator
+        None =0,
+        Leader =1,
+        Navigator =2
     }
 }

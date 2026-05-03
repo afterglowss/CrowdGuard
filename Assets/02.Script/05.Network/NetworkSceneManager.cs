@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Fusion;
 using UnityEngine;
 
-public class SceneLoader : NetworkSceneManagerDefault
+public class NetworkSceneManager : NetworkSceneManagerDefault
 {
     [SerializeField] private FadeUI fadeUI;
     public override NetworkSceneAsyncOp LoadScene(SceneRef sceneRef, NetworkLoadSceneParameters parameters)

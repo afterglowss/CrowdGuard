@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 8014184505346714615}
   - component: {fileID: 8190682287633097625}
   - component: {fileID: 5850541872526224343}
+  - component: {fileID: 5884286036794384894}
   m_Layer: 0
   m_Name: Lantern
   m_TagString: Untagged
@@ -274,6 +275,25 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
+--- !u!114 &5884286036794384894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730270201385632096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 4285446029
+  ObjectInterest: 1
+  Flags: 131073
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 8190682287633097625}
+  ForceRemoteRenderTimeframe: 0
 --- !u!1 &2245801424400200786
 GameObject:
   m_ObjectHideFlags: 0

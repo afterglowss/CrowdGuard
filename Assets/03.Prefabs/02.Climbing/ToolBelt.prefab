@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 598571347126776568}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.392, y: 1.345, z: 0.313}
+  m_LocalPosition: {x: -0.2, y: 1.2, z: 0.313}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -316,7 +316,7 @@ Transform:
   m_GameObject: {fileID: 5366929770988510419}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.366, y: 1.352, z: 0.305}
+  m_LocalPosition: {x: 0.2, y: 1.2, z: 0.305}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -348,7 +348,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5751010251198268744}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -496,7 +496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anchorPrefab: {fileID: 8993429403725291819, guid: 9ea2560094193d44ebcfa6ee6eb54811, type: 3}
-  _initialCount: 100
+  _initialCount: 5
   _despawnDelay: 5
   _spawnPoint: {fileID: 160732522844974732}
 --- !u!114 &177587264124502799
@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _toolType: 1
-  _validRoles: 00000000
+  _validRoles: 01000000
   homePouch: {fileID: 0}
 --- !u!114 &592690775782320319
 MonoBehaviour:
@@ -526,11 +526,12 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 0
+  SortKey: 967444608
   ObjectInterest: 1
-  Flags: 262144
+  Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: 1284040977331551090}
   ForceRemoteRenderTimeframe: 0
 --- !u!1 &6395405812418245696
 GameObject:
@@ -557,7 +558,7 @@ Transform:
   m_GameObject: {fileID: 6395405812418245696}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.271, y: 0.514, z: 0.15}
+  m_LocalPosition: {x: 0.271, y: 0.842, z: 0.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -589,7 +590,7 @@ Transform:
   m_GameObject: {fileID: 7184452151951426949}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.157, z: 0.324}
+  m_LocalPosition: {x: 0, y: 0.7, z: 0.324}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -635,6 +636,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4719061789259241227}
     m_Modifications:
+    - target: {fileID: 2920574512243374876, guid: de5edca1690728a4a93ded2bfb9feb31, type: 3}
+      propertyPath: SortKey
+      value: 380911686
+      objectReference: {fileID: 0}
     - target: {fileID: 3119530412649827588, guid: de5edca1690728a4a93ded2bfb9feb31, type: 3}
       propertyPath: m_Name
       value: IceAxe_Fixed (1)
@@ -697,6 +702,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7076575844065744408}
     m_Modifications:
+    - target: {fileID: 2920574512243374876, guid: de5edca1690728a4a93ded2bfb9feb31, type: 3}
+      propertyPath: SortKey
+      value: 305041867
+      objectReference: {fileID: 0}
     - target: {fileID: 3119530412649827588, guid: de5edca1690728a4a93ded2bfb9feb31, type: 3}
       propertyPath: m_Name
       value: IceAxe_Fixed
@@ -803,6 +812,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hazard Sensor(__Proto__)
       objectReference: {fileID: 0}
+    - target: {fileID: 6903992985339205190, guid: 2d1f06e6a2446e54f9192cb8f194d34b, type: 3}
+      propertyPath: SortKey
+      value: 3540182258
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -837,7 +850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _toolType: 2
-  _validRoles: 01000000
+  _validRoles: 02000000
   homePouch: {fileID: 0}
 --- !u!114 &22455689568785090
 MonoBehaviour:

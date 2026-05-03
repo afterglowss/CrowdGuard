@@ -1,11 +1,12 @@
 using System;
+using CrowdGuard.Climbing.Tools.Common;
 using Fusion;
 
 public class RoleManager : NetworkBehaviour
 {
     public static RoleManager Instance{ get; private set;} 
 
-    [Networked,OnChangedRender(nameof(RoleChanged))] public NetworkDictionary<PlayerRef,Role.Role> Roles { get; }
+    [Networked,OnChangedRender(nameof(RoleChanged))] public NetworkDictionary<PlayerRef,PlayerRole> Roles { get; }
 
     public event Action<bool> OnRoleAccepted;
     
@@ -32,7 +33,7 @@ public class RoleManager : NetworkBehaviour
     /// <param name="player"></param>
     /// <param name="role"></param>
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void RPC_SetPlayerRole(PlayerRef player, Role.Role role)
+    public void RPC_SetPlayerRole(PlayerRef player, PlayerRole role)
     {
         foreach (var item in Roles)
         {
@@ -74,11 +75,11 @@ public class RoleManager : NetworkBehaviour
     /// </summary>
     private void RoleChanged()
     {
-        var role = Role.Role.None;
+        var role = PlayerRole.None;
 
         foreach (var item in Roles)
         {
-            if (role == Role.Role.None)
+            if (role == PlayerRole.None)
             {
                 role = item.Value;
             }
@@ -95,13 +96,5 @@ public class RoleManager : NetworkBehaviour
     }
 }
 
-namespace Role
-{
-    public enum Role
-    {
-        None = 0,
-        Leader = 1,
-        Supporter = 2
-    }
-}
+
 

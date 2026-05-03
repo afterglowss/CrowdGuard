@@ -1004,6 +1004,10 @@ MonoBehaviour:
   iceLayer:
     serializedVersion: 2
     m_Bits: 1024
+  fallMaxTime: 2.5
+  respawnFadeOutDuration: 0.35
+  respawnFadeInDuration: 0.8
+  fallBounciness: 0.1
 --- !u!114 &1625070712429544987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1018,6 +1022,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHand: {fileID: 7296548568108428155}
   rightHand: {fileID: 7296548569979104154}
+  body: {fileID: 8256763679290839621}
   head: {fileID: 7296548569797233433}
 --- !u!114 &8214106844079259485
 MonoBehaviour:

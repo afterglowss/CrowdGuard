@@ -485,7 +485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _toolType: 0
-  _validRoles: 0000000001000000
+  _validRoles: 0100000002000000
   homePouch: {fileID: 0}
 --- !u!114 &2920574512243374876
 MonoBehaviour:
@@ -675,8 +675,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.02
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.015
+  m_Center: {x: 0, y: 0, z: 0.03}
 --- !u!114 &1720042469738538874
 MonoBehaviour:
   m_ObjectHideFlags: 0
