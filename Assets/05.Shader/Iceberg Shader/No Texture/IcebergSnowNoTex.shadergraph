@@ -50,6 +50,9 @@
         },
         {
             "m_Id": "922d6d5587844eb9bdc076848f976038"
+        },
+        {
+            "m_Id": "c9609babe0464c229d3e24a0fc5bdfc2"
         }
     ],
     "m_Keywords": [],
@@ -245,6 +248,9 @@
         },
         {
             "m_Id": "8bdbe29ef0e44c3f9969deed6a993386"
+        },
+        {
+            "m_Id": "a21d7cc04a2e4713b9a18b0db7482ba9"
         }
     ],
     "m_GroupDatas": [
@@ -1114,8 +1120,8 @@
     ],
     "m_VertexContext": {
         "m_Position": {
-            "x": 1193.0,
-            "y": 438.0
+            "x": 1254.0,
+            "y": 414.0
         },
         "m_Blocks": [
             {
@@ -1131,8 +1137,8 @@
     },
     "m_FragmentContext": {
         "m_Position": {
-            "x": 1306.9998779296875,
-            "y": 906.9999389648438
+            "x": 1254.0,
+            "y": 621.9999389648438
         },
         "m_Blocks": [
             {
@@ -1233,13 +1239,13 @@
     },
     "m_Name": "Float",
     "m_DrawState": {
-        "m_Expanded": true,
+        "m_Expanded": false,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 512.0000610351563,
-            "y": -146.0,
-            "width": 126.0,
-            "height": 76.99999237060547
+            "x": 456.0,
+            "y": -451.0000305175781,
+            "width": 75.0,
+            "height": 77.00003051757813
         }
     },
     "m_Slots": [
@@ -1415,10 +1421,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 666.0000610351563,
-            "y": -301.0000305175781,
-            "width": 208.0,
-            "height": 302.0000305175781
+            "x": 561.0000610351563,
+            "y": -510.0,
+            "width": 207.99993896484376,
+            "height": 302.0
         }
     },
     "m_Slots": [
@@ -1917,7 +1923,7 @@
     "m_Title": "Snow Mask",
     "m_Position": {
         "x": -166.0,
-        "y": 716.0000610351563
+        "y": 716.0
     }
 }
 
@@ -2642,10 +2648,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 897.0000610351563,
-            "y": -355.0000305175781,
+            "x": 800.0000610351563,
+            "y": -561.0,
             "width": 207.99993896484376,
-            "height": 302.0000305175781
+            "height": 302.0
         }
     },
     "m_Slots": [
@@ -2971,6 +2977,31 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
+    "m_ObjectId": "55e5663942b04484aa7c2b0fc8a2be19",
+    "m_Id": 0,
+    "m_DisplayName": "_IceEdgeColor",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_Labels": []
 }
 
 {
@@ -3468,6 +3499,9 @@
         },
         {
             "m_Id": "71ecaa339b63458d89e0abbcee723d88"
+        },
+        {
+            "m_Id": "c9609babe0464c229d3e24a0fc5bdfc2"
         },
         {
             "m_Id": "eaec065a20484105b67dcb0de9dcb218"
@@ -4483,10 +4517,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 418.0000305175781,
-            "y": -472.0000305175781,
-            "width": 238.99996948242188,
-            "height": 278.0
+            "x": 538.0,
+            "y": -627.0,
+            "width": 239.0,
+            "height": 93.99993896484375
         }
     },
     "m_Slots": [
@@ -4499,7 +4533,7 @@
         "HLSL"
     ],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
@@ -4691,10 +4725,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 507.00006103515627,
-            "y": -193.00001525878907,
-            "width": 125.99993896484375,
-            "height": 34.00001525878906
+            "x": 410.0,
+            "y": -475.0,
+            "width": 126.0,
+            "height": 33.999969482421878
         }
     },
     "m_Slots": [
@@ -5051,9 +5085,9 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "r": 0.699999988079071,
-        "g": 0.8500000238418579,
-        "b": 0.949999988079071,
+        "r": 0.4000000059604645,
+        "g": 0.6000000238418579,
+        "b": 0.8509804010391235,
         "a": 0.0
     },
     "isMainColor": false,
@@ -5221,6 +5255,42 @@
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "a21d7cc04a2e4713b9a18b0db7482ba9",
+    "m_Group": {
+        "m_Id": "e289d52b93914a84a5d143a41491ae43"
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 1041.9998779296875,
+            "y": -437.0,
+            "width": 152.0,
+            "height": 34.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "55e5663942b04484aa7c2b0fc8a2be19"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "c9609babe0464c229d3e24a0fc5bdfc2"
+    }
 }
 
 {
@@ -6315,6 +6385,36 @@
 }
 
 {
+    "m_SGVersion": 3,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
+    "m_ObjectId": "c9609babe0464c229d3e24a0fc5bdfc2",
+    "m_Guid": {
+        "m_GuidSerialized": "135a7b54-d7fb-4024-bf24-fb8e12d8dbfd"
+    },
+    "m_Name": "_IceEdgeColor",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "_IceEdgeColor",
+    "m_DefaultReferenceName": "_IceEdgeColor",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "r": 0.05098039284348488,
+        "g": 0.019607843831181527,
+        "b": 0.501960813999176,
+        "a": 0.0
+    },
+    "isMainColor": false,
+    "m_ColorMode": 0
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "ca3a7f73931d48219692d257f0c70e95",
@@ -6787,7 +6887,7 @@
     "m_Title": "IceAlbedo",
     "m_Position": {
         "x": -974.0,
-        "y": -73.00003051757813
+        "y": -496.0
     }
 }
 
