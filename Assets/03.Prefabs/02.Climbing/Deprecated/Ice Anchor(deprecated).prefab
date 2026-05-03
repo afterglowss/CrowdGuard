@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 410077301784977125}
   - component: {fileID: 2695049482810061480}
   m_Layer: 0
-  m_Name: Ice Anchor(WIP)
+  m_Name: Ice Anchor(deprecated)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
