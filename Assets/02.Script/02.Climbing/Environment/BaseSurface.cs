@@ -23,7 +23,8 @@ namespace CrowdGuard.Environment
         }
 
         // 👇 [추가] 오프라인 상태에서도 에러가 나지 않게 값을 쓰는 안전망
-        public void SetBrokenSafe(bool value)
+        [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+        public void RPC_SetBrokenSafe(bool value)
         {
             if (Object != null && Object.IsValid)
             {
