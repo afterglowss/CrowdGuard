@@ -107,7 +107,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         {
             if (_handleVisual != null)
             {
-                float angle = -(progress * _totalHandleAngle);
+                float angle = progress * _totalHandleAngle;
                 _handleVisual.localRotation = Quaternion.AngleAxis(angle, Vector3.back);
             }
         }
