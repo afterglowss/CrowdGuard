@@ -59,6 +59,10 @@ namespace CrowdGuard.Climbing.Tools.Common
         {
             _interactionManager = FindAnyObjectByType<XRInteractionManager>();
             Debug.Log($"[AnchorBag] Start — InteractionManager: {(_interactionManager != null ? "OK" : "NULL")}");
+
+            // Guard: ToolBeltManager에 의해 비활성화된 경우 풀 초기화하지 않음
+            if (!gameObject.activeInHierarchy) return;
+
             InitializePool();
         }
 
