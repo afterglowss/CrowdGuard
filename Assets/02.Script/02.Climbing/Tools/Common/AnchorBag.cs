@@ -82,14 +82,8 @@ namespace CrowdGuard.Climbing.Tools.Common
         private void InitializePool()
         {
             _currentCount = _initialCount;
-
-            for (int i = 0; i < _initialCount; i++)
-            {
-                var anchor = Runner.Spawn(_anchorPrefab, transform.position, Quaternion.identity);
-                anchor.gameObject.SetActive(false);
-                _pool.Add(anchor.gameObject);
-            }
-            Debug.Log($"[AnchorBag] 풀 초기화 완료. 풀 크기={_pool.Count}, 초기 개수={_currentCount}");
+            // 프리팹을 미리 스폰하지 않음 — TakeAnchor 시 Runner.Spawn으로 생성
+            Debug.Log($"[AnchorBag] 풀 초기화 완료. 초기 개수={_currentCount}");
         }
 
         // ===================== 꺼내기 (XRI 연동) =====================
@@ -162,49 +156,23 @@ namespace CrowdGuard.Climbing.Tools.Common
         {
             if (_currentCount <= 0) return null;
 
-            // 풀에서 비활성 앵커 탐색
-            GameObject anchor = null;
-            foreach (var pooled in _pool)
-            {
-                if (!pooled.activeSelf)
-                {
-                    anchor = pooled;
-                    break;
-                }
-            }
-
-            if (anchor == null) return null;
-
-            // 상태 초기화 (이전 사용에서 남은 물리/모델 상태 제거)
-            var model = anchor.GetComponent<IceAnchorModel>();
-            if (model != null)
-                model.ResetState();
-
-            var rb = anchor.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.velocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-                rb.isKinematic = true;
-                rb.useGravity = false;
-            }
-
-            // 스폰 위치에 활성화
             Transform spawn = _spawnPoint != null ? _spawnPoint : transform;
-            anchor.transform.SetPositionAndRotation(spawn.position, spawn.rotation);
-            anchor.SetActive(true);
+            var anchorNO = Runner.Spawn(_anchorPrefab, spawn.position, spawn.rotation);
+            var anchor = anchorNO.gameObject;
+
+            _pool.Add(anchor);
 
             _currentCount--;
             OnCountChanged?.Invoke(_currentCount);
 
-            // 소실 감시 시작 (해제 가능한 델리게이트로 등록)
+            // 소실 감시 시작
+            var model = anchor.GetComponent<IceAnchorModel>();
             if (model != null)
             {
                 Action<bool> handler = held => OnAnchorHeldChanged(anchor, model, held);
                 _heldHandlers[anchor] = handler;
                 model.OnHeldStateChanged += handler;
             }
-
 
             Debug.Log($"[AnchorBag] 앵커 꺼냄. 남은 개수: {_currentCount}");
             return anchor;
@@ -219,19 +187,14 @@ namespace CrowdGuard.Climbing.Tools.Common
         {
             if (!_pool.Contains(anchor)) return false;
 
-            // 소실 타이머 취소
             CancelDespawn(anchor);
-
-            // 이벤트 구독 해제
             UnsubscribeAnchor(anchor);
 
-            var model = anchor.GetComponent<IceAnchorModel>();
-            if (model != null)
-            {
-                model.ResetState();
-            }
+            var no = anchor.GetComponent<NetworkObject>();
+            if (no != null && no.IsValid)
+                Runner.Despawn(no);
 
-            anchor.SetActive(false);
+            _pool.Remove(anchor);
 
             _currentCount++;
             OnCountChanged?.Invoke(_currentCount);
@@ -299,19 +262,21 @@ namespace CrowdGuard.Climbing.Tools.Common
         {
             yield return new WaitForSeconds(_despawnDelay);
 
-            // 최종 확인: 잡고 있거나, 삽입/체결 상태면 소실 안 함
             if (model.IsHeld || model.IsInserted || model.IsFullySecured)
             {
                 _despawnCoroutines.Remove(anchor);
                 yield break;
             }
 
-            Debug.Log("[AnchorBag] 앵커 소실 — 풀로 반환 (개수 복구 없음)");
+            Debug.Log("[AnchorBag] 앵커 소실 — 네트워크 Despawn (개수 복구 없음)");
             UnsubscribeAnchor(anchor);
-            model.ResetState();
-            anchor.SetActive(false);
+
+            var no = anchor.GetComponent<NetworkObject>();
+            if (no != null && no.IsValid)
+                Runner.Despawn(no);
+
+            _pool.Remove(anchor);
             _despawnCoroutines.Remove(anchor);
-            // count는 복구하지 않음 = 소실
         }
         /// <summary>
         /// 앵커의 OnHeldStateChanged 이벤트 구독을 해제합니다.
