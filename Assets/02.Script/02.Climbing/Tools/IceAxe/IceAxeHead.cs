@@ -20,7 +20,9 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
             BaseSurface surface = other.GetComponentInParent<BaseSurface>();
             if (surface == null) return;
 
-            _controller.OnIceContactEnter(surface);
+            // 실제 접촉 지점을 넘겨서 어떤 콜라이더에 맞았든 올바른 자식을 찾을 수 있게 함
+            Vector3 contactPoint = other.ClosestPoint(transform.position);
+            _controller.OnIceContactEnter(surface, contactPoint);
         }
 
         private void OnTriggerExit(Collider other)

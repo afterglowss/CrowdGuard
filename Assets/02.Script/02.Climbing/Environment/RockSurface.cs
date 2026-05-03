@@ -5,7 +5,7 @@ namespace CrowdGuard.Environment
 {
     public class RockSurface : BaseSurface
     {
-        public override bool OnHitByIceAxe()
+        public override bool OnHitByIceAxe(Vector3 contactPoint = default)
         {
             if (hitSound != null)
             {
@@ -16,7 +16,7 @@ namespace CrowdGuard.Environment
             return false;
         }
 
-        public override bool CanInstallAnchor()
+        public override bool CanInstallAnchor(Vector3 contactPoint = default)
         {
             return false; // 바위에는 앵커 고정 불가능
         }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Capstone.Photon.Game;
 
 /// <summary>
 /// 추락 상태.
@@ -23,6 +24,11 @@ public class PlayerFallingState : PlayerState
     private const float _capsuleTopOffset    = 1.7f;  // 머리 높이
     private const float _bodyRadius          = 0.15f;
     private const float _wallMargin          = 0.05f;
+
+    /// <summary>
+    /// RPC로 추락이 강제된 경우 true. Enter()에서 재발송을 막는 데 사용합니다.
+    /// </summary>
+    public static bool NetworkTriggered = false;
 
     // ── 상태 ───────────────────────────────────────────────────────
     private Vector3 _velocity;
@@ -67,6 +73,18 @@ public class PlayerFallingState : PlayerState
 
         // 추락 비네팅 시작 (리스폰 타이밍과 분리됨)
         ScreenEffectManager.Instance?.StartFallVignette(player.fallMaxTime);
+
+        // 네트워크에서 강제된 추락이 아닐 때만 파트너에게 전파합니다.
+        if (!NetworkTriggered && PlayerManager.Instance != null)
+        {
+            var localModel = GamePlayerModel.LocalPlayerModel;
+            if (localModel != null)
+            {
+                PlayerManager.Instance.RPC_TriggerPartnerFall(localModel.IsLeader
+                    ? CrowdGuard.Climbing.Tools.Common.PlayerRole.Leader
+                    : CrowdGuard.Climbing.Tools.Common.PlayerRole.Navigator);
+            }
+        }
     }
 
     public override void Exit()

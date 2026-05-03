@@ -36,8 +36,14 @@ namespace CrowdGuard.Environment
             }
         }
 
-        public abstract bool OnHitByIceAxe();
-        public abstract bool CanInstallAnchor();
+        public abstract bool OnHitByIceAxe(Vector3 contactPoint = default);
+        public abstract bool CanInstallAnchor(Vector3 contactPoint = default);
+
+        /// <summary>
+        /// 해당 월드 좌표의 표면이 이미 파괴되었는지 반환합니다.
+        /// WeakIceSurface 등 파괴 가능한 표면에서 오버라이드합니다.
+        /// </summary>
+        public virtual bool IsBrokenAt(Vector3 worldPoint) => false;
 
         // 고드름 붕괴 등의 무게 계산 처리용 훅 (PlayerRef 기반)
         protected HashSet<PlayerRef> attachedPlayers = new HashSet<PlayerRef>();
