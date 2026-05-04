@@ -22,6 +22,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         private bool _isTriggerHeld = false;
         private bool _isTouchingIce = false;
         private BaseSurface _currentSurface = null;
+        private Vector3 _contactPoint; // 실제 접촉 위치
 
         // 컨트롤러 속도 직접 추적 (Velocity Damping 영향 없음)
         private Transform _interactorTransform;
@@ -94,6 +95,15 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
 
         private void Update()
         {
+            // 박혀있던 벽이 파괴됐으면 바일 자동 분리
+            if (_model != null && _model.IsAttachedToWall
+                && _currentSurface != null
+                && _currentSurface.IsBrokenAt(_contactPoint))
+            {
+                Debug.Log("[IceAxeController] 부착된 벽이 파괴됨 — 바일 자동 분리");
+                _model.IsAttachedToWall = false;
+            }
+
             // 컨트롤러의 실제 이동 속도를 매 프레임 계산
             if (_interactorTransform == null) return;
 
@@ -123,11 +133,12 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         }
 
 
-        public void OnIceContactEnter(BaseSurface surface)
+        public void OnIceContactEnter(BaseSurface surface, Vector3 contactPoint = default)
         {
             Debug.Log($"[IceAxeController] 지형 청크에 접근했습니다: {surface.gameObject.name}");
             _isTouchingIce = true;
             _currentSurface = surface;
+            _contactPoint = contactPoint;
             TryAttachToWall();
         }
 
@@ -138,6 +149,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
                 Debug.Log("[IceAxeController] 바일 머리가 얼음벽에서 떨어졌습니다.");
                 _isTouchingIce = false;
                 _currentSurface = null;
+                _contactPoint = default;
             }
         }
 
@@ -162,7 +174,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
 
             Debug.Log("[IceAxeController] 충돌 + 입력 조건 만족. 지형의 파괴 검사를 시작합니다.");
 
-            bool allowAttachment = _currentSurface.OnHitByIceAxe();
+            bool allowAttachment = _currentSurface.OnHitByIceAxe(_contactPoint);
 
             if (allowAttachment)
             {

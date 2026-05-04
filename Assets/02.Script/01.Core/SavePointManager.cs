@@ -35,6 +35,16 @@ public class SavePointManager : NetworkBehaviour
     /// <summary>체결 당시의 벽 법선. 리스폰 오프셋 방향 계산에 사용.</summary>
     private Vector3 _lastWallNormal = Vector3.back; // 기본값: -Z (정면 벽 가정)
 
+    /// <summary>
+    /// 텐트 방문 시에만 갱신되는 전용 세이브 포인트.
+    /// 앵커가 박힌 벽이 부서졌을 때 이 위치로 리스폰합니다.
+    /// </summary>
+    private Vector3 _tentSavePosition;
+    private bool _hasTentSave = false;
+
+    /// <summary>앵커 벽 파괴 시 세이브 포인트가 텐트로 복원될 때 발행됩니다.</summary>
+    public static event Action<Vector3> OnSavePointRevertedToTent;
+
     /// <summary>가장 최근 세이브 포인트 위치 (리스폰 오프셋 미포함 순수 좌표).</summary>
     public Vector3 LastSavePosition => lastSafePosition;
 
@@ -48,6 +58,7 @@ public class SavePointManager : NetworkBehaviour
         else Destroy(gameObject);
 
         lastSafePosition = defaultSpawnPosition;
+        _tentSavePosition = defaultSpawnPosition;
     }
 
     private void OnEnable()
@@ -130,9 +141,37 @@ public class SavePointManager : NetworkBehaviour
         return false;
     }
 
+    /// <summary>
+    /// 텐트 퇴장 시 호출. lastSafePosition과 텐트 전용 _tentSavePosition을 동시에 갱신합니다.
+    /// </summary>
     public void ForceSetSavePoint(Vector3 position)
     {
-        RPC_SetLastSafePosition(position);
-        Debug.Log($"[SavePointManager] 세이브 포인트 강제 갱신! ({lastSafePosition})");
+        RPC_SetTentSavePoint(position);
+        Debug.Log($"[SavePointManager] 텐트 세이브 포인트 갱신! ({position})");
+    }
+
+    /// <summary>
+    /// 텐트 위치를 모든 클라이언트에 동기화합니다.
+    /// </summary>
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_SetTentSavePoint(Vector3 position)
+    {
+        lastSafePosition   = position;
+        _tentSavePosition  = position;
+        _hasTentSave       = true;
+        OnSavePointChanged?.Invoke(lastSafePosition);
+    }
+
+    /// <summary>
+    /// 앵커가 박힌 벽이 파괴됐을 때 호출.
+    /// 즉각 리스폰이 아니라, lastSafePosition을 텐트 위치로 되돌려
+    /// 다음 사망 시 텐트에서 부활하도록 합니다.
+    /// </summary>
+    public void RevertToTentSavePoint()
+    {
+        if (!_hasTentSave) return;
+        Debug.Log($"[SavePointManager] 앵커 벽 파괴 — 세이브 포인트를 텐트로 복원: {_tentSavePosition}");
+        RPC_SetLastSafePosition(_tentSavePosition);
+        OnSavePointRevertedToTent?.Invoke(_tentSavePosition);
     }
 }
