@@ -30,8 +30,8 @@ public class LeaderSafetyRope : MonoBehaviour
     public Rope assetRope;
 
     [Header("Rope Settings")]
-    [Tooltip("플레이어 측 로프 연결점 로컬 오프셋. Y=-0.5 정도면 가슴 높이.")]
-    public Vector3 playerAnchorLocalOffset = new Vector3(0f, -0.5f, 0f);
+    [Tooltip("플레이어 측 로프 연결점 로컬 오프셋. body가 발 기준이면 Y=1.2~1.4 정도가 가슴 높이.")]
+    public Vector3 playerAnchorLocalOffset = new Vector3(0f, 1.2f, 0f);
 
     [Tooltip("세이브 포인트 갱신 시 ropeLength = 실제거리 + slackAmount. 클수록 더 처집니다.")]
     public float slackAmount = 1.5f;

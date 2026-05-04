@@ -37,6 +37,9 @@ public class PlayerController : MonoBehaviour
 
     public PlayerState CurrentState { get; private set; }
 
+    /// <summary>로컬 머신의 PlayerController. 네트워크 RPC에서 추락 동기화에 사용됩니다.</summary>
+    public static PlayerController LocalInstance { get; private set; }
+
     /// <summary>
     /// 상태 변경 시 발행되는 옵저버 이벤트.
     /// 멀티플레이(Photon) 스크립트는 이 이벤트를 구독하여 서버로 상태값을 날립니다.
@@ -45,6 +48,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        LocalInstance = this;
         InitializeStates();
     }
 

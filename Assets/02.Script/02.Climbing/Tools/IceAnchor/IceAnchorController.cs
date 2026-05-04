@@ -49,8 +49,9 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
 
         /// <summary>
         /// 앵커 완전 체결 시 발생하는 전역 이벤트. SavePointManager 등에서 구독.
+        /// 두 번째 인자는 체결 당시의 벽 법선(wall normal) 벡터입니다.
         /// </summary>
-        public static event Action<IceAnchorModel> OnAnchorSecuredGlobal;
+        public static event Action<IceAnchorModel, Vector3> OnAnchorSecuredGlobal;
 
         // ===================== Internal State =====================
 
@@ -125,6 +126,17 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
 
         private void Update()
         {
+            // 앵커가 삽입된 벽이 파괴됐으면 강제 분리 + 세이브 포인트를 텐트로 복원
+            // (즉각 리스폰 아님 — 다음에 떨어졌을 때 텐트에서 부활)
+            if (_model.IsInserted
+                && _currentSurface != null
+                && _currentSurface.IsBrokenAt(_wallContactPoint))
+            {
+                Debug.Log("[Anchor] 삽입된 벽이 파괴됨 — 앵커 강제 분리, 세이브 포인트 텐트로 복원");
+                DetachFromWall();
+                SavePointManager.Instance?.RevertToTentSavePoint();
+            }
+
             if (!_isHandleGrabbed) return;
             if (_handleInteractorTransform == null) return;
 
@@ -218,7 +230,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
 
         public void OnWallContactEnter(BaseSurface surface, Vector3 contactPoint, Vector3 normal)
         {
-            if (!surface.CanInstallAnchor())
+            if (!surface.CanInstallAnchor(contactPoint))
             {
                 Debug.Log("[Anchor] 이 표면에는 앵커를 설치할 수 없습니다.");
                 return;
@@ -368,7 +380,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             {
                 _model.IsFullySecured = true;
                 Debug.Log("[Anchor] ===== 앵커 완전 체결! (영구 고정) =====");
-                OnAnchorSecuredGlobal?.Invoke(_model);
+                OnAnchorSecuredGlobal?.Invoke(_model, _wallNormal);
             }
 
             _previousAngle = currentAngle;

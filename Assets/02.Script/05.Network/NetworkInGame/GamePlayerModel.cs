@@ -50,7 +50,7 @@ namespace Capstone.Photon.Game
             }
             
             // 이 오브젝트를 소유한 로컬 머신에서만 클라이언트 측 역할 반영 처리
-            if (Object.HasInputAuthority)
+            if (Object.HasStateAuthority)
             {
 
                 // 2. RoleVisualManager: 역할별 셰이더 글로벌 변수 적용

@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     {
         _spawnedPlayerCount++;
 
-        if (_spawnedPlayerCount < 2) return;
+        if (_spawnedPlayerCount < RoleManager.Instance.Roles.Count) return;
         if (_roleManagerDestroyRequested) return;
         if (RoleManager.Instance == null) return;
 

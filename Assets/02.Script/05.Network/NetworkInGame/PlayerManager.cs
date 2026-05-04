@@ -96,6 +96,31 @@ namespace Capstone.Photon.Game
                 TentInteriorController.Instance.ExecuteTentEnterLocal(leaderInteriorPos, navigatorInteriorPos, exitPos);
         }
 
+        // ── 파트너 추락 동기화 RPC ─────────────────────────────────────────
+        // fallerRole: 추락을 유발한 플레이어의 역할.
+        // 수신 측에서 자신의 역할이 fallerRole과 다를 때(=파트너)만 추락 상태로 강제 전환합니다.
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        public void RPC_TriggerPartnerFall(PlayerRole fallerRole)
+        {
+            var localModel = GamePlayerModel.LocalPlayerModel;
+            if (localModel == null) return;
+
+            // 추락을 유발한 쪽이 자기 자신이면 무시 (이미 FallingState)
+            bool isSelf = localModel.IsLeader
+                ? fallerRole == PlayerRole.Leader
+                : fallerRole == PlayerRole.Navigator;
+            if (isSelf) return;
+
+            var controller = PlayerController.LocalInstance;
+            if (controller == null) return;
+            if (controller.CurrentState == controller.FallingState) return;
+
+            PlayerFallingState.NetworkTriggered = true;
+            controller.ChangeState(controller.FallingState);
+            PlayerFallingState.NetworkTriggered = false;
+        }
+
         // ── 텐트 퇴장 RPC ──────────────────────────────────────────────────
         // 리더의 ExitTent() 호출에서만 발송됩니다.
         // SurvivalManager 상태 변경은 StateAuthority 한 곳에서만 처리합니다.
