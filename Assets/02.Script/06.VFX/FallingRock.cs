@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Capstone.Photon.Game;
 
 public class FallingRock : MonoBehaviour
 {
@@ -24,6 +25,21 @@ public class FallingRock : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // ── 플레이어 충돌 ──────────────────────────────────────────────
+        // 양쪽 머신에 두 플레이어 프리팹이 모두 존재하므로,
+        // LocalPlayerModel과 일치하는 쪽만 추락 처리합니다.
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            var model = collision.gameObject.GetComponentInParent<GamePlayerModel>();
+            if (model != null && model == GamePlayerModel.LocalPlayerModel)
+            {
+                Debug.Log("[FallingRock] 로컬 플레이어 충돌 → 추락 전환");
+                PlayerController.LocalInstance?.ChangeState(PlayerController.LocalInstance.FallingState);
+            }
+            return; // 플레이어 충돌은 벽 파편 처리 없이 종료
+        }
+
+        // ── 얼음벽 충돌 → 파편 파티클 ────────────────────────────────
         if (!IsInLayerMask(collision.gameObject, iceWallLayer))
             return;
 

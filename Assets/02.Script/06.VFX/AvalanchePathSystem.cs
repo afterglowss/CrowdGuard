@@ -197,6 +197,10 @@ public class AvalanchePathSystem : MonoBehaviour
         colliderRootRb.isKinematic = true;
         colliderRootRb.useGravity = false;
 
+        // 플레이어 충돌 감지용 컴포넌트 부착 (중복 방지)
+        if (colliderRoot.GetComponent<AvalancheHazardZone>() == null)
+            colliderRoot.gameObject.AddComponent<AvalancheHazardZone>();
+
         if (!HasValidPath())
         {
             segmentColliders = null;

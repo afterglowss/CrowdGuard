@@ -57,6 +57,21 @@ public class TentInteriorController : NetworkBehaviour
         bool isLeader = GamePlayerModel.LocalPlayerModel?.IsLeader ?? true;
         Vector3 myPos = isLeader ? leaderPos : navigatorPos;
 
+        // 등반 상태 안전 해제 ────────────────────────────────────────────
+        // ClimbingState에서 텐트에 입장하면 아래 순서로 버그가 생긴다:
+        //   바일 해제 → OnStateChangedHandler → AnchorSafeZone 불통과 → FallingState
+        // 해결책: IdleState로 먼저 전환한 뒤 IsAttachedToWall을 내린다.
+        //   ① ChangeState(IdleState) : CurrentState = IdleState 확정
+        //   ② IsAttachedToWall = false : OnStateChangedHandler가 발동되지만
+        //      CurrentState != ClimbingState 이므로 FallingState 분기에 안 들어감
+        var controller = PlayerController.LocalInstance;
+        if (controller != null)
+        {
+            controller.ChangeState(controller.IdleState);
+            if (controller.leftAxe  != null) controller.leftAxe.IsAttachedToWall  = false;
+            if (controller.rightAxe != null) controller.rightAxe.IsAttachedToWall = false;
+        }
+
         StartCoroutine(TransitionToInterior(myPos));
     }
 

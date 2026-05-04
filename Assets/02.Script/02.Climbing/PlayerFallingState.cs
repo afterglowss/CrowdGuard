@@ -74,6 +74,15 @@ public class PlayerFallingState : PlayerState
         // 추락 비네팅 시작 (리스폰 타이밍과 분리됨)
         ScreenEffectManager.Instance?.StartFallVignette(player.fallMaxTime);
 
+        // 바일 벽 부착 상태 강제 해제 ──────────────────────────────────
+        // 정상 추락(트리거 해제)은 OnTriggerDeactivated가 IsAttachedToWall을 이미 false로 내리지만,
+        // 재난(낙석·눈사태) 충돌로 직접 FallingState에 진입하면 IsAttachedToWall이 그대로 남는다.
+        // 이 상태에서 플레이어가 바일 하나를 놓으면 OnStateChangedHandler가 반대쪽 바일을 유효로
+        // 판정해 ClimbingState로 복귀시키는 버그가 생기므로, 진입 시 무조건 초기화한다.
+        // (IsHeld는 물리적 파지 상태이므로 건드리지 않음)
+        if (player.leftAxe  != null) player.leftAxe.IsAttachedToWall  = false;
+        if (player.rightAxe != null) player.rightAxe.IsAttachedToWall = false;
+
         // 네트워크에서 강제된 추락이 아닐 때만 파트너에게 전파합니다.
         if (!NetworkTriggered && PlayerManager.Instance != null)
         {
