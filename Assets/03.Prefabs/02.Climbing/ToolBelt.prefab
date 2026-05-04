@@ -495,7 +495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615be0c0ddee560479faf652c7567c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _anchorPrefab: {fileID: 8993429403725291819, guid: 9ea2560094193d44ebcfa6ee6eb54811, type: 3}
+  _anchorPrefab: {fileID: 8993429403725291819, guid: e689bf0cd8c37a44ab084de839aa806b, type: 3}
   _initialCount: 5
   _despawnDelay: 5
   _spawnPoint: {fileID: 160732522844974732}
