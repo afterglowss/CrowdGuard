@@ -1,3 +1,4 @@
+using SimpleAudioManager;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -52,6 +53,7 @@ namespace CrowdGuard.Climbing.Tools.Common
 
         private void OnGrabbed(SelectEnterEventArgs args)
         {
+            AudioManager.instance.PlaySFX(AudioManager.SFXType.TakeFromPouch, transform);
             // 잡힐 때 부모(파우치)로부터 분리
             transform.SetParent(null);
             CancelReturn();
@@ -117,6 +119,8 @@ namespace CrowdGuard.Climbing.Tools.Common
                 transform.SetPositionAndRotation(pouchTransform.position, pouchTransform.rotation);
                 transform.SetParent(pouchTransform);
             }
+
+            AudioManager.instance.PlaySFX(AudioManager.SFXType.PutInPouch, transform);
         }
     }
 }

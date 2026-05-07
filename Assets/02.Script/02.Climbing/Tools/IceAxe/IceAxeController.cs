@@ -1,6 +1,7 @@
+using CrowdGuard.Environment;
+using SimpleAudioManager;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using CrowdGuard.Environment;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace CrowdGuard.Climbing.Tools.IceAxe
@@ -175,6 +176,8 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
             Debug.Log("[IceAxeController] 충돌 + 입력 조건 만족. 지형의 파괴 검사를 시작합니다.");
 
             bool allowAttachment = _currentSurface.OnHitByIceAxe(_contactPoint);
+
+            AudioManager.instance.PlaySFX(AudioManager.SFXType.PickIce, transform);
 
             if (allowAttachment)
             {

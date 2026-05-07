@@ -51,6 +51,9 @@ public class TentInteriorController : NetworkBehaviour
 
         RPC_SetLantern(false);
 
+        if (EquipmentManager.Instance != null)
+            EquipmentManager.Instance.SupplyAnchorsAtTent();
+
         // 텐트 안에서는 세이프티 로프 숨기기
         PlayerManager.Instance?.leaderSafetyRope?.SetVisible(false);
 
