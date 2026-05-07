@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using CrowdGuard.Environment;
@@ -45,6 +46,10 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         [Tooltip("역회전으로 이 진행도 이하가 되면 자동 분리 (-0.1 = -10%)")]
         [SerializeField] private float _detachThreshold = -0.1f;
 
+        [Header("Reinsert Cooldown")]
+        [Tooltip("분리 후 재삽입 방지 Fallback 시간 (초). OnTriggerExit가 먼저 오면 즉시 해제됨.")]
+        [SerializeField] private float _reinsertCooldown = 0.5f;
+
         // ===================== Global Event =====================
 
         /// <summary>
@@ -61,6 +66,10 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         private BaseSurface _currentSurface;
         private Vector3 _wallContactPoint;
         private Vector3 _wallNormal;
+
+        // 재삽입 방지
+        private bool _canReinsert = true;
+        private Coroutine _reinsertCooldownCoroutine;
 
         // Handle 회전 관련
         private Transform _handleInteractorTransform;
@@ -255,6 +264,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
                 _isTouchingWall = false;
                 _currentSurface = null;
                 _model.IsContactingWall = false;
+                UnlockReinsert();
             }
         }
 
@@ -286,6 +296,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             _isTouchingWall = false;
             _currentSurface = null;
             _model.IsContactingWall = false;
+            UnlockReinsert();
         }
 #pragma warning restore CS0618
 
@@ -297,6 +308,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             if (!_model.IsHeld) return;
             if (!_isTouchingWall) return;
             if (_model.IsInserted) return;
+            if (!_canReinsert) return;
 
             Debug.Log("[Anchor] 벽면에 앵커를 삽입합니다.");
 
@@ -321,7 +333,43 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             _model.IsFullySecured = false;
             _accumulatedAngle = 0f;
 
-            Debug.Log("[Anchor] 앵커가 벽에서 분리되었습니다.");
+            // 재삽입 방지 잠금
+            _canReinsert = false;
+            if (_reinsertCooldownCoroutine != null)
+                StopCoroutine(_reinsertCooldownCoroutine);
+            _reinsertCooldownCoroutine = StartCoroutine(ReinsertCooldownFallback());
+
+            Debug.Log("[Anchor] 앵커가 벽에서 분리되었습니다. (재삽입 잠금)");
+        }
+
+        /// <summary>
+        /// OnTriggerExit가 호출되지 않을 경우를 대비한 Fallback 타이머.
+        /// </summary>
+        private IEnumerator ReinsertCooldownFallback()
+        {
+            yield return new WaitForSeconds(_reinsertCooldown);
+            if (!_canReinsert && !_model.IsInserted)
+            {
+                _canReinsert = true;
+                Debug.Log("[Anchor] 재삽입 잠금 해제 (Fallback 타이머)");
+            }
+            _reinsertCooldownCoroutine = null;
+        }
+
+        /// <summary>
+        /// 팁이 벽에서 나갔을 때 재삽입 잠금을 즉시 해제합니다.
+        /// </summary>
+        private void UnlockReinsert()
+        {
+            if (_canReinsert) return;
+
+            _canReinsert = true;
+            if (_reinsertCooldownCoroutine != null)
+            {
+                StopCoroutine(_reinsertCooldownCoroutine);
+                _reinsertCooldownCoroutine = null;
+            }
+            Debug.Log("[Anchor] 재삽입 잠금 해제 (벽에서 이탈)");
         }
 
         /// <summary>
