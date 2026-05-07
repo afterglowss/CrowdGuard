@@ -1,6 +1,8 @@
+using Capstone.Photon.Game;
+using SimpleAudioManager;
 using System.Collections.Generic;
 using UnityEngine;
-using Capstone.Photon.Game;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// 추락 상태.
@@ -45,6 +47,8 @@ public class PlayerFallingState : PlayerState
 
     public override void Enter()
     {
+        AudioManager.instance.PlaySFX(AudioManager.SFXType.Falling, player.xrRigPivot);
+
         Debug.Log("[FSM] Entered Falling State");
 
         _velocity         = new Vector3(0f, -3.0f, 0f); // 초기 하강 킥
@@ -57,8 +61,16 @@ public class PlayerFallingState : PlayerState
         {
             if (script == null) continue;
             string n = script.GetType().Name;
-            if ((n.Contains("XRBodyTransformer") || n.Contains("CharacterControllerDriver") ||
-                 n.Contains("MoveProvider")       || n.Contains("Locomotion")) && script.enabled)
+
+            // ★ MoveProvider / Locomotion 계열은 비활성화하지 않는다.
+            //   XR Toolkit 3.x에서 LocomotionProvider를 enabled=false 했다가
+            //   enabled=true 로 되살리면 locomotionPhase 가 Moving 에 고착되어
+            //   재활성화 후 전진 입력이 전혀 먹히지 않는 버그가 발생한다.
+            //   대신, 실제로 위치를 적용하는 XRBodyTransformer 와
+            //   CharacterControllerDriver 만 끔으로써 이동 자체를 차단한다.
+            //   MoveProvider 는 계속 실행되므로 내부 Phase 가 매 프레임 정상
+            //   Idle 로 돌아와 상태가 깨끗하게 유지된다.
+            if ((n.Contains("XRBodyTransformer") || n.Contains("CharacterControllerDriver")) && script.enabled)
             {
                 script.enabled = false;
                 _disabledXRScripts.Add(script);

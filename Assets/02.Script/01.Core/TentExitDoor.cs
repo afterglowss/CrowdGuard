@@ -1,3 +1,4 @@
+using SimpleAudioManager;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
@@ -54,6 +55,7 @@ public class TentExitDoor : MonoBehaviour
         // 이전 프레임에 안 눌렸다가 이번 프레임에 눌린 순간만 반응 (엣지 트리거)
         if (currentlyPressed && !wasTriggerPressed)
         {
+            AudioManager.instance.PlaySFX(AudioManager.SFXType.TentDoor, transform);
             TentInteriorController.Instance?.ExitTent();
         }
 
