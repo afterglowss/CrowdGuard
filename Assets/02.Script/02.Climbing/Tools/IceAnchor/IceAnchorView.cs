@@ -32,6 +32,10 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         [Tooltip("체결 완료 시 손잡이 총 회전 각도 (도)")]
         [SerializeField] private float _totalHandleAngle = 360f;
 
+        [Header("삽입 깊이 (체결 진행도 연동)")]
+        [Tooltip("체결 완료(progress=1) 시 로컬 Z축으로 이동할 최대 거리 (m)")]
+        [SerializeField] private float _maxPenetrationDepth = 0.05f;
+
         private void Awake()
         {
             if (_model == null) _model = GetComponent<IceAnchorModel>();
@@ -92,24 +96,34 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             }
             else
             {
-                // 벽에서 빠짐 → 물리 해제 + 낙하 + 핸들 시각 초기화
+                // 벽에서 빠짐 → 물리 해제 + 낙하 + 시각 초기화
                 _rb.constraints = RigidbodyConstraints.None;
                 _rb.useGravity = true;
                 _rb.isKinematic = false;
                 if (_handleVisual != null)
                     _handleVisual.localRotation = Quaternion.identity;
+                _penetrationOffset = 0f;
             }
         }
 
         // ===================== 시각 피드백 =====================
 
+        private float _penetrationOffset;
+
         private void HandleScrewProgress(float progress)
         {
+            // 핸들 회전
             if (_handleVisual != null)
             {
                 float angle = progress * _totalHandleAngle;
                 _handleVisual.localRotation = Quaternion.AngleAxis(angle, Vector3.back);
             }
+
+            // 삽입 깊이 — 로컬 forward(Z) 방향으로 이동
+            float targetOffset = progress * _maxPenetrationDepth;
+            float delta = targetOffset - _penetrationOffset;
+            transform.position += transform.forward * delta;
+            _penetrationOffset = targetOffset;
         }
 
         private void HandleFullySecuredChanged(bool isSecured)
