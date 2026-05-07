@@ -13,7 +13,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
     {
         [Header("References")]
         [SerializeField] private IceAnchorModel _model;
-        [Tooltip("Body 오브젝트의 Rigidbody")]
+        [Tooltip("루트 오브젝트의 Rigidbody")]
         [SerializeField] private Rigidbody _rb;
 
         [Header("Haptics")]
@@ -35,7 +35,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         private void Awake()
         {
             if (_model == null) _model = GetComponent<IceAnchorModel>();
-            if (_rb == null) _rb = GetComponentInChildren<Rigidbody>();
+            if (_rb == null) _rb = GetComponent<Rigidbody>();
         }
 
         private void OnEnable()
@@ -107,7 +107,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         {
             if (_handleVisual != null)
             {
-                float angle = -(progress * _totalHandleAngle);
+                float angle = progress * _totalHandleAngle;
                 _handleVisual.localRotation = Quaternion.AngleAxis(angle, Vector3.back);
             }
         }

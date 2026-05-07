@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1684785471307115778}
   - component: {fileID: 6405942627374114707}
   - component: {fileID: 4587934664386208590}
-  - component: {fileID: 1741413885854712858}
   - component: {fileID: 790239663509571146}
   - component: {fileID: 3745710669888184115}
   m_Layer: 0
@@ -131,20 +130,6 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
---- !u!114 &1741413885854712858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 264881076315366920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f8e1e0f45c865047888a2c6667106e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _model: {fileID: 413034877256987237}
-  _requiredTurns: 1
 --- !u!23 &790239663509571146
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -379,7 +364,6 @@ GameObject:
   - component: {fileID: 6557054760847647270}
   - component: {fileID: 7598898096320791185}
   - component: {fileID: 8357631585064502126}
-  - component: {fileID: 1391284419915943548}
   - component: {fileID: 8025605165524992593}
   m_Layer: 0
   m_Name: Body
@@ -555,20 +539,6 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
---- !u!114 &1391284419915943548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1891589795939988242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9558e838f68d1ce4ca618873dcd6f8c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _model: {fileID: 413034877256987237}
-  _lockThreshold: 0.3
 --- !u!65 &8025605165524992593
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -687,7 +657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c16560a20d5d333409e3f2d654d8a979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bodyController: {fileID: 1391284419915943548}
+  _controller: {fileID: 0}
 --- !u!1 &7566261591269038021
 GameObject:
   m_ObjectHideFlags: 0

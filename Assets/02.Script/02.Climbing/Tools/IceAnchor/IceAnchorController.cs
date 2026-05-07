@@ -30,7 +30,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         [Tooltip("Handle 자식의 XRSimpleInteractable")]
         [SerializeField] private UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable _handleSimple;
 
-        [Tooltip("Body 자식의 Rigidbody")]
+        [Tooltip("루트 오브젝트의 Rigidbody")]
         [SerializeField] private Rigidbody _rb;
 
         [Tooltip("회전 시각 피드백용 Handle Transform (콜라이더+메시 포함 루트)")]

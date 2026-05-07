@@ -18,11 +18,8 @@ namespace CrowdGuard.Climbing.Tools.Common
         {
             _tools = GetComponentsInChildren<ToolIdentity>(true);
             InitializeTools();
-        }
-
-        private void Start()
-        {
-            ApplyRole(_currentRole);
+            //이건 이미 다른 곳에서 실행됨. 
+            // ApplyRole(_currentRole);
         }
 
         /// <summary>
