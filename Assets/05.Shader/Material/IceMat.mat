@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: IceMat
-  m_Shader: {fileID: -6465566751694194690, guid: cca91435d53f39f41ae3c0db91a9a5e2, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: be9ee60deb1895b4ea9bb366bdb4219d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -80,6 +80,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 187b486e351d5284a9909db4c0339b64, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SnowParticle:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -112,11 +116,14 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _FadeEnd: 1
+    - _FadeStart: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _Opacity: 0.33
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
