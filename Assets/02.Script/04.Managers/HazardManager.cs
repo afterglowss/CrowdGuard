@@ -1,7 +1,8 @@
+using Fusion;
+using SimpleAudioManager;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Fusion;
 using UnityEngine;
 
 // --- Payload Data Classes (재난별 다형성 데이터 구조) ---
@@ -61,6 +62,7 @@ public class HazardManager : NetworkBehaviour
             Debug.LogWarning($"[HazardManager] avalancheSystems[{index}] 없음. 인스펙터 리스트를 확인하세요.");
             return;
         }
+        AudioManager.instance.PlaySFX(AudioManager.SFXType.Avalanche, transform);
 
         Debug.Log("AvalancheTrigger");
         AvalanchePathSystem system = avalancheSystems[index];

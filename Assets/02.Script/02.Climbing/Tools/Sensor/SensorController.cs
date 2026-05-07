@@ -1,3 +1,4 @@
+using SimpleAudioManager;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,6 +24,13 @@ namespace MSEX.Climbing.Tools
         private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable interactable;
         private bool isHeld = false;
         private bool thumbstickAxisInUse = false;
+
+        [Header("Beep Settings")]
+        [SerializeField] private float beepIntervalMax = 2.0f;  // intensity 낮을 때 (느린 삐)
+        [SerializeField] private float beepIntervalMin = 0.07f; // intensity 높을 때 (빠른 삐삐삐)
+        [SerializeField] private float beepThreshold   = 0.05f; // 이 이하면 무음
+
+        private Coroutine _beepCoroutine;
 
         private void Awake()
         {
@@ -122,6 +130,8 @@ namespace MSEX.Climbing.Tools
             int nextModeIndex = ((int)CurrentMode + direction + modeCount) % modeCount;
             CurrentMode = (SensorMode)nextModeIndex;
 
+            AudioManager.instance.PlaySFX(AudioManager.SFXType.SensorSwitch, transform);
+
             Debug.Log($"[SensorController] Mode switched: {CurrentMode}");
             OnModeChanged?.Invoke(CurrentMode);
         }
@@ -144,6 +154,11 @@ namespace MSEX.Climbing.Tools
             CancelInvoke(nameof(ClearActiveHazard));
             Invoke(nameof(ClearActiveHazard), 15f); // 15초간 추적
 
+            AudioManager.instance.PlaySFX(AudioManager.SFXType.SensorBeep, transform);
+
+            if (_beepCoroutine != null) StopCoroutine(_beepCoroutine);
+            _beepCoroutine = StartCoroutine(BeepCoroutine());
+
             OnHazardDetected?.Invoke(data);
             Debug.Log($"[SensorController] Detected {data.GetType().Name}, Tracking started for 15s.");
         }
@@ -152,6 +167,30 @@ namespace MSEX.Climbing.Tools
         {
             activeHazard = null;
             CurrentIntensity = 0f;
+
+            if (_beepCoroutine != null)
+            {
+                StopCoroutine(_beepCoroutine);
+                _beepCoroutine = null;
+            }
+        }
+
+        private System.Collections.IEnumerator BeepCoroutine()
+        {
+            while (activeHazard != null)
+            {
+                if (CurrentIntensity > beepThreshold)
+                {
+                    AudioManager.instance.PlaySFX(AudioManager.SFXType.SensorBeep, transform);
+                    float interval = Mathf.Lerp(beepIntervalMax, beepIntervalMin, CurrentIntensity);
+                    yield return new WaitForSeconds(interval);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(0.15f);
+                }
+            }
+            _beepCoroutine = null;
         }
     }
 }

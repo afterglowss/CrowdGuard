@@ -1,8 +1,9 @@
+using CrowdGuard.Environment;
+using SimpleAudioManager;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using CrowdGuard.Environment;
 
 namespace CrowdGuard.Climbing.Tools.IceAnchor
 {
@@ -338,6 +339,8 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             if (_reinsertCooldownCoroutine != null)
                 StopCoroutine(_reinsertCooldownCoroutine);
             _reinsertCooldownCoroutine = StartCoroutine(ReinsertCooldownFallback());
+            
+            AudioManager.instance.PlaySFX(AudioManager.SFXType.AnchorBreak, transform);
 
             Debug.Log("[Anchor] 앵커가 벽에서 분리되었습니다. (재삽입 잠금)");
         }
@@ -370,6 +373,8 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
                 _reinsertCooldownCoroutine = null;
             }
             Debug.Log("[Anchor] 재삽입 잠금 해제 (벽에서 이탈)");
+
+            Debug.Log("[Anchor] 앵커가 벽에서 분리되었습니다.");
         }
 
         /// <summary>
@@ -426,6 +431,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             // 완전 체결
             if (newProgress >= 1.0f)
             {
+                AudioManager.instance.PlaySFX(AudioManager.SFXType.AnchorInstall, transform);
                 _model.IsFullySecured = true;
                 Debug.Log("[Anchor] ===== 앵커 완전 체결! (영구 고정) =====");
                 OnAnchorSecuredGlobal?.Invoke(_model, _wallNormal);

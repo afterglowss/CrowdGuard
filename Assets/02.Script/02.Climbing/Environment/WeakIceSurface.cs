@@ -1,7 +1,8 @@
-using UnityEngine;
 using Fusion;
+using SimpleAudioManager;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace CrowdGuard.Environment
 {
@@ -109,6 +110,8 @@ namespace CrowdGuard.Environment
 
             if (breakVFX != null)
                 Instantiate(breakVFX, target.transform.position, Quaternion.identity);
+
+            AudioManager.instance.PlaySFX(AudioManager.SFXType.IceBreak, transform);
 
             Fracture fracture = target.GetComponent<Fracture>();
             if (fracture != null)

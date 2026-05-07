@@ -1,5 +1,6 @@
-using UnityEngine;
 using Fusion;
+using SimpleAudioManager;
+using UnityEngine;
 
 namespace CrowdGuard.Environment
 {
@@ -9,7 +10,9 @@ namespace CrowdGuard.Environment
         {
             if (hitSound != null)
             {
-                AudioSource.PlayClipAtPoint(hitSound, transform.position);
+                //AudioSource.PlayClipAtPoint(hitSound, transform.position);
+
+                AudioManager.instance.PlaySFX(AudioManager.SFXType.PickRock, transform);
             }
             // 바위는 무조건 튕겨 나감
             Debug.Log("[RockSurface] 바위 표면입니다. 바일이 튕겨 나갑니다!");
