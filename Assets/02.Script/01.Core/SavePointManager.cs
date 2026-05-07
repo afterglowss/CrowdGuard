@@ -103,13 +103,37 @@ public class SavePointManager : NetworkBehaviour
     /// <summary>
     /// 벽 법선 방향으로 wallNormalOffset 만큼 띄우고,
     /// XR Rig 발 기준 Y를 앵커보다 chestHeightOffset 만큼 내려 가슴 높이를 맞춥니다.
+    /// 텐트 세이브 포인트(wallNormal == zero)는 오프셋 없이 그대로 반환합니다.
     /// </summary>
     private Vector3 CalcRespawnBase()
     {
+        // 텐트 세이브 포인트: wallNormal이 zero이므로 오프셋을 적용하지 않는다.
+        // (텐트 퇴장 위치는 이미 적절한 월드 좌표이므로 추가 보정 불필요)
+        if (_lastWallNormal.sqrMagnitude < 0.01f)
+            return lastSafePosition;
+
         Vector3 outward = _lastWallNormal; // 이미 Normalized 보장됨
         Vector3 pos     = lastSafePosition + outward * wallNormalOffset;
         pos.y          -= chestHeightOffset;
         return pos;
+    }
+
+    /// <summary>
+    /// RPC 핸들러 내부에서 호출용. 추가 RPC를 발송하지 않고 로컬 상태만
+    /// 텐트 세이브 포인트로 복원합니다.
+    /// _lastWallNormal을 zero로 초기화해 CalcRespawnBase가 오프셋을 적용하지
+    /// 않도록 합니다.
+    /// </summary>
+    public void LocalRevertToTentSavePoint()
+    {
+        // 텐트 방문 기록이 없으면 기본 스폰 위치로 폴백한다.
+        Vector3 target = _hasTentSave ? _tentSavePosition : defaultSpawnPosition;
+
+        lastSafePosition = target;
+        _lastWallNormal  = Vector3.zero; // 텐트/기본 위치 모두 벽 법선 없음
+        OnSavePointChanged?.Invoke(lastSafePosition);
+        if (_hasTentSave)
+            OnSavePointRevertedToTent?.Invoke(_tentSavePosition);
     }
 
     /// <summary>

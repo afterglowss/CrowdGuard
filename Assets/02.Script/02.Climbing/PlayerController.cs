@@ -89,6 +89,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnStateChangedHandler(bool dummyValue)
     {
+        // 추락 중에는 바일 상태 변화가 ClimbingState로 되돌리지 못하도록 한다.
+        // (네트워크 강제 추락 시 바일이 아직 IsAttachedToWall=true인 채로
+        //  이벤트가 발생하면 FallingState가 즉시 취소되는 버그 방지)
+        if (CurrentState == FallingState) return;
+
         // "벽에 박혀있고(Attached) AND 내 손에 쥐고있는(Held)" 바일만 유효한 등반 도구로 인정합니다.
         bool isLeftValid = leftAxe != null && leftAxe.IsAttachedToWall && leftAxe.IsHeld;
         bool isRightValid = rightAxe != null && rightAxe.IsAttachedToWall && rightAxe.IsHeld;

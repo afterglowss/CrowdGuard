@@ -122,7 +122,35 @@ public class SurvivalManager : NetworkBehaviour
     private void TriggerFreezeDeath()
     {
         isPlayerFrozen = true;
+        Debug.LogWarning("[SurvivalManager] 동결! 텐트 세이브 포인트로 리스폰합니다.");
+        // StateAuthority에서만 호출됨 → 전 클라이언트에 동결 사망 처리를 지시한다.
+        RPC_OnFreezeDeath();
+    }
+
+    /// <summary>
+    /// 동결 사망 처리를 전 클라이언트에 동시 실행합니다.
+    /// 각 클라이언트는 세이브 포인트를 텐트로 복원하고 로컬 플레이어를 추락시킵니다.
+    ///
+    /// [주의] NetworkTriggered = true 로 설정한 채 ChangeState 를 호출해
+    ///        FallingState.Enter()의 RPC_TriggerPartnerFall 재발송을 억제합니다.
+    ///        (두 플레이어가 이미 모두 이 RPC로 추락하므로 추가 전파 불필요)
+    /// </summary>
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_OnFreezeDeath()
+    {
         OnPlayerFrozen?.Invoke();
-        Debug.LogWarning("[SurvivalManager] 동결!");
+
+        // 세이브 포인트를 텐트로 복원 — 이미 RPC 내부이므로 로컬 업데이트만 수행
+        if (SavePointManager.Instance != null)
+            SavePointManager.Instance.LocalRevertToTentSavePoint();
+
+        // 로컬 플레이어 추락 트리거
+        var controller = PlayerController.LocalInstance;
+        if (controller == null) return;
+        if (controller.CurrentState == controller.FallingState) return;
+
+        PlayerFallingState.NetworkTriggered = true;
+        controller.ChangeState(controller.FallingState);
+        PlayerFallingState.NetworkTriggered = false;
     }
 }
