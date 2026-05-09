@@ -7,7 +7,7 @@ using UnityEngine;
 public class DataManager : NetworkBehaviour
 {
 
-    public DataManager Instance = null;
+    public static DataManager Instance = null;
     
     public Timer timer;
     [Networked] public int FallCount { get; private set; }
@@ -33,6 +33,7 @@ public class DataManager : NetworkBehaviour
 
     public void AddFallCount()
     {
+        Debug.Log($"AddFallCount {FallCount}");
         if (!Object.HasStateAuthority) return;
         FallCount++;
     }
@@ -40,6 +41,7 @@ public class DataManager : NetworkBehaviour
     [Rpc(RpcSources.All,RpcTargets.StateAuthority)]
     public void RPC_AddAnchorCount()
     {
+        Debug.Log($"AddAnchorCount {AnchorCount}");
         AnchorCount++;
     }
     

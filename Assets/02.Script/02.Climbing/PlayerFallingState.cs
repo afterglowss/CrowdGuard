@@ -97,6 +97,9 @@ public class PlayerFallingState : PlayerState
                     : CrowdGuard.Climbing.Tools.Common.PlayerRole.Navigator);
             }
         }
+        
+        // 낙하 카운트 추가
+        DataManager.Instance?.AddFallCount();
     }
 
     public override void Exit()
