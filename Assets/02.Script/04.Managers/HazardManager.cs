@@ -24,6 +24,23 @@ public class BlizzardData : HazardData
     public float FreezeMultiplier;
 }
 
+/// <summary>
+/// 인스펙터에서 미리 배치해두는 눈보라 항목.
+/// spawnPoint에 씬의 빈 오브젝트를 연결해 위치를 잡아둡니다.
+/// </summary>
+[System.Serializable]
+public class BlizzardEntry
+{
+    [Tooltip("눈보라 발생 위치. 씬에 빈 오브젝트를 만들어 연결하세요.")]
+    public Transform spawnPoint;
+
+    [Tooltip("눈보라 지속 시간(초)")]
+    public float duration = 5f;
+
+    [Tooltip("동결 게이지 증가 배율 (SurvivalManager.isRapidFreezing 활성 시 적용)")]
+    public float freezeMultiplier = 4f;
+}
+
 public class RockfallData : HazardData
 {
     public int RockCount;
@@ -42,6 +59,9 @@ public class HazardManager : NetworkBehaviour
 
     [Header("낙석 프리팹 목록 (인덱스 0번부터)")]
     public List<GameObject> rockfallPrefabs = new List<GameObject>();
+
+    [Header("눈보라 항목 목록 (인덱스 0번부터)")]
+    public List<BlizzardEntry> blizzardEntries = new List<BlizzardEntry>();
 
     private void Awake()
     {
@@ -98,17 +118,24 @@ public class HazardManager : NetworkBehaviour
     }
 
     /// <summary>
-    /// 눈보라를 직접 트리거합니다.
+    /// 인덱스로 눈보라 항목을 선택해 트리거합니다. HazardTriggerZone 등에서 호출하세요.
     /// </summary>
     [Rpc(RpcSources.All,RpcTargets.All)]
-    public void RPC_TriggerBlizzard(Vector3 location, float duration = 5f, float freezeMultiplier = 4f)
+    public void RPC_TriggerBlizzard(int index)
     {
+        if (index < 0 || index >= blizzardEntries.Count)
+        {
+            Debug.LogWarning($"[HazardManager] blizzardEntries[{index}] 없음. 인스펙터 리스트를 확인하세요.");
+            return;
+        }
+
         Debug.Log("Blizzard");
+        BlizzardEntry entry = blizzardEntries[index];
         var data = new BlizzardData
         {
-            Location = location,
-            Duration = duration,
-            FreezeMultiplier = freezeMultiplier
+            Location        = entry.spawnPoint != null ? entry.spawnPoint.position : Vector3.zero,
+            Duration        = entry.duration,
+            FreezeMultiplier = entry.freezeMultiplier
         };
         TriggerHazardExternal(data);
     }
@@ -183,17 +210,17 @@ public class HazardManager : NetworkBehaviour
     /// <summary>
     /// 반환된 Coroutine을 보관해두면 BlizzardZone 등 외부에서 StopCoroutine()으로 중단 가능.
     /// </summary>
-    public Coroutine StartCyclicBlizzard(Vector3 centerLocation, float intervalSeconds = 60f)
+    public Coroutine StartCyclicBlizzard(int blizzardIndex, float intervalSeconds = 60f)
     {
-        return StartCoroutine(CyclicBlizzardRoutine(centerLocation, intervalSeconds));
+        return StartCoroutine(CyclicBlizzardRoutine(blizzardIndex, intervalSeconds));
     }
 
-    private IEnumerator CyclicBlizzardRoutine(Vector3 loc, float interval)
+    private IEnumerator CyclicBlizzardRoutine(int index, float interval)
     {
         while (true)
         {
             yield return new WaitForSeconds(interval);
-            RPC_TriggerBlizzard(loc);
+            RPC_TriggerBlizzard(index);
         }
     }
 

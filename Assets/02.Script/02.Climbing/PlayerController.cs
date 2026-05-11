@@ -16,6 +16,15 @@ public class PlayerController : MonoBehaviour
     [Header("Collision Settings")]
     public LayerMask iceLayer;
 
+    [Header("Ground Movement")]
+    [Tooltip("평지 이동용 Move GameObject (XR Rig > Locomotion > Move).\n" +
+             "WalkableZone 진입 시 SetActive(true), 이탈 시 SetActive(false) 됩니다.\n" +
+             "XRDebugLocomotion의 _moveObject와 동일한 오브젝트를 연결하세요.")]
+    public GameObject groundMoveObject;
+
+    [Tooltip("WalkableZone 진입 시 rig Y를 지면 높이로 보정하는 속도. 값이 클수록 빠르게 내려앉습니다.")]
+    public float groundYLerpSpeed = 5f;
+
     [Header("Fall Settings")]
     [Tooltip("최대 추락 시간(초). 이 시간이 지나면 리스폰 페이드 시작.")]
     public float fallMaxTime = 2.5f;
@@ -31,11 +40,18 @@ public class PlayerController : MonoBehaviour
     public float fallBounciness = 0.1f;
 
     // FSM 상태 인스턴스 (가비지 컬렉션 방지를 위해 미리 할당)
-    public PlayerIdleState IdleState { get; private set; }
+    public PlayerIdleState    IdleState     { get; private set; }
     public PlayerClimbingState ClimbingState { get; private set; }
-    public PlayerFallingState FallingState { get; private set; }
+    public PlayerFallingState FallingState  { get; private set; }
+    public PlayerGroundState  GroundState   { get; private set; }
 
     public PlayerState CurrentState { get; private set; }
+
+    /// <summary>
+    /// 현재 플레이어가 안에 있는 WalkableZone. WalkableZone이 직접 설정합니다.
+    /// null이면 평지 구역 밖입니다.
+    /// </summary>
+    public WalkableZone CurrentWalkableZone { get; set; }
 
     /// <summary>로컬 머신의 PlayerController. 네트워크 RPC에서 추락 동기화에 사용됩니다.</summary>
     public static PlayerController LocalInstance { get; private set; }
@@ -89,6 +105,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnStateChangedHandler(bool dummyValue)
     {
+        // 추락 중에는 바일 상태 변화가 ClimbingState로 되돌리지 못하도록 한다.
+        // (네트워크 강제 추락 시 바일이 아직 IsAttachedToWall=true인 채로
+        //  이벤트가 발생하면 FallingState가 즉시 취소되는 버그 방지)
+        if (CurrentState == FallingState) return;
+
         // "벽에 박혀있고(Attached) AND 내 손에 쥐고있는(Held)" 바일만 유효한 등반 도구로 인정합니다.
         bool isLeftValid = leftAxe != null && leftAxe.IsAttachedToWall && leftAxe.IsHeld;
         bool isRightValid = rightAxe != null && rightAxe.IsAttachedToWall && rightAxe.IsHeld;
@@ -117,7 +138,10 @@ public class PlayerController : MonoBehaviour
                     // ClimbingState.Update()가 벽에 박힌 것으로 오인해 카메라가 움직이는 버그 발생.
                     if (leftAxe  != null) leftAxe.IsAttachedToWall  = false;
                     if (rightAxe != null) rightAxe.IsAttachedToWall = false;
-                    ChangeState(IdleState);
+
+                    // 평지 구역 안에 있으면 GroundState로 복귀 (조이스틱 이동 유지)
+                    // 구역 밖이면 기본 IdleState
+                    ChangeState(CurrentWalkableZone != null ? (PlayerState)GroundState : IdleState);
                 }
             }
         }
@@ -135,9 +159,10 @@ public class PlayerController : MonoBehaviour
 
     private void InitializeStates()
     {
-        IdleState = new PlayerIdleState(this);
+        IdleState     = new PlayerIdleState(this);
         ClimbingState = new PlayerClimbingState(this);
-        FallingState = new PlayerFallingState(this);
+        FallingState  = new PlayerFallingState(this);
+        GroundState   = new PlayerGroundState(this);
     }
 
     private void HandleAxeHit(CrowdGuard.Climbing.Tools.IceAxe.IceAxeModel axe)

@@ -55,6 +55,18 @@ public class PlayerFallingState : PlayerState
         _fallTimer        = 0f;
         _respawnTriggered = false;
 
+        // 추락 중에는 평지 구역 추적을 초기화합니다.
+        // 미초기화 시 리스폰 후 바일을 놓을 때 CurrentWalkableZone이 남아있어
+        // 엉뚱하게 GroundState로 전환되는 버그가 발생합니다.
+        player.CurrentWalkableZone = null;
+
+        // 바일 강제 분리 — ClimbingState에서 진입 시 IsAttachedToWall이 true인 채로
+        // IceAxe 이벤트가 발생하면 OnStateChangedHandler가 ClimbingState로 되돌리는
+        // 버그를 방지합니다. (PlayerController.OnStateChangedHandler의 FallingState
+        // 가드와 함께 동작해 두 겹으로 보호합니다.)
+        if (player.leftAxe  != null) player.leftAxe.IsAttachedToWall  = false;
+        if (player.rightAxe != null) player.rightAxe.IsAttachedToWall = false;
+
         // XR 이동 스크립트 비활성화
         _disabledXRScripts.Clear();
         foreach (var script in player.xrRigPivot.GetComponentsInChildren<Behaviour>(true))
@@ -199,7 +211,15 @@ public class PlayerFallingState : PlayerState
     private void DoRespawnTeleport()
     {
         if (SavePointManager.Instance != null)
-            player.xrRigPivot.position = SavePointManager.Instance.GetRespawnPosition();
+        {
+            // 리더/네비게이터에 따라 리스폰 위치를 분기한다.
+            // (두 플레이어가 같은 위치에 겹쳐 스폰되는 버그 방지)
+            var localModel = Capstone.Photon.Game.GamePlayerModel.LocalPlayerModel;
+            bool isLeader  = localModel == null || localModel.IsLeader;
+            player.xrRigPivot.position = isLeader
+                ? SavePointManager.Instance.GetRespawnPosition()
+                : SavePointManager.Instance.GetRespawnPositionP2();
+        }
 
         if (player.leftAxe  != null) player.leftAxe.IsAttachedToWall  = false;
         if (player.rightAxe != null) player.rightAxe.IsAttachedToWall = false;

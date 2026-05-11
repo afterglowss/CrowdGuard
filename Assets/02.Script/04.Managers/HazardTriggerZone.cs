@@ -56,8 +56,8 @@ public class HazardTriggerZone : MonoBehaviour
     public float fallRadius = 2f;
 
     [Header("── 눈보라 설정 ──────────────────────")]
-    public float blizzardDuration = 5f;
-    public float blizzardFreezeMultiplier = 4f;
+    [Tooltip("HazardManager.blizzardEntries 리스트의 인덱스")]
+    public int blizzardIndex = 0;
 
     // ───────────────────────────────────────────
     private bool _hasFired = false;
@@ -257,9 +257,8 @@ public class HazardTriggerZone : MonoBehaviour
                 break;
 
             case HazardType.Blizzard:
-                HazardManager.Instance.RPC_TriggerBlizzard(
-                    transform.position, blizzardDuration, blizzardFreezeMultiplier);
-                Debug.Log($"[HazardTriggerZone] '{name}' 눈보라 발동");
+                HazardManager.Instance.RPC_TriggerBlizzard(blizzardIndex);
+                Debug.Log($"[HazardTriggerZone] '{name}' 눈보라 발동 (index={blizzardIndex})");
                 break;
         }
 
@@ -316,11 +315,17 @@ public class HazardTriggerZone : MonoBehaviour
         var col = GetComponent<Collider>();
         if (col == null) return;
 
-        string label = hazardType == HazardType.Avalanche
-            ? $"Avalanche [전역 Risk 사용]{(oneShot ? " [1회]" : $" [{cooldownSeconds}s CD]")}"
-            : $"{hazardType} {triggerProbability * 100:F0}%"
-              + (useRandomDelay ? $" [딜레이 {minDelay}~{maxDelay}s]" : "")
-              + (oneShot ? " [1회]" : $" [{cooldownSeconds}s CD]");
+        string label = hazardType switch
+        {
+            HazardType.Avalanche => $"Avalanche [index={avalancheIndex}]"
+                                  + (oneShot ? " [1회]" : $" [{cooldownSeconds}s CD]"),
+            HazardType.Blizzard  => $"Blizzard [index={blizzardIndex}] {triggerProbability * 100:F0}%"
+                                  + (useRandomDelay ? $" [딜레이 {minDelay}~{maxDelay}s]" : "")
+                                  + (oneShot ? " [1회]" : $" [{cooldownSeconds}s CD]"),
+            _                    => $"{hazardType} {triggerProbability * 100:F0}%"
+                                  + (useRandomDelay ? $" [딜레이 {minDelay}~{maxDelay}s]" : "")
+                                  + (oneShot ? " [1회]" : $" [{cooldownSeconds}s CD]"),
+        };
 
         UnityEditor.Handles.Label(col.bounds.center + Vector3.up * (col.bounds.extents.y + 0.3f), label);
 #endif

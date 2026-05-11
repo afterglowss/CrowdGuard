@@ -102,6 +102,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
                 _rb.isKinematic = false;
                 if (_handleVisual != null)
                     _handleVisual.localRotation = Quaternion.identity;
+                transform.position -= transform.forward * _penetrationOffset;
                 _penetrationOffset = 0f;
             }
         }
