@@ -3,13 +3,14 @@ using UnityEngine;
 
 /// <summary>
 /// 눈보라 유형 1 — 상시 구간형.
-/// 플레이어가 이 존 안에 있는 동안 60초마다 눈보라가 자동 발생합니다.
+/// 플레이어가 이 존 안에 있는 동안 intervalSeconds마다 눈보라가 자동 발생합니다.
 /// 존을 벗어나면 눈보라 사이클이 중단됩니다.
 ///
 /// [씬 세팅]
 /// 1. 빈 오브젝트에 이 컴포넌트 + Collider 추가 (Is Trigger 자동 설정)
 /// 2. 눈보라 발생 구간 크기에 맞게 Collider 조정
-/// 3. 인스펙터에서 interval / blizzardDuration 설정
+/// 3. 인스펙터에서 blizzardIndex / intervalSeconds 설정
+///    위치·지속시간·배율은 HazardManager.blizzardEntries[blizzardIndex]에서 관리합니다.
 ///
 /// [네트워크]
 /// HazardManager.RPC_TriggerBlizzard() 를 사용하므로
@@ -18,14 +19,11 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class BlizzardZone : MonoBehaviour
 {
+    [Tooltip("HazardManager.blizzardEntries 리스트의 인덱스.\n위치·지속시간·배율은 해당 항목에서 설정합니다.")]
+    public int blizzardIndex = 0;
+
     [Tooltip("눈보라 발생 간격(초). 기획서 기준 60초.")]
     public float intervalSeconds = 60f;
-
-    [Tooltip("눈보라 지속 시간(초). 기획서 기준 5초.")]
-    public float blizzardDuration = 5f;
-
-    [Tooltip("동결 게이지 증가 배수")]
-    public float freezeMultiplier = 4f;
 
     // ─── 내부 상태 ──────────────────────────────────
     private Coroutine _cyclicCoroutine;
@@ -66,7 +64,7 @@ public class BlizzardZone : MonoBehaviour
         AudioManager.instance.PlaySFX(AudioManager.SFXType.Blizzard, transform);
 
         _cyclicCoroutine = HazardManager.Instance.StartCyclicBlizzard(
-            transform.position, intervalSeconds);
+            blizzardIndex, intervalSeconds);
 
         Debug.Log($"[BlizzardZone] '{name}' 사이클 시작 ({intervalSeconds}초 간격)");
     }
@@ -108,7 +106,7 @@ public class BlizzardZone : MonoBehaviour
         if (col == null) return;
         UnityEditor.Handles.Label(
             col.bounds.center + Vector3.up * (col.bounds.extents.y + 0.3f),
-            $"BlizzardZone  {intervalSeconds}s마다 / {blizzardDuration}s 지속"
+            $"BlizzardZone  index={blizzardIndex} / {intervalSeconds}s마다"
         );
 #endif
     }

@@ -113,6 +113,10 @@ namespace CrowdGuard.Environment
 
             AudioManager.instance.PlaySFX(AudioManager.SFXType.IceBreak, transform);
 
+            // Fusion 네트워크 상태 갱신: 재접속 클라이언트가 파괴 상태를 수신할 수 있도록
+            if (Object.HasStateAuthority)
+                IsBroken = true;
+
             Fracture fracture = target.GetComponent<Fracture>();
             if (fracture != null)
             {
@@ -123,8 +127,10 @@ namespace CrowdGuard.Environment
                     rb.useGravity = true;
                 }
 
+                // async 코루틴이 Fusion 상태 동기화와 레이스 컨디션을 일으키는 것을 방지
+                fracture.fractureOptions.asynchronous = false;
                 fracture.CauseFracture();
-                StartCoroutine(ApplyExplosionForce(target, fracture.fractureOptions.asynchronous));
+                StartCoroutine(ApplyExplosionForce(target, false));
             }
             else
             {
@@ -166,6 +172,11 @@ namespace CrowdGuard.Environment
             }
         }
 
-        protected override void OnBrokenChanged() { }
+        protected override void OnBrokenChanged()
+        {
+            // 재접속 클라이언트가 IsBroken=true 상태를 수신했을 때 오브젝트를 숨김
+            if (IsBroken)
+                gameObject.SetActive(false);
+        }
     }
 }
