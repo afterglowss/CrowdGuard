@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/01.Scenes/Sandbox/Network/Test_RoomNetwork.unity
     guid: 3a985c8408fe00c4db7b38e148ffaf4a
   - enabled: 1
+    path: Assets/01.Scenes/Sandbox/VFX/01_Mountain 1.unity
+    guid: 6521eaf123257594f996770571171bc8
+  - enabled: 1
     path: Assets/01.Scenes/_Main/01_Mountain.unity
     guid: 755b4e107d0474b40bc6c75ce6097a51
   m_configObjects:
