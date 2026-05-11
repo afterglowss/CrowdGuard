@@ -57,6 +57,6 @@ public class Timer : NetworkBehaviour
     void RPC_TimerUpdate(int time)
     {
         onTimerUpdate?.Invoke(time);
-        Debug.Log(time);
+        //Debug.Log(time);
     }
 }
