@@ -574,11 +574,13 @@ Thumbs.db
 /Assets/Oculus/
 
 
-# [Task Master]
+# [Codex / GSD / Task Master]
 .taskmaster/
 .planning/
 .agent/
 .agents/
+.codex/
+AGENTS.md
 
 # [Local tracking]
 .local/
@@ -587,3 +589,7 @@ Thumbs.db
 .vs/
 .vsconfig
 *.userprefs
+
+# [Generated setup docs]
+**/PREFAB_SETUP.md
+**/PREFAB_SETUP.md.meta
