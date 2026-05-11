@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Fusion;
 using UnityEngine;
 
@@ -7,9 +9,9 @@ namespace Capstone.Photon
     {
         private Transform _target;
 
-        [SerializeField] protected Renderer headObj;
-        [SerializeField] protected Renderer leftHandObj;
-        [SerializeField] protected Renderer rightHandObj;
+        [Header("Renderer")]
+        [ContextMenuItem("GetAllRenderer","GetAllRenderer")]
+        [SerializeField] protected List<Renderer> modelRenderer;
 
 
         public ObjectTracker body;
@@ -21,9 +23,7 @@ namespace Capstone.Photon
         public virtual void Init(LocalPlayerController controller)
         {
             //render disable
-            headObj.enabled = false;
-            leftHandObj.enabled = false;
-            rightHandObj.enabled = false;
+            modelRenderer.ForEach(r => r.enabled = false );
 
             // start tracking
             body.Init(controller.body);
@@ -32,5 +32,12 @@ namespace Capstone.Photon
             rightHand.Init(controller.rightHand);
 
         }
+        
+        
+        public void GetAllRenderer()
+        {
+            modelRenderer.AddRange( GetComponentsInChildren<Renderer>().ToList());
+        }
+        
     }
 }
