@@ -28,6 +28,13 @@ public class Timer : NetworkBehaviour
         return _lastDisplayedSecond;
     }
 
+    public static string ConvertTimeToString(int time)
+    {
+        var min =  time / 60;
+        var sec =  time % 60;
+        return $"{min}:{sec}";
+    }
+
     /// <summary> 현재 걸린 시간 </summary>
     [Networked] private float ElapsedTime { get; set; }
 
