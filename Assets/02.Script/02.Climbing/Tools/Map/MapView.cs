@@ -6,7 +6,7 @@ namespace CrowdGuard.Climbing.Tools.Map
 {
     /// <summary>
     /// MapDataProvider의 마커 데이터를 World Space Canvas 지도 위에 렌더링합니다.
-    /// 정적 지형 구조는 인스펙터에서 _terrainLayer에 연결된 배경/라인 오브젝트로 표시하며,
+    /// 정적 지형 구조와 블럭 RectTransform은 인스펙터에서 연결하며,
     /// 이 View는 런타임 지형 생성 없이 마커 렌더링만 담당합니다.
     /// </summary>
     public class MapView : MonoBehaviour
@@ -25,7 +25,7 @@ namespace CrowdGuard.Climbing.Tools.Map
         private readonly List<RectTransform> _markerPool = new List<RectTransform>();
 
         /// <summary>
-        /// 전달된 마커 목록을 현재 지도 좌표계에 맞춰 표시합니다.
+        /// 전달된 마커 목록을 현재 지도 블럭 좌표계에 맞춰 표시합니다.
         /// </summary>
         public void Render(IReadOnlyList<MapMarkerData> markers)
         {
@@ -45,11 +45,23 @@ namespace CrowdGuard.Climbing.Tools.Map
                     continue;
                 }
 
+                if (!_mapBounds.TryWorldToRectPosition(
+                        marker.WorldPosition,
+                        _mapRect,
+                        out RectTransform targetRect,
+                        out Vector2 anchoredPosition))
+                {
+                    continue;
+                }
+
                 RectTransform markerTransform = _markerPool[visibleIndex];
+                if (markerTransform.parent != targetRect)
+                {
+                    markerTransform.SetParent(targetRect, false);
+                }
+
                 markerTransform.gameObject.SetActive(true);
-                markerTransform.anchoredPosition = _mapBounds.NormalizedToRectPosition(
-                    _mapBounds.WorldToNormalized(marker.WorldPosition),
-                    _mapRect);
+                markerTransform.anchoredPosition = anchoredPosition;
                 markerTransform.localRotation = marker.Type == MapMarkerType.Direction
                     ? Quaternion.Euler(0f, 0f, GetDirectionAngle(marker.Forward))
                     : Quaternion.identity;
