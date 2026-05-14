@@ -11,6 +11,7 @@ namespace CrowdGuard.Climbing.Tools.Map
     public class MapView : MonoBehaviour
     {
         [SerializeField] private RectTransform _mapRect;
+        [SerializeField] private RectTransform[] _blockRects;
         [SerializeField] private MapBounds _mapBounds;
         [SerializeField] private RectTransform _markerPrefab;
         [SerializeField] private GameObject _terrainLayer;
@@ -34,7 +35,7 @@ namespace CrowdGuard.Climbing.Tools.Map
         }
 
         /// <summary>
-        /// 전달된 마커 목록을 현재 지도 블럭 좌표계에 맞춰 표시합니다.
+        /// 전달된 마커 목록을 현재 지도 블록 좌표계에 맞춰 표시합니다.
         /// </summary>
         public void Render(IReadOnlyList<MapMarkerData> markers)
         {
@@ -56,11 +57,16 @@ namespace CrowdGuard.Climbing.Tools.Map
                     continue;
                 }
 
-                if (!_mapBounds.TryWorldToRectPosition(
+                if (!_mapBounds.TryWorldToMapPosition(
                         marker.WorldPosition,
-                        _mapRect,
-                        out RectTransform targetRect,
-                        out Vector2 anchoredPosition))
+                        out int blockIndex,
+                        out Vector2 normalized))
+                {
+                    continue;
+                }
+
+                RectTransform targetRect = GetTargetRect(blockIndex);
+                if (targetRect == null)
                 {
                     continue;
                 }
@@ -72,7 +78,7 @@ namespace CrowdGuard.Climbing.Tools.Map
                 }
 
                 markerTransform.gameObject.SetActive(true);
-                markerTransform.anchoredPosition = anchoredPosition;
+                markerTransform.anchoredPosition = _mapBounds.NormalizedToRectPosition(normalized, targetRect);
                 markerTransform.localRotation = marker.Type == MapMarkerType.Direction
                     ? Quaternion.Euler(0f, 0f, GetDirectionAngle(marker.Forward))
                     : Quaternion.identity;
@@ -110,6 +116,21 @@ namespace CrowdGuard.Climbing.Tools.Map
                 default:
                     return _landmarkSprite;
             }
+        }
+
+        private RectTransform GetTargetRect(int blockIndex)
+        {
+            if (blockIndex < 0)
+            {
+                return _mapRect;
+            }
+
+            if (_blockRects == null || blockIndex >= _blockRects.Length)
+            {
+                return null;
+            }
+
+            return _blockRects[blockIndex];
         }
 
         private void EnsurePoolSize(int markerCount)

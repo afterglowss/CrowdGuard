@@ -4,8 +4,7 @@ namespace CrowdGuard.Climbing.Tools.Map
 {
     /// <summary>
     /// 월드 X/Y 좌표를 지도 좌표로 변환합니다.
-    /// 블럭이 설정되어 있으면 Transform 앵커, Vector 범위 순서로 블럭 내부 좌표를 사용합니다.
-    /// 사용할 수 있는 블럭 범위가 없으면 기존 단일 지도 좌표로 변환합니다.
+    /// 월드 블록과 UI 블록은 배열 인덱스로 매칭합니다.
     /// </summary>
     public class MapBounds : MonoBehaviour
     {
@@ -48,41 +47,37 @@ namespace CrowdGuard.Climbing.Tools.Map
         }
 
         /// <summary>
-        /// 월드 위치가 들어갈 지도 블럭과 해당 블럭 내부 anchoredPosition을 찾습니다.
-        /// 사용 가능한 블럭 범위가 없으면 fallbackRect를 사용해 기존 단일 지도 방식으로 동작합니다.
+        /// 월드 위치가 들어갈 지도 블록 인덱스와 해당 블록 내부 정규화 좌표를 찾습니다.
+        /// 사용할 수 있는 월드 블록이 없으면 blockIndex -1과 단일 지도 정규화 좌표를 반환합니다.
         /// </summary>
-        public bool TryWorldToRectPosition(
+        public bool TryWorldToMapPosition(
             Vector3 worldPosition,
-            RectTransform fallbackRect,
-            out RectTransform targetRect,
-            out Vector2 anchoredPosition)
+            out int blockIndex,
+            out Vector2 normalized)
         {
             if (HasUsableBlocks())
             {
-                if (TryGetBlock(worldPosition, out MapBlock block) &&
-                    block.BlockRect != null &&
-                    block.TryWorldToNormalized(worldPosition, _clampToBounds, out Vector2 blockNormalized))
+                if (TryGetBlockIndex(worldPosition, out blockIndex) &&
+                    _blocks[blockIndex].TryWorldToNormalized(worldPosition, _clampToBounds, out normalized))
                 {
-                    targetRect = block.BlockRect;
-                    anchoredPosition = NormalizedToRectPosition(blockNormalized, targetRect);
                     return true;
                 }
 
-                targetRect = null;
-                anchoredPosition = Vector2.zero;
+                blockIndex = -1;
+                normalized = Vector2.zero;
                 return false;
             }
 
-            targetRect = fallbackRect;
-            anchoredPosition = NormalizedToRectPosition(WorldToNormalized(worldPosition), fallbackRect);
-            return targetRect != null;
+            blockIndex = -1;
+            normalized = WorldToNormalized(worldPosition);
+            return true;
         }
 
-        private bool TryGetBlock(Vector3 worldPosition, out MapBlock block)
+        private bool TryGetBlockIndex(Vector3 worldPosition, out int blockIndex)
         {
             if (_blocks == null)
             {
-                block = null;
+                blockIndex = -1;
                 return false;
             }
 
@@ -91,12 +86,12 @@ namespace CrowdGuard.Climbing.Tools.Map
                 MapBlock candidate = _blocks[i];
                 if (candidate != null && candidate.Contains(worldPosition))
                 {
-                    block = candidate;
+                    blockIndex = i;
                     return true;
                 }
             }
 
-            block = null;
+            blockIndex = -1;
             return false;
         }
 

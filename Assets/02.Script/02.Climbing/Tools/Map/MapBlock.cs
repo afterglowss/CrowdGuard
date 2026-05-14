@@ -4,8 +4,8 @@ using UnityEngine;
 namespace CrowdGuard.Climbing.Tools.Map
 {
     /// <summary>
-    /// 지도에서 하나의 구간을 나타내는 블럭 설정입니다.
-    /// blockRoot의 첫 두 자식을 우선 corner로 사용하고, 없으면 직접 앵커와 Vector 범위를 순서대로 사용합니다.
+    /// 지도에서 하나의 월드 구간을 나타내는 블록 설정입니다.
+    /// UI RectTransform은 런타임에 생성되는 MapView가 인덱스로 따로 연결합니다.
     /// </summary>
     [Serializable]
     public class MapBlock
@@ -16,17 +16,11 @@ namespace CrowdGuard.Climbing.Tools.Map
         [SerializeField] private Transform _maxPoint;
         [SerializeField] private Vector2 _worldMin;
         [SerializeField] private Vector2 _worldMax;
-        [SerializeField] private RectTransform _blockRect;
 
         /// <summary>
-        /// 블럭 표시 이름입니다.
+        /// 블록 표시 이름입니다. UI block 매칭에는 배열 인덱스를 사용합니다.
         /// </summary>
         public string Label => _label;
-
-        /// <summary>
-        /// 마커가 배치될 UI 영역입니다.
-        /// </summary>
-        public RectTransform BlockRect => _blockRect;
 
         /// <summary>
         /// 현재 설정에서 사용할 수 있는 월드 X/Y 범위를 계산합니다.
@@ -61,7 +55,7 @@ namespace CrowdGuard.Climbing.Tools.Map
         }
 
         /// <summary>
-        /// 월드 위치가 이 블럭의 X/Y 범위에 포함되는지 확인합니다.
+        /// 월드 위치가 이 블록의 X/Y 범위에 포함되는지 확인합니다.
         /// </summary>
         public bool Contains(Vector3 worldPosition)
         {
@@ -77,7 +71,7 @@ namespace CrowdGuard.Climbing.Tools.Map
         }
 
         /// <summary>
-        /// 월드 위치를 이 블럭 안의 0~1 정규화 좌표로 변환합니다.
+        /// 월드 위치를 이 블록 안의 0~1 정규화 좌표로 변환합니다.
         /// </summary>
         public bool TryWorldToNormalized(Vector3 worldPosition, bool clampToBounds, out Vector2 normalized)
         {
