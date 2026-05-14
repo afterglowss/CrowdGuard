@@ -237,11 +237,13 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 0
+  SortKey: 1262976754
   ObjectInterest: 1
-  Flags: 262144
+  Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: 8923902849604296054}
+  - {fileID: 7722329631031408107}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &8923902849604296054
 MonoBehaviour:
