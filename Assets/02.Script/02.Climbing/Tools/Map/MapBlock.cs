@@ -5,12 +5,13 @@ namespace CrowdGuard.Climbing.Tools.Map
 {
     /// <summary>
     /// 지도에서 하나의 구간을 나타내는 블럭 설정입니다.
-    /// Transform 앵커가 있으면 앵커 위치를 우선 사용하고, 없으면 Vector 범위를 사용합니다.
+    /// blockRoot의 첫 두 자식을 우선 corner로 사용하고, 없으면 직접 앵커와 Vector 범위를 순서대로 사용합니다.
     /// </summary>
     [Serializable]
     public class MapBlock
     {
         [SerializeField] private string _label = "Map Block";
+        [SerializeField] private Transform _blockRoot;
         [SerializeField] private Transform _minPoint;
         [SerializeField] private Transform _maxPoint;
         [SerializeField] private Vector2 _worldMin;
@@ -32,14 +33,14 @@ namespace CrowdGuard.Climbing.Tools.Map
         /// </summary>
         public bool TryGetWorldBounds(out Vector2 worldMin, out Vector2 worldMax)
         {
-            if (_minPoint != null && _maxPoint != null)
+            if (TryGetPointPair(out Transform firstPoint, out Transform secondPoint))
             {
                 worldMin = new Vector2(
-                    Mathf.Min(_minPoint.position.x, _maxPoint.position.x),
-                    Mathf.Min(_minPoint.position.y, _maxPoint.position.y));
+                    Mathf.Min(firstPoint.position.x, secondPoint.position.x),
+                    Mathf.Min(firstPoint.position.y, secondPoint.position.y));
                 worldMax = new Vector2(
-                    Mathf.Max(_minPoint.position.x, _maxPoint.position.x),
-                    Mathf.Max(_minPoint.position.y, _maxPoint.position.y));
+                    Mathf.Max(firstPoint.position.x, secondPoint.position.x),
+                    Mathf.Max(firstPoint.position.y, secondPoint.position.y));
                 return HasArea(worldMin, worldMax);
             }
 
@@ -97,6 +98,27 @@ namespace CrowdGuard.Climbing.Tools.Map
 
             normalized = new Vector2(x, y);
             return true;
+        }
+
+        private bool TryGetPointPair(out Transform firstPoint, out Transform secondPoint)
+        {
+            if (_blockRoot != null && _blockRoot.childCount >= 2)
+            {
+                firstPoint = _blockRoot.GetChild(0);
+                secondPoint = _blockRoot.GetChild(1);
+                return firstPoint != null && secondPoint != null;
+            }
+
+            if (_minPoint != null && _maxPoint != null)
+            {
+                firstPoint = _minPoint;
+                secondPoint = _maxPoint;
+                return true;
+            }
+
+            firstPoint = null;
+            secondPoint = null;
+            return false;
         }
 
         private bool HasArea(Vector2 worldMin, Vector2 worldMax)
