@@ -171,10 +171,10 @@ public class HazardTriggerZone : MonoBehaviour
         if (!_col.bounds.Contains(worldPos))
         {
             // 5초마다 한 번씩 좌표 출력 (진단용)
-            if (Mathf.FloorToInt(Time.time) % 5 == 0 && Time.frameCount % 250 == 0)
-                Debug.Log($"[HazardTriggerZone] '{name}' bounds 불일치\n" +
-                          $"  존 center={_col.bounds.center:F2}  size={_col.bounds.size:F2}\n" +
-                          $"  플레이어 pos={worldPos:F2}");
+            //if (Mathf.FloorToInt(Time.time) % 5 == 0 && Time.frameCount % 250 == 0)
+            //    Debug.Log($"[HazardTriggerZone] '{name}' bounds 불일치\n" +
+            //              $"  존 center={_col.bounds.center:F2}  size={_col.bounds.size:F2}\n" +
+            //              $"  플레이어 pos={worldPos:F2}");
             return false;
         }
 
