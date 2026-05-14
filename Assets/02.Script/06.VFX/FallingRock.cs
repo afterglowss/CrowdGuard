@@ -38,7 +38,7 @@ public class FallingRock : MonoBehaviour
     public void ResetRock()
     {
         _rb.isKinematic = true;
-        _rb.linearVelocity = Vector3.zero;
+        _rb.velocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
         transform.SetPositionAndRotation(_initialPosition, _initialRotation);
         gameObject.SetActive(false);
