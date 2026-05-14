@@ -1707,7 +1707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawHelperSpheres: 0
-  handType: 1
+  handType: 0
   RootBone: {fileID: 1853773324668795488}
   DefaultPose: {fileID: 11400000, guid: 40a247e897a7de04ba0aaff2d7053d75, type: 2}
   AnimationPose: {fileID: 11400000, guid: 3f02ec30c8fd62b4eb46ed457603c7ed, type: 2}

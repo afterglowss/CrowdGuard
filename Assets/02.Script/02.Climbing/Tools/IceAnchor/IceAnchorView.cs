@@ -102,6 +102,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
                 _rb.isKinematic = false;
                 if (_handleVisual != null)
                     _handleVisual.localRotation = Quaternion.identity;
+                transform.position -= transform.forward * _penetrationOffset;
                 _penetrationOffset = 0f;
             }
         }
@@ -132,6 +133,9 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             {
                 Debug.Log("[AnchorView] ===== 앵커 완전 체결 =====");
                 SendHapticVia(_handleSimpleInteractable, _onSecuredHaptic);
+                
+                // Anchor 사용 횟수 증가
+                DataManager.Instance?.RPC_AddAnchorCount();
             }
         }
 
