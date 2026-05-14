@@ -4,7 +4,8 @@ namespace CrowdGuard.Climbing.Tools.Map
 {
     /// <summary>
     /// 월드 X/Y 좌표를 지도 좌표로 변환합니다.
-    /// 블럭이 설정되어 있으면 해당 블럭 내부 좌표로, 없으면 기존 단일 지도 좌표로 변환합니다.
+    /// 블럭이 설정되어 있으면 Transform 앵커, Vector 범위 순서로 블럭 내부 좌표를 사용합니다.
+    /// 사용할 수 있는 블럭 범위가 없으면 기존 단일 지도 좌표로 변환합니다.
     /// </summary>
     public class MapBounds : MonoBehaviour
     {
@@ -48,7 +49,7 @@ namespace CrowdGuard.Climbing.Tools.Map
 
         /// <summary>
         /// 월드 위치가 들어갈 지도 블럭과 해당 블럭 내부 anchoredPosition을 찾습니다.
-        /// 블럭이 설정되지 않은 경우 fallbackRect를 사용해 기존 단일 지도 방식으로 동작합니다.
+        /// 사용 가능한 블럭 범위가 없으면 fallbackRect를 사용해 기존 단일 지도 방식으로 동작합니다.
         /// </summary>
         public bool TryWorldToRectPosition(
             Vector3 worldPosition,
@@ -56,14 +57,14 @@ namespace CrowdGuard.Climbing.Tools.Map
             out RectTransform targetRect,
             out Vector2 anchoredPosition)
         {
-            if (HasBlocks())
+            if (HasUsableBlocks())
             {
-                if (TryGetBlock(worldPosition, out MapBlock block) && block.BlockRect != null)
+                if (TryGetBlock(worldPosition, out MapBlock block) &&
+                    block.BlockRect != null &&
+                    block.TryWorldToNormalized(worldPosition, _clampToBounds, out Vector2 blockNormalized))
                 {
                     targetRect = block.BlockRect;
-                    anchoredPosition = NormalizedToRectPosition(
-                        block.WorldToNormalized(worldPosition, _clampToBounds),
-                        targetRect);
+                    anchoredPosition = NormalizedToRectPosition(blockNormalized, targetRect);
                     return true;
                 }
 
@@ -79,6 +80,12 @@ namespace CrowdGuard.Climbing.Tools.Map
 
         private bool TryGetBlock(Vector3 worldPosition, out MapBlock block)
         {
+            if (_blocks == null)
+            {
+                block = null;
+                return false;
+            }
+
             for (int i = 0; i < _blocks.Length; i++)
             {
                 MapBlock candidate = _blocks[i];
@@ -93,14 +100,27 @@ namespace CrowdGuard.Climbing.Tools.Map
             return false;
         }
 
-        private bool HasBlocks()
+        private bool HasUsableBlocks()
         {
-            return _blocks != null && _blocks.Length > 0;
+            if (_blocks == null)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < _blocks.Length; i++)
+            {
+                if (_blocks[i] != null && _blocks[i].TryGetWorldBounds(out _, out _))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void OnDrawGizmosSelected()
         {
-            if (HasBlocks())
+            if (HasUsableBlocks())
             {
                 Gizmos.color = Color.yellow;
                 for (int i = 0; i < _blocks.Length; i++)
@@ -126,13 +146,11 @@ namespace CrowdGuard.Climbing.Tools.Map
 
         private void DrawBlockGizmo(MapBlock block)
         {
-            if (block == null)
+            if (block == null || !block.TryGetWorldBounds(out Vector2 worldMin, out Vector2 worldMax))
             {
                 return;
             }
 
-            Vector2 worldMin = block.WorldMin;
-            Vector2 worldMax = block.WorldMax;
             Vector3 center = new Vector3(
                 (worldMin.x + worldMax.x) * 0.5f,
                 (worldMin.y + worldMax.y) * 0.5f,
