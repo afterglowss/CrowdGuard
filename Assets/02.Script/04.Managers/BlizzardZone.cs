@@ -61,8 +61,6 @@ public class BlizzardZone : MonoBehaviour
         if (_cyclicCoroutine != null) return; // 이미 실행 중
         if (HazardManager.Instance == null) return;
 
-        AudioManager.instance.PlaySFX(AudioManager.SFXType.Blizzard, transform);
-
         _cyclicCoroutine = HazardManager.Instance.StartCyclicBlizzard(
             blizzardIndex, intervalSeconds);
 

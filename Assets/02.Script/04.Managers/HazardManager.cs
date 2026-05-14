@@ -164,6 +164,7 @@ public class HazardManager : NetworkBehaviour
         {
             case BlizzardData blizzard:
                 StartCoroutine(ApplyBlizzardPenaltyRoutine(blizzard));
+                AudioManager.instance.PlaySFX(AudioManager.SFXType.Blizzard, transform);
                 break;
             case AvalancheData avalanche:
                 // PlayAvalanche는 HazardVFXController가 OnHazardTriggered를 받아 처리

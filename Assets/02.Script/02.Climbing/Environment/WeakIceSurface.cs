@@ -1,6 +1,5 @@
 using Fusion;
 using SimpleAudioManager;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -129,8 +128,8 @@ namespace CrowdGuard.Environment
 
                 // async 코루틴이 Fusion 상태 동기화와 레이스 컨디션을 일으키는 것을 방지
                 fracture.fractureOptions.asynchronous = false;
-                fracture.CauseFracture();
-                StartCoroutine(ApplyExplosionForce(target, false));
+                fracture.CauseFracture(); // sync이므로 반환 시 파편 생성 완료
+                ApplyExplosionForce(target);
             }
             else
             {
@@ -139,22 +138,21 @@ namespace CrowdGuard.Environment
             }
         }
 
-        private IEnumerator ApplyExplosionForce(GameObject fracturedTarget, bool isAsync)
+        private void ApplyExplosionForce(GameObject fracturedTarget)
         {
-            if (isAsync)
-                yield return new WaitForSeconds(0.15f);
-            else
-                yield return null;
-
             string fragmentRootName = fracturedTarget.name + "Fragments";
             Transform searchParent = fracturedTarget.transform.parent ?? transform.parent;
-            if (searchParent == null) yield break;
+            if (searchParent == null) return;
 
             Vector3 blastCenter = fracturedTarget.transform.position;
 
             foreach (Transform child in searchParent)
             {
                 if (child.name != fragmentRootName) continue;
+
+                // OnBrokenChanged → WeakIceSurface.SetActive(false) 시 fragmentRoot가
+                // 자식으로 같이 꺼지지 않도록 씬 루트로 분리
+                child.SetParent(null);
 
                 foreach (Transform fragment in child)
                 {
@@ -166,7 +164,6 @@ namespace CrowdGuard.Environment
                                          explosionUpward, ForceMode.Impulse);
                 }
 
-                // 2초 후 파편 루트 제거
                 Destroy(child.gameObject, 2f);
                 break;
             }
@@ -174,9 +171,13 @@ namespace CrowdGuard.Environment
 
         protected override void OnBrokenChanged()
         {
-            // 재접속 클라이언트가 IsBroken=true 상태를 수신했을 때 오브젝트를 숨김
-            if (IsBroken)
-                gameObject.SetActive(false);
+            if (!IsBroken) return;
+
+            // SetActive(false)는 Fusion 레지스트리에 오브젝트가 살아있는 상태로 남아
+            // 재동기화 시 부활할 수 있음. Runner.Despawn()으로 Fusion 라이프사이클에서
+            // 완전히 제거해야 재접속 클라이언트에도 사라진 상태가 유지됨.
+            if (Object.HasStateAuthority)
+                Runner.Despawn(Object);
         }
     }
 }
