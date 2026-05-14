@@ -84,16 +84,16 @@ public class HazardTriggerZone : MonoBehaviour
         if (!IsAuthority())
         {
             // 매 프레임 찍으면 스팸이므로 1초에 한 번만
-            if (Mathf.FloorToInt(Time.time) % 5 == 0 && Time.frameCount % 50 == 0)
-                Debug.Log($"[HazardTriggerZone] '{name}' IsAuthority=false — 판정 스킵");
+            //if (Mathf.FloorToInt(Time.time) % 5 == 0 && Time.frameCount % 50 == 0)
+                //Debug.Log($"[HazardTriggerZone] '{name}' IsAuthority=false — 판정 스킵");
             return;
         }
 
         bool anyInside = AnyPlayerInside();
 
         // 플레이어 감지 상태를 1초에 한 번 출력 (디버그용)
-        if (Time.frameCount % 50 == 0)
-            Debug.Log($"[HazardTriggerZone] '{name}' ({hazardType}) AnyPlayerInside={anyInside} / _playerWasInside={_playerWasInside} / _hasFired={_hasFired}");
+        //if (Time.frameCount % 50 == 0)
+            //Debug.Log($"[HazardTriggerZone] '{name}' ({hazardType}) AnyPlayerInside={anyInside} / _playerWasInside={_playerWasInside} / _hasFired={_hasFired}");
 
         if (anyInside && !_playerWasInside)
         {
