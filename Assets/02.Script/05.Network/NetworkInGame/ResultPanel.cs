@@ -7,9 +7,20 @@ public class ResultPanel : NetworkBehaviour
 {
     public GameObject resultPanel;
     public TextMeshProUGUI resultText;
+    public GameObject sceneLoaderInteractable;
 
     bool isShowed = false;
-    
+
+    public override void Spawned()
+    {
+        GameOverManager.OnGameOver += OnInteract;
+    }
+
+    public override void Despawned(NetworkRunner runner, bool hasState)
+    {
+        GameOverManager.OnGameOver -= OnInteract;
+    }
+
     [Rpc(RpcSources.All,RpcTargets.All)]
     void RPC_ShowResultPanel()
     {
@@ -34,6 +45,9 @@ public class ResultPanel : NetworkBehaviour
         
         // Text에 해당 값을 규격에 맞게 작성
         resultText.text = text;
+        
+        // 로비로 이동하는 오브젝트 활성화
+        sceneLoaderInteractable.SetActive(true);
     }
 
     /// <summary>
