@@ -509,6 +509,7 @@ MonoBehaviour:
   - {fileID: 5736489265670936760}
   - {fileID: 1734238878472255511}
   - {fileID: 7902234290591847820}
+  - {fileID: 4432521429261034055}
   - {fileID: 5973877945185616296}
   - {fileID: 4707476807953904330}
   - {fileID: 1280420797047751461}
@@ -775,31 +776,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7707738682588964731, guid: 59feb73c4d89d7144ae43c83a2f3dacf, type: 3}
   m_PrefabInstance: {fileID: 2275428290077927896}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5379304984727071042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SortKey: 3377554557
-  ObjectInterest: 1
-  Flags: 262145
-  NestedObjects:
-  - {fileID: 2339762975654165936}
-  - {fileID: 81361764211507153}
-  - {fileID: 733225447020874720}
-  - {fileID: 5736489265670936760}
-  - {fileID: 1734238878472255511}
-  - {fileID: 7902234290591847820}
-  - {fileID: 6553544270001957310}
-  - {fileID: 5973877945185616296}
-  NetworkedBehaviours:
-  - {fileID: 4659755530066307855}
-  - {fileID: -8242952608237055723}
-  - {fileID: 5669866011447768538}
-  - {fileID: 4422011977856918670}
-  ForceRemoteRenderTimeframe: 0
---- !u!114 &4659755530066307855
+--- !u!114 &3411624636086345182
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -844,39 +821,15 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headObj: {fileID: 5430553869439985662}
-  leftHandObj: {fileID: 1334233090622793270}
-  rightHandObj: {fileID: 7077558903750225223}
-  body: {fileID: 5669866011447768538}
-  head: {fileID: 5127619263572916540}
-  leftHand: {fileID: 2086337974734485034}
-  rightHand: {fileID: 8838121373188584038}
-  leftIceAxe: {fileID: 201393750844157032}
-  rightIceAxe: {fileID: 6144639453490465991}
---- !u!136 &7740862333675854714
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5379304984727071042}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &4747710322914555294
+  SortKey: 3990599285
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 3411624636086345182}
+  - {fileID: 1142775885527726735}
+  ForceRemoteRenderTimeframe: 0
+--- !u!1001 &2779537261487504999
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -925,16 +878,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1950512362293664800, guid: 46dbaa1a11b71c84aa463a75190d7cf3, type: 3}
-      propertyPath: Flags
-      value: 262145
-      objectReference: {fileID: 0}
-    - target: {fileID: 1950512362293664800, guid: 46dbaa1a11b71c84aa463a75190d7cf3, type: 3}
       propertyPath: SortKey
-      value: 89204031
-      objectReference: {fileID: 0}
-    - target: {fileID: 1950512362293664800, guid: 46dbaa1a11b71c84aa463a75190d7cf3, type: 3}
-      propertyPath: NetworkedBehaviours.Array.size
-      value: 1
+      value: 2606510550
       objectReference: {fileID: 0}
     - target: {fileID: 4899570026890727875, guid: 46dbaa1a11b71c84aa463a75190d7cf3, type: 3}
       propertyPath: m_Name
@@ -945,15 +890,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46dbaa1a11b71c84aa463a75190d7cf3, type: 3}
---- !u!4 &4909043362076028739 stripped
+--- !u!4 &2545039454430405818 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 415225686781926109, guid: 46dbaa1a11b71c84aa463a75190d7cf3, type: 3}
-  m_PrefabInstance: {fileID: 4747710322914555294}
+  m_PrefabInstance: {fileID: 2779537261487504999}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6553544270001957310 stripped
+--- !u!114 &4432521429261034055 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1950512362293664800, guid: 46dbaa1a11b71c84aa463a75190d7cf3, type: 3}
-  m_PrefabInstance: {fileID: 4747710322914555294}
+  m_PrefabInstance: {fileID: 2779537261487504999}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -1058,7 +1003,7 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2456443175130701009, guid: 02eab91a8c906244c981a51455e01304, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4909043362076028739}
+      addedObject: {fileID: 2545039454430405818}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02eab91a8c906244c981a51455e01304, type: 3}
 --- !u!114 &201393750844157032 stripped
