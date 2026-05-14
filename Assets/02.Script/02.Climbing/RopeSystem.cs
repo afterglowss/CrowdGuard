@@ -22,15 +22,22 @@ public class RopeSystem : MonoBehaviour
     private Transform _myAnchor;
     private Transform _partnerAnchor;
 
+    // LimitMovement용 실시간 기준점 — ObjectTracker 지연 없이 xrRigPivot 기준으로 계산
+    private Transform _myRigPivot;
+    private Vector3   _anchorOffsetFromRig;
+
     /// <summary>
     /// PlayerManager에서 두 플레이어가 모두 접속한 뒤 호출합니다.
     /// myBody / partner 모두 카메라(머리) 트랜스폼이므로
     /// localTieOffset으로 가슴 위치를 잡아 자식 앵커를 생성합니다.
+    /// myRigPivot은 로컬 플레이어의 xrRigPivot으로, LimitMovement에서
+    /// ObjectTracker 지연 없이 실시간 위치를 계산하는 데 사용합니다.
     /// </summary>
-    public void SetPartners(Transform myBody, Transform partner)
+    public void SetPartners(Transform myBody, Transform partner, Transform myRigPivot)
     {
         myBodyTransform = myBody;
         partnerTransform = partner;
+        _myRigPivot = myRigPivot;
 
         // 기존 앵커가 있으면 제거 후 재생성 (재연결 안전 처리)
         if (_myAnchor != null) Destroy(_myAnchor.gameObject);
@@ -38,6 +45,12 @@ public class RopeSystem : MonoBehaviour
 
         _myAnchor = CreateAnchor("_RopeAnchor_Me", myBodyTransform, localTieOffset);
         _partnerAnchor = CreateAnchor("_RopeAnchor_Partner", partnerTransform, localTieOffset);
+
+        // 스폰 시점의 앵커 ↔ xrRigPivot 간 오프셋을 저장.
+        // 이후 LimitMovement에서 xrRigPivot.position + offset으로
+        // ObjectTracker 지연 없는 실시간 앵커 위치를 구합니다.
+        if (_myRigPivot != null)
+            _anchorOffsetFromRig = _myAnchor.position - _myRigPivot.position;
 
         AttachRopeToAsset();
     }
@@ -81,10 +94,16 @@ public class RopeSystem : MonoBehaviour
     public void LimitMovement(ref Vector3 proposedDeltaWorld)
     {
         if (disableRopeForTesting) return;
-        if (_myAnchor == null || _partnerAnchor == null) return;
+        if (_partnerAnchor == null) return;
 
-        // 앵커가 이미 오프셋 적용된 위치이므로 TransformPoint 불필요
-        Vector3 myTiePoint = _myAnchor.position;
+        // xrRigPivot 기준으로 실시간 앵커 위치를 계산 (ObjectTracker lerp 지연 없음).
+        // _myRigPivot이 없으면 ObjectTracker 기반 _myAnchor로 폴백.
+        Vector3 myTiePoint = (_myRigPivot != null)
+            ? _myRigPivot.position + _anchorOffsetFromRig
+            : _myAnchor != null ? _myAnchor.position : Vector3.zero;
+
+        if (_myRigPivot == null && _myAnchor == null) return;
+
         Vector3 partnerPos = _partnerAnchor.position;
 
         Vector3 predictedPos = myTiePoint - proposedDeltaWorld;
