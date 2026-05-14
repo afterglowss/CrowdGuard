@@ -11,7 +11,10 @@ namespace MSEX.Climbing.Tools
     public class SensorController : MonoBehaviour
     {
         [Header("Inputs")]
-        [SerializeField] private InputActionReference thumbstickAction;
+        [SerializeField, Tooltip("Previous mode button (Right Controller secondaryButton / B).")]
+        private InputActionReference previousModeAction;
+        [SerializeField, Tooltip("Next mode button (Right Controller primaryButton / A).")]
+        private InputActionReference nextModeAction;
 
         public SensorMode CurrentMode { get; private set; } = SensorMode.Avalanche;
 
@@ -23,7 +26,8 @@ namespace MSEX.Climbing.Tools
 
         private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable interactable;
         private bool isHeld = false;
-        private bool thumbstickAxisInUse = false;
+        private InputAction defaultPreviousModeAction;
+        private InputAction defaultNextModeAction;
 
         [Header("Beep Settings")]
         [SerializeField] private float beepIntervalMax = 2.0f;  // intensity 낮을 때 (느린 삐)
@@ -35,6 +39,14 @@ namespace MSEX.Climbing.Tools
         private void Awake()
         {
             interactable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+            defaultPreviousModeAction = new InputAction(
+                "Sensor Previous Mode",
+                InputActionType.Button,
+                "<XRController>{RightHand}/{SecondaryButton}");
+            defaultNextModeAction = new InputAction(
+                "Sensor Next Mode",
+                InputActionType.Button,
+                "<XRController>{RightHand}/{PrimaryButton}");
         }
 
         private void OnEnable()
@@ -52,43 +64,41 @@ namespace MSEX.Climbing.Tools
         {
             interactable.selectEntered.RemoveListener(OnSelectEntered);
             interactable.selectExited.RemoveListener(OnSelectExited);
+            DisableModeActions();
 
             try {
                 HazardManager.OnHazardWarning -= HandleHazardWarning;
             } catch { }
         }
 
+        private void OnDestroy()
+        {
+            defaultPreviousModeAction?.Dispose();
+            defaultNextModeAction?.Dispose();
+        }
+
         private void OnSelectEntered(SelectEnterEventArgs args)
         {
             isHeld = true;
-            if (thumbstickAction != null && thumbstickAction.action != null)
-                thumbstickAction.action.Enable();
+            EnableModeActions();
         }
 
         private void OnSelectExited(SelectExitEventArgs args)
         {
             isHeld = false;
+            DisableModeActions();
         }
 
         private void Update()
         {
-            // 스틱을 왼쪽/오른쪽으로 강하게 밀었을 때 모드 순환
-            if (isHeld && thumbstickAction != null && thumbstickAction.action != null)
+            // 오른손 B/A 버튼으로 이전/다음 모드를 순환
+            if (isHeld)
             {
-                Vector2 stickValue = thumbstickAction.action.ReadValue<Vector2>();
+                if (WasModeButtonPressed(previousModeAction, defaultPreviousModeAction))
+                    CycleMode(-1);
 
-                if (Mathf.Abs(stickValue.x) > 0.7f)
-                {
-                    if (!thumbstickAxisInUse)
-                    {
-                        thumbstickAxisInUse = true;
-                        CycleMode(stickValue.x > 0 ? 1 : -1);
-                    }
-                }
-                else
-                {
-                    thumbstickAxisInUse = false;
-                }
+                if (WasModeButtonPressed(nextModeAction, defaultNextModeAction))
+                    CycleMode(1);
             }
 
             // 실시간 신호 강도 추적
@@ -122,6 +132,46 @@ namespace MSEX.Climbing.Tools
         public void MockToggleMode()
         {
             CycleMode(1);
+        }
+
+        private void EnableModeActions()
+        {
+            EnableInputAction(previousModeAction, defaultPreviousModeAction);
+            EnableInputAction(nextModeAction, defaultNextModeAction);
+        }
+
+        private void DisableModeActions()
+        {
+            DisableInputAction(previousModeAction, defaultPreviousModeAction);
+            DisableInputAction(nextModeAction, defaultNextModeAction);
+        }
+
+        private static void EnableInputAction(InputActionReference actionReference, InputAction fallbackAction)
+        {
+            InputAction action = actionReference != null && actionReference.action != null
+                ? actionReference.action
+                : fallbackAction;
+
+            if (action != null && !action.enabled)
+                action.Enable();
+        }
+
+        private static void DisableInputAction(InputActionReference actionReference, InputAction fallbackAction)
+        {
+            if (actionReference != null && actionReference.action != null)
+                return;
+
+            if (fallbackAction != null && fallbackAction.enabled)
+                fallbackAction.Disable();
+        }
+
+        private static bool WasModeButtonPressed(InputActionReference actionReference, InputAction fallbackAction)
+        {
+            InputAction action = actionReference != null && actionReference.action != null
+                ? actionReference.action
+                : fallbackAction;
+
+            return action != null && action.WasPressedThisFrame();
         }
 
         private void CycleMode(int direction)
