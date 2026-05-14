@@ -6,12 +6,12 @@ namespace CrowdGuard.Climbing.Tools.Map
 {
     /// <summary>
     /// MapDataProvider의 마커 데이터를 World Space Canvas 지도 위에 렌더링합니다.
-    /// 정적 지형 구조는 인스펙터에서 _terrainLayer에 연결된 배경/라인 오브젝트로 표시하며,
-    /// 이 View는 런타임 지형 생성 없이 마커 렌더링만 담당합니다.
+    /// _mapBounds가 비어 있으면 씬의 MapBoundsSource에서 자동으로 가져옵니다.
     /// </summary>
     public class MapView : MonoBehaviour
     {
         [SerializeField] private RectTransform _mapRect;
+        [SerializeField] private RectTransform[] _blockRects;
         [SerializeField] private MapBounds _mapBounds;
         [SerializeField] private RectTransform _markerPrefab;
         [SerializeField] private GameObject _terrainLayer;
@@ -24,11 +24,23 @@ namespace CrowdGuard.Climbing.Tools.Map
 
         private readonly List<RectTransform> _markerPool = new List<RectTransform>();
 
+        private void Awake()
+        {
+            ResolveMapBounds();
+        }
+
+        private void OnEnable()
+        {
+            ResolveMapBounds();
+        }
+
         /// <summary>
-        /// 전달된 마커 목록을 현재 지도 좌표계에 맞춰 표시합니다.
+        /// 전달된 마커 목록을 현재 지도 블록 좌표계에 맞춰 표시합니다.
         /// </summary>
         public void Render(IReadOnlyList<MapMarkerData> markers)
         {
+            ResolveMapBounds();
+
             if (_mapRect == null || _mapBounds == null || _markerPrefab == null || markers == null)
             {
                 return;
@@ -45,11 +57,28 @@ namespace CrowdGuard.Climbing.Tools.Map
                     continue;
                 }
 
+                if (!_mapBounds.TryWorldToMapPosition(
+                        marker.WorldPosition,
+                        out int blockIndex,
+                        out Vector2 normalized))
+                {
+                    continue;
+                }
+
+                RectTransform targetRect = GetTargetRect(blockIndex);
+                if (targetRect == null)
+                {
+                    continue;
+                }
+
                 RectTransform markerTransform = _markerPool[visibleIndex];
+                if (markerTransform.parent != targetRect)
+                {
+                    markerTransform.SetParent(targetRect, false);
+                }
+
                 markerTransform.gameObject.SetActive(true);
-                markerTransform.anchoredPosition = _mapBounds.NormalizedToRectPosition(
-                    _mapBounds.WorldToNormalized(marker.WorldPosition),
-                    _mapRect);
+                markerTransform.anchoredPosition = _mapBounds.NormalizedToRectPosition(normalized, targetRect);
                 markerTransform.localRotation = marker.Type == MapMarkerType.Direction
                     ? Quaternion.Euler(0f, 0f, GetDirectionAngle(marker.Forward))
                     : Quaternion.identity;
@@ -89,6 +118,21 @@ namespace CrowdGuard.Climbing.Tools.Map
             }
         }
 
+        private RectTransform GetTargetRect(int blockIndex)
+        {
+            if (blockIndex < 0)
+            {
+                return _mapRect;
+            }
+
+            if (_blockRects == null || blockIndex >= _blockRects.Length)
+            {
+                return null;
+            }
+
+            return _blockRects[blockIndex];
+        }
+
         private void EnsurePoolSize(int markerCount)
         {
             while (_markerPool.Count < markerCount)
@@ -108,6 +152,20 @@ namespace CrowdGuard.Climbing.Tools.Map
             }
 
             return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        }
+
+        private void ResolveMapBounds()
+        {
+            if (_mapBounds != null)
+            {
+                return;
+            }
+
+            MapBoundsSource source = MapBoundsSource.Instance;
+            if (source != null)
+            {
+                _mapBounds = source.MapBounds;
+            }
         }
     }
 }

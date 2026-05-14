@@ -2975,6 +2975,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7296548569797233436, guid: c4ce54968a2d75244a10f694f16d291b, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967287
+      objectReference: {fileID: 0}
     - target: {fileID: 7390577451536427175, guid: c4ce54968a2d75244a10f694f16d291b, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0

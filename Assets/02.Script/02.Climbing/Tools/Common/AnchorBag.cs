@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using CrowdGuard.Climbing.Tools.IceAnchor;
 using Fusion;
+using TMPro;
 
 namespace CrowdGuard.Climbing.Tools.Common
 {
@@ -29,6 +30,10 @@ namespace CrowdGuard.Climbing.Tools.Common
 
         [Tooltip("앵커가 스폰될 위치 (가방 위)")]
         [SerializeField] private Transform _spawnPoint;
+
+        [Header("UI")]
+        [Tooltip("남아있는 앵커 개수를 표시할 월드 스페이스 TMP 텍스트")]
+        [SerializeField] private TMP_Text _remainingAnchorText;
 
         private int _currentCount;
         private readonly List<GameObject> _pool = new();
@@ -82,6 +87,7 @@ namespace CrowdGuard.Climbing.Tools.Common
         private void InitializePool()
         {
             _currentCount = _initialCount;
+            UpdateRemainingAnchorText();
             // 프리팹을 미리 스폰하지 않음 — TakeAnchor 시 Runner.Spawn으로 생성
             Debug.Log($"[AnchorBag] 풀 초기화 완료. 초기 개수={_currentCount}");
         }
@@ -163,6 +169,7 @@ namespace CrowdGuard.Climbing.Tools.Common
             _pool.Add(anchor);
 
             _currentCount--;
+            UpdateRemainingAnchorText();
             OnCountChanged?.Invoke(_currentCount);
 
             // 소실 감시 시작
@@ -197,6 +204,7 @@ namespace CrowdGuard.Climbing.Tools.Common
             _pool.Remove(anchor);
 
             _currentCount++;
+            UpdateRemainingAnchorText();
             OnCountChanged?.Invoke(_currentCount);
 
             Debug.Log($"[AnchorBag] 앵커 반환. 남은 개수: {_currentCount}");
@@ -290,6 +298,13 @@ namespace CrowdGuard.Climbing.Tools.Common
                 model.OnHeldStateChanged -= handler;
 
             _heldHandlers.Remove(anchor);
+        }
+
+        private void UpdateRemainingAnchorText()
+        {
+            if (_remainingAnchorText == null) return;
+
+            _remainingAnchorText.text = $"Remaining Anchor: {_currentCount}";
         }
     }
 }
