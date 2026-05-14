@@ -33,11 +33,8 @@ namespace MSEX.Climbing.Tools.DebugScripts
         [ContextMenu("Spawn Dummy Rockfall (낙석)")]
         public void SpawnDummyRockfall()
         {
-            SpawnHazard(new RockfallData 
-            { 
-                RockCount = 5, 
-                FallRadius = 2f 
-            });
+            // Index = -1: 센서 감지 이벤트만 발생, 실제 낙석 오브젝트는 활성화하지 않음
+            SpawnHazard(new RockfallData { Index = -1 });
         }
 
         [ContextMenu("Spawn Dummy Blizzard (눈보라)")]

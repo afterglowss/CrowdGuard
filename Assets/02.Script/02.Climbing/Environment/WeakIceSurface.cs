@@ -10,6 +10,10 @@ namespace CrowdGuard.Environment
         [Header("Weak Ice Settings")]
         [SerializeField, Range(0f, 1f)] private float breakProbability = 0.8f;
 
+        [Header("Rockfall")]
+        [Tooltip("얼음 파괴 시 발동할 HazardManager.rockSystems 인덱스. -1이면 낙석 없음.")]
+        [SerializeField] private int _rockfallIndex = -1;
+
         [Header("Fracture Physics")]
         [Tooltip("파편에 가할 폭발력. 클수록 파편이 강하게 흩어짐")]
         [SerializeField] private float explosionForce = 400f;
@@ -35,16 +39,8 @@ namespace CrowdGuard.Environment
                 Debug.Log($"[WeakIceSurface] 약한 얼음 파괴! childIdx={idx}");
                 RPC_BreakChild(idx);
 
-                if (Random.Range(0f, 1f) <= 0.5f)
-                {
-                    HazardData rockfallData = new RockfallData
-                    {
-                        Location = transform.position,
-                        RockCount = 3,
-                        FallRadius = 2f
-                    };
-                    HazardManager.Instance?.TriggerHazardExternal(rockfallData);
-                }
+                if (Random.Range(0f, 1f) <= 0.5f && _rockfallIndex >= 0)
+                    HazardManager.Instance?.RPC_TriggerRockfall(_rockfallIndex);
 
                 return false;
             }
