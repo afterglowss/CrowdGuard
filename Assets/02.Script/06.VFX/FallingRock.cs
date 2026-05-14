@@ -1,5 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FallingRock : MonoBehaviour
@@ -7,41 +5,56 @@ public class FallingRock : MonoBehaviour
     [SerializeField] private ParticleSystem rockDebris;
     [SerializeField] private LayerMask iceWallLayer;
     [SerializeField] private float surfaceOffset = 0.08f;
-    [SerializeField] private float forceAmount = 10f;
 
-    private Rigidbody rb;
-
+    private Rigidbody _rb;
+    private Vector3 _initialPosition;
+    private Quaternion _initialRotation;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
+        _initialPosition = transform.position;
+        _initialRotation = transform.rotation;
+
+        _rb.isKinematic = true;
+        gameObject.SetActive(false);
     }
 
-    private void FixedUpdate()
+    /// <summary>
+    /// 낙석을 활성화하고 물리 시뮬레이션을 시작합니다.
+    /// HazardManager.RPC_TriggerRockfall()에서 호출합니다.
+    /// </summary>
+    public void Activate()
     {
-        rb.AddForce(Vector3.down * forceAmount, ForceMode.Force);
+        if (gameObject.activeSelf) return;
+        gameObject.SetActive(true);
+        _rb.isKinematic = false;
+    }
+
+    /// <summary>
+    /// 돌을 초기 위치/회전으로 되돌리고 비활성화합니다.
+    /// HazardManager.RPC_ResetRockfall()에서 호출합니다.
+    /// </summary>
+    public void ResetRock()
+    {
+        _rb.isKinematic = true;
+        _rb.linearVelocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+        transform.SetPositionAndRotation(_initialPosition, _initialRotation);
+        gameObject.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!IsInLayerMask(collision.gameObject, iceWallLayer))
-            return;
-
-        Debug.Log("IceWall layer hit");
+        if (!IsInLayerMask(collision.gameObject, iceWallLayer)) return;
+        if (rockDebris == null) return;
 
         ContactPoint contact = collision.GetContact(0);
-
-        Vector3 hitPoint = contact.point;
-        Vector3 wallNormal = contact.normal;
-
-        Debug.DrawRay(hitPoint, wallNormal * 2f, Color.red, 3f);
-
-        Vector3 spawnPoint = hitPoint + wallNormal * surfaceOffset;
-        Quaternion rot = Quaternion.LookRotation(wallNormal);
+        Vector3 spawnPoint = contact.point + contact.normal * surfaceOffset;
+        Quaternion rot = Quaternion.LookRotation(contact.normal);
 
         ParticleSystem fx = Instantiate(rockDebris, spawnPoint, rot);
         fx.Play(true);
-
         Destroy(fx.gameObject, 3f);
     }
 

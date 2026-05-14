@@ -43,8 +43,8 @@ public class BlizzardEntry
 
 public class RockfallData : HazardData
 {
-    public int RockCount;
-    public float FallRadius;
+    /// <summary>HazardManager.rockSystems 리스트의 인덱스. -1이면 실제 낙석 없이 이벤트만 발생.</summary>
+    public int Index = -1;
 }
 
 public class HazardManager : NetworkBehaviour
@@ -57,8 +57,8 @@ public class HazardManager : NetworkBehaviour
     [Header("눈사태 시스템 (씬에 배치된 AvalanchePathSystem 오브젝트)")]
     public List<AvalanchePathSystem> avalancheSystems = new List<AvalanchePathSystem>();
 
-    [Header("낙석 프리팹 목록 (인덱스 0번부터)")]
-    public List<GameObject> rockfallPrefabs = new List<GameObject>();
+    [Header("낙석 오브젝트 목록 (씬에 배치된 FallingRock, 인덱스 0번부터)")]
+    public List<FallingRock> rockSystems = new List<FallingRock>();
 
     [Header("눈보라 항목 목록 (인덱스 0번부터)")]
     public List<BlizzardEntry> blizzardEntries = new List<BlizzardEntry>();
@@ -96,25 +96,39 @@ public class HazardManager : NetworkBehaviour
     }
 
     /// <summary>
-    /// 인덱스로 낙석 프리팹을 선택해 지정 위치에 스폰합니다.
+    /// 인덱스로 씬에 배치된 FallingRock을 활성화합니다. HazardButton 등에서 호출하세요.
     /// </summary>
-    [Rpc(RpcSources.All,RpcTargets.All)]
-    public void RPC_TriggerRockfall(int index, Vector3 location, int rockCount = 5, float fallRadius = 2f)
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_TriggerRockfall(int index)
     {
-        if (index < 0 || index >= rockfallPrefabs.Count)
+        if (index < 0 || index >= rockSystems.Count)
         {
-            Debug.LogWarning($"[HazardManager] rockfallPrefabs[{index}] 없음. 인스펙터 리스트를 확인하세요.");
+            Debug.LogWarning($"[HazardManager] rockSystems[{index}] 없음. 인스펙터 리스트를 확인하세요.");
             return;
         }
 
         Debug.Log("RockFall");
         var data = new RockfallData
         {
-            Location = location,
-            RockCount = rockCount,
-            FallRadius = fallRadius
+            Location = rockSystems[index].transform.position,
+            Index = index
         };
         TriggerHazardExternal(data);
+    }
+
+    /// <summary>
+    /// 인덱스로 FallingRock을 초기 위치로 되돌리고 비활성화합니다.
+    /// </summary>
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_ResetRockfall(int index)
+    {
+        if (index < 0 || index >= rockSystems.Count)
+        {
+            Debug.LogWarning($"[HazardManager] rockSystems[{index}] 없음.");
+            return;
+        }
+        rockSystems[index].ResetRock();
+        Debug.Log($"[HazardManager] rockSystems[{index}] 초기화 완료");
     }
 
     /// <summary>
@@ -170,7 +184,8 @@ public class HazardManager : NetworkBehaviour
                 // PlayAvalanche는 HazardVFXController가 OnHazardTriggered를 받아 처리
                 break;
             case RockfallData rockfall:
-                SpawnRockfall(rockfall);
+                if (rockfall.Index >= 0 && rockfall.Index < rockSystems.Count)
+                    rockSystems[rockfall.Index].Activate();
                 break;
         }
     }
@@ -185,24 +200,6 @@ public class HazardManager : NetworkBehaviour
             yield return new WaitForSeconds(data.Duration);
             SurvivalManager.Instance.SetRapidFreezing(false);
             Debug.Log($"[HazardManager] 눈보라 종료 ({data.Duration}초).");
-        }
-    }
-
-    private void SpawnRockfall(RockfallData data)
-    {
-        if (rockfallPrefabs.Count == 0)
-        {
-            Debug.LogWarning("[HazardManager] rockfallPrefabs 리스트가 비어있습니다.");
-            return;
-        }
-
-        // 기본 프리팹(0번)으로 rockCount만큼 랜덤 위치에 스폰
-        GameObject prefab = rockfallPrefabs[0];
-        for (int i = 0; i < data.RockCount; i++)
-        {
-            Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * data.FallRadius;
-            Vector3 spawnPos = data.Location + new Vector3(randomCircle.x, 0f, randomCircle.y);
-            Instantiate(prefab, spawnPos, UnityEngine.Random.rotation);
         }
     }
 
@@ -225,17 +222,17 @@ public class HazardManager : NetworkBehaviour
         }
     }
 
-    public void StartCyclicRockfall(Vector3 targetLocation, int prefabIndex = 0, float intervalSeconds = 20f)
+    public void StartCyclicRockfall(int rockfallIndex, float intervalSeconds = 20f)
     {
-        StartCoroutine(CyclicRockfallRoutine(targetLocation, prefabIndex, intervalSeconds));
+        StartCoroutine(CyclicRockfallRoutine(rockfallIndex, intervalSeconds));
     }
 
-    private IEnumerator CyclicRockfallRoutine(Vector3 loc, int prefabIndex, float interval)
+    private IEnumerator CyclicRockfallRoutine(int index, float interval)
     {
         while (true)
         {
             yield return new WaitForSeconds(interval);
-            RPC_TriggerRockfall(prefabIndex, loc);
+            RPC_TriggerRockfall(index);
         }
     }
 }

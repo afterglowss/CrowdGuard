@@ -51,9 +51,8 @@ public class HazardTriggerZone : MonoBehaviour
     public float riskRetainAfterTrigger = 0f;
 
     [Header("── 낙석 설정 ───────────────────────")]
-    public int rockfallPrefabIndex = 0;
-    public int rockCount = 5;
-    public float fallRadius = 2f;
+    [Tooltip("HazardManager.rockSystems 리스트의 인덱스")]
+    public int rockfallIndex = 0;
 
     [Header("── 눈보라 설정 ──────────────────────")]
     [Tooltip("HazardManager.blizzardEntries 리스트의 인덱스")]
@@ -251,9 +250,8 @@ public class HazardTriggerZone : MonoBehaviour
                 break;
 
             case HazardType.Rockfall:
-                HazardManager.Instance.RPC_TriggerRockfall(
-                    rockfallPrefabIndex, transform.position, rockCount, fallRadius);
-                Debug.Log($"[HazardTriggerZone] '{name}' 낙석 발동");
+                HazardManager.Instance.RPC_TriggerRockfall(rockfallIndex);
+                Debug.Log($"[HazardTriggerZone] '{name}' 낙석 발동 (index={rockfallIndex})");
                 break;
 
             case HazardType.Blizzard:
