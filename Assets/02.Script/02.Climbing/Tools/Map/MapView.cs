@@ -6,8 +6,7 @@ namespace CrowdGuard.Climbing.Tools.Map
 {
     /// <summary>
     /// MapDataProvider의 마커 데이터를 World Space Canvas 지도 위에 렌더링합니다.
-    /// 정적 지형 구조와 블럭 RectTransform은 인스펙터에서 연결하며,
-    /// 이 View는 런타임 지형 생성 없이 마커 렌더링만 담당합니다.
+    /// _mapBounds가 비어 있으면 씬의 MapBoundsSource에서 자동으로 가져옵니다.
     /// </summary>
     public class MapView : MonoBehaviour
     {
@@ -24,11 +23,23 @@ namespace CrowdGuard.Climbing.Tools.Map
 
         private readonly List<RectTransform> _markerPool = new List<RectTransform>();
 
+        private void Awake()
+        {
+            ResolveMapBounds();
+        }
+
+        private void OnEnable()
+        {
+            ResolveMapBounds();
+        }
+
         /// <summary>
         /// 전달된 마커 목록을 현재 지도 블럭 좌표계에 맞춰 표시합니다.
         /// </summary>
         public void Render(IReadOnlyList<MapMarkerData> markers)
         {
+            ResolveMapBounds();
+
             if (_mapRect == null || _mapBounds == null || _markerPrefab == null || markers == null)
             {
                 return;
@@ -120,6 +131,20 @@ namespace CrowdGuard.Climbing.Tools.Map
             }
 
             return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        }
+
+        private void ResolveMapBounds()
+        {
+            if (_mapBounds != null)
+            {
+                return;
+            }
+
+            MapBoundsSource source = MapBoundsSource.Instance;
+            if (source != null)
+            {
+                _mapBounds = source.MapBounds;
+            }
         }
     }
 }
