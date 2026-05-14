@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class ResultPanel : NetworkBehaviour
 {
-    public TextMeshPro resultText;
+    public GameObject resultPanel;
+    public TextMeshProUGUI resultText;
 
     bool isShowed = false;
     
@@ -29,7 +30,7 @@ public class ResultPanel : NetworkBehaviour
         else Debug.LogWarning("DataManager가 존재하지 않습니다.");
         
         // text 패널을 활성화
-        resultText.gameObject.SetActive(true);
+        resultPanel.SetActive(true);
         
         // Text에 해당 값을 규격에 맞게 작성
         resultText.text = text;
