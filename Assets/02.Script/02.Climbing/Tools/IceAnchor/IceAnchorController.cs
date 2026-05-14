@@ -262,10 +262,21 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         {
             if (_currentSurface == surface)
             {
+                bool wasInserted = _model.IsInserted;
+
                 _isTouchingWall = false;
                 _currentSurface = null;
                 _model.IsContactingWall = false;
                 UnlockReinsert();
+
+                // sync 모드에서는 SetActive(false) → OnTriggerExit가 동기적으로 발생해
+                // Update()보다 먼저 _currentSurface가 null이 되어 추락 감지가 불가능해짐.
+                // 삽입 상태에서 표면이 파괴되어 사라진 경우 여기서 즉시 분리 처리.
+                if (wasInserted && surface.IsBrokenAt(_wallContactPoint))
+                {
+                    DetachFromWall();
+                    SavePointManager.Instance?.RevertToTentSavePoint();
+                }
             }
         }
 

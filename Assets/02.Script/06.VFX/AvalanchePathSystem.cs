@@ -81,6 +81,7 @@ public class AvalanchePathSystem : MonoBehaviour
 
                     }
 
+                    if (cleanupRoutine != null) StopCoroutine(cleanupRoutine);
                     cleanupRoutine = StartCoroutine(CleanupCollidersAfterDelay(colliderCleanupDelay));
                 }
             }
@@ -103,8 +104,18 @@ public class AvalanchePathSystem : MonoBehaviour
     [ContextMenu("Play Avalanche")]
     public void PlayAvalanche()
     {
+        // 진행 중인 클린업 코루틴을 취소합니다.
+        // 미취소 시 이전 플레이의 딜레이가 끝나면 재생 중 콜라이더가 제거됩니다.
+        if (cleanupRoutine != null)
+        {
+            StopCoroutine(cleanupRoutine);
+            cleanupRoutine = null;
+        }
+
         if (!HasValidPath())
             Rebuild();
+        else
+            BuildColliderObjects(); // 이전 플레이 종료 후 제거된 콜라이더를 재생성합니다.
 
         travelledDistance = 0f;
         isPlaying = true;
@@ -129,6 +140,7 @@ public class AvalanchePathSystem : MonoBehaviour
             snowParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
 
+        if (cleanupRoutine != null) StopCoroutine(cleanupRoutine);
         cleanupRoutine = StartCoroutine(CleanupCollidersAfterDelay(colliderCleanupDelay));
     }
     
