@@ -509,6 +509,7 @@ MonoBehaviour:
   - {fileID: 5736489265670936760}
   - {fileID: 1734238878472255511}
   - {fileID: 7902234290591847820}
+  - {fileID: 2907270623715310389}
   - {fileID: 5973877945185616296}
   - {fileID: 4707476807953904330}
   - {fileID: 1280420797047751461}
@@ -880,6 +881,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5605708423598310918, guid: 02eab91a8c906244c981a51455e01304, type: 3}
+      propertyPath: SortKey
+      value: 3045382876
+      objectReference: {fileID: 0}
     - target: {fileID: 5751010251198268744, guid: 02eab91a8c906244c981a51455e01304, type: 3}
       propertyPath: m_Name
       value: ToolBelt (1)
@@ -903,6 +908,17 @@ MonoBehaviour:
 --- !u!114 &1734238878472255511 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9043940761544295716, guid: 02eab91a8c906244c981a51455e01304, type: 3}
+  m_PrefabInstance: {fileID: 7319414988723240243}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2907270623715310389 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5605708423598310918, guid: 02eab91a8c906244c981a51455e01304, type: 3}
   m_PrefabInstance: {fileID: 7319414988723240243}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
