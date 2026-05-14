@@ -68,6 +68,14 @@ public class TentInteriorController : NetworkBehaviour
         if (ScreenEffectManager.Instance != null)
             yield return StartCoroutine(ScreenEffectManager.Instance.FadeScreenRoutine(0.5f, false));
 
+        var pc = PlayerController.LocalInstance;
+        if (pc != null)
+        {
+            if (pc.leftAxe  != null) pc.leftAxe.IsAttachedToWall  = false;
+            if (pc.rightAxe != null) pc.rightAxe.IsAttachedToWall = false;
+            pc.ChangeState(pc.IdleState);
+        }
+
         if (localXRRig != null)
             localXRRig.position = targetPos;
 
