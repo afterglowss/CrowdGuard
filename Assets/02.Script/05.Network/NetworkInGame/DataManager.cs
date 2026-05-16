@@ -12,6 +12,7 @@ public class DataManager : NetworkBehaviour
     public Timer timer;
     [Networked] public int FallCount { get; private set; }
     [Networked] public int AnchorCount { get; private set; }
+    [Networked] public int CoinCount { get; private set; }
 
 
     private void Awake()
@@ -44,5 +45,11 @@ public class DataManager : NetworkBehaviour
         Debug.Log($"AddAnchorCount {AnchorCount}");
         AnchorCount++;
     }
-    
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_AddCoinCount()
+    {
+        Debug.Log($"AddCoinCount {CoinCount}");
+        CoinCount++;
+    }
 }
