@@ -1070,7 +1070,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disableRopeForTesting: 1
   localTieOffset: {x: 0, y: -0.5, z: 0}
-  maxRopeLength: 6
+  maxRopeLength: 4
   assetRope: {fileID: 0}
 --- !u!1 &8576238345408988845 stripped
 GameObject:

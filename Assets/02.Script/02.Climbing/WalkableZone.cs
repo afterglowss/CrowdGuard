@@ -57,7 +57,13 @@ public class WalkableZone : MonoBehaviour
         controller.CurrentWalkableZone = this;
 
         if (controller.CurrentState != controller.GroundState)
+        {
+            // 순서 중요: GroundState로 먼저 전환한 뒤 IsAttachedToWall을 해제해야
+            // OnStateChangedHandler가 ClimbingState 분기에서 FallingState로 빠지는 것을 방지합니다.
             controller.ChangeState(controller.GroundState);
+            if (controller.leftAxe  != null) controller.leftAxe.IsAttachedToWall  = false;
+            if (controller.rightAxe != null) controller.rightAxe.IsAttachedToWall = false;
+        }
     }
 
     private void OnTriggerExit(Collider other)
