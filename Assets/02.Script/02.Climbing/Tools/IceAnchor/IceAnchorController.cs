@@ -38,9 +38,6 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         [Tooltip("회전 시각 피드백용 Handle Transform (콜라이더+메시 포함 루트)")]
         [SerializeField] private Transform _handleVisual;
 
-        [Tooltip("슽입 위치 보정용 팁 Transform (IceAnchorTip이 있는 오브젝트)")]
-        [SerializeField] private Transform _tipTransform;
-
         // ===================== Settings =====================
 
         [Header("Screw Settings")]
@@ -75,6 +72,9 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         private bool _canReinsert = true;
         private Coroutine _reinsertCooldownCoroutine;
 
+        // 팁 Transform (자동 탐색)
+        private Transform _tipTransform;
+
         // Handle 회전 관련
         private Transform _handleInteractorTransform;
         private float _previousAngle;
@@ -86,6 +86,9 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         private void Awake()
         {
             if (_model == null) _model = GetComponent<IceAnchorModel>();
+            _tipTransform = GetComponentInChildren<IceAnchorTip>(true)?.transform;
+            if (_tipTransform == null)
+                Debug.LogWarning("[IceAnchorController] IceAnchorTip을 자식에서 찾지 못함 — 팁 오프셋 보정 비활성화");
         }
 
         private void OnEnable()
