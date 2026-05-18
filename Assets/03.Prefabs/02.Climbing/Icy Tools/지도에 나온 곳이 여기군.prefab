@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7413475678598333891}
   - component: {fileID: 6099967176051399860}
-  m_Layer: 3
+  m_Layer: 14
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5008013001024589008}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GrabAttachPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2182572907017234302}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: RightHandAttach
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 938738927271340650}
-  m_Layer: 3
+  m_Layer: 14
   m_Name: Base 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 840695705423469110}
   - component: {fileID: 7713967363243455403}
   - component: {fileID: 1324061121195334915}
-  m_Layer: 3
+  m_Layer: 14
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 8514852574977982637}
   - component: {fileID: 876318914642646614}
   - component: {fileID: 1950512362293664800}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: "\uC9C0\uB3C4\uC5D0 \uB098\uC628 \uACF3\uC774 \uC5EC\uAE30\uAD70"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -648,7 +648,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4704676753871114488}
-  m_Layer: 3
+  m_Layer: 14
   m_Name: Base 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -683,7 +683,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6193568384591090307}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: LeftHandAttach
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -798,6 +798,10 @@ PrefabInstance:
       value: Map Marker Icon
       objectReference: {fileID: 0}
     - target: {fileID: 8794712391395251979, guid: 3121c76ad6323ed47991365702d483d0, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794712391395251979, guid: 3121c76ad6323ed47991365702d483d0, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -860,12 +864,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7515974184808330863, guid: 725f2370eaff2964aaccb14320efb619, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7515974184808330863, guid: 725f2370eaff2964aaccb14320efb619, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8149752077596461934, guid: 725f2370eaff2964aaccb14320efb619, type: 3}
       propertyPath: m_Name
       value: Clipboard
+      objectReference: {fileID: 0}
+    - target: {fileID: 8149752077596461934, guid: 725f2370eaff2964aaccb14320efb619, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
