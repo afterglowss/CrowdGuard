@@ -17,11 +17,11 @@ namespace SimpleAudioManager
             Avalanche = 3,
             Blizzard = 4,
             IceBreak = 5,
-            Falling = 6,
+            Falling = 6, //Stop after respawning
             AnchorInstall = 7,
             TakeFromPouch = 8,
             PutInPouch = 9,
-            AnchorBreak = 10,
+            GetAnchor = 10,
             TentDoor = 11,
             
             SensorBeep = 12,

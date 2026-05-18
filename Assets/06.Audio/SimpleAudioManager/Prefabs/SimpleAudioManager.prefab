@@ -28,7 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -68,11 +68,18 @@ MonoBehaviour:
     - {fileID: 8300000, guid: a6f516082976cc94fb2708a6eabf88be, type: 3}
     - {fileID: 8300000, guid: d19a3376eef06394f8975390dd45a487, type: 3}
     - {fileID: 8300000, guid: 8a860fd4a9e44f342a33b69781ea7ecd, type: 3}
+  - type: 2
+    clips:
+    - {fileID: 8300000, guid: de65cc2544c53d045a7bdacebf329d22, type: 3}
   - type: 4
     clips:
     - {fileID: 8300000, guid: d00e1fccfef62cc44adc74829b334c33, type: 3}
     - {fileID: 8300000, guid: dd36958e2d803e9498b7ef88da07920d, type: 3}
     - {fileID: 8300000, guid: 60e527af1c3e0b047864cf4dcfe84de3, type: 3}
+  - type: 3
+    clips:
+    - {fileID: 8300000, guid: e2d447c5f3e82ab4183b4ba192cd7d50, type: 3}
+    - {fileID: 8300000, guid: 61d2b0d5a8753534c95605673b91c3bc, type: 3}
   - type: 5
     clips:
     - {fileID: 8300000, guid: ef3a3160f7d9ded478b059cc9f63b38f, type: 3}
@@ -80,14 +87,47 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 3af0d9a31c23f3146a45817ba95f8025, type: 3}
     - {fileID: 8300000, guid: 0f0ad0664ec5a794c8084967ce73a00e, type: 3}
     - {fileID: 8300000, guid: 84196e40c38bb58478c7b1c415269131, type: 3}
-  - type: 3
+  - type: 6
     clips:
-    - {fileID: 8300000, guid: e2d447c5f3e82ab4183b4ba192cd7d50, type: 3}
-    - {fileID: 8300000, guid: 61d2b0d5a8753534c95605673b91c3bc, type: 3}
-  - type: 0
+    - {fileID: 8300000, guid: 626deba8778634f43b0c772e7add431e, type: 3}
+  - type: 7
+    clips:
+    - {fileID: 8300000, guid: d53933518e612024e94fa4dddb864854, type: 3}
+  - type: 8
+    clips:
+    - {fileID: 8300000, guid: d47ceacec64133145874d240e2f15d7c, type: 3}
+  - type: 9
+    clips:
+    - {fileID: 8300000, guid: 4a7da98766890134cae790c4e7ddc536, type: 3}
+  - type: 10
+    clips:
+    - {fileID: 8300000, guid: ae949fcd3114b074887b8ba75e59f0b7, type: 3}
+    - {fileID: 8300000, guid: c2113672607535d4b87a6e4e2769857e, type: 3}
+  - type: 11
+    clips:
+    - {fileID: 8300000, guid: 3277a5a2fca06274c8844b25245bd93e, type: 3}
+    - {fileID: 8300000, guid: 42dc87c74020fbf449a1fb16b1d63d9e, type: 3}
+    - {fileID: 8300000, guid: 8182cca2da873214c80df7bc09ceae56, type: 3}
+  - type: 12
     clips:
     - {fileID: 8300000, guid: d53933518e612024e94fa4dddb864854, type: 3}
     - {fileID: 8300000, guid: f5b405c2868c04840984b3633d5e58d3, type: 3}
     - {fileID: 8300000, guid: a6f516082976cc94fb2708a6eabf88be, type: 3}
     - {fileID: 8300000, guid: d19a3376eef06394f8975390dd45a487, type: 3}
     - {fileID: 8300000, guid: 8a860fd4a9e44f342a33b69781ea7ecd, type: 3}
+  - type: 13
+    clips:
+    - {fileID: 8300000, guid: 1a8cc7cce452b2a48a80cfa97511e7ca, type: 3}
+    - {fileID: 8300000, guid: 9a3e1254eb471fc4099f7b4349665aa4, type: 3}
+    - {fileID: 8300000, guid: e2fdcbc6b4690b44db8acdd35fcb530b, type: 3}
+  - type: 90
+    clips:
+    - {fileID: 8300000, guid: c60c6105c84068a40bcda9547f83b4e1, type: 3}
+    - {fileID: 8300000, guid: 12ee89642adac274a9d5737aa9c39abc, type: 3}
+    - {fileID: 8300000, guid: 5d26837cbc579f14eb7484ca35641a03, type: 3}
+    - {fileID: 8300000, guid: 5d26837cbc579f14eb7484ca35641a03, type: 3}
+    - {fileID: 8300000, guid: 3622f3a80a934984581feee207a4a126, type: 3}
+  - type: 91
+    clips:
+    - {fileID: 8300000, guid: c9f9b7f7056c72a4e80fe5a8cb110637, type: 3}
+    - {fileID: 8300000, guid: e000c64761593ba42aafbba86f6965c8, type: 3}

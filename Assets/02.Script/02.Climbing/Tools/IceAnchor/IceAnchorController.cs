@@ -1,4 +1,4 @@
-using CrowdGuard.Environment;
+﻿using CrowdGuard.Environment;
 using SimpleAudioManager;
 using System;
 using System.Collections;
@@ -351,7 +351,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
                 StopCoroutine(_reinsertCooldownCoroutine);
             _reinsertCooldownCoroutine = StartCoroutine(ReinsertCooldownFallback());
             
-            AudioManager.instance.PlaySFX(AudioManager.SFXType.AnchorBreak, transform);
+         
 
             Debug.Log("[Anchor] 앵커가 벽에서 분리되었습니다. (재삽입 잠금)");
         }
