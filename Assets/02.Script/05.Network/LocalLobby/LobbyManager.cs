@@ -11,11 +11,12 @@ namespace Capstone.Photon
             if (isLoading) return;
             _ = StartGameAsync();
         }
+        
 
         private async Task StartGameAsync()
         {
             isLoading = true;
-            await PhotonManager.Instance.StartGame();
+            await PhotonManager.Instance.StartMatchGame();
             isLoading = false;
         }
     }
