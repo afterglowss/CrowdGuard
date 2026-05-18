@@ -38,6 +38,9 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         [Tooltip("회전 시각 피드백용 Handle Transform (콜라이더+메시 포함 루트)")]
         [SerializeField] private Transform _handleVisual;
 
+        [Tooltip("슽입 위치 보정용 팁 Transform (IceAnchorTip이 있는 오브젝트)")]
+        [SerializeField] private Transform _tipTransform;
+
         // ===================== Settings =====================
 
         [Header("Screw Settings")]
@@ -324,7 +327,25 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             Vector3 euler = targetRotation.eulerAngles;
             euler.z = 0f;
             targetRotation = Quaternion.Euler(euler);
-            transform.SetPositionAndRotation(_wallContactPoint, targetRotation);
+
+            // 팁 위치가 contactPoint와 일치하도록 루트 위치 보정
+            // (팁이 루트에서 얼마나 떨어져 있는지 고려하지 않으면 텔레포트 느낌)
+            Vector3 rootPosition;
+            if (_tipTransform != null)
+            {
+                // 현재 회전 기준 팁 → 루트 오프셋
+                Vector3 tipToRoot = transform.position - _tipTransform.position;
+                // 표적 회전으로 변환한 오프셋
+                Vector3 rotatedOffset = targetRotation * (Quaternion.Inverse(transform.rotation) * tipToRoot);
+                rootPosition = _wallContactPoint + rotatedOffset;
+            }
+            else
+            {
+                // 팁 없으면 기존 방식 폴백
+                rootPosition = _wallContactPoint;
+            }
+
+            transform.SetPositionAndRotation(rootPosition, targetRotation);
 
             // 위치 추적 비활성화 (벽에 고정)
             _bodyGrab.trackPosition = false;
