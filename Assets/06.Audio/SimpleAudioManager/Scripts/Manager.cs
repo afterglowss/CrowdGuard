@@ -23,9 +23,11 @@ namespace SimpleAudioManager
             PutInPouch = 9,
             GetAnchor = 10,
             TentDoor = 11,
+          
             
             SensorBeep = 12,
             SensorSwitch =13,
+            TautRope = 14,
             
             Confirm = 90,
             Cancel = 91,

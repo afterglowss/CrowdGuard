@@ -120,6 +120,10 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 1a8cc7cce452b2a48a80cfa97511e7ca, type: 3}
     - {fileID: 8300000, guid: 9a3e1254eb471fc4099f7b4349665aa4, type: 3}
     - {fileID: 8300000, guid: e2fdcbc6b4690b44db8acdd35fcb530b, type: 3}
+  - type: 14
+    clips:
+    - {fileID: 8300000, guid: db4ec8897cfa77e4f8869c80e06ccd33, type: 3}
+    - {fileID: 8300000, guid: ce55fae2fad190f4988e83416395e064, type: 3}
   - type: 90
     clips:
     - {fileID: 8300000, guid: c60c6105c84068a40bcda9547f83b4e1, type: 3}
