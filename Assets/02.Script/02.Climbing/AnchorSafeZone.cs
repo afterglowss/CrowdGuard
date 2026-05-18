@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
 /// <summary>
 /// 앵커가 완전 체결될 때 안전 반경을 활성화합니다.
@@ -13,14 +14,22 @@ using UnityEngine;
 ///      로컬 플레이어와 무관하게 IsPlayerSafe가 true가 됩니다.
 ///
 /// 현재 방식: CheckSafety(localPlayerPos)를 호출 시점에 거리 계산으로 직접 판정합니다.
+///
+/// [멀티플레이 동기화]
+/// OnAnchorSecuredGlobal은 C# 로컬 이벤트이므로 앵커를 체결한 클라이언트에서만 발화됩니다.
+/// RPC_ActivateZone()으로 모든 클라이언트의 _activeZones를 동시에 활성화합니다.
 /// </summary>
-public class AnchorSafeZone : MonoBehaviour
+public class AnchorSafeZone : NetworkBehaviour
 {
     [Tooltip("추락을 막는 안전 반경 (m). 인스펙터에서 조절하세요.")]
     public float safeRadius = 2.0f;
 
-    // 체결이 완료된 모든 AnchorSafeZone을 추적합니다.
+    // 체결이 완료된 모든 앵커 존을 추적합니다.
     private static readonly List<AnchorSafeZone> _activeZones = new List<AnchorSafeZone>();
+
+    // 텐트처럼 위치가 고정된 정적 존 (NetworkObject 불필요)
+    private static readonly List<(Vector3 position, float radius)> _staticZones
+        = new List<(Vector3, float)>();
 
     private bool _isSecured = false;
 
@@ -40,24 +49,56 @@ public class AnchorSafeZone : MonoBehaviour
         if (_isSecured) return;
         if (model.transform == transform || model.transform.IsChildOf(transform) || transform.IsChildOf(model.transform))
         {
-            _isSecured = true;
-            if (!_activeZones.Contains(this))
-                _activeZones.Add(this);
+            // 로컬 C# 이벤트는 체결한 클라이언트에서만 발화됩니다.
+            // RPC로 모든 클라이언트의 _activeZones를 동시에 활성화합니다.
+            RPC_ActivateZone();
         }
     }
 
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    private void RPC_ActivateZone()
+    {
+        if (_isSecured) return;
+        _isSecured = true;
+        if (!_activeZones.Contains(this))
+            _activeZones.Add(this);
+    }
+
     /// <summary>
-    /// 로컬 플레이어 위치가 체결된 앵커 안전 반경 안에 있는지 직접 판정합니다.
-    /// PlayerController.OnStateChangedHandler에서 추락 전환 전에 호출하세요.
+    /// 텐트 등 위치가 고정된 안전 구역을 등록합니다.
+    /// RPC 없이 씬 오브젝트에서 호출해도 되며, 같은 위치는 중복 등록되지 않습니다.
+    /// </summary>
+    public static void RegisterStaticZone(Vector3 position, float radius)
+    {
+        foreach (var z in _staticZones)
+            if (Vector3.Distance(z.position, position) < 0.1f) return;
+
+        _staticZones.Add((position, radius));
+        Debug.Log($"[AnchorSafeZone] 정적 안전 구역 등록: {position}, 반경 {radius}m");
+    }
+
+    /// <summary>
+    /// 로컬 플레이어 위치가 안전 반경 안에 있는지 판정합니다.
+    /// 앵커 존(동적)과 텐트 존(정적)을 모두 검사합니다.
+    /// PlayerController에서 추락 전환 전에 호출하세요.
     /// </summary>
     public static bool CheckSafety(Vector3 localPlayerPos)
     {
+        // 앵커 존 (동적 — NetworkObject 기반)
         foreach (var zone in _activeZones)
         {
             if (zone == null) continue;
             if (Vector3.Distance(localPlayerPos, zone.transform.position) <= zone.safeRadius)
                 return true;
         }
+
+        // 텐트 존 (정적 — 씬 고정 위치)
+        foreach (var (pos, radius) in _staticZones)
+        {
+            if (Vector3.Distance(localPlayerPos, pos) <= radius)
+                return true;
+        }
+
         return false;
     }
 

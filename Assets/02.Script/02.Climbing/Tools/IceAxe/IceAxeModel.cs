@@ -59,5 +59,12 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
                 }
             }
         }
+
+        /// <summary>
+        /// IceAxeController.ForceRelease()에 위임합니다.
+        /// 추락 등 외부에서 바일을 강제로 손에서 놓을 때 사용하세요.
+        /// </summary>
+        public void ForceRelease()
+            => GetComponent<IceAxeController>()?.ForceRelease();
     }
 }

@@ -99,7 +99,7 @@ namespace CrowdGuard.Climbing.Tools.Common
 
             if (!_grabInteractable.isSelected && pouchTransform != null)
             {
-                Debug.Log($"[{gameObject.name}] 파우치로 복귀합니다.");
+                //Debug.Log($"[{gameObject.name}] 파우치로 복귀합니다.");
 
                 _rb.velocity = Vector3.zero;
                 _rb.angularVelocity = Vector3.zero;

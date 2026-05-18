@@ -53,6 +53,12 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public WalkableZone CurrentWalkableZone { get; set; }
 
+    /// <summary>
+    /// true일 때 ClimbingState 진입을 차단합니다.
+    /// _blockClimbing이 켜진 WalkableZone에 진입하면 true, 이탈하면 false로 설정됩니다.
+    /// </summary>
+    public bool IsClimbingBlocked { get; set; }
+
     /// <summary>로컬 머신의 PlayerController. 네트워크 RPC에서 추락 동기화에 사용됩니다.</summary>
     public static PlayerController LocalInstance { get; private set; }
 
@@ -117,6 +123,13 @@ public class PlayerController : MonoBehaviour
         // 둘 중 하나라도 유효하다면 매달리기 상태 유지
         if (isLeftValid || isRightValid)
         {
+            if (IsClimbingBlocked)
+            {
+                // 등반 차단 구역: ClimbingState로 전환하지 않고 IsAttachedToWall을 즉시 해제합니다.
+                if (leftAxe  != null) leftAxe.IsAttachedToWall  = false;
+                if (rightAxe != null) rightAxe.IsAttachedToWall = false;
+                return;
+            }
             if (CurrentState != ClimbingState) ChangeState(ClimbingState);
         }
         else // 둘 다 놓았거나, 둘 다 벽에서 빠졌다면

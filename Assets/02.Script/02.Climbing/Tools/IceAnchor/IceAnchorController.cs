@@ -51,6 +51,10 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         [Tooltip("분리 후 재삽입 방지 Fallback 시간 (초). OnTriggerExit가 먼저 오면 즉시 해제됨.")]
         [SerializeField] private float _reinsertCooldown = 0.5f;
 
+        [Header("Insert Lerp")]
+        [Tooltip("삽입 시 위치/회전 보정 애니메이션 시간 (초)")]
+        [SerializeField] private float _insertLerpDuration = 0.15f;
+
         // ===================== Global Event =====================
 
         /// <summary>
@@ -71,6 +75,9 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         // 재삽입 방지
         private bool _canReinsert = true;
         private Coroutine _reinsertCooldownCoroutine;
+
+        // 삽입 Lerp
+        private Coroutine _insertLerpCoroutine;
 
         // 팁 Transform (자동 탐색)
         private Transform _tipTransform;
@@ -164,7 +171,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         private void OnBodyGrabbed(SelectEnterEventArgs args)
         {
             // 삽입 상태에서는 Body 잡기가 비활성화되므로 여기 오면 항상 비삽입 상태
-            Debug.Log("[Anchor] 앵커를 손에 쥐었습니다.");
+            //Debug.Log("[Anchor] 앵커를 손에 쥐었습니다.");
             _bodyGrab.trackPosition = true;
             _bodyGrab.trackRotation = true;
             _model.IsHeld = true;
@@ -175,11 +182,11 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             if (!_model.IsInserted)
             {
                 // 허공에서 놓기 → 낙하 (물리 상태는 View가 처리)
-                Debug.Log("[Anchor] 앵커를 허공에서 놓았습니다.");
+                //Debug.Log("[Anchor] 앵커를 허공에서 놓았습니다.");
             }
             else
             {
-                Debug.Log("[Anchor] 앵커에서 손을 뗐습니다. 벽에 유지.");
+                //Debug.Log("[Anchor] 앵커에서 손을 뗐습니다. 벽에 유지.");
             }
 
             _model.IsHeld = false;
@@ -208,7 +215,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         {
             if (_model.IsFullySecured) return;
 
-            Debug.Log("[Anchor] 손잡이를 잡았습니다. 회전 추적 시작.");
+            //Debug.Log("[Anchor] 손잡이를 잡았습니다. 회전 추적 시작.");
 
             _handleInteractorTransform = args.interactorObject.transform;
             _accumulatedAngle = _model.ScrewProgress * _requiredTurns * 360f;
@@ -218,7 +225,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
 
         private void OnHandleDropped(SelectExitEventArgs args)
         {
-            Debug.Log("[Anchor] 손잡이에서 손을 뗐습니다.");
+            //Debug.Log("[Anchor] 손잡이에서 손을 뗐습니다.");
 
             _isHandleGrabbed = false;
             _handleInteractorTransform = null;
@@ -289,7 +296,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         {
             if (surface.Type == SurfaceType.Rock)
             {
-                Debug.Log("[Anchor] 바위에는 앵커를 설치할 수 없습니다. (legacy)");
+                // Debug.Log("[Anchor] 바위에는 앵커를 설치할 수 없습니다. (legacy)");
                 return;
             }
 
@@ -348,17 +355,27 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
                 rootPosition = _wallContactPoint;
             }
 
-            transform.SetPositionAndRotation(rootPosition, targetRotation);
-
             // 위치 추적 비활성화 (벽에 고정)
             _bodyGrab.trackPosition = false;
             _bodyGrab.trackRotation = false;
 
             _model.IsInserted = true;
+
+            // 현재 위치/회전 → 목표 위치/회전으로 부드럽게 보정
+            if (_insertLerpCoroutine != null)
+                StopCoroutine(_insertLerpCoroutine);
+            _insertLerpCoroutine = StartCoroutine(LerpToInsertPosition(rootPosition, targetRotation));
         }
 
         private void DetachFromWall()
         {
+            // 삽입 Lerp 진행 중이면 즉시 중단
+            if (_insertLerpCoroutine != null)
+            {
+                StopCoroutine(_insertLerpCoroutine);
+                _insertLerpCoroutine = null;
+            }
+
             _model.IsInserted = false;
             _model.ScrewProgress = 0f;
             _model.IsFullySecured = false;
@@ -387,6 +404,30 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
                 Debug.Log("[Anchor] 재삽입 잠금 해제 (Fallback 타이머)");
             }
             _reinsertCooldownCoroutine = null;
+        }
+
+        /// <summary>
+        /// 삽입 직후 현재 위치/회전에서 목표 위치/회전으로 부드럽게 보정합니다.
+        /// Rigidbody는 이미 FreezeAll 상태이므로 transform 직접 조작으로 진행합니다.
+        /// </summary>
+        private IEnumerator LerpToInsertPosition(Vector3 targetPos, Quaternion targetRot)
+        {
+            Vector3 startPos = transform.position;
+            Quaternion startRot = transform.rotation;
+            float elapsed = 0f;
+
+            while (elapsed < _insertLerpDuration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.SmoothStep(0f, 1f, elapsed / _insertLerpDuration);
+                transform.SetPositionAndRotation(
+                    Vector3.Lerp(startPos, targetPos, t),
+                    Quaternion.Slerp(startRot, targetRot, t));
+                yield return null;
+            }
+
+            transform.SetPositionAndRotation(targetPos, targetRot);
+            _insertLerpCoroutine = null;
         }
 
         /// <summary>
