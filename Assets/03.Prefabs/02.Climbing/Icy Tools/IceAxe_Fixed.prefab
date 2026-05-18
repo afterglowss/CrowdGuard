@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 2835834400613191177}
   - component: {fileID: 2920574512243374876}
   - component: {fileID: 7647899326263572299}
+  - component: {fileID: 8303233059140621979}
   m_Layer: 14
   m_Name: IceAxe_Fixed
   m_TagString: Untagged
@@ -529,6 +530,22 @@ MonoBehaviour:
     Position: 0.01
     Rotation: 0.01
     Scale: 0.01
+--- !u!114 &8303233059140621979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3119530412649827588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86e8ef9a3d28799479d44b928894d246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _model: {fileID: 7336525555136171980}
+  _rb: {fileID: 9221274519946504683}
+  _tipCollider: {fileID: 1994619414009280514}
+  _maxCorrectionPerFrame: 0.15
 --- !u!1 &4420054416689423032
 GameObject:
   m_ObjectHideFlags: 0
