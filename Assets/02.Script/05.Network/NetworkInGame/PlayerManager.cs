@@ -58,7 +58,7 @@ namespace Capstone.Photon.Game
             if (ropeSystem != null)
             {
                 // 로컬 플레이어가 Leader인지 Supporter인지 판별
-                bool isLeader = leader.HasStateAuthority;
+                bool isLeader = leader.HasInputAuthority;
 
                 NetworkObject myObj      = isLeader ? leader    : supporter;
                 NetworkObject partnerObj = isLeader ? supporter : leader;

@@ -61,13 +61,10 @@ public class AvalanchePathSystem : MonoBehaviour
                 {
                     travelledDistance %= totalLength;
 
-                    if (avalancheParticles != null)
-                    {
-                        avalancheParticles.Clear();
-                        snowParticles.Clear();
-                        avalancheParticles.Play();
-                        snowParticles.Play();
-                    }
+                    if (avalancheParticles != null) avalancheParticles.Clear();
+                    if (snowParticles != null) snowParticles.Clear();
+                    if (avalancheParticles != null) avalancheParticles.Play();
+                    if (snowParticles != null) snowParticles.Play();
                 }
                 else
                 {
@@ -120,13 +117,10 @@ public class AvalanchePathSystem : MonoBehaviour
         travelledDistance = 0f;
         isPlaying = true;
 
-        if (avalancheParticles != null)
-        {
-            avalancheParticles.Clear();
-            snowParticles.Clear();
-            avalancheParticles.Play();
-            snowParticles.Play();
-        }
+        if (avalancheParticles != null) avalancheParticles.Clear();
+        if (snowParticles != null) snowParticles.Clear();
+        if (avalancheParticles != null) avalancheParticles.Play();
+        if (snowParticles != null) snowParticles.Play();
     }
 
     [ContextMenu("Stop Avalanche")]
