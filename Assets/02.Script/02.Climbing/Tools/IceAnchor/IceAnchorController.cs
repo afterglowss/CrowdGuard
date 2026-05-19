@@ -72,6 +72,9 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         private bool _canReinsert = true;
         private Coroutine _reinsertCooldownCoroutine;
 
+        // 팁 Transform (자동 탐색)
+        private Transform _tipTransform;
+
         // Handle 회전 관련
         private Transform _handleInteractorTransform;
         private float _previousAngle;
@@ -83,6 +86,9 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
         private void Awake()
         {
             if (_model == null) _model = GetComponent<IceAnchorModel>();
+            _tipTransform = GetComponentInChildren<IceAnchorTip>(true)?.transform;
+            if (_tipTransform == null)
+                Debug.LogWarning("[IceAnchorController] IceAnchorTip을 자식에서 찾지 못함 — 팁 오프셋 보정 비활성화");
         }
 
         private void OnEnable()
@@ -267,11 +273,7 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
                 _isTouchingWall = false;
                 _currentSurface = null;
                 _model.IsContactingWall = false;
-                UnlockReinsert();
 
-                // sync 모드에서는 SetActive(false) → OnTriggerExit가 동기적으로 발생해
-                // Update()보다 먼저 _currentSurface가 null이 되어 추락 감지가 불가능해짐.
-                // 삽입 상태에서 표면이 파괴되어 사라진 경우 여기서 즉시 분리 처리.
                 if (wasInserted && surface.IsBrokenAt(_wallContactPoint))
                 {
                     DetachFromWall();
@@ -308,7 +310,6 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             _isTouchingWall = false;
             _currentSurface = null;
             _model.IsContactingWall = false;
-            UnlockReinsert();
         }
 #pragma warning restore CS0618
 
@@ -329,7 +330,25 @@ namespace CrowdGuard.Climbing.Tools.IceAnchor
             Vector3 euler = targetRotation.eulerAngles;
             euler.z = 0f;
             targetRotation = Quaternion.Euler(euler);
-            transform.SetPositionAndRotation(_wallContactPoint, targetRotation);
+
+            // 팁 위치가 contactPoint와 일치하도록 루트 위치 보정
+            // (팁이 루트에서 얼마나 떨어져 있는지 고려하지 않으면 텔레포트 느낌)
+            Vector3 rootPosition;
+            if (_tipTransform != null)
+            {
+                // 현재 회전 기준 팁 → 루트 오프셋
+                Vector3 tipToRoot = transform.position - _tipTransform.position;
+                // 표적 회전으로 변환한 오프셋
+                Vector3 rotatedOffset = targetRotation * (Quaternion.Inverse(transform.rotation) * tipToRoot);
+                rootPosition = _wallContactPoint + rotatedOffset;
+            }
+            else
+            {
+                // 팁 없으면 기존 방식 폴백
+                rootPosition = _wallContactPoint;
+            }
+
+            transform.SetPositionAndRotation(rootPosition, targetRotation);
 
             // 위치 추적 비활성화 (벽에 고정)
             _bodyGrab.trackPosition = false;

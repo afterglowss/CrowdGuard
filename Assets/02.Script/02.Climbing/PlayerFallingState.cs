@@ -56,7 +56,7 @@ public class PlayerFallingState : PlayerState
         _velocity         = new Vector3(0f, -3.0f, 0f); // 초기 하강 킥
         _fallTimer        = 0f;
         _respawnTriggered = false;
-        _escapeTimer      = 0f; // 첫 0.25초는 벽 충돌 무시 (방금 붙어있던 벽에서 탈출)
+        _escapeTimer      = 0.3f; // 첫 0.3초는 벽 충돌 무시 (방금 붙어있던 벽에서 탈출)
 
         // 추락 중에는 평지 구역 추적을 초기화합니다.
         // 미초기화 시 리스폰 후 바일을 놓을 때 CurrentWalkableZone이 남아있어
@@ -196,16 +196,20 @@ public class PlayerFallingState : PlayerState
 
         // ComputePenetration은 isTrigger=true 콜라이더를 지원하지 않음.
         // 계산하는 동안만 일시적으로 끄고 즉시 복원합니다.
-        // Rigidbody가 없으므로 isTrigger 전환이 자동 물리 반응을 일으키지 않습니다.
         _playerCapsule.isTrigger = false;
         foreach (var col in overlaps)
         {
             if (Physics.ComputePenetration(
                     _playerCapsule, t.position, t.rotation,
                     col, col.transform.position, col.transform.rotation,
-                    out Vector3 dir, out float dist))
+                    out Vector3 pushDir, out float dist))
             {
-                player.xrRigPivot.position += dir * dist;
+                player.xrRigPivot.position += pushDir * (dist + _wallMargin);
+
+                // 속도의 벽 방향 성분도 제거 — 위치만 밀고 속도는 그대로면
+                // 다음 프레임에 다시 뚫고 들어가는 ping-pong이 발생합니다.
+                if (Vector3.Dot(_velocity, pushDir) < 0f)
+                    _velocity = Vector3.ProjectOnPlane(_velocity, pushDir);
             }
         }
         _playerCapsule.isTrigger = true;
@@ -224,7 +228,7 @@ public class PlayerFallingState : PlayerState
         Vector3 bottom = player.xrRigPivot.position + Vector3.up * _capsuleBottomOffset;
         Vector3 top    = player.xrRigPivot.position + Vector3.up * _capsuleTopOffset;
 
-        if (!Physics.CapsuleCast(bottom, top, _bodyRadius, dir, out RaycastHit hit, dist + _wallMargin, player.iceLayer))
+        if (!Physics.CapsuleCast(bottom, top, _bodyRadius, dir, out RaycastHit hit, dist + _wallMargin, player.iceLayer, QueryTriggerInteraction.Ignore))
             return proposed;
 
         float allowed = Mathf.Max(0f, hit.distance - _wallMargin);
@@ -278,6 +282,8 @@ public class PlayerFallingState : PlayerState
 
         if (player.leftAxe  != null) player.leftAxe.IsAttachedToWall  = false;
         if (player.rightAxe != null) player.rightAxe.IsAttachedToWall = false;
+
+        SurvivalManager.Instance?.ResetAfterRespawn();
 
         player.ChangeState(player.IdleState);
     }

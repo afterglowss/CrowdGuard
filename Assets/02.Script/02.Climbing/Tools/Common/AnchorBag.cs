@@ -44,9 +44,33 @@ namespace CrowdGuard.Climbing.Tools.Common
         private XRInteractionManager _interactionManager;
 
         /// <summary>
+        /// 로컬 플레이어의 AnchorBag. 스폰 시 자동 등록됩니다.
+        /// </summary>
+        public static AnchorBag LocalInstance { get; private set; }
+
+        /// <summary>
         /// 현재 보유 앵커 개수.
         /// </summary>
         public int CurrentCount => _currentCount;
+
+        /// <summary>
+        /// 텐트 보급 등 외부에서 최소 수량을 보장할 때 호출합니다.
+        /// 현재 개수가 min보다 적을 때만 min으로 올립니다.
+        /// </summary>
+        public void RefillToMinimum(int min)
+        {
+            if (_currentCount < min)
+            {
+                _currentCount = min;
+                UpdateRemainingAnchorText();
+                OnCountChanged?.Invoke(_currentCount);
+                Debug.Log($"[AnchorBag] 텐트 보급 완료. 앵커 {_currentCount}개로 보충됨.");
+            }
+            else
+            {
+                Debug.Log($"[AnchorBag] 보유량 충분하여 보급 생략 (현재 {_currentCount}개)");
+            }
+        }
 
         /// <summary>
         /// 보유 개수 변경 시 발화.
@@ -58,6 +82,25 @@ namespace CrowdGuard.Climbing.Tools.Common
         private void Awake()
         {
             _simpleInteractable = GetComponent<XRSimpleInteractable>();
+        }
+
+        public override void Spawned()
+        {
+            // 로컬 플레이어(InputAuthority)의 AnchorBag만 정적 참조로 등록
+            if (Object.HasInputAuthority)
+            {
+                LocalInstance = this;
+                Debug.Log("[AnchorBag] LocalInstance 등록 완료.");
+            }
+        }
+
+        public override void Despawned(NetworkRunner runner, bool hasState)
+        {
+            if (LocalInstance == this)
+            {
+                LocalInstance = null;
+                Debug.Log("[AnchorBag] LocalInstance 해제.");
+            }
         }
 
         private void Start()

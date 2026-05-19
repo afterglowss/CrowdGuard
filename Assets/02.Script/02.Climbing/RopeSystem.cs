@@ -22,22 +22,36 @@ public class RopeSystem : MonoBehaviour
     private Transform _myAnchor;
     private Transform _partnerAnchor;
 
+    // LimitMovement용 실시간 기준점 — xrRigPivot의 자식으로 ObjectTracker 지연 없음
+    private Transform _myRigPivot;
+    private Transform _myPhysicsAnchor;
+
     /// <summary>
     /// PlayerManager에서 두 플레이어가 모두 접속한 뒤 호출합니다.
     /// myBody / partner 모두 카메라(머리) 트랜스폼이므로
     /// localTieOffset으로 가슴 위치를 잡아 자식 앵커를 생성합니다.
+    /// myRigPivot은 로컬 플레이어의 xrRigPivot으로, LimitMovement에서
+    /// ObjectTracker 지연 없이 실시간 위치를 계산하는 데 사용합니다.
     /// </summary>
-    public void SetPartners(Transform myBody, Transform partner)
+    public void SetPartners(Transform myBody, Transform partner, Transform myRigPivot)
     {
         myBodyTransform = myBody;
         partnerTransform = partner;
+        _myRigPivot = myRigPivot;
 
         // 기존 앵커가 있으면 제거 후 재생성 (재연결 안전 처리)
         if (_myAnchor != null) Destroy(_myAnchor.gameObject);
         if (_partnerAnchor != null) Destroy(_partnerAnchor.gameObject);
+        if (_myPhysicsAnchor != null) Destroy(_myPhysicsAnchor.gameObject);
 
         _myAnchor = CreateAnchor("_RopeAnchor_Me", myBodyTransform, localTieOffset);
         _partnerAnchor = CreateAnchor("_RopeAnchor_Partner", partnerTransform, localTieOffset);
+
+        // xrRigPivot의 자식으로 물리 앵커 생성.
+        // ObjectTracker lerp 지연 없이 locomotion 이동을 즉시 반영합니다.
+        // body가 발 기준(xrRigPivot과 동일 레벨)이므로 localTieOffset을 그대로 사용합니다.
+        if (_myRigPivot != null)
+            _myPhysicsAnchor = CreateAnchor("_RopePhysicsAnchor_Me", _myRigPivot, localTieOffset);
 
         AttachRopeToAsset();
     }
@@ -81,10 +95,15 @@ public class RopeSystem : MonoBehaviour
     public void LimitMovement(ref Vector3 proposedDeltaWorld)
     {
         if (disableRopeForTesting) return;
-        if (_myAnchor == null || _partnerAnchor == null) return;
+        if (_partnerAnchor == null) return;
 
-        // 앵커가 이미 오프셋 적용된 위치이므로 TransformPoint 불필요
-        Vector3 myTiePoint = _myAnchor.position;
+        // xrRigPivot 자식 물리 앵커로 실시간 위치 계산 (ObjectTracker lerp 지연 없음).
+        // _myPhysicsAnchor가 없으면 ObjectTracker 기반 _myAnchor로 폴백.
+        Transform activeTiePoint = _myPhysicsAnchor != null ? _myPhysicsAnchor : _myAnchor;
+        if (activeTiePoint == null) return;
+
+        Vector3 myTiePoint = activeTiePoint.position;
+
         Vector3 partnerPos = _partnerAnchor.position;
 
         Vector3 predictedPos = myTiePoint - proposedDeltaWorld;

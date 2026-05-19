@@ -66,7 +66,8 @@ namespace Capstone.Photon.Game
                 if (myObj.TryGetComponent(out GamePlayerModel myModel) &&
                     partnerObj.TryGetComponent(out GamePlayerModel partnerModel))
                 {
-                    ropeSystem.SetPartners(myModel.body.transform, partnerModel.body.transform);
+                    Transform myRigPivot = PlayerController.LocalInstance?.xrRigPivot;
+                    ropeSystem.SetPartners(myModel.body.transform, partnerModel.body.transform, myRigPivot);
                 }
             }
 

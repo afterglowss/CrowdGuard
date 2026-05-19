@@ -106,6 +106,26 @@ public class SurvivalManager : NetworkBehaviour
         isRapidFreezing = isRapid;
     }
 
+    /// <summary>
+    /// 리스폰 시 동결 게이지·상태·셰이더를 전부 초기화합니다.
+    /// 로컬 bool은 모든 클라이언트에서, 네트워크 변수는 StateAuthority에서만 리셋합니다.
+    /// </summary>
+    public void ResetAfterRespawn()
+    {
+        isPlayerFrozen = false;
+
+        if (HasStateAuthority)
+        {
+            currentFreezeGauge = 0f;
+            isRapidFreezing    = false;
+            isRestoring        = false;
+        }
+
+        // Render()를 기다리지 않고 즉시 셰이더 초기화
+        UpdateShaderEffect(0f);
+        OnFreezeGaugeChanged?.Invoke(0f);
+    }
+
     // 👇 [핵심] 랜턴을 켜고 끌 때 외부에서 호출할 함수
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RPC_SetRestoringState(bool state)

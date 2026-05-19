@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Capstone.Photon.Game;
 using Fusion;
+using CrowdGuard.Climbing.Tools.Common;
 
 public class TentInteriorController : NetworkBehaviour
 {
@@ -16,6 +17,9 @@ public class TentInteriorController : NetworkBehaviour
     [Header("로컬 플레이어")]
     [Tooltip("씬의 XR Origin Rig 루트 오브젝트를 여기에 연결하세요.")]
     public Transform localXRRig;
+
+    [Tooltip("텐트 보급 최소 앵커 수량")]
+    [SerializeField] private int _minAnchorSupply = 5;
 
     [Header("랜턴 세팅 (이중 제어)")]
     public Light lanternLight;
@@ -51,8 +55,7 @@ public class TentInteriorController : NetworkBehaviour
 
         RPC_SetLantern(false);
 
-        if (EquipmentManager.Instance != null)
-            EquipmentManager.Instance.SupplyAnchorsAtTent();
+        AnchorBag.LocalInstance?.RefillToMinimum(_minAnchorSupply);
 
         // 텐트 안에서는 세이프티 로프 숨기기
         PlayerManager.Instance?.leaderSafetyRope?.SetVisible(false);
@@ -67,6 +70,14 @@ public class TentInteriorController : NetworkBehaviour
     {
         if (ScreenEffectManager.Instance != null)
             yield return StartCoroutine(ScreenEffectManager.Instance.FadeScreenRoutine(0.5f, false));
+
+        var pc = PlayerController.LocalInstance;
+        if (pc != null)
+        {
+            if (pc.leftAxe  != null) pc.leftAxe.IsAttachedToWall  = false;
+            if (pc.rightAxe != null) pc.rightAxe.IsAttachedToWall = false;
+            pc.ChangeState(pc.IdleState);
+        }
 
         if (localXRRig != null)
             localXRRig.position = targetPos;
@@ -99,8 +110,8 @@ public class TentInteriorController : NetworkBehaviour
             SurvivalManager.Instance.RPC_SetRestoringState(on);
 
         // 앵커 보급은 처음 켤 때 한 번만
-        if (on && EquipmentManager.Instance != null)
-            EquipmentManager.Instance.SupplyAnchorsAtTent();
+        if (on)
+            AnchorBag.LocalInstance?.RefillToMinimum(_minAnchorSupply);
     }
 
     // ── 퇴장 ────────────────────────────────────────────────────────

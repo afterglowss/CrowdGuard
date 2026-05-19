@@ -32,7 +32,7 @@ public class PlayerClimbingState : PlayerState
     public override void Enter()
     {
         Debug.Log("[FSM] Entered Climbing State: 벽에 매달렸습니다.");
-        
+
         // 상태 진입 시 모든 추적 변수 초기화
         prevLeftPos = null;
         prevRightPos = null;
@@ -46,9 +46,9 @@ public class PlayerClimbingState : PlayerState
         {
             if (script == null) continue;
             string name = script.GetType().Name;
-            if (name.Contains("XRBodyTransformer") || 
-                name.Contains("CharacterControllerDriver") || 
-                name.Contains("MoveProvider") || 
+            if (name.Contains("XRBodyTransformer") ||
+                name.Contains("CharacterControllerDriver") ||
+                name.Contains("MoveProvider") ||
                 name.Contains("Locomotion"))
             {
                 if (script.enabled)
@@ -64,6 +64,55 @@ public class PlayerClimbingState : PlayerState
 
         rigid = player.xrRigPivot.GetComponentInChildren<Rigidbody>(true);
         if (rigid != null) rigid.isKinematic = true;
+
+        // 클라이밍 시작 전 한 번만 벽 관통 상태를 정리합니다.
+        // CapsuleCast는 시작점이 콜라이더 내부에 있으면 충돌을 감지하지 못합니다.
+        // 이미 벽 안에 있는 채로 등반을 시작하면 ClampMovementToWall이 작동하지 않으므로
+        // Enter() 시점에 FallingState의 PushOutOfWalls와 동일한 방식으로 1회 탈출합니다.
+        PushOutOfWallsOnce();
+    }
+
+    /// <summary>
+    /// 플레이어 캡슐 콜라이더가 IceWall에 겹쳐 있으면 한 번에 밀어냅니다.
+    /// Enter() 호출 시 딱 한 번만 실행 — 클라이밍 도중 매 프레임 보정은 하지 않습니다.
+    /// </summary>
+    private void PushOutOfWallsOnce()
+    {
+        CapsuleCollider capsule = null;
+        foreach (var cap in player.xrRigPivot.GetComponentsInChildren<CapsuleCollider>(true))
+        {
+            if (cap.isTrigger) { capsule = cap; break; }
+        }
+        if (capsule == null) return;
+
+        Transform t      = capsule.transform;
+        Vector3   center = t.TransformPoint(capsule.center);
+        float     halfH  = Mathf.Max(0f, capsule.height * 0.5f - capsule.radius);
+        Vector3   axis   = capsule.direction == 0 ? t.right
+                         : capsule.direction == 1 ? t.up : t.forward;
+
+        Collider[] overlaps = Physics.OverlapCapsule(
+            center - axis * halfH,
+            center + axis * halfH,
+            capsule.radius,
+            player.iceLayer,
+            QueryTriggerInteraction.Ignore);
+
+        if (overlaps.Length == 0) return;
+
+        // ComputePenetration은 isTrigger=true 콜라이더를 지원하지 않으므로 잠깐 끔
+        capsule.isTrigger = false;
+        foreach (Collider col in overlaps)
+        {
+            if (Physics.ComputePenetration(
+                    capsule, t.position, t.rotation,
+                    col, col.transform.position, col.transform.rotation,
+                    out Vector3 pushDir, out float dist))
+            {
+                player.xrRigPivot.position += pushDir * (dist + _wallMargin);
+            }
+        }
+        capsule.isTrigger = true;
     }
 
     /// <summary>
