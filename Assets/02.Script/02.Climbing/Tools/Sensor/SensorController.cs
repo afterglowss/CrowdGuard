@@ -250,7 +250,7 @@ namespace MSEX.Climbing.Tools
                 }
             }
 
-            AudioManager.instance.PlaySFX(AudioManager.SFXType.SensorBeep, transform);
+            AudioManager.instance.PlaySFXNoRand(AudioManager.SFXType.SensorBeep, transform);
 
             if (_beepCoroutine != null) StopCoroutine(_beepCoroutine);
             _beepCoroutine = StartCoroutine(BeepCoroutine());

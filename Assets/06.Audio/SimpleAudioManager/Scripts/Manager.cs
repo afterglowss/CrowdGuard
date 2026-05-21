@@ -239,7 +239,7 @@ namespace SimpleAudioManager
             AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Count)];
             PlaySFXInternal(clip, spawnTransform, clipVolume);
         }
-        public void PlaySFXNoRand(SFXType type, Transform spawnTransform, float clipVolume)
+        public void PlaySFXNoRand(SFXType type, Transform spawnTransform, float clipVolume = 1f)
         {
             if (sfxDict == null || !sfxDict.TryGetValue(type, out List<AudioClip> clips) || clips == null || clips.Count == 0)
             {
