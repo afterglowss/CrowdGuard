@@ -50,6 +50,10 @@ public class HazardManager : NetworkBehaviour
     public float blizzardDuration = 5f;
     public float blizzardFreezeMultiplier = 4f;
 
+    [Header("경고 설정")]
+    [Tooltip("재난 발생 전 경고 시간(초). 이 시간 동안 센서 등 UI가 알림을 표시합니다.")]
+    public float warningDuration = 3f;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -151,9 +155,9 @@ public class HazardManager : NetworkBehaviour
     private IEnumerator HazardSequenceRoutine(HazardData data)
     {
         OnHazardWarning?.Invoke(data);
-        Debug.Log($"[HazardManager] 경고! 3초 후 {data.GetType().Name} 발생 예정! (위치: {data.Location})");
+        Debug.Log($"[HazardManager] 경고! {warningDuration}초 후 {data.GetType().Name} 발생 예정! (위치: {data.Location})");
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(warningDuration);
 
         OnHazardTriggered?.Invoke(data);
         Debug.Log($"[HazardManager] {data.GetType().Name} 발생! (위치: {data.Location})");
