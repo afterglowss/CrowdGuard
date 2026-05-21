@@ -37588,6 +37588,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 388734732235460751, guid: 85846e170af2d8243bab105c371fb74d, type: 3}
+      propertyPath: localController
+      value: 
+      objectReference: {fileID: 7904980878781563266}
     - target: {fileID: 948446101746974615, guid: 85846e170af2d8243bab105c371fb74d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 21.75234
@@ -84185,6 +84189,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3701239973524304139, guid: 60346070c3df30e41b0cd212f61d328b, type: 3}
   m_PrefabInstance: {fileID: 7904980878781563263}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7904980878781563266 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7229220600614218450, guid: 60346070c3df30e41b0cd212f61d328b, type: 3}
+  m_PrefabInstance: {fileID: 7904980878781563263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb1a23faffd0b745b90a5f64b9150f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
