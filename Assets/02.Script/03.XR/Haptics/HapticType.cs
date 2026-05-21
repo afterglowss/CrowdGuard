@@ -21,6 +21,13 @@ namespace CrowdGuard.XR.Haptics
         // 향후 확장용 (RopeTension, Blizzard 등)
         RopeTension,
         Blizzard,
-        SensorDirection
+        SensorDirection,
+
+        // 신규 추가 햅틱 타입
+        IceAxeRockAttach,
+        SensorModeSwitch,
+        Avalanche,
+        IceAxeIceAttach,
+        IceCrack
     }
 }
