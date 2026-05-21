@@ -66,18 +66,24 @@ public class FallingRock : MonoBehaviour
         ResetRock();
     }
 
+    // 플레이어는 Trigger 콜라이더 → OnTriggerEnter에서 처리
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Player")) return;
+
+        Vector3 spawnPoint = other.ClosestPoint(transform.position);
+        Vector3 normal = (transform.position - spawnPoint).normalized;
+        if (normal.sqrMagnitude < 0.0001f) normal = Vector3.up;
+
+        SpawnDebris(spawnPoint, normal);
+        ResetRock();
+    }
+
+    // IceWall은 일반 콜라이더 → OnCollisionEnter에서 처리
     private void OnCollisionEnter(Collision collision)
     {
-        ContactPoint contact = collision.GetContact(0);
-
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            SpawnDebris(contact.point, contact.normal);
-            ResetRock();
-            return;
-        }
-
         if (!IsInLayerMask(collision.gameObject, iceWallLayer)) return;
+        ContactPoint contact = collision.GetContact(0);
         SpawnDebris(contact.point, contact.normal);
     }
 
