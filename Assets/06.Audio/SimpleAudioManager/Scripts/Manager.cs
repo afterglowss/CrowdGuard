@@ -228,6 +228,28 @@ namespace SimpleAudioManager
             AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Count)];
             PlaySFXInternal(clip, spawnTransform, sfxVolume);
         }
+        public void PlaySFX(SFXType type, Transform spawnTransform, float clipVolume)
+        {
+            if (sfxDict == null || !sfxDict.TryGetValue(type, out List<AudioClip> clips) || clips == null || clips.Count == 0)
+            {
+                Debug.LogWarning($"No SFX found for {type}");
+                return;
+            }
+
+            AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Count)];
+            PlaySFXInternal(clip, spawnTransform, clipVolume);
+        }
+        public void PlaySFXNoRand(SFXType type, Transform spawnTransform, float clipVolume)
+        {
+            if (sfxDict == null || !sfxDict.TryGetValue(type, out List<AudioClip> clips) || clips == null || clips.Count == 0)
+            {
+                Debug.LogWarning($"No SFX found for {type}");
+                return;
+            }
+
+            AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Count)];
+            PlaySFXInternal(clip, spawnTransform, sfxVolume * clipVolume, false);
+        }
 
         public class PooledSFXSourceState : MonoBehaviour
         {
@@ -441,7 +463,7 @@ namespace SimpleAudioManager
             return CreateSFXSource();
         }
 
-        private void PlaySFXInternal(AudioClip clip, Transform spawnTransform, float volume)
+        private void PlaySFXInternal(AudioClip clip, Transform spawnTransform, float volume, bool randomPitch = true)
         {
             if (clip == null)
                 return;
@@ -456,7 +478,7 @@ namespace SimpleAudioManager
             Transform target = spawnTransform != null ? spawnTransform : transform;
 
             source.transform.position = target.position;
-            source.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
+            source.pitch = randomPitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
             source.clip = clip;
 
             float clampedVolume = Mathf.Clamp01(volume);
