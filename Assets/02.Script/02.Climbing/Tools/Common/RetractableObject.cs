@@ -55,8 +55,6 @@ namespace CrowdGuard.Climbing.Tools.Common
         {
             AudioManager.instance.PlaySFX(AudioManager.SFXType.TakeFromPouch, transform);
             transform.SetParent(null);
-            _rb.isKinematic = false;
-            _rb.useGravity = true;
             CancelReturn();
         }
 
