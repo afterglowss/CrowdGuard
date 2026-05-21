@@ -23,8 +23,9 @@ public class Coin : NetworkBehaviour
 
     public void OnInteract()
     {
-        DataManager.Instance?.RPC_AddCoinCount();
         Debug.Log("GetCoin");
+        DataManager.Instance?.RPC_AddCoinCount();
+        
         if (Object&& Object.IsValid)
         {
             RPC_SetDisable();
