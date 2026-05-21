@@ -4454,7 +4454,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 18b331cbe68ad744f942eb728dbecaaa, type: 3}
 --- !u!1 &134778768
@@ -27648,7 +27648,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 18b331cbe68ad744f942eb728dbecaaa, type: 3}
 --- !u!1 &690917722
@@ -58144,7 +58144,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 18b331cbe68ad744f942eb728dbecaaa, type: 3}
 --- !u!1 &1497036974
@@ -59493,7 +59493,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4.6220245, y: 3.250598, z: 0.7492798}
-  m_LocalScale: {x: 15.79191, y: 1.5756081, z: 10.809064}
+  m_LocalScale: {x: 15.79191, y: 1.5756081, z: 12.118041}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 496520460}
@@ -67029,7 +67029,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 18b331cbe68ad744f942eb728dbecaaa, type: 3}
 --- !u!1 &1725094139
@@ -82560,6 +82560,10 @@ PrefabInstance:
     - target: {fileID: -8846309524905907209, guid: ec0f43f8141a9c348a89ac15f42440ba, type: 3}
       propertyPath: SortKey
       value: 3342690779
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146543120187937759, guid: ec0f43f8141a9c348a89ac15f42440ba, type: 3}
+      propertyPath: warningDuration
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3146543120187937759, guid: ec0f43f8141a9c348a89ac15f42440ba, type: 3}
       propertyPath: rockSystems.Array.size

@@ -27,19 +27,28 @@ namespace MSEX.Climbing.Tools
 
         private void OnEnable()
         {
-            controller.OnModeChanged += RefreshUI;
+            controller.OnModeChanged    += OnModeChangedHandler;
             controller.OnHazardDetected += TriggerWarningFeedback;
         }
 
         private void OnDisable()
         {
-            controller.OnModeChanged -= RefreshUI;
+            controller.OnModeChanged    -= OnModeChangedHandler;
             controller.OnHazardDetected -= TriggerWarningFeedback;
         }
 
         private void Start()
         {
             RefreshUI(controller.CurrentMode);
+        }
+
+        /// <summary>
+        /// 모드 전환 시 호출됩니다. 진행 중인 WARNING 코루틴을 중단하고 UI를 갱신합니다.
+        /// </summary>
+        private void OnModeChangedHandler(SensorMode newMode)
+        {
+            StopAllCoroutines();
+            RefreshUI(newMode);
         }
 
         private void RefreshUI(SensorMode newMode)
@@ -64,7 +73,7 @@ namespace MSEX.Climbing.Tools
         private IEnumerator WarningTextRoutine(string hazardName)
         {
             float elapsed = 0f;
-            while (elapsed < 15f)
+            while (elapsed < controller.TrackingDuration)
             {
                 elapsed += Time.deltaTime;
 
