@@ -246,7 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _model: {fileID: 0}
   _rb: {fileID: 0}
-  _onAttachHaptic: {fileID: 11400000, guid: ec32b05a37b9a70418b269456e7cde19, type: 2}
+  _onAttachHaptic: {fileID: 11400000, guid: 6ba13d9a7cf3408495de3de090c44835, type: 2}
 --- !u!114 &8335512825627101334
 MonoBehaviour:
   m_ObjectHideFlags: 0
