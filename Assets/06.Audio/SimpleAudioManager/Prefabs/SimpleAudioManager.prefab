@@ -110,11 +110,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 8182cca2da873214c80df7bc09ceae56, type: 3}
   - type: 12
     clips:
-    - {fileID: 8300000, guid: d53933518e612024e94fa4dddb864854, type: 3}
-    - {fileID: 8300000, guid: f5b405c2868c04840984b3633d5e58d3, type: 3}
-    - {fileID: 8300000, guid: a6f516082976cc94fb2708a6eabf88be, type: 3}
-    - {fileID: 8300000, guid: d19a3376eef06394f8975390dd45a487, type: 3}
-    - {fileID: 8300000, guid: 8a860fd4a9e44f342a33b69781ea7ecd, type: 3}
+    - {fileID: 8300000, guid: 7cf685f790548b74d8eb0d92333dd9d6, type: 3}
   - type: 13
     clips:
     - {fileID: 8300000, guid: 1a8cc7cce452b2a48a80cfa97511e7ca, type: 3}
