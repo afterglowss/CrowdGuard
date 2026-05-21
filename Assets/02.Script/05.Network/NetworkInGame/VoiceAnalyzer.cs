@@ -39,7 +39,7 @@ public class VoiceAnalyzer : MonoBehaviour
             // 1초 동안 기다림 (초당 1번만 계산)
             yield return new WaitForSeconds(LoopSize);
             var maxLoudness = Mathf.FloorToInt(accumulatedLoudness * 100);
-            Debug.Log($"{LoopSize}초 최대 소음: {maxLoudness}");
+            //Debug.Log($"{LoopSize}초 최대 소음: {maxLoudness}");
             OnSpeakLoud?.Invoke(maxLoudness);
             accumulatedLoudness = 0f;
 

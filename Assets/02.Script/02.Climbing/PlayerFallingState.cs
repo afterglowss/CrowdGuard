@@ -37,6 +37,7 @@ public class PlayerFallingState : PlayerState
     private float   _fallTimer;
     private bool    _respawnTriggered;
     private float   _escapeTimer;   // 진입 직후 벽 충돌 무시 구간
+    private AudioSource _fallingSFXSource;   // 추락 루핑 사운드 핸들
 
     private CharacterController      _charController;
     private Rigidbody                _rigid;
@@ -49,7 +50,13 @@ public class PlayerFallingState : PlayerState
 
     public override void Enter()
     {
-        AudioManager.instance.PlaySFX(AudioManager.SFXType.Falling, player.xrRigPivot);
+        // 혹시 이전 루핑 사운드가 남아있으면 즉시 정지
+        if (_fallingSFXSource != null && _fallingSFXSource.isPlaying)
+        {
+            _fallingSFXSource.Stop();
+            _fallingSFXSource.loop = false;
+        }
+        _fallingSFXSource = AudioManager.instance.PlaySFXLooping(AudioManager.SFXType.Falling, player.xrRigPivot);
 
         Debug.Log("[FSM] Entered Falling State");
 
@@ -63,12 +70,12 @@ public class PlayerFallingState : PlayerState
         // 엉뚱하게 GroundState로 전환되는 버그가 발생합니다.
         player.CurrentWalkableZone = null;
 
-        // 바일 강제 분리 — ClimbingState에서 진입 시 IsAttachedToWall이 true인 채로
-        // IceAxe 이벤트가 발생하면 OnStateChangedHandler가 ClimbingState로 되돌리는
-        // 버그를 방지합니다. (PlayerController.OnStateChangedHandler의 FallingState
-        // 가드와 함께 동작해 두 겹으로 보호합니다.)
-        if (player.leftAxe  != null) player.leftAxe.IsAttachedToWall  = false;
-        if (player.rightAxe != null) player.rightAxe.IsAttachedToWall = false;
+        // 바일 강제 해제 — XRI SelectExit를 통해 정상 release 흐름을 타므로
+        // IsHeld, IsAttachedToWall, InteractorTransform 등 모든 상태가 정리됩니다.
+        // (PlayerController.OnStateChangedHandler의 FallingState 가드와 함께
+        //  동작해 ClimbingState로 되돌아가는 버그를 두 겹으로 방지합니다.)
+        if (player.leftAxe  != null) player.leftAxe.ForceRelease();
+        if (player.rightAxe != null) player.rightAxe.ForceRelease();
 
         // XR 이동 스크립트 비활성화
         _disabledXRScripts.Clear();
@@ -127,6 +134,17 @@ public class PlayerFallingState : PlayerState
 
     public override void Exit()
     {
+        // 안전망: TriggerRespawn을 거치지 않고 Exit된 경우(네트워크 강제 등) 즉시 정지
+        if (_fallingSFXSource != null)
+        {
+            if (_fallingSFXSource.isPlaying)
+            {
+                _fallingSFXSource.Stop();
+                _fallingSFXSource.loop = false;
+            }
+            _fallingSFXSource = null;
+        }
+
         foreach (var script in _disabledXRScripts)
             if (script != null) script.enabled = true;
         _disabledXRScripts.Clear();
@@ -250,6 +268,10 @@ public class PlayerFallingState : PlayerState
     private void TriggerRespawn()
     {
         _respawnTriggered = true;
+
+        // 화면 암전과 동시에 추락 사운드 FadeOut
+        AudioManager.instance.StopSFXWithFade(_fallingSFXSource, player.respawnFadeOutDuration);
+        _fallingSFXSource = null;
 
         if (ScreenEffectManager.Instance != null)
         {

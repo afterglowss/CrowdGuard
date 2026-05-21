@@ -344,6 +344,7 @@ MonoBehaviour:
   _requiredTurns: 1
   _detachThreshold: -0.1
   _reinsertCooldown: 0.5
+  _insertLerpDuration: 0.15
 --- !u!114 &-8056019070804926060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,6 +425,7 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: -8056019070804926060}
   - {fileID: 7832244951159037417}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &4354946247571774646

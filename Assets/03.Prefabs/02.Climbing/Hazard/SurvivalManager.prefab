@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentFreezeGauge: 0
-  isRapidFreezing: 0
-  isRestoring: 0
+  _isRapidFreezing: 0
+  _isRestoring: 0
   restoreRate: 100
   editorFreezeGauge: 0
 --- !u!114 &7107712282754542789

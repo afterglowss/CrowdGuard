@@ -64,13 +64,9 @@ namespace Capstone.Photon
             yield return new WaitUntil(() => runner.IsInSession);
             Debug.Log("Reconnected to the Cloud!");
         }
-        
-        
-        /// <summary>
-        /// 멀티 로비 씬으로 입장
-        /// </summary>
-        /// <returns></returns>
-        public async Task<bool> StartGame()
+
+
+        public async Task<bool> StartPrivateGame(string sessionName)
         {
             NetworkSceneInfo networkSceneInfo = default;
             networkSceneInfo.AddSceneRef(SceneRef.FromIndex(1),LoadSceneMode.Single, activeOnLoad: true);
@@ -78,10 +74,17 @@ namespace Capstone.Photon
             var startGameArgs = new StartGameArgs()
             {
                 GameMode = GameMode.Shared,
-                PlayerCount = 4,
-                Scene = networkSceneInfo,
+                SessionName = sessionName,
+                PlayerCount = 2,
+                IsOpen = false,
+                Scene = networkSceneInfo
             };
+            
+            return await StartGame(startGameArgs);
+        }
 
+        public async Task<bool> StartGame(StartGameArgs startGameArgs)
+        {
             InstanceRunner = InstantiateRunner("GameRunner");
  
             Debug.Log("Starting game...");
@@ -100,6 +103,25 @@ namespace Capstone.Photon
                 Debug.LogError($"Exception during StartGame: {e.Message}");
                 return false;
             }
+        }
+        
+        /// <summary>
+        /// 멀티 로비 씬으로 입장
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> StartMatchGame()
+        {
+            NetworkSceneInfo networkSceneInfo = default;
+            networkSceneInfo.AddSceneRef(SceneRef.FromIndex(1),LoadSceneMode.Single, activeOnLoad: true);
+
+            var startGameArgs = new StartGameArgs()
+            {
+                GameMode = GameMode.Shared,
+                PlayerCount = 4,
+                Scene = networkSceneInfo,
+            };
+
+            return await StartGame(startGameArgs);
         }
         NetworkRunner InstantiateRunner(string runnerName)
         {

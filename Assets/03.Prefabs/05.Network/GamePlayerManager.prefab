@@ -46,11 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 0
+  SortKey: 2614201324
   ObjectInterest: 1
-  Flags: 262144
+  Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: 8923902849604296054}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &8923902849604296054
 MonoBehaviour:
@@ -112,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 5379304984727071042, guid: 0bb6c91ca0c2e0b42a309bc4d8be0ac4, type: 3}
-  localController: {fileID: 0}
+  localController: {fileID: 7229220600614218450, guid: 60346070c3df30e41b0cd212f61d328b, type: 3}
 --- !u!1001 &8670919960859000061
 PrefabInstance:
   m_ObjectHideFlags: 0

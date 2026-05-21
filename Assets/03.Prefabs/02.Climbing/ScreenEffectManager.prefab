@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac957807f718cd841aa50e26247b83e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vignetteImage: {fileID: 0}
-  blackScreenImage: {fileID: 0}
+  fadeQuad: {fileID: 0}
+  vignetteQuad: {fileID: 0}
+  quadDistance: 0.15
+  quadScale: 0.5

@@ -1,3 +1,4 @@
+using SimpleAudioManager;
 using UnityEngine;
 
 public class HazardVFXController : MonoBehaviour
@@ -22,6 +23,7 @@ public class HazardVFXController : MonoBehaviour
             {
                 // 프리팹을 생성하지 않고, 씬에 있는 시스템의 Play 함수를 호출합니다!
                 avalancheData.PathSystem.PlayAvalanche();
+                AudioManager.instance.PlaySFX(AudioManager.SFXType.Avalanche, transform);
                 Debug.Log($"[HazardVFXController] 3초 대기 완료. {avalancheData.PathSystem.gameObject.name} 눈사태 재생 시작!");
             }
         }

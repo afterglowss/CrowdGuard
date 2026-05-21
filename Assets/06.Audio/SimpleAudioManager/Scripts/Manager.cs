@@ -228,6 +228,28 @@ namespace SimpleAudioManager
             AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Count)];
             PlaySFXInternal(clip, spawnTransform, sfxVolume);
         }
+        public void PlaySFX(SFXType type, Transform spawnTransform, float clipVolume)
+        {
+            if (sfxDict == null || !sfxDict.TryGetValue(type, out List<AudioClip> clips) || clips == null || clips.Count == 0)
+            {
+                Debug.LogWarning($"No SFX found for {type}");
+                return;
+            }
+
+            AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Count)];
+            PlaySFXInternal(clip, spawnTransform, clipVolume);
+        }
+        public void PlaySFXNoRand(SFXType type, Transform spawnTransform, float clipVolume = 1f)
+        {
+            if (sfxDict == null || !sfxDict.TryGetValue(type, out List<AudioClip> clips) || clips == null || clips.Count == 0)
+            {
+                Debug.LogWarning($"No SFX found for {type}");
+                return;
+            }
+
+            AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Count)];
+            PlaySFXInternal(clip, spawnTransform,  clipVolume, false);
+        }
 
         public class PooledSFXSourceState : MonoBehaviour
         {
@@ -264,6 +286,77 @@ namespace SimpleAudioManager
                 if (state != null)
                     state.baseVolume = 1f;
             }
+        }
+
+        /// <summary>
+        /// 지정한 SFX를 루핑으로 재생하고 AudioSource를 반환합니다.
+        /// 반환된 AudioSource는 StopSFXWithFade()로 정지하세요.
+        /// </summary>
+        public AudioSource PlaySFXLooping(SFXType type, Transform spawnTransform)
+        {
+            if (sfxDict == null || !sfxDict.TryGetValue(type, out List<AudioClip> clips) || clips == null || clips.Count == 0)
+            {
+                Debug.LogWarning($"No SFX found for {type}");
+                return null;
+            }
+
+            if (sfxObject == null)
+            {
+                Debug.LogWarning("SFX AudioSource prefab is not assigned.");
+                return null;
+            }
+
+            AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Count)];
+            if (clip == null) return null;
+
+            AudioSource source = GetAvailableSFXSource();
+            Transform target = spawnTransform != null ? spawnTransform : transform;
+
+            source.transform.position = target.position;
+            source.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
+            source.clip = clip;
+            source.loop = true;
+
+            float clampedVolume = Mathf.Clamp01(sfxVolume);
+            PooledSFXSourceState state = source.GetComponent<PooledSFXSourceState>();
+            if (state != null) state.baseVolume = clampedVolume;
+
+            source.volume = clampedVolume;
+            source.Play();
+
+            return source;
+        }
+
+        /// <summary>
+        /// PlaySFXLooping으로 얻은 AudioSource를 fadeDuration 동안 FadeOut 후 정지합니다.
+        /// </summary>
+        public void StopSFXWithFade(AudioSource source, float fadeDuration)
+        {
+            if (source == null || !source.isPlaying) return;
+            StartCoroutine(_FadeSFX(source, source.volume, 0f, fadeDuration));
+        }
+
+        private IEnumerator _FadeSFX(AudioSource source, float startVolume, float endVolume, float duration)
+        {
+            duration = Mathf.Max(duration, 0f);
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                yield return new WaitForEndOfFrame();
+                if (source == null) yield break;
+                elapsed += Time.unscaledDeltaTime;
+                source.volume = Mathf.SmoothStep(startVolume, endVolume, elapsed / duration);
+            }
+
+            if (source == null) yield break;
+
+            source.volume = 0f;
+            source.Stop();
+            source.loop = false;
+
+            PooledSFXSourceState state = source.GetComponent<PooledSFXSourceState>();
+            if (state != null) state.baseVolume = 1f;
         }
         #endregion
 
@@ -370,7 +463,7 @@ namespace SimpleAudioManager
             return CreateSFXSource();
         }
 
-        private void PlaySFXInternal(AudioClip clip, Transform spawnTransform, float volume)
+        private void PlaySFXInternal(AudioClip clip, Transform spawnTransform, float volume, bool randomPitch = true)
         {
             if (clip == null)
                 return;
@@ -385,7 +478,7 @@ namespace SimpleAudioManager
             Transform target = spawnTransform != null ? spawnTransform : transform;
 
             source.transform.position = target.position;
-            source.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
+            source.pitch = randomPitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
             source.clip = clip;
 
             float clampedVolume = Mathf.Clamp01(volume);

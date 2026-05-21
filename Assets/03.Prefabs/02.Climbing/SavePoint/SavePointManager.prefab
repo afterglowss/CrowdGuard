@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSpawnPosition: {x: 0, y: 0, z: 0}
-  respawnOffset: {x: 0, y: 0, z: -1.5}
+  wallNormalOffset: 0.3
+  chestHeightOffset: 1.2
   twoPlayerSpacing: 0.6
 --- !u!114 &4587342727840047270
 MonoBehaviour:

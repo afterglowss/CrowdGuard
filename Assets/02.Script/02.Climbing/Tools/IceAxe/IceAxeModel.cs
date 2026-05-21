@@ -22,6 +22,9 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         // --- Events (상태 변화를 Controller나 View에 알림) ---
         public event Action<bool> OnHeldStateChanged;
         public event Action<bool> OnAttachedStateChanged;
+        public event Action OnRockBounce;
+
+        public void NotifyRockBounce() => OnRockBounce?.Invoke();
 
         // --- Tracker ---
         [Tooltip("현재 바일을 쥐고 있는 진짜 손(XR Controller)의 물리적 Transform")]
@@ -59,5 +62,12 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
                 }
             }
         }
+
+        /// <summary>
+        /// IceAxeController.ForceRelease()에 위임합니다.
+        /// 추락 등 외부에서 바일을 강제로 손에서 놓을 때 사용하세요.
+        /// </summary>
+        public void ForceRelease()
+            => GetComponent<IceAxeController>()?.ForceRelease();
     }
 }

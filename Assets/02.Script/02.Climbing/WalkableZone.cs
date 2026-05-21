@@ -22,6 +22,10 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class WalkableZone : MonoBehaviour
 {
+    [Tooltip("체크 시 이 구역 안에서는 ClimbingState 진입을 차단합니다.\n" +
+             "GroundState로 진입한 이후 바일을 찍어도 등반 상태로 전환되지 않습니다.")]
+    [SerializeField] private bool _blockClimbing = false;
+
     [Tooltip("체크하면 아래 값을 지면 Y로 사용합니다.\n" +
              "체크 해제 시 이 오브젝트의 Y 좌표를 자동으로 사용합니다.")]
     [SerializeField] private bool _useCustomGroundY = false;
@@ -55,6 +59,7 @@ public class WalkableZone : MonoBehaviour
 
         controller.GroundState.SetGroundY(GroundY);
         controller.CurrentWalkableZone = this;
+        controller.IsClimbingBlocked = _blockClimbing;
 
         if (controller.CurrentState != controller.GroundState)
         {
@@ -75,6 +80,7 @@ public class WalkableZone : MonoBehaviour
         if (controller.CurrentWalkableZone != this) return;
 
         controller.CurrentWalkableZone = null;
+        controller.IsClimbingBlocked = false;
 
         // ClimbingState 중에 존을 벗어난 경우: 클라이밍은 유지하되
         // CurrentWalkableZone만 null로 처리 → 바일을 놓으면 IdleState로 복귀

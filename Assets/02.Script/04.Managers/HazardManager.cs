@@ -20,26 +20,9 @@ public class AvalancheData : HazardData
 
 public class BlizzardData : HazardData
 {
-    public float Duration;
-    public float FreezeMultiplier;
+    public int Index = -1;
 }
 
-/// <summary>
-/// 인스펙터에서 미리 배치해두는 눈보라 항목.
-/// spawnPoint에 씬의 빈 오브젝트를 연결해 위치를 잡아둡니다.
-/// </summary>
-[System.Serializable]
-public class BlizzardEntry
-{
-    [Tooltip("눈보라 발생 위치. 씬에 빈 오브젝트를 만들어 연결하세요.")]
-    public Transform spawnPoint;
-
-    [Tooltip("눈보라 지속 시간(초)")]
-    public float duration = 5f;
-
-    [Tooltip("동결 게이지 증가 배율 (SurvivalManager.isRapidFreezing 활성 시 적용)")]
-    public float freezeMultiplier = 4f;
-}
 
 public class RockfallData : HazardData
 {
@@ -60,8 +43,16 @@ public class HazardManager : NetworkBehaviour
     [Header("낙석 오브젝트 목록 (씬에 배치된 FallingRock, 인덱스 0번부터)")]
     public List<FallingRock> rockSystems = new List<FallingRock>();
 
-    [Header("눈보라 항목 목록 (인덱스 0번부터)")]
-    public List<BlizzardEntry> blizzardEntries = new List<BlizzardEntry>();
+    [Header("눈보라 파티클 시스템 목록 (씬에 배치된 BlizzardSystem 오브젝트)")]
+    public List<BlizzardSystem> blizzardSystems = new List<BlizzardSystem>();
+
+    [Header("눈보라 공통 설정")]
+    public float blizzardDuration = 5f;
+    public float blizzardFreezeMultiplier = 4f;
+
+    [Header("경고 설정")]
+    [Tooltip("재난 발생 전 경고 시간(초). 이 시간 동안 센서 등 UI가 알림을 표시합니다.")]
+    public float warningDuration = 3f;
 
     private void Awake()
     {
@@ -82,7 +73,6 @@ public class HazardManager : NetworkBehaviour
             Debug.LogWarning($"[HazardManager] avalancheSystems[{index}] 없음. 인스펙터 리스트를 확인하세요.");
             return;
         }
-        AudioManager.instance.PlaySFX(AudioManager.SFXType.Avalanche, transform);
 
         Debug.Log("AvalancheTrigger");
         AvalanchePathSystem system = avalancheSystems[index];
@@ -110,7 +100,7 @@ public class HazardManager : NetworkBehaviour
         Debug.Log("RockFall");
         var data = new RockfallData
         {
-            Location = rockSystems[index].transform.position,
+            Location = rockSystems[index].GetSpawnPosition(),
             Index = index
         };
         TriggerHazardExternal(data);
@@ -137,19 +127,17 @@ public class HazardManager : NetworkBehaviour
     [Rpc(RpcSources.All,RpcTargets.All)]
     public void RPC_TriggerBlizzard(int index)
     {
-        if (index < 0 || index >= blizzardEntries.Count)
+        if (index < 0 || index >= blizzardSystems.Count)
         {
-            Debug.LogWarning($"[HazardManager] blizzardEntries[{index}] 없음. 인스펙터 리스트를 확인하세요.");
+            Debug.LogWarning($"[HazardManager] blizzardSystems[{index}] 없음. 인스펙터 리스트를 확인하세요.");
             return;
         }
 
         Debug.Log("Blizzard");
-        BlizzardEntry entry = blizzardEntries[index];
         var data = new BlizzardData
         {
-            Location        = entry.spawnPoint != null ? entry.spawnPoint.position : Vector3.zero,
-            Duration        = entry.duration,
-            FreezeMultiplier = entry.freezeMultiplier
+            Location = blizzardSystems[index].GetSpawnPosition(),
+            Index    = index
         };
         TriggerHazardExternal(data);
     }
@@ -167,9 +155,9 @@ public class HazardManager : NetworkBehaviour
     private IEnumerator HazardSequenceRoutine(HazardData data)
     {
         OnHazardWarning?.Invoke(data);
-        Debug.Log($"[HazardManager] 경고! 3초 후 {data.GetType().Name} 발생 예정! (위치: {data.Location})");
+        Debug.Log($"[HazardManager] 경고! {warningDuration}초 후 {data.GetType().Name} 발생 예정! (위치: {data.Location})");
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(warningDuration);
 
         OnHazardTriggered?.Invoke(data);
         Debug.Log($"[HazardManager] {data.GetType().Name} 발생! (위치: {data.Location})");
@@ -177,7 +165,10 @@ public class HazardManager : NetworkBehaviour
         switch (data)
         {
             case BlizzardData blizzard:
-                StartCoroutine(ApplyBlizzardPenaltyRoutine(blizzard));
+                if (blizzard.Index >= 0 && blizzard.Index < blizzardSystems.Count)
+                    blizzardSystems[blizzard.Index].Activate(blizzardDuration);
+                if (HasStateAuthority)
+                    StartCoroutine(ApplyBlizzardPenaltyRoutine());
                 AudioManager.instance.PlaySFX(AudioManager.SFXType.Blizzard, transform);
                 break;
             case AvalancheData avalanche:
@@ -192,14 +183,14 @@ public class HazardManager : NetworkBehaviour
 
     // ===================== 재난별 로직 =====================
 
-    private IEnumerator ApplyBlizzardPenaltyRoutine(BlizzardData data)
+    private IEnumerator ApplyBlizzardPenaltyRoutine()
     {
         if (SurvivalManager.Instance != null)
         {
             SurvivalManager.Instance.SetRapidFreezing(true);
-            yield return new WaitForSeconds(data.Duration);
+            yield return new WaitForSeconds(blizzardDuration);
             SurvivalManager.Instance.SetRapidFreezing(false);
-            Debug.Log($"[HazardManager] 눈보라 종료 ({data.Duration}초).");
+            Debug.Log($"[HazardManager] 눈보라 종료 ({blizzardDuration}초).");
         }
     }
 
@@ -222,9 +213,9 @@ public class HazardManager : NetworkBehaviour
         }
     }
 
-    public void StartCyclicRockfall(int rockfallIndex, float intervalSeconds = 20f)
+    public Coroutine StartCyclicRockfall(int rockfallIndex, float intervalSeconds = 20f)
     {
-        StartCoroutine(CyclicRockfallRoutine(rockfallIndex, intervalSeconds));
+        return StartCoroutine(CyclicRockfallRoutine(rockfallIndex, intervalSeconds));
     }
 
     private IEnumerator CyclicRockfallRoutine(int index, float interval)

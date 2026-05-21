@@ -81,3 +81,4 @@ MonoBehaviour:
   timer: {fileID: 931807205335688527}
   _FallCount: 0
   _AnchorCount: 0
+  _CoinCount: 0

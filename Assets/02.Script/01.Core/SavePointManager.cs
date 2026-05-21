@@ -45,6 +45,13 @@ public class SavePointManager : NetworkBehaviour
     /// <summary>앵커 벽 파괴 시 세이브 포인트가 텐트로 복원될 때 발행됩니다.</summary>
     public static event Action<Vector3> OnSavePointRevertedToTent;
 
+    /// <summary>
+    /// 텐트 퇴장으로 텐트 세이브 포인트가 갱신될 때 발행됩니다.
+    /// RPC_SetTentSavePoint 내부에서 발행되므로 모든 클라이언트에서 자동으로 실행됩니다.
+    /// TentSafeZone이 구독하여 안전 구역을 등록합니다.
+    /// </summary>
+    public static event Action<Vector3> OnTentSavePointUpdated;
+
     /// <summary>가장 최근 세이브 포인트 위치 (리스폰 오프셋 미포함 순수 좌표).</summary>
     public Vector3 LastSavePosition => lastSafePosition;
 
@@ -184,6 +191,7 @@ public class SavePointManager : NetworkBehaviour
         _tentSavePosition  = position;
         _hasTentSave       = true;
         OnSavePointChanged?.Invoke(lastSafePosition);
+        OnTentSavePointUpdated?.Invoke(position);
     }
 
     /// <summary>

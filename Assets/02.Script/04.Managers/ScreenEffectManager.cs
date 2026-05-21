@@ -212,6 +212,16 @@ public class ScreenEffectManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 추락 비네팅을 즉시 초기화합니다.
+    /// 텐트 입장 등 FallingState 없이 상태가 전환될 때 잔류 비네팅을 정리합니다.
+    /// </summary>
+    public void ResetVignette()
+    {
+        StopAllEffects();
+        SetQuadAlpha(_vignetteMat, 0f);
+    }
+
+    /// <summary>
     /// 리스폰 시퀀스:
     ///   1. 빠르게 암전 (fadeOutDuration)
     ///   2. onBlackScreen 콜백 실행 → 이 시점에 텔레포트

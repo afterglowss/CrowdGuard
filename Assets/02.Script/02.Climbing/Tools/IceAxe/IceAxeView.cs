@@ -20,6 +20,8 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         [Header("Haptics (진동 피드백)")]
         [Tooltip("빙벽 타격 시 재생할 햅틱 프로파일 (에셋)")]
         [SerializeField] private CrowdGuard.XR.Haptics.HapticProfile _onAttachHaptic;
+        [Tooltip("바위 타격 시 재생할 햅틱 프로파일 (에셋) — Profile_IceAxeRockAttach")]
+        [SerializeField] private CrowdGuard.XR.Haptics.HapticProfile _onRockBounceHaptic;
 
         private RetractableObject _retractableObject;
 
@@ -37,6 +39,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
             {
                 _model.OnHeldStateChanged += HandleHeldState;
                 _model.OnAttachedStateChanged += HandleAttachedState;
+                _model.OnRockBounce += SendRockHaptic;
             }
         }
 
@@ -46,6 +49,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
             {
                 _model.OnHeldStateChanged -= HandleHeldState;
                 _model.OnAttachedStateChanged -= HandleAttachedState;
+                _model.OnRockBounce -= SendRockHaptic;
             }
         }
 
@@ -54,7 +58,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         {
             if (isHeld)
             {
-                Debug.Log($"[IceAxeView - {_model.Side}] 손에 장착되었습니다. (컨트롤러 Transform 매칭 시작)");
+                //Debug.Log($"[IceAxeView - {_model.Side}] 손에 장착되었습니다. (컨트롤러 Transform 매칭 시작)");
                 _rb.useGravity = false;
                 _rb.isKinematic = false;
                 // 잡았으므로 복구 타이머 취소 (RetractableObject가 자체적으로 처리)
@@ -63,7 +67,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
             {
                 if (!_model.IsAttachedToWall)
                 {
-                    Debug.Log($"[IceAxeView - {_model.Side}] 허공에서 바일을 놓았습니다! (낙하 및 자동 복구 대기)");
+                    //Debug.Log($"[IceAxeView - {_model.Side}] 허공에서 바일을 놓았습니다! (낙하 및 자동 복구 대기)");
                     _rb.useGravity = true;
                     _rb.isKinematic = false;
                 }
@@ -74,7 +78,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         {
             if (isAttached)
             {
-                Debug.Log($"[IceAxeView] {_model.Side} 벽에 박혔습니다. ");
+                //Debug.Log($"[IceAxeView] {_model.Side} 벽에 박혔습니다. ");
 
                 // XRI의 위치/회전 추적 비활성화 (Kinematic 모드에서 벽 고정)
                 if (_grabInteractable != null)
@@ -88,7 +92,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
             }
             else
             {
-                Debug.Log($"[IceAxeView - {_model.Side}] 벽에서 빠졌습니다. (물리 엔진 다시 가동)");
+                //Debug.Log($"[IceAxeView - {_model.Side}] 벽에서 빠졌습니다. (물리 엔진 다시 가동)");
 
                 // XRI 추적 복원
                 if (_grabInteractable != null)
@@ -116,6 +120,15 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         }
 
         // ---------- Haptics ----------
+
+        private void SendRockHaptic()
+        {
+            if (_grabInteractable == null || _onRockBounceHaptic == null) return;
+            var interactors = _grabInteractable.interactorsSelecting;
+            if (interactors.Count == 0) return;
+            var provider = (interactors[0] as MonoBehaviour)?.GetComponentInParent<CrowdGuard.XR.Haptics.IHapticProvider>();
+            provider?.PlayHaptic(_onRockBounceHaptic);
+        }
 
         private void SendHaptic()
         {
