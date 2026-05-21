@@ -24,6 +24,8 @@ namespace CrowdGuard.XR.Haptics
         [Tooltip("True로 두면 Meta Haptic Clip을 무시하고 XRI 기본 햅틱(Fallback)만 강제로 사용합니다.")]
         [SerializeField] private bool _forceXRIFallback = false;
 
+        private HapticClipPlayer _loopingPlayer;
+
         private void Awake()
         {
             if (_impulsePlayer == null)
@@ -50,6 +52,11 @@ namespace CrowdGuard.XR.Haptics
                 _metaControllerContext = isLeft ? Controller.Left : Controller.Right;
             }
             Debug.Log($"[HapticProvider] Awake: {gameObject.name} 초기화 완료! 방향={_metaControllerContext}, XRI-Player={(_impulsePlayer != null ? "연결됨" : "없음")}");
+        }
+
+        private void OnDisable()
+        {
+            StopHaptic();
         }
 
         public void PlayHaptic(HapticProfile profile)
@@ -93,6 +100,42 @@ namespace CrowdGuard.XR.Haptics
             else
             {
                 Debug.Log($"[HapticProvider] XRI Fallback 조건 미달로 재생 취소. (Player={_impulsePlayer!=null}, Amp={amplitude}, Dur={duration}, Multiplier={_globalAmplitudeMultiplier})");
+            }
+        }
+
+        public void PlayLoopingHaptic(HapticProfile profile)
+        {
+            StopHaptic(); // 기존 루프 정리
+
+            if (profile == null)
+            {
+                Debug.LogWarning($"[HapticProvider] PlayLoopingHaptic 실패: 받은 프로파일이 비어있음! ({gameObject.name})");
+                return;
+            }
+
+            if (profile.clip != null && !_forceXRIFallback)
+            {
+                Debug.Log($"[HapticProvider] Meta Haptic Loop 재생 시작! -> {profile.clip.name} (손: {_metaControllerContext})");
+                _loopingPlayer = new HapticClipPlayer(profile.clip);
+                _loopingPlayer.isLooping = true;
+                _loopingPlayer.amplitude = _globalAmplitudeMultiplier;
+                _loopingPlayer.Play(_metaControllerContext);
+            }
+            else
+            {
+                // XRI 폴백에는 무한 루프 기능이 없으므로 silent fail 처리
+                Debug.Log($"[HapticProvider] Loop Haptic 재생 요청됨. 폴백 미지원으로 재생 건너뜀 (Quest 이외 플랫폼).");
+            }
+        }
+
+        public void StopHaptic()
+        {
+            if (_loopingPlayer != null)
+            {
+                Debug.Log($"[HapticProvider] Loop Haptic 정지! ({gameObject.name})");
+                _loopingPlayer.Stop();
+                _loopingPlayer.Dispose();
+                _loopingPlayer = null;
             }
         }
     }

@@ -15,5 +15,15 @@ namespace CrowdGuard.XR.Haptics
         /// XRI Fallback 용도의 수동 진동 재생
         /// </summary>
         void PlayHaptic(float amplitude, float duration);
+
+        /// <summary>
+        /// Meta Haptic Clip을 루프 형태로 무한 재생 시작
+        /// </summary>
+        void PlayLoopingHaptic(HapticProfile profile);
+
+        /// <summary>
+        /// 현재 재생 중인 루프 햅틱을 정지
+        /// </summary>
+        void StopHaptic();
     }
 }
