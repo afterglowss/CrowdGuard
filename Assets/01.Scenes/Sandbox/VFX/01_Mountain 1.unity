@@ -15368,6 +15368,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: TentSavePoint (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5518834849562046893, guid: ecbfca19c4b3b1d45aa4bfec775d8759, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.073
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518834849562046893, guid: ecbfca19c4b3b1d45aa4bfec775d8759, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.136
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518834849562046893, guid: ecbfca19c4b3b1d45aa4bfec775d8759, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.213
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18973,6 +18985,18 @@ PrefabInstance:
     - target: {fileID: 3612183006100825225, guid: ecbfca19c4b3b1d45aa4bfec775d8759, type: 3}
       propertyPath: m_Name
       value: TentSavePoint (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518834849562046893, guid: ecbfca19c4b3b1d45aa4bfec775d8759, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.145
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518834849562046893, guid: ecbfca19c4b3b1d45aa4bfec775d8759, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518834849562046893, guid: ecbfca19c4b3b1d45aa4bfec775d8759, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.906
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -41223,6 +41247,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: TentSavePoint (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5518834849562046893, guid: ecbfca19c4b3b1d45aa4bfec775d8759, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518834849562046893, guid: ecbfca19c4b3b1d45aa4bfec775d8759, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518834849562046893, guid: ecbfca19c4b3b1d45aa4bfec775d8759, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.26
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -53325,6 +53361,18 @@ PrefabInstance:
     - target: {fileID: 3612183006100825225, guid: ecbfca19c4b3b1d45aa4bfec775d8759, type: 3}
       propertyPath: m_Name
       value: TentSavePoint (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518834849562046893, guid: ecbfca19c4b3b1d45aa4bfec775d8759, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518834849562046893, guid: ecbfca19c4b3b1d45aa4bfec775d8759, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5518834849562046893, guid: ecbfca19c4b3b1d45aa4bfec775d8759, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
