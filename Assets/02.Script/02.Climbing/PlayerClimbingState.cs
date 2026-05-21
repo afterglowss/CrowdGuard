@@ -274,6 +274,12 @@ public class PlayerClimbingState : PlayerState
         // 벽 관통 방지: 실제 이동 방향으로 SphereCast해서 이동량 제한
         deltaWorld = ClampMovementToWall(deltaWorld);
 
+        // 벽 슬라이드로 방향이 바뀐 뒤 로프 한계를 재확인
+        if (player.ropeSystem != null)
+        {
+            player.ropeSystem.LimitMovement(ref deltaWorld);
+        }
+
         // 역방향 카메라 이동
         player.xrRigPivot.position -= deltaWorld;
     }

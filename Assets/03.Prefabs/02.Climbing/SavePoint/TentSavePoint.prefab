@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7484632814453740109}
   - component: {fileID: 5187711397918892041}
   - component: {fileID: 5761075846699253116}
+  - component: {fileID: 6302718500291425369}
   m_Layer: 0
   m_Name: TentSavePoint
   m_TagString: Untagged
@@ -234,6 +235,21 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
+--- !u!114 &6302718500291425369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3612183006100825225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2ecd8fe79872cf49b1c76cd1b90ccbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  safeRadius: 3
+  exteriorPos: {fileID: 5518834849562046893}
+  matchTolerance: 1
 --- !u!1 &3674233496681542299
 GameObject:
   m_ObjectHideFlags: 0

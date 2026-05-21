@@ -74,10 +74,15 @@ public class TentInteriorController : NetworkBehaviour
         var pc = PlayerController.LocalInstance;
         if (pc != null)
         {
-            if (pc.leftAxe  != null) pc.leftAxe.IsAttachedToWall  = false;
-            if (pc.rightAxe != null) pc.rightAxe.IsAttachedToWall = false;
+            // 순서 중요: IdleState로 먼저 전환해야 ForceRelease() 시 OnStateChangedHandler가
+            // ClimbingState 분기를 타지 않아 FallingState(→ 비네팅)로 빠지는 것을 방지합니다.
             pc.ChangeState(pc.IdleState);
+            pc.leftAxe?.ForceRelease();   // IsAttachedToWall 해제 + 손에서 놓기
+            pc.rightAxe?.ForceRelease();
         }
+
+        // 혹시라도 잔류한 추락 비네팅을 텐트 입장 시 명시적으로 초기화합니다.
+        ScreenEffectManager.Instance?.ResetVignette();
 
         if (localXRRig != null)
             localXRRig.position = targetPos;

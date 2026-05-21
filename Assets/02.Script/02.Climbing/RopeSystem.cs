@@ -11,6 +11,9 @@ public class RopeSystem : MonoBehaviour
     [Tooltip("body 트랜스폼 기준 로프 묶음 위치 로컬 오프셋. body가 발 기준이면 Y=1.2~1.4 정도가 가슴 높이.")]
     public Vector3 localTieOffset = new Vector3(0, 1.2f, 0);
     public float maxRopeLength = 3.0f;
+    [Tooltip("파트너 위치 네트워크 지연 보정값(m). 실효 물리 한계 = maxRopeLength - ropePhysicsBuffer.\n" +
+             "집-집 간 테스트에서 장력이 늦게 걸린다면 값을 키우세요. 권장 범위: 0.2~0.5")]
+    public float ropePhysicsBuffer = 0.3f;
 
     [Header("Asset Reference")]
     public Rope assetRope;
@@ -87,8 +90,9 @@ public class RopeSystem : MonoBehaviour
     /// </summary>
     public float GetStretchRatio()
     {
-        if (_myAnchor == null || _partnerAnchor == null) return 0f;
-        float current = Vector3.Distance(_myAnchor.position, _partnerAnchor.position);
+        Transform activeTiePoint = _myPhysicsAnchor != null ? _myPhysicsAnchor : _myAnchor;
+        if (activeTiePoint == null || _partnerAnchor == null) return 0f;
+        float current = Vector3.Distance(activeTiePoint.position, _partnerAnchor.position);
         return Mathf.Clamp01(current / maxRopeLength);
     }
 
@@ -111,9 +115,11 @@ public class RopeSystem : MonoBehaviour
         float currentDistance = Vector3.Distance(myTiePoint, partnerPos);
         float predictedDistance = Vector3.Distance(predictedPos, partnerPos);
 
-        if (predictedDistance > maxRopeLength && predictedDistance > currentDistance)
+        float effectiveMax = Mathf.Max(0.1f, maxRopeLength - ropePhysicsBuffer);
+
+        if (predictedDistance > effectiveMax && predictedDistance > currentDistance)
         {
-            if (currentDistance >= maxRopeLength)
+            if (currentDistance >= effectiveMax)
             {
                 proposedDeltaWorld = Vector3.zero;
                 return;
@@ -126,7 +132,7 @@ public class RopeSystem : MonoBehaviour
             if (a < 0.0001f) return;
 
             float b = 2f * Vector3.Dot(V, L);
-            float c = Vector3.Dot(L, L) - (maxRopeLength * maxRopeLength);
+            float c = Vector3.Dot(L, L) - (effectiveMax * effectiveMax);
 
             float discriminant = (b * b) - (4f * a * c);
 

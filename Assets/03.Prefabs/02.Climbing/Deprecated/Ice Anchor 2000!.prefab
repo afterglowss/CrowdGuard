@@ -854,6 +854,7 @@ MonoBehaviour:
   _handleSimpleInteractable: {fileID: 1859562585079711282}
   _handleVisual: {fileID: 8418324240887960887}
   _totalHandleAngle: 360
+  _maxPenetrationDepth: 0.05
 --- !u!114 &1980777650916136036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -873,6 +874,8 @@ MonoBehaviour:
   _handleVisual: {fileID: 8418324240887960887}
   _requiredTurns: 1
   _detachThreshold: -0.1
+  _reinsertCooldown: 0.5
+  _insertLerpDuration: 0.15
 --- !u!114 &-8302912553190036241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -890,7 +893,8 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects:
   - {fileID: 2371931068997508133}
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: -8056019070804926060}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &-8056019070804926060
 MonoBehaviour:

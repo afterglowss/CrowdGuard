@@ -63,12 +63,12 @@ public class PlayerFallingState : PlayerState
         // 엉뚱하게 GroundState로 전환되는 버그가 발생합니다.
         player.CurrentWalkableZone = null;
 
-        // 바일 강제 분리 — ClimbingState에서 진입 시 IsAttachedToWall이 true인 채로
-        // IceAxe 이벤트가 발생하면 OnStateChangedHandler가 ClimbingState로 되돌리는
-        // 버그를 방지합니다. (PlayerController.OnStateChangedHandler의 FallingState
-        // 가드와 함께 동작해 두 겹으로 보호합니다.)
-        if (player.leftAxe  != null) player.leftAxe.IsAttachedToWall  = false;
-        if (player.rightAxe != null) player.rightAxe.IsAttachedToWall = false;
+        // 바일 강제 해제 — XRI SelectExit를 통해 정상 release 흐름을 타므로
+        // IsHeld, IsAttachedToWall, InteractorTransform 등 모든 상태가 정리됩니다.
+        // (PlayerController.OnStateChangedHandler의 FallingState 가드와 함께
+        //  동작해 ClimbingState로 되돌아가는 버그를 두 겹으로 방지합니다.)
+        if (player.leftAxe  != null) player.leftAxe.ForceRelease();
+        if (player.rightAxe != null) player.rightAxe.ForceRelease();
 
         // XR 이동 스크립트 비활성화
         _disabledXRScripts.Clear();
