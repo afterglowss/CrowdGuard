@@ -56,8 +56,17 @@ public class BlizzardZone : MonoBehaviour
             StopCycle();
     }
 
+    private bool IsAuthority()
+    {
+        if (HazardManager.Instance == null) return true;
+        var runner = HazardManager.Instance.Runner;
+        if (runner == null || !runner.IsRunning) return true;
+        return HazardManager.Instance.HasStateAuthority;
+    }
+
     private void StartCycle()
     {
+        if (!IsAuthority()) return;
         if (_cyclicCoroutine != null) return; // 이미 실행 중
         if (HazardManager.Instance == null) return;
 

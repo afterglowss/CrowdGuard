@@ -54,8 +54,9 @@ namespace CrowdGuard.Climbing.Tools.Common
         private void OnGrabbed(SelectEnterEventArgs args)
         {
             AudioManager.instance.PlaySFX(AudioManager.SFXType.TakeFromPouch, transform);
-            // 잡힐 때 부모(파우치)로부터 분리
             transform.SetParent(null);
+            _rb.isKinematic = false;
+            _rb.useGravity = true;
             CancelReturn();
         }
 
@@ -99,10 +100,8 @@ namespace CrowdGuard.Climbing.Tools.Common
 
             if (!_grabInteractable.isSelected && pouchTransform != null)
             {
-                Debug.Log($"[{gameObject.name}] 파우치로 복귀합니다.");
+                //Debug.Log($"[{gameObject.name}] 파우치로 복귀합니다.");
 
-                _rb.velocity = Vector3.zero;
-                _rb.angularVelocity = Vector3.zero;
                 _rb.isKinematic = true;
                 _rb.useGravity = false;
 

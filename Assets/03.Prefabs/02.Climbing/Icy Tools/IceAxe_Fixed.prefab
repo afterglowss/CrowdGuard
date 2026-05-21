@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _model: {fileID: 0}
+  _depthCorrector: {fileID: 8303233059140621979}
   _minAttachVelocity: 1.5
 --- !u!54 &9221274519946504683
 Rigidbody:
@@ -506,6 +507,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 7647899326263572299}
+  - {fileID: 8303233059140621979}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &7647899326263572299
 MonoBehaviour:
@@ -546,6 +548,7 @@ MonoBehaviour:
   _rb: {fileID: 9221274519946504683}
   _tipCollider: {fileID: 1994619414009280514}
   _maxCorrectionPerFrame: 0.15
+  _surfaceMargin: 0
 --- !u!1 &4420054416689423032
 GameObject:
   m_ObjectHideFlags: 0

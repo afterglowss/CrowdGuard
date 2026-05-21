@@ -19,6 +19,7 @@ namespace Capstone.Photon
         public ObjectTracker leftHand;
         public ObjectTracker rightHand;
 
+        public List<ObjectTracker> headTrackers;
 
         public virtual void Init(LocalPlayerController controller)
         {
@@ -31,6 +32,7 @@ namespace Capstone.Photon
             leftHand.Init(controller.leftHand);
             rightHand.Init(controller.rightHand);
 
+            headTrackers.ForEach(t => t.Init(controller.head));
         }
         
         

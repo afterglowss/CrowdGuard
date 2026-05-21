@@ -40,11 +40,7 @@ namespace MSEX.Climbing.Tools.DebugScripts
         [ContextMenu("Spawn Dummy Blizzard (눈보라)")]
         public void SpawnDummyBlizzard()
         {
-            SpawnHazard(new BlizzardData 
-            { 
-                Duration = 5f, 
-                FreezeMultiplier = 2f 
-            });
+            SpawnHazard(new BlizzardData());
         }
 
         private void SpawnHazard(HazardData hazardData)

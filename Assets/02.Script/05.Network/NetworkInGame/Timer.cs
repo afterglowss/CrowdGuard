@@ -42,7 +42,7 @@ public class Timer : NetworkBehaviour
 
     private int _lastDisplayedSecond;
     
-    public Action<int> onTimerUpdate;
+    //public Action<int> onTimerUpdate;
 
 
     public override void FixedUpdateNetwork()
@@ -56,14 +56,15 @@ public class Timer : NetworkBehaviour
         {
             // 1초가 지나면 
             RPC_TimerUpdate(currentSecond);
-            _lastDisplayedSecond = currentSecond;
+            
         }
     }
 
     [Rpc(RpcSources.StateAuthority,RpcTargets.All)]
     void RPC_TimerUpdate(int time)
     {
-        onTimerUpdate?.Invoke(time);
+        //onTimerUpdate?.Invoke(time);
+        _lastDisplayedSecond = time;
         //Debug.Log(time);
     }
 }

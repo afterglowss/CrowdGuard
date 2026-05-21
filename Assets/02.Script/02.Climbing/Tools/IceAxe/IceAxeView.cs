@@ -54,7 +54,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         {
             if (isHeld)
             {
-                Debug.Log($"[IceAxeView - {_model.Side}] 손에 장착되었습니다. (컨트롤러 Transform 매칭 시작)");
+                //Debug.Log($"[IceAxeView - {_model.Side}] 손에 장착되었습니다. (컨트롤러 Transform 매칭 시작)");
                 _rb.useGravity = false;
                 _rb.isKinematic = false;
                 // 잡았으므로 복구 타이머 취소 (RetractableObject가 자체적으로 처리)
@@ -63,7 +63,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
             {
                 if (!_model.IsAttachedToWall)
                 {
-                    Debug.Log($"[IceAxeView - {_model.Side}] 허공에서 바일을 놓았습니다! (낙하 및 자동 복구 대기)");
+                    //Debug.Log($"[IceAxeView - {_model.Side}] 허공에서 바일을 놓았습니다! (낙하 및 자동 복구 대기)");
                     _rb.useGravity = true;
                     _rb.isKinematic = false;
                 }
@@ -74,7 +74,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         {
             if (isAttached)
             {
-                Debug.Log($"[IceAxeView] {_model.Side} 벽에 박혔습니다. ");
+                //Debug.Log($"[IceAxeView] {_model.Side} 벽에 박혔습니다. ");
 
                 // XRI의 위치/회전 추적 비활성화 (Kinematic 모드에서 벽 고정)
                 if (_grabInteractable != null)
@@ -88,7 +88,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
             }
             else
             {
-                Debug.Log($"[IceAxeView - {_model.Side}] 벽에서 빠졌습니다. (물리 엔진 다시 가동)");
+                //Debug.Log($"[IceAxeView - {_model.Side}] 벽에서 빠졌습니다. (물리 엔진 다시 가동)");
 
                 // XRI 추적 복원
                 if (_grabInteractable != null)
