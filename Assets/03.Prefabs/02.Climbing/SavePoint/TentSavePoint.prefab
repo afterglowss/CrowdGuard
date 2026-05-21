@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ecd8fe79872cf49b1c76cd1b90ccbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safeRadius: 3
+  safeRadius: 2
   exteriorPos: {fileID: 5518834849562046893}
   matchTolerance: 1
 --- !u!1 &3674233496681542299

@@ -37,6 +37,7 @@ public class PlayerFallingState : PlayerState
     private float   _fallTimer;
     private bool    _respawnTriggered;
     private float   _escapeTimer;   // 진입 직후 벽 충돌 무시 구간
+    private AudioSource _fallingSFXSource;   // 추락 루핑 사운드 핸들
 
     private CharacterController      _charController;
     private Rigidbody                _rigid;
@@ -49,7 +50,13 @@ public class PlayerFallingState : PlayerState
 
     public override void Enter()
     {
-        AudioManager.instance.PlaySFX(AudioManager.SFXType.Falling, player.xrRigPivot);
+        // 혹시 이전 루핑 사운드가 남아있으면 즉시 정지
+        if (_fallingSFXSource != null && _fallingSFXSource.isPlaying)
+        {
+            _fallingSFXSource.Stop();
+            _fallingSFXSource.loop = false;
+        }
+        _fallingSFXSource = AudioManager.instance.PlaySFXLooping(AudioManager.SFXType.Falling, player.xrRigPivot);
 
         Debug.Log("[FSM] Entered Falling State");
 
@@ -127,6 +134,17 @@ public class PlayerFallingState : PlayerState
 
     public override void Exit()
     {
+        // 안전망: TriggerRespawn을 거치지 않고 Exit된 경우(네트워크 강제 등) 즉시 정지
+        if (_fallingSFXSource != null)
+        {
+            if (_fallingSFXSource.isPlaying)
+            {
+                _fallingSFXSource.Stop();
+                _fallingSFXSource.loop = false;
+            }
+            _fallingSFXSource = null;
+        }
+
         foreach (var script in _disabledXRScripts)
             if (script != null) script.enabled = true;
         _disabledXRScripts.Clear();
@@ -250,6 +268,10 @@ public class PlayerFallingState : PlayerState
     private void TriggerRespawn()
     {
         _respawnTriggered = true;
+
+        // 화면 암전과 동시에 추락 사운드 FadeOut
+        AudioManager.instance.StopSFXWithFade(_fallingSFXSource, player.respawnFadeOutDuration);
+        _fallingSFXSource = null;
 
         if (ScreenEffectManager.Instance != null)
         {
