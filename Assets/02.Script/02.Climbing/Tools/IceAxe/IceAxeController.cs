@@ -204,10 +204,10 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
 
             bool allowAttachment = _currentSurface.OnHitByIceAxe(_contactPoint);
 
-            AudioManager.instance.PlaySFX(AudioManager.SFXType.PickIce, transform);
-
             if (allowAttachment)
             {
+                AudioManager.instance.PlaySFX(AudioManager.SFXType.PickIce, transform);
+
                 //Debug.Log("[IceAxeController] 검사 통과! Model에 벽면 부착 완료를 지시합니다.");
                 // IsAttachedToWall = true를 먼저 세팅합니다.
                 // IceAxeModel의 프로퍼티 세터가 OnAttachedStateChanged 이벤트를 동기적으로 발생시키고,
@@ -216,6 +216,10 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
                 // XRI의 MovePosition()이 다음 FixedUpdate에서 보정값을 덮어쓰지 않습니다.
                 _model.IsAttachedToWall = true;
                 _depthCorrector?.TrySphereCastSnap();
+            }
+            else
+            {
+                _model?.NotifyRockBounce();
             }
         }
     }

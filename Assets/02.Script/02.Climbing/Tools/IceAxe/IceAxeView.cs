@@ -20,6 +20,8 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         [Header("Haptics (진동 피드백)")]
         [Tooltip("빙벽 타격 시 재생할 햅틱 프로파일 (에셋)")]
         [SerializeField] private CrowdGuard.XR.Haptics.HapticProfile _onAttachHaptic;
+        [Tooltip("바위 타격 시 재생할 햅틱 프로파일 (에셋) — Profile_IceAxeRockAttach")]
+        [SerializeField] private CrowdGuard.XR.Haptics.HapticProfile _onRockBounceHaptic;
 
         private RetractableObject _retractableObject;
 
@@ -37,6 +39,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
             {
                 _model.OnHeldStateChanged += HandleHeldState;
                 _model.OnAttachedStateChanged += HandleAttachedState;
+                _model.OnRockBounce += SendRockHaptic;
             }
         }
 
@@ -46,6 +49,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
             {
                 _model.OnHeldStateChanged -= HandleHeldState;
                 _model.OnAttachedStateChanged -= HandleAttachedState;
+                _model.OnRockBounce -= SendRockHaptic;
             }
         }
 
@@ -116,6 +120,15 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         }
 
         // ---------- Haptics ----------
+
+        private void SendRockHaptic()
+        {
+            if (_grabInteractable == null || _onRockBounceHaptic == null) return;
+            var interactors = _grabInteractable.interactorsSelecting;
+            if (interactors.Count == 0) return;
+            var provider = (interactors[0] as MonoBehaviour)?.GetComponentInParent<CrowdGuard.XR.Haptics.IHapticProvider>();
+            provider?.PlayHaptic(_onRockBounceHaptic);
+        }
 
         private void SendHaptic()
         {

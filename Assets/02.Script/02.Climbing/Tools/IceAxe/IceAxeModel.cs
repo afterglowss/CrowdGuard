@@ -22,6 +22,9 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         // --- Events (상태 변화를 Controller나 View에 알림) ---
         public event Action<bool> OnHeldStateChanged;
         public event Action<bool> OnAttachedStateChanged;
+        public event Action OnRockBounce;
+
+        public void NotifyRockBounce() => OnRockBounce?.Invoke();
 
         // --- Tracker ---
         [Tooltip("현재 바일을 쥐고 있는 진짜 손(XR Controller)의 물리적 Transform")]
