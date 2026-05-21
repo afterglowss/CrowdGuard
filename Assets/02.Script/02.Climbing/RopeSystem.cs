@@ -63,12 +63,13 @@ public class RopeSystem : MonoBehaviour
         if (_myRigPivot != null)
             _myPhysicsAnchor = CreateAnchor("_RopePhysicsAnchor_Me", _myRigPivot, localTieOffset);
 
-        // 로컬 플레이어의 몸통(또는 그 부모 XR Origin 등)에서 햅틱 프로바이더들(Left/Right 양손) 탐색
-        // 보통 myBody가 카메라나 머리 기준이고 컨트롤러들은 XR Origin 밑에 계층화되어 있으므로, 
-        // myBody가 속한 계층 구조를 거쳐서 양손의 HapticProvider를 찾습니다.
-        _hapticProviders = myBodyTransform.parent != null 
-            ? myBodyTransform.parent.GetComponentsInChildren<CrowdGuard.XR.Haptics.IHapticProvider>(true)
-            : myBodyTransform.GetComponentsInChildren<CrowdGuard.XR.Haptics.IHapticProvider>(true);
+        // 로컬 플레이어의 최상위 조상(보통 XR Origin)을 찾아 그 하위 전체에서 햅틱 프로바이더들(Left/Right 양손)을 100% 안전하게 탐색
+        Transform playerRoot = myBodyTransform;
+        while (playerRoot.parent != null)
+        {
+            playerRoot = playerRoot.parent;
+        }
+        _hapticProviders = playerRoot.GetComponentsInChildren<CrowdGuard.XR.Haptics.IHapticProvider>(true);
 
         _isTensionHapticActive = false;
 
