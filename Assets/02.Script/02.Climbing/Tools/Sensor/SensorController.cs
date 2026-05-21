@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using CrowdGuard.XR.Haptics;
 // namespace MSEX 가정 (HazardManager 소속)
 
 namespace MSEX.Climbing.Tools
@@ -34,6 +35,13 @@ namespace MSEX.Climbing.Tools
         [SerializeField] private float beepIntervalMin = 0.07f; // intensity 높을 때 (빠른 삐삐삐)
         [SerializeField] private float beepThreshold   = 0.05f; // 이 이하면 무음
 
+        [Header("Haptic Settings")]
+        [SerializeField] private HapticProfile sensorSwitchProfile;
+        [SerializeField] private HapticProfile avalancheWarningProfile;
+        [SerializeField] private HapticProfile rockfallWarningProfile;
+        [SerializeField] private HapticProfile blizzardWarningProfile;
+
+        private IHapticProvider _heldHapticProvider;
         private Coroutine _beepCoroutine;
 
         private void Awake()
@@ -81,12 +89,27 @@ namespace MSEX.Climbing.Tools
         {
             isHeld = true;
             EnableModeActions();
+
+            // 센서를 쥔 손(Interactor)으로부터 HapticProvider 획득
+            if (args.interactorObject != null)
+            {
+                var interactorTransform = args.interactorObject.transform;
+                _heldHapticProvider = interactorTransform.GetComponentInChildren<IHapticProvider>(true);
+                if (_heldHapticProvider == null)
+                {
+                    _heldHapticProvider = interactorTransform.GetComponentInParent<IHapticProvider>(true);
+                }
+            }
         }
 
         private void OnSelectExited(SelectExitEventArgs args)
         {
             isHeld = false;
             DisableModeActions();
+            
+            // 손을 뗄 때 작동 중이던 루핑 햅틱 안전하게 중지
+            _heldHapticProvider?.StopHaptic();
+            _heldHapticProvider = null;
         }
 
         private void Update()
@@ -182,6 +205,12 @@ namespace MSEX.Climbing.Tools
 
             AudioManager.instance.PlaySFX(AudioManager.SFXType.SensorSwitch, transform);
 
+            // 모드 변경 진동 피드백 유발
+            if (_heldHapticProvider != null && sensorSwitchProfile != null)
+            {
+                _heldHapticProvider.PlayHaptic(sensorSwitchProfile);
+            }
+
             Debug.Log($"[SensorController] Mode switched: {CurrentMode}");
             OnModeChanged?.Invoke(CurrentMode);
         }
@@ -204,6 +233,23 @@ namespace MSEX.Climbing.Tools
             CancelInvoke(nameof(ClearActiveHazard));
             Invoke(nameof(ClearActiveHazard), 15f); // 15초간 추적
 
+            // 재난 이전 경고 햅틱 피드백 유발
+            if (_heldHapticProvider != null)
+            {
+                if (data is AvalancheData && avalancheWarningProfile != null)
+                {
+                    _heldHapticProvider.PlayLoopingHaptic(avalancheWarningProfile);
+                }
+                else if (data is RockfallData && rockfallWarningProfile != null)
+                {
+                    _heldHapticProvider.PlayHaptic(rockfallWarningProfile);
+                }
+                else if (data is BlizzardData && blizzardWarningProfile != null)
+                {
+                    _heldHapticProvider.PlayLoopingHaptic(blizzardWarningProfile);
+                }
+            }
+
             AudioManager.instance.PlaySFX(AudioManager.SFXType.SensorBeep, transform);
 
             if (_beepCoroutine != null) StopCoroutine(_beepCoroutine);
@@ -217,6 +263,9 @@ namespace MSEX.Climbing.Tools
         {
             activeHazard = null;
             CurrentIntensity = 0f;
+
+            // 추적 종료 시 햅틱 정지
+            _heldHapticProvider?.StopHaptic();
 
             if (_beepCoroutine != null)
             {
