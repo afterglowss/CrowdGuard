@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Profile_IceAxeAttach
   m_EditorClassIdentifier: 
   hapticType: 1
-  clip: {fileID: 2460798210113038985, guid: dc366f1827cbc0841a9487c45b94f82c, type: 3}
+  clip: {fileID: 2460798210113038985, guid: f3373c0bc6969c349b4d81fc0ff690c6, type: 3}
   isLooping: 0
   fallbackAmplitude: 1
   fallbackDuration: 1.44

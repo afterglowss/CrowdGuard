@@ -1144,6 +1144,10 @@ MonoBehaviour:
   beepIntervalMax: 2
   beepIntervalMin: 0.07
   beepThreshold: 0.05
+  sensorSwitchProfile: {fileID: 11400000, guid: 2b4759cac4e547f9aaec85b5b686d493, type: 2}
+  avalancheWarningProfile: {fileID: 11400000, guid: 1d51d477bc5d42ec8085e5ab6a1d8b37, type: 2}
+  rockfallWarningProfile: {fileID: 11400000, guid: 1d51d477bc5d42ec8085e5ab6a1d8b37, type: 2}
+  blizzardWarningProfile: {fileID: 11400000, guid: 1d51d477bc5d42ec8085e5ab6a1d8b37, type: 2}
 --- !u!114 &5478926310723040244
 MonoBehaviour:
   m_ObjectHideFlags: 0

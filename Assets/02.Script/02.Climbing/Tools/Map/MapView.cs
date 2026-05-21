@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CrowdGuard.Climbing.Tools.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,8 +22,14 @@ namespace CrowdGuard.Climbing.Tools.Map
         [SerializeField] private Sprite _anchorSprite;
         [SerializeField] private Sprite _tentSprite;
         [SerializeField] private Sprite _landmarkSprite;
+        [SerializeField] private Color _defaultMarkerColor = Color.white;
+        [SerializeField] private Color _leaderMarkerColor = new Color(0.2f, 0.75f, 1f, 1f);
+        [SerializeField] private Color _navigatorMarkerColor = new Color(1f, 0.78f, 0.2f, 1f);
+        [SerializeField] private float _aspectWarningTolerance = 0.15f;
 
         private readonly List<RectTransform> _markerPool = new List<RectTransform>();
+        private readonly HashSet<int> _aspectWarningBlocks = new HashSet<int>();
+        private readonly HashSet<string> _outsideMapBlockPlayerWarnings = new HashSet<string>();
 
         private void Awake()
         {
@@ -62,14 +69,24 @@ namespace CrowdGuard.Climbing.Tools.Map
                         out int blockIndex,
                         out Vector2 normalized))
                 {
+                    WarnIfPlayerOutsideMapBlocks(marker);
                     continue;
                 }
+
+                ClearPlayerOutsideMapBlockWarning(marker);
 
                 RectTransform targetRect = GetTargetRect(blockIndex);
                 if (targetRect == null)
                 {
                     continue;
                 }
+
+                if (!targetRect.gameObject.activeInHierarchy)
+                {
+                    continue;
+                }
+
+                WarnIfAspectMismatch(blockIndex, targetRect);
 
                 RectTransform markerTransform = _markerPool[visibleIndex];
                 if (markerTransform.parent != targetRect)
@@ -87,6 +104,7 @@ namespace CrowdGuard.Climbing.Tools.Map
                 if (image != null)
                 {
                     image.sprite = GetSprite(marker.Type);
+                    image.color = GetMarkerColor(marker);
                 }
 
                 visibleIndex++;
@@ -118,6 +136,25 @@ namespace CrowdGuard.Climbing.Tools.Map
             }
         }
 
+        private Color GetMarkerColor(MapMarkerData marker)
+        {
+            if (marker.Type != MapMarkerType.Player && marker.Type != MapMarkerType.Direction)
+            {
+                return _defaultMarkerColor;
+            }
+
+            switch (marker.OwnerRole)
+            {
+                case PlayerRole.Leader:
+                    return _leaderMarkerColor;
+                case PlayerRole.Navigator:
+                    return _navigatorMarkerColor;
+                case PlayerRole.None:
+                default:
+                    return _defaultMarkerColor;
+            }
+        }
+
         private RectTransform GetTargetRect(int blockIndex)
         {
             if (blockIndex < 0)
@@ -131,6 +168,71 @@ namespace CrowdGuard.Climbing.Tools.Map
             }
 
             return _blockRects[blockIndex];
+        }
+
+        private void WarnIfPlayerOutsideMapBlocks(MapMarkerData marker)
+        {
+            if (marker.Type != MapMarkerType.Player)
+            {
+                return;
+            }
+
+            string playerKey = GetPlayerWarningKey(marker);
+            if (!_outsideMapBlockPlayerWarnings.Add(playerKey))
+            {
+                return;
+            }
+
+            Debug.LogWarning(
+                $"Player position has no matching map block. role={marker.OwnerRole}, label={marker.Label}, worldPosition={marker.WorldPosition}",
+                this);
+        }
+
+        private void ClearPlayerOutsideMapBlockWarning(MapMarkerData marker)
+        {
+            if (marker.Type == MapMarkerType.Player)
+            {
+                _outsideMapBlockPlayerWarnings.Remove(GetPlayerWarningKey(marker));
+            }
+        }
+
+        private string GetPlayerWarningKey(MapMarkerData marker)
+        {
+            return $"{marker.OwnerRole}:{marker.Label}";
+        }
+
+        private void WarnIfAspectMismatch(int blockIndex, RectTransform targetRect)
+        {
+            if (_aspectWarningTolerance <= 0f ||
+                _aspectWarningBlocks.Contains(blockIndex) ||
+                _mapBounds == null ||
+                !_mapBounds.TryGetWorldAspect(blockIndex, out float worldAspect))
+            {
+                return;
+            }
+
+            Rect rect = targetRect.rect;
+            if (Mathf.Approximately(rect.height, 0f))
+            {
+                return;
+            }
+
+            float rectAspect = Mathf.Abs(rect.width / rect.height);
+            if (Mathf.Approximately(rectAspect, 0f))
+            {
+                return;
+            }
+
+            float aspectDifference = Mathf.Abs(worldAspect - rectAspect) / Mathf.Max(worldAspect, rectAspect);
+            if (aspectDifference <= _aspectWarningTolerance)
+            {
+                return;
+            }
+
+            _aspectWarningBlocks.Add(blockIndex);
+            Debug.LogWarning(
+                $"Map block aspect mismatch. blockIndex={blockIndex}, worldAspect={worldAspect:F3}, rectAspect={rectAspect:F3}, tolerance={_aspectWarningTolerance:F3}",
+                this);
         }
 
         private void EnsurePoolSize(int markerCount)

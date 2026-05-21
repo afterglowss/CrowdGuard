@@ -73,6 +73,28 @@ namespace CrowdGuard.Climbing.Tools.Map
             return true;
         }
 
+        /// <summary>
+        /// 지도 블록 또는 fallback 전체 지도의 월드 가로/세로 비율을 구합니다.
+        /// </summary>
+        public bool TryGetWorldAspect(int blockIndex, out float aspect)
+        {
+            if (blockIndex >= 0)
+            {
+                if (_blocks == null ||
+                    blockIndex >= _blocks.Length ||
+                    _blocks[blockIndex] == null ||
+                    !_blocks[blockIndex].TryGetWorldBounds(out Vector2 blockMin, out Vector2 blockMax))
+                {
+                    aspect = 0f;
+                    return false;
+                }
+
+                return TryCalculateAspect(blockMin, blockMax, out aspect);
+            }
+
+            return TryCalculateAspect(_worldMin, _worldMax, out aspect);
+        }
+
         private bool TryGetBlockIndex(Vector3 worldPosition, out int blockIndex)
         {
             if (_blocks == null)
@@ -93,6 +115,21 @@ namespace CrowdGuard.Climbing.Tools.Map
 
             blockIndex = -1;
             return false;
+        }
+
+        private bool TryCalculateAspect(Vector2 worldMin, Vector2 worldMax, out float aspect)
+        {
+            float width = Mathf.Abs(worldMax.x - worldMin.x);
+            float height = Mathf.Abs(worldMax.y - worldMin.y);
+
+            if (Mathf.Approximately(width, 0f) || Mathf.Approximately(height, 0f))
+            {
+                aspect = 0f;
+                return false;
+            }
+
+            aspect = width / height;
+            return true;
         }
 
         private bool HasUsableBlocks()

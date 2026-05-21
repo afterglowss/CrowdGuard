@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b5a850ac8bd6a649ac7b9da1f537552, type: 3}
-  m_Name: Profile_AnchorInsert
+  m_Name: Profile_RopeTension
   m_EditorClassIdentifier: 
-  hapticType: 2
-  clip: {fileID: 2460798210113038985, guid: e7dd828e78a20fb448339cf5c2f54701, type: 3}
-  isLooping: 0
-  fallbackAmplitude: 1
-  fallbackDuration: 0.3
+  hapticType: 6
+  clip: {fileID: 2460798210113038985, guid: 6e44f2d4113ed8d46a49ab6ae3a5ec7d, type: 3}
+  isLooping: 1
+  fallbackAmplitude: 0.4
+  fallbackDuration: 0.8

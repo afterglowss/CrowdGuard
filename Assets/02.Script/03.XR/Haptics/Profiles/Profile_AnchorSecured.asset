@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Profile_AnchorSecured
   m_EditorClassIdentifier: 
   hapticType: 3
-  clip: {fileID: 2460798210113038985, guid: dc366f1827cbc0841a9487c45b94f82c, type: 3}
+  clip: {fileID: 2460798210113038985, guid: e7dd828e78a20fb448339cf5c2f54701, type: 3}
   isLooping: 0
   fallbackAmplitude: 0.8
   fallbackDuration: 0.15

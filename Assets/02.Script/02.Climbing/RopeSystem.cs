@@ -18,6 +18,12 @@ public class RopeSystem : MonoBehaviour
     [Header("Asset Reference")]
     public Rope assetRope;
 
+    [Header("Haptics")]
+    [Tooltip("로프가 팽팽해질 때 재생할 햅틱 프로파일 (루핑 재생 설정 권장)")]
+    [SerializeField] private CrowdGuard.XR.Haptics.HapticProfile _tensionHapticProfile;
+    [Tooltip("햅틱 재생이 트리거될 장력 비율 임계값 (0.0 ~ 1.0)")]
+    [SerializeField][Range(0f, 1f)] private float _tensionThreshold = 0.85f;
+
     private Transform myBodyTransform;
     private Transform partnerTransform;
 
@@ -28,6 +34,10 @@ public class RopeSystem : MonoBehaviour
     // LimitMovement용 실시간 기준점 — xrRigPivot의 자식으로 ObjectTracker 지연 없음
     private Transform _myRigPivot;
     private Transform _myPhysicsAnchor;
+
+    // Haptics 런타임 제어 상태
+    private CrowdGuard.XR.Haptics.IHapticProvider[] _hapticProviders;
+    private bool _isTensionHapticActive = false;
 
     /// <summary>
     /// PlayerManager에서 두 플레이어가 모두 접속한 뒤 호출합니다.
@@ -55,6 +65,16 @@ public class RopeSystem : MonoBehaviour
         // body가 발 기준(xrRigPivot과 동일 레벨)이므로 localTieOffset을 그대로 사용합니다.
         if (_myRigPivot != null)
             _myPhysicsAnchor = CreateAnchor("_RopePhysicsAnchor_Me", _myRigPivot, localTieOffset);
+
+        // 로컬 플레이어의 최상위 조상(보통 XR Origin)을 찾아 그 하위 전체에서 햅틱 프로바이더들(Left/Right 양손)을 100% 안전하게 탐색
+        Transform playerRoot = myBodyTransform;
+        while (playerRoot.parent != null)
+        {
+            playerRoot = playerRoot.parent;
+        }
+        _hapticProviders = playerRoot.GetComponentsInChildren<CrowdGuard.XR.Haptics.IHapticProvider>(true);
+
+        _isTensionHapticActive = false;
 
         AttachRopeToAsset();
     }
@@ -94,6 +114,37 @@ public class RopeSystem : MonoBehaviour
         if (activeTiePoint == null || _partnerAnchor == null) return 0f;
         float current = Vector3.Distance(activeTiePoint.position, _partnerAnchor.position);
         return Mathf.Clamp01(current / maxRopeLength);
+    }
+
+    private void Update()
+    {
+        UpdateTensionHaptics();
+    }
+
+    private void UpdateTensionHaptics()
+    {
+        if (_hapticProviders == null || _hapticProviders.Length == 0 || _tensionHapticProfile == null) return;
+
+        float ratio = GetStretchRatio();
+
+        if (ratio >= _tensionThreshold && !_isTensionHapticActive)
+        {
+            Debug.Log($"[RopeSystem] 장력 초과 ({ratio:F2} >= {_tensionThreshold:F2}). 장력 햅틱 루프 시작.");
+            foreach (var provider in _hapticProviders)
+            {
+                provider.PlayLoopingHaptic(_tensionHapticProfile);
+            }
+            _isTensionHapticActive = true;
+        }
+        else if (ratio < _tensionThreshold && _isTensionHapticActive)
+        {
+            Debug.Log($"[RopeSystem] 장력 완화 ({ratio:F2} < {_tensionThreshold:F2}). 장력 햅틱 정지.");
+            foreach (var provider in _hapticProviders)
+            {
+                provider.StopHaptic();
+            }
+            _isTensionHapticActive = false;
+        }
     }
 
     public void LimitMovement(ref Vector3 proposedDeltaWorld)

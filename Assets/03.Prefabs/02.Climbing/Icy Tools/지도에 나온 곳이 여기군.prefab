@@ -57,12 +57,16 @@ MonoBehaviour:
   _mapBounds: {fileID: 0}
   _markerPrefab: {fileID: 3719706789573076015, guid: 3121c76ad6323ed47991365702d483d0, type: 3}
   _terrainLayer: {fileID: 0}
-  _playerSprite: {fileID: 21300000, guid: 63326cc56ebfaea4381f544c07b32772, type: 3}
-  _directionSprite: {fileID: 21300000, guid: e48c4100de25f9b479cafc34bb3bcb78, type: 3}
+  _playerSprite: {fileID: 21300000, guid: 93d9cf80b5fde9c45bb93df4388d1c4d, type: 3}
+  _directionSprite: {fileID: 21300000, guid: 63326cc56ebfaea4381f544c07b32772, type: 3}
   _savePointSprite: {fileID: 21300000, guid: 17c73c22617bedc448ded71ad79a217d, type: 3}
   _anchorSprite: {fileID: 21300000, guid: e48c4100de25f9b479cafc34bb3bcb78, type: 3}
   _tentSprite: {fileID: 21300000, guid: 268751455f43f874595012eb989d0216, type: 3}
   _landmarkSprite: {fileID: 21300000, guid: e48c4100de25f9b479cafc34bb3bcb78, type: 3}
+  _defaultMarkerColor: {r: 1, g: 1, b: 1, a: 1}
+  _leaderMarkerColor: {r: 0.2, g: 0.75, b: 1, a: 1}
+  _navigatorMarkerColor: {r: 1, g: 0.78, b: 0.2, a: 1}
+  _aspectWarningTolerance: 0.15
 --- !u!1 &1650157788597928523
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,6 +340,7 @@ Transform:
   - {fileID: 7052835933404096864}
   - {fileID: 982489865352358342}
   - {fileID: 5008013001024589008}
+  - {fileID: 2860058173696658527}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5392776648936081978
@@ -704,6 +709,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5008013001024589008}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7714085366838277204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2860058173696658527}
+  m_Layer: 0
+  m_Name: Fallback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2860058173696658527
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7714085366838277204}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 415225686781926109}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3160711464025835319
 PrefabInstance:

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b5a850ac8bd6a649ac7b9da1f537552, type: 3}
-  m_Name: Profile_AnchorInsert
+  m_Name: Profile_IceCrack
   m_EditorClassIdentifier: 
-  hapticType: 2
-  clip: {fileID: 2460798210113038985, guid: e7dd828e78a20fb448339cf5c2f54701, type: 3}
+  hapticType: 13
+  clip: {fileID: 2460798210113038985, guid: 17219b72fe2b0bf4e9294104abdf3776, type: 3}
   isLooping: 0
-  fallbackAmplitude: 1
-  fallbackDuration: 0.3
+  fallbackAmplitude: 0.9
+  fallbackDuration: 0.25
