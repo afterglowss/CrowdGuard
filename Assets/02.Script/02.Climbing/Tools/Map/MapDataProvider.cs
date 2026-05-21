@@ -60,22 +60,35 @@ namespace CrowdGuard.Climbing.Tools.Map
                 return;
             }
 
-            AddPlayerMarker(playerModel.body.transform, label, role);
+            Transform directionTransform = playerModel.head != null
+                ? playerModel.head.transform
+                : playerModel.body.transform;
+
+            AddPlayerMarker(playerModel.body.transform, directionTransform, label, role);
         }
 
         private void AddPlayerMarker(Transform playerTransform, string label, PlayerRole role = PlayerRole.None)
         {
+            AddPlayerMarker(playerTransform, playerTransform, label, role);
+        }
+
+        private void AddPlayerMarker(
+            Transform playerTransform,
+            Transform directionTransform,
+            string label,
+            PlayerRole role = PlayerRole.None)
+        {
             _markers.Add(new MapMarkerData(
                 MapMarkerType.Player,
                 playerTransform.position,
-                playerTransform.forward,
+                directionTransform.forward,
                 label,
                 true,
                 role));
             _markers.Add(new MapMarkerData(
                 MapMarkerType.Direction,
                 playerTransform.position,
-                playerTransform.forward,
+                directionTransform.forward,
                 $"{label} Direction",
                 true,
                 role));

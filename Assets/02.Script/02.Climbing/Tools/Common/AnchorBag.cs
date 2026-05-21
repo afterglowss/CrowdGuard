@@ -122,7 +122,8 @@ namespace CrowdGuard.Climbing.Tools.Common
 
         private void OnDisable()
         {
-            _simpleInteractable.selectEntered.RemoveListener(OnBagGrabbed);
+            if (_simpleInteractable != null)
+                _simpleInteractable.selectEntered.RemoveListener(OnBagGrabbed);
         }
 
         // ===================== 풀 초기화 =====================
@@ -175,19 +176,33 @@ namespace CrowdGuard.Climbing.Tools.Common
             Debug.Log("[AnchorBag] TransferGrab — WaitForFixedUpdate 대기 중...");
             yield return new WaitForFixedUpdate();
             yield return null;
-            Debug.Log($"[AnchorBag] TransferGrab — 대기 완료. bag.isSelected={_simpleInteractable.isSelected}, anchorGrab.enabled={anchorGrab.enabled}, anchorGrab.gameObject.activeSelf={anchorGrab.gameObject.activeSelf}");
+
+            var simpleInteractable = _simpleInteractable;
+            if (simpleInteractable == null || _interactionManager == null || anchorGrab == null || !IsInteractorAlive(interactor))
+            {
+                Debug.LogWarning("[AnchorBag] TransferGrab 중단 — 대기 중 인터랙션 대상이 해제되었습니다.");
+                yield break;
+            }
+
+            Debug.Log($"[AnchorBag] TransferGrab — 대기 완료. bag.isSelected={simpleInteractable.isSelected}, anchorGrab.enabled={anchorGrab.enabled}, anchorGrab.gameObject.activeSelf={anchorGrab.gameObject.activeSelf}");
 
             // 가방에서 손 해제 (해당 인터랙터가 실제로 잡고 있을 때만)
-            if (_simpleInteractable.interactorsSelecting.Contains(interactor))
+            if (simpleInteractable.interactorsSelecting.Contains(interactor))
             {
                 Debug.Log("[AnchorBag] TransferGrab — 가방 SelectExit 실행");
                 _interactionManager.SelectExit(
                     interactor,
-                    (IXRSelectInteractable)_simpleInteractable);
+                    (IXRSelectInteractable)simpleInteractable);
             }
             else
             {
                 Debug.Log("[AnchorBag] TransferGrab — 가방이 이미 해제됨 (skip SelectExit)");
+            }
+
+            if (_interactionManager == null || anchorGrab == null || !IsInteractorAlive(interactor))
+            {
+                Debug.LogWarning("[AnchorBag] TransferGrab 중단 — SelectExit 처리 중 인터랙션 대상이 해제되었습니다.");
+                yield break;
             }
 
             // 같은 손으로 앵커를 그랩
@@ -195,7 +210,19 @@ namespace CrowdGuard.Climbing.Tools.Common
             _interactionManager.SelectEnter(
                 interactor,
                 (IXRSelectInteractable)anchorGrab);
-            Debug.Log($"[AnchorBag] TransferGrab — 완료! anchorGrab.isSelected={anchorGrab.isSelected}");
+
+            if (anchorGrab != null)
+                Debug.Log($"[AnchorBag] TransferGrab — 완료! anchorGrab.isSelected={anchorGrab.isSelected}");
+        }
+
+        private static bool IsInteractorAlive(IXRSelectInteractor interactor)
+        {
+            if (interactor == null) return false;
+
+            if (interactor is UnityEngine.Object unityObject)
+                return unityObject != null;
+
+            return true;
         }
 
         /// <summary>
