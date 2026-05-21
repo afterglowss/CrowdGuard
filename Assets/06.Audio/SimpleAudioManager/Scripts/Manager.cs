@@ -248,7 +248,7 @@ namespace SimpleAudioManager
             }
 
             AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Count)];
-            PlaySFXInternal(clip, spawnTransform, sfxVolume * clipVolume, false);
+            PlaySFXInternal(clip, spawnTransform,  clipVolume, false);
         }
 
         public class PooledSFXSourceState : MonoBehaviour
