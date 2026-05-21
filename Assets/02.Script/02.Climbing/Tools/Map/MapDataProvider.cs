@@ -60,21 +60,25 @@ namespace CrowdGuard.Climbing.Tools.Map
                 return;
             }
 
-            AddPlayerMarker(playerModel.body.transform, label);
+            AddPlayerMarker(playerModel.body.transform, label, role);
         }
 
-        private void AddPlayerMarker(Transform playerTransform, string label)
+        private void AddPlayerMarker(Transform playerTransform, string label, PlayerRole role = PlayerRole.None)
         {
             _markers.Add(new MapMarkerData(
                 MapMarkerType.Player,
                 playerTransform.position,
                 playerTransform.forward,
-                label));
+                label,
+                true,
+                role));
             _markers.Add(new MapMarkerData(
                 MapMarkerType.Direction,
                 playerTransform.position,
                 playerTransform.forward,
-                $"{label} Direction"));
+                $"{label} Direction",
+                true,
+                role));
         }
 
         private void AddSavePointMarkers()

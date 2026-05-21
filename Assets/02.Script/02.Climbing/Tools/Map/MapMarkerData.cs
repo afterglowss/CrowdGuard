@@ -1,4 +1,5 @@
 using System;
+using CrowdGuard.Climbing.Tools.Common;
 using UnityEngine;
 
 namespace CrowdGuard.Climbing.Tools.Map
@@ -14,19 +15,22 @@ namespace CrowdGuard.Climbing.Tools.Map
         public Vector3 Forward;
         public string Label;
         public bool IsVisible;
+        public PlayerRole OwnerRole;
 
         public MapMarkerData(
             MapMarkerType type,
             Vector3 worldPosition,
             Vector3 forward,
             string label,
-            bool isVisible = true)
+            bool isVisible = true,
+            PlayerRole ownerRole = PlayerRole.None)
         {
             Type = type;
             WorldPosition = worldPosition;
             Forward = forward;
             Label = label;
             IsVisible = isVisible;
+            OwnerRole = ownerRole;
         }
     }
 }
