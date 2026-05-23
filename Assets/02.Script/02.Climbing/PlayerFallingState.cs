@@ -305,7 +305,8 @@ public class PlayerFallingState : PlayerState
         if (player.leftAxe  != null) player.leftAxe.IsAttachedToWall  = false;
         if (player.rightAxe != null) player.rightAxe.IsAttachedToWall = false;
 
-        SurvivalManager.Instance?.ResetAfterRespawn();
+        if (SurvivalManager.Instance?.IsPlayerFrozen == true)
+            SurvivalManager.Instance.ResetAfterRespawn();
 
         player.ChangeState(player.IdleState);
     }

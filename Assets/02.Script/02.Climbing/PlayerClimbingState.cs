@@ -14,6 +14,10 @@ public class PlayerClimbingState : PlayerState
     // 벽과 유지할 최소 여백
     private const float _wallMargin          = 0.05f;
 
+    // 로프 장력 비네트: 이 비율 이상 팽팽해지면 붉은 테두리 시작 / 최대
+    private const float RopeVignetteStartRatio = 0.75f;
+    private const float RopeVignetteMaxRatio   = 1.0f;
+
     public PlayerClimbingState(PlayerController player) : base(player) {}
 
     private CharacterController charController;
@@ -183,6 +187,9 @@ public class PlayerClimbingState : PlayerState
             if (script != null) script.enabled = true;
         }
         disabledXRScripts.Clear();
+
+        // 등반 종료 시 로프 장력 비네트 제거
+        ScreenEffectManager.Instance?.ClearDangerVignette("rope");
     }
 
     public override void Update()
@@ -256,7 +263,11 @@ public class PlayerClimbingState : PlayerState
         }
 
         // ---------------- [최종 이동 적용] ----------------
-        if (attachedCount == 0) return; // 둘 다 떨어졌거나, 둘 다 0.15초 딜레이 중이면 카메라 고정
+        if (attachedCount == 0)
+        {
+            UpdateRopeVignette(); // 이동이 없어도 로프 팽팽함은 계속 표시
+            return;
+        }
 
         // 양손이 모두 조건을 만족하면 평균을 내고( / 2), 한 손이면 그대로 사용( / 1)
         Vector3 averageDeltaLocal = totalDeltaLocal / attachedCount;
@@ -282,5 +293,21 @@ public class PlayerClimbingState : PlayerState
 
         // 역방향 카메라 이동
         player.xrRigPivot.position -= deltaWorld;
+
+        // 로프 장력 비네트 갱신
+        UpdateRopeVignette();
+    }
+
+    /// <summary>
+    /// 현재 로프 팽팽함(StretchRatio)에 따라 화면 테두리 붉은 비네트를 갱신합니다.
+    /// 이동 여부와 무관하게 매 프레임 호출됩니다.
+    /// </summary>
+    private void UpdateRopeVignette()
+    {
+        if (player.ropeSystem == null || ScreenEffectManager.Instance == null) return;
+
+        float stretch   = player.ropeSystem.GetStretchRatio();
+        float intensity = Mathf.InverseLerp(RopeVignetteStartRatio, RopeVignetteMaxRatio, stretch);
+        ScreenEffectManager.Instance.SetDangerVignette("rope", intensity);
     }
 }

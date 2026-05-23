@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -25,6 +26,9 @@ public class ScreenEffectManager : MonoBehaviour
     [Tooltip("추락 비네팅용 Quad. 비워두면 자동 생성됩니다.")]
     public MeshRenderer vignetteQuad;
 
+    [Tooltip("위험 상태(로프 장력·피격 등) 붉은 테두리 비네트 Quad. 비워두면 자동 생성됩니다.")]
+    public MeshRenderer dangerVignetteQuad;
+
     [Header("Quad Position Settings")]
     [Tooltip("카메라로부터 Quad까지의 거리(m). 너무 가까우면 Near Clip에 잘림.")]
     public float quadDistance = 0.15f;
@@ -32,9 +36,25 @@ public class ScreenEffectManager : MonoBehaviour
     [Tooltip("FOV를 여유있게 덮는 Quad 크기. quadDistance=0.15 기준 0.5이면 약 118° 커버.")]
     public float quadScale = 0.5f;
 
+    [Header("위험 비네트 설정")]
+    [Tooltip("비네트 강도 변화 속도. 클수록 즉각 반응합니다. (기본 8)")]
+    public float dangerVignetteSmoothSpeed = 8f;
+    [Tooltip("중심 투명 영역 반경. 0=없음, 0.5=절반까지 투명. (기본 0.35)")]
+    [Range(0f, 1f)] public float vignetteInnerRadius = 0.35f;
+    [Tooltip("테두리 불투명 시작 반경. innerRadius보다 커야 함. (기본 0.80)")]
+    [Range(0f, 1f)] public float vignetteOuterRadius = 0.80f;
+
     // 내부 Material 캐시
     private Material _fadeMat;
     private Material _vignetteMat;
+    private Material _dangerVignetteMat;
+
+    // 위험 비네트: 여러 시스템이 각자의 sourceId로 강도를 등록 → 최댓값 표시
+    private readonly Dictionary<string, float> _dangerSources = new Dictionary<string, float>();
+    private float _dangerCurrentIntensity;
+    private static readonly int IntensityPropId   = Shader.PropertyToID("_Intensity");
+    private static readonly int InnerRadiusPropId = Shader.PropertyToID("_InnerRadius");
+    private static readonly int OuterRadiusPropId = Shader.PropertyToID("_OuterRadius");
 
     // 현재 실행 중인 효과 코루틴 (중단 가능하도록 추적)
     private Coroutine _activeEffectCoroutine;
@@ -52,6 +72,7 @@ public class ScreenEffectManager : MonoBehaviour
         // 시작 시 투명으로 초기화
         SetQuadAlpha(_fadeMat, 0f);
         SetQuadAlpha(_vignetteMat, 0f);
+        SetQuadAlpha(_dangerVignetteMat, 0f);
     }
 
     // ───────────────────────────────────────────────
@@ -71,9 +92,13 @@ public class ScreenEffectManager : MonoBehaviour
         fadeQuad = GetOrCreateQuad(fadeQuad, "_FadeQuad", cam, new Color(0f, 0f, 0f, 0f));
         _fadeMat = fadeQuad.material;
 
-        // 비네팅 Quad (검정)
+        // 비네팅 Quad (검정, 추락용)
         vignetteQuad = GetOrCreateQuad(vignetteQuad, "_VignetteQuad", cam, new Color(0f, 0f, 0f, 0f));
         _vignetteMat = vignetteQuad.material;
+
+        // 위험 비네트 Quad (붉은 테두리, 로프 장력·피격 등 다목적)
+        dangerVignetteQuad = GetOrCreateDangerVignetteQuad(dangerVignetteQuad, "_DangerVignetteQuad", cam);
+        _dangerVignetteMat = dangerVignetteQuad.material;
     }
 
     /// <summary>
@@ -149,7 +174,56 @@ public class ScreenEffectManager : MonoBehaviour
     }
 
     // ───────────────────────────────────────────────
-    //  공개 API
+    //  위험 비네트 실시간 보간 (Update)
+    // ───────────────────────────────────────────────
+
+    private void Update()
+    {
+        if (_dangerVignetteMat == null) return;
+
+        // 등록된 소스 중 최댓값을 목표로
+        float target = 0f;
+        foreach (float v in _dangerSources.Values)
+            target = Mathf.Max(target, v);
+
+        // 부드럽게 보간 후 커스텀 셰이더 프로퍼티에 반영
+        _dangerCurrentIntensity = Mathf.Lerp(
+            _dangerCurrentIntensity, target,
+            Time.deltaTime * dangerVignetteSmoothSpeed);
+
+        _dangerVignetteMat.SetFloat(IntensityPropId,   _dangerCurrentIntensity);
+        _dangerVignetteMat.SetFloat(InnerRadiusPropId, vignetteInnerRadius);
+        _dangerVignetteMat.SetFloat(OuterRadiusPropId, vignetteOuterRadius);
+    }
+
+    // ───────────────────────────────────────────────
+    //  공개 API — 위험 비네트 (다목적)
+    // ───────────────────────────────────────────────
+
+    /// <summary>
+    /// 특정 시스템의 위험 비네트 강도를 등록합니다.
+    /// 여러 시스템이 동시에 호출하면 가장 강한 값이 표시됩니다.
+    ///
+    /// 예시:
+    ///   ScreenEffectManager.Instance.SetDangerVignette("rope",   0.8f);
+    ///   ScreenEffectManager.Instance.SetDangerVignette("damage", 1.0f);
+    /// </summary>
+    public void SetDangerVignette(string sourceId, float intensity)
+    {
+        _dangerSources[sourceId] = Mathf.Clamp01(intensity);
+    }
+
+    /// <summary>
+    /// 특정 시스템의 위험 비네트를 해제합니다.
+    /// 다른 소스가 없으면 비네트가 서서히 사라집니다.
+    /// </summary>
+    public void ClearDangerVignette(string sourceId)
+    {
+        _dangerSources.Remove(sourceId);
+    }
+
+    // ───────────────────────────────────────────────
+    //  공개 API — 페이드 / 추락 비네트
     // ───────────────────────────────────────────────
 
     /// <summary>
@@ -281,5 +355,60 @@ public class ScreenEffectManager : MonoBehaviour
         Color c = mat.color;
         c.a = alpha;
         mat.color = c;
+    }
+
+    // ───────────────────────────────────────────────
+    //  위험 비네트 전용 Quad / Material / Texture 생성
+    // ───────────────────────────────────────────────
+
+    /// <summary>
+    /// 붉은 테두리 비네트용 Quad를 생성하거나 기존 것을 재사용합니다.
+    /// </summary>
+    private MeshRenderer GetOrCreateDangerVignetteQuad(MeshRenderer existing, string quadName, Camera parentCam)
+    {
+        if (existing != null)
+        {
+            existing.transform.SetParent(parentCam.transform, false);
+            SetupQuadTransform(existing.transform);
+            existing.material = CreateDangerVignetteMaterial();
+            return existing;
+        }
+
+        var go = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        go.name = quadName;
+        Destroy(go.GetComponent<MeshCollider>());
+
+        go.transform.SetParent(parentCam.transform, false);
+        SetupQuadTransform(go.transform);
+
+        var mr = go.GetComponent<MeshRenderer>();
+        mr.material                = CreateDangerVignetteMaterial();
+        mr.shadowCastingMode       = UnityEngine.Rendering.ShadowCastingMode.Off;
+        mr.receiveShadows          = false;
+
+        return mr;
+    }
+
+    /// <summary>
+    /// Custom/DangerVignette 셰이더를 사용하는 머티리얼을 생성합니다.
+    /// UV 기반 비네트 계산을 셰이더 내부에서 처리하므로 텍스처 없이 중앙 투명 / 테두리 불투명이 정확하게 동작합니다.
+    /// </summary>
+    private Material CreateDangerVignetteMaterial()
+    {
+        Shader shader = Shader.Find("Custom/DangerVignette");
+        if (shader == null)
+        {
+            Debug.LogError("[ScreenEffectManager] Custom/DangerVignette 셰이더를 찾을 수 없습니다. " +
+                           "Assets/05.Shader/DangerVignette.shader 가 프로젝트에 있는지 확인하세요.");
+            // 폴백: 단색 빨강 (비네트 없음)
+            shader = Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Sprites/Default");
+        }
+
+        var mat = new Material(shader);
+        mat.SetColor("_Color",       new Color(1f, 0f, 0f, 1f));
+        mat.SetFloat(IntensityPropId,   0f);
+        mat.SetFloat(InnerRadiusPropId, vignetteInnerRadius);
+        mat.SetFloat(OuterRadiusPropId, vignetteOuterRadius);
+        return mat;
     }
 }

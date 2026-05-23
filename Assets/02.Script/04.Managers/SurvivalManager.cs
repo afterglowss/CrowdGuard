@@ -8,7 +8,7 @@ public class SurvivalManager : NetworkBehaviour
 
     [Header("동결 게이지 설정")]
     public const float MAX_FREEZE_GAUGE = 600f;
-    public const float EFFECT_START_GAUGE = 120f; // 120부터 시각 효과 시작
+    public const float EFFECT_START_GAUGE = 60f; // 60부터 시각 효과 시작
     // 👇 인스펙터에서 편하게 드래그할 수 있도록 Range 슬라이더 추가!
 
     [Networked]
@@ -22,6 +22,7 @@ public class SurvivalManager : NetworkBehaviour
     public bool isRestoring { get; set; }
 
     private bool isPlayerFrozen = false;
+    public bool IsPlayerFrozen => isPlayerFrozen;
 
     [Tooltip("초당 동결 게이지 회복량 (예: 100이면 600 회복에 6초 소요)")]
     public float restoreRate = 100f;
@@ -94,8 +95,10 @@ public class SurvivalManager : NetworkBehaviour
         float effectRange = MAX_FREEZE_GAUGE - EFFECT_START_GAUGE;
         float currentEffectValue = Mathf.Max(0f, value - EFFECT_START_GAUGE);
         
-        // 0.0 ~ 1.0 사이를 절대 벗어나지 않게 Clamp01로 안전장치 추가
-        float freezeRatio = Mathf.Clamp01(currentEffectValue / effectRange);
+        // 비선형 커브: 초반 게이지도 셰이더에 충분히 큰 값을 전달해 VR FOV 안쪽까지 서리가 표시되도록 함
+        // 지수를 낮출수록 초반에 더 강하게 표시 (0.5=sqrt, 0.3=현재, 0.2=매우 강함)
+        // 선형 대비 예시 → Gauge 200: 0.17 → 0.60 / Gauge 300: 0.38 → 0.72
+        float freezeRatio = Mathf.Pow(Mathf.Clamp01(currentEffectValue / effectRange), 0.25f);
         
         // 글로벌 셰이더 변수 쏘기
         Shader.SetGlobalFloat("_FreezingAmount", freezeRatio);
