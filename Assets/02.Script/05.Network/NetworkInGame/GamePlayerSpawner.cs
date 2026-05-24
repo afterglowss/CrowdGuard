@@ -31,20 +31,28 @@ namespace Capstone.Photon.Game
 
         public void OnSceneLoadDone(NetworkRunner runner)
         {
-            var playerModel = runner.Spawn(playerPrefab,Vector3.zero,Quaternion.identity,runner.LocalPlayer);
-            if (playerModel.TryGetComponent(out GamePlayerModel model))
+            if (runner.IsServer)
             {
-                model.Init(localController);
+                runner.SessionInfo.IsOpen = false;
+            }
 
-                // IceAxe 참조를 PlayerController에 주입 (네트워크 스폰 이후 타이밍 보정)
-                var playerController = localController.GetComponent<PlayerController>();
-                if (playerController != null)
+            if (RoleManager.Instance && RoleManager.Instance.Roles.ContainsKey(runner.LocalPlayer))
+            {
+                var playerModel = runner.Spawn(playerPrefab, Vector3.zero, Quaternion.identity, runner.LocalPlayer);
+                if (playerModel.TryGetComponent(out GamePlayerModel model))
                 {
-                    playerController.InjectAxes(model.leftIceAxe, model.rightIceAxe);
-                }
-                else
-                {
-                    Debug.LogWarning("[GamePlayerSpawner] localController 오브젝트에 PlayerController 컴포넌트가 없습니다!");
+                    model.Init(localController);
+
+                    // IceAxe 참조를 PlayerController에 주입 (네트워크 스폰 이후 타이밍 보정)
+                    var playerController = localController.GetComponent<PlayerController>();
+                    if (playerController != null)
+                    {
+                        playerController.InjectAxes(model.leftIceAxe, model.rightIceAxe);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("[GamePlayerSpawner] localController 오브젝트에 PlayerController 컴포넌트가 없습니다!");
+                    }
                 }
             }
         }

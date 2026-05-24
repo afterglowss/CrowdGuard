@@ -46,6 +46,10 @@ namespace Capstone.Photon.Room
         
         public void OnSceneLoadDone(NetworkRunner runner)
         {
+            if (runner.IsServer)
+            {
+                runner.SessionInfo.IsOpen = true;
+            }
             // 해당 함수는 들어온 플레이어 본인만 실행
             //if (runner.LocalPlayer != player) return;
             
