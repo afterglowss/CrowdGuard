@@ -5345,6 +5345,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2063448061322570355, guid: 3a96f1fc5e84d9e40a04a2f40cbe8058, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2063448061322570355, guid: 3a96f1fc5e84d9e40a04a2f40cbe8058, type: 3}
       propertyPath: LightsModule.light
       value: 
       objectReference: {fileID: 6970831892068678501, guid: 0690144dfd2a2c348926efc02e4dae36, type: 3}
@@ -5581,6 +5585,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2700195828883265428, guid: 2e5f6123a9e3e2d4cb658972725d8106, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028401425629522398, guid: 2e5f6123a9e3e2d4cb658972725d8106, type: 3}
+      propertyPath: ShapeModule.angle
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028401425629522398, guid: 2e5f6123a9e3e2d4cb658972725d8106, type: 3}
+      propertyPath: VelocityModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028401425629522398, guid: 2e5f6123a9e3e2d4cb658972725d8106, type: 3}
+      propertyPath: VelocityModule.x.scalar
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028401425629522398, guid: 2e5f6123a9e3e2d4cb658972725d8106, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028401425629522398, guid: 2e5f6123a9e3e2d4cb658972725d8106, type: 3}
+      propertyPath: VelocityModule.x.minScalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028401425629522398, guid: 2e5f6123a9e3e2d4cb658972725d8106, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836794373677541897, guid: 2e5f6123a9e3e2d4cb658972725d8106, type: 3}
+      propertyPath: m_VelocityScale
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

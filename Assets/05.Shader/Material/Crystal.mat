@@ -55,11 +55,11 @@ Material:
     m_Ints: []
     m_Floats:
     - _Metallic: 0.8
-    - _ParallaxAmplitude: 20
+    - _ParallaxAmplitude: 56
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Smoothness: 0.9
-    - _Steps: 5
+    - _Steps: 6
     - _Transparency: 0.315
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 0}
