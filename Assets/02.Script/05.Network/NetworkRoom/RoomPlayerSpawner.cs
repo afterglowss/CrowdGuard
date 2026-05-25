@@ -28,21 +28,6 @@ namespace Capstone.Photon.Room
                 _currentRunner.RemoveCallbacks(this);
             }
         }
-
-
-        // 플레이어 입장 시 실행
-        public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
-        {
-            
-        }
-        
-        public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
-        {
-            Debug.Log($" master : {runner.IsSharedModeMasterClient}");
-            roleManager.RPC_RemovePlayer(player);
-            Debug.Log("Player Left");
-            
-        }
         
         public void OnSceneLoadDone(NetworkRunner runner)
         {
@@ -63,6 +48,16 @@ namespace Capstone.Photon.Room
         }
         
         #region UnuseCallbacks
+        
+        // 플레이어 입장 시 실행
+        public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+        {
+            
+        }
+        
+        public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
+        {
+        }
         
         public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
         {

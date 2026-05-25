@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using CrowdGuard.Climbing.Tools.Common;
 using Fusion;
+using UnityEngine;
 
-public class RoleManager : NetworkBehaviour
+public class RoleManager : NetworkBehaviour, IStateAuthorityChanged
 {
     public static RoleManager Instance{ get; private set;} 
 
@@ -45,19 +47,6 @@ public class RoleManager : NetworkBehaviour
         Roles.Set(player,role);
     }
     
-    /// <summary>
-    /// 퇴장한 플레이어의 역할 제거
-    /// </summary>
-    /// <param name="player"></param>
-    [Rpc(RpcSources.All, RpcTargets.All)]
-    public void RPC_RemovePlayer(PlayerRef player)
-    {
-        if (Roles.ContainsKey(player))
-        {
-            Roles.Remove(player);
-        }
-        
-    }
 
     private bool _despawnRequested = false;
 
@@ -97,6 +86,52 @@ public class RoleManager : NetworkBehaviour
         }
         OnRoleAccepted?.Invoke(false);
 
+    }
+
+    public void StateAuthorityChanged()
+    {
+        // 내가 방금 새로운 방장이 되었다면?
+        if (HasStateAuthority)
+        {
+            Debug.Log("[서버] 새로운 방장으로 임명되었습니다. 데이터를 청소합니다.");
+            CleanUpDisconnectedPlayers();
+        }
+    }
+    
+    /// <summary>
+    /// 현재 세션에 없는(이미 나간) 플레이어의 정보가 딕셔너리에 남아있다면 강제로 지웁니다.
+    /// </summary>
+    private void CleanUpDisconnectedPlayers()
+    {
+        // 지워야 할 유령 플레이어들을 담을 리스트
+        List<PlayerRef> ghostPlayers = new List<PlayerRef>();
+
+        // 딕셔너리를 순회하면서, 현재 접속 중인 플레이어 목록(Runner.ActivePlayers)에 없는 사람을 찾습니다.
+        foreach (var item in Roles)
+        {
+            // 이 플레이어가 현재 살아있는 플레이어 목록에 없다면? (방금 나간 예전 방장 등)
+            bool isPlayerActive = false;
+            foreach (var activePlayer in Runner.ActivePlayers)
+            {
+                if (item.Key == activePlayer)
+                {
+                    isPlayerActive = true;
+                    break;
+                }
+            }
+
+            if (!isPlayerActive)
+            {
+                ghostPlayers.Add(item.Key);
+            }
+        }
+
+        // 찾아낸 유령 플레이어들을 딕셔너리에서 안전하게 제거합니다.
+        foreach (var ghost in ghostPlayers)
+        {
+            Roles.Remove(ghost);
+            //Debug.Log($"[서버 청소] 나간 플레이어({ghost})의 찌꺼기 데이터를 삭제했습니다.");
+        }
     }
 }
 
