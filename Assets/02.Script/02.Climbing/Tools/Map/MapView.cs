@@ -30,7 +30,6 @@ namespace CrowdGuard.Climbing.Tools.Map
 
         private readonly List<RectTransform> _markerPool = new List<RectTransform>();
         private readonly HashSet<int> _aspectWarningBlocks = new HashSet<int>();
-        private readonly HashSet<string> _outsideMapBlockPlayerWarnings = new HashSet<string>();
         private bool _activeBlockWarningLogged;
 
         private void Awake()
@@ -80,6 +79,15 @@ namespace CrowdGuard.Climbing.Tools.Map
             _activeBlockWarningLogged = false;
             EnsurePoolSize(markers.Count);
 
+            RectTransform targetRect = GetTargetRect(activeBlockIndex);
+            if (targetRect == null || !targetRect.gameObject.activeInHierarchy)
+            {
+                DeactivateMarkers();
+                return;
+            }
+
+            WarnIfAspectMismatch(activeBlockIndex, targetRect);
+
             int visibleIndex = 0;
             for (int i = 0; i < markers.Count; i++)
             {
@@ -89,34 +97,13 @@ namespace CrowdGuard.Climbing.Tools.Map
                     continue;
                 }
 
-                if (!_mapBounds.TryWorldToMapPosition(
+                if (!_mapBounds.TryWorldToMapPositionInBlock(
+                        activeBlockIndex,
                         marker.WorldPosition,
-                        out int blockIndex,
                         out Vector2 normalized))
                 {
-                    WarnIfPlayerOutsideMapBlocks(marker);
                     continue;
                 }
-
-                if (blockIndex != activeBlockIndex)
-                {
-                    continue;
-                }
-
-                ClearPlayerOutsideMapBlockWarning(marker);
-
-                RectTransform targetRect = GetTargetRect(blockIndex);
-                if (targetRect == null)
-                {
-                    continue;
-                }
-
-                if (!targetRect.gameObject.activeInHierarchy)
-                {
-                    continue;
-                }
-
-                WarnIfAspectMismatch(blockIndex, targetRect);
 
                 RectTransform markerTransform = _markerPool[visibleIndex];
                 if (markerTransform.parent != targetRect)
@@ -264,37 +251,6 @@ namespace CrowdGuard.Climbing.Tools.Map
             }
 
             return _blockRects[blockIndex];
-        }
-
-        private void WarnIfPlayerOutsideMapBlocks(MapMarkerData marker)
-        {
-            if (marker.Type != MapMarkerType.Player)
-            {
-                return;
-            }
-
-            string playerKey = GetPlayerWarningKey(marker);
-            if (!_outsideMapBlockPlayerWarnings.Add(playerKey))
-            {
-                return;
-            }
-
-            Debug.LogWarning(
-                $"Player position has no matching map block. role={marker.OwnerRole}, label={marker.Label}, worldPosition={marker.WorldPosition}",
-                this);
-        }
-
-        private void ClearPlayerOutsideMapBlockWarning(MapMarkerData marker)
-        {
-            if (marker.Type == MapMarkerType.Player)
-            {
-                _outsideMapBlockPlayerWarnings.Remove(GetPlayerWarningKey(marker));
-            }
-        }
-
-        private string GetPlayerWarningKey(MapMarkerData marker)
-        {
-            return $"{marker.OwnerRole}:{marker.Label}";
         }
 
         private void WarnIfAspectMismatch(int blockIndex, RectTransform targetRect)
