@@ -32,6 +32,37 @@ namespace CrowdGuard.Climbing.Tools.Map
             return _markers;
         }
 
+        /// <summary>
+        /// 지도 active block 기준으로 사용할 로컬 Navigator 위치와 방향을 반환합니다.
+        /// </summary>
+        public bool TryGetLocalNavigatorPose(out Vector3 position, out Vector3 forward)
+        {
+            if (_playerTransform != null)
+            {
+                position = _playerTransform.position;
+                forward = _playerTransform.forward;
+                return true;
+            }
+
+            position = Vector3.zero;
+            forward = Vector3.forward;
+
+            if (!TryGetLocalNavigatorModel(out GamePlayerModel playerModel) ||
+                playerModel.body == null)
+            {
+                return false;
+            }
+
+            Transform bodyTransform = playerModel.body.transform;
+            Transform directionTransform = playerModel.head != null
+                ? playerModel.head.transform
+                : bodyTransform;
+
+            position = bodyTransform.position;
+            forward = directionTransform.forward;
+            return true;
+        }
+
         private void AddPlayerMarkers()
         {
             if (_playerTransform != null)
@@ -48,6 +79,23 @@ namespace CrowdGuard.Climbing.Tools.Map
 
             AddRolePlayerMarker(playerManager, PlayerRole.Leader, "Leader");
             AddRolePlayerMarker(playerManager, PlayerRole.Navigator, "Navigator");
+        }
+
+        private bool TryGetLocalNavigatorModel(out GamePlayerModel playerModel)
+        {
+            playerModel = GamePlayerModel.LocalPlayerModel;
+            PlayerManager playerManager = PlayerManager.Instance;
+
+            if (playerModel == null ||
+                playerManager == null ||
+                playerManager.players == null)
+            {
+                return false;
+            }
+
+            return playerManager.players.TryGetValue(PlayerRole.Navigator, out NetworkObject navigatorObject) &&
+                   navigatorObject != null &&
+                   playerModel.Object == navigatorObject;
         }
 
         private void AddRolePlayerMarker(PlayerManager playerManager, PlayerRole role, string label)

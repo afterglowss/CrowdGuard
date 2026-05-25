@@ -74,6 +74,30 @@ namespace CrowdGuard.Climbing.Tools.Map
         }
 
         /// <summary>
+        /// 지정된 지도 블록 안에서 월드 위치를 0~1 정규화 좌표로 변환합니다.
+        /// </summary>
+        public bool TryWorldToMapPositionInBlock(
+            int blockIndex,
+            Vector3 worldPosition,
+            out Vector2 normalized)
+        {
+            if (_blocks == null ||
+                blockIndex < 0 ||
+                blockIndex >= _blocks.Length ||
+                _blocks[blockIndex] == null ||
+                !_blocks[blockIndex].Contains(worldPosition))
+            {
+                normalized = Vector2.zero;
+                return false;
+            }
+
+            return _blocks[blockIndex].TryWorldToNormalized(
+                worldPosition,
+                _clampToBounds,
+                out normalized);
+        }
+
+        /// <summary>
         /// 지도 블록 또는 fallback 전체 지도의 월드 가로/세로 비율을 구합니다.
         /// </summary>
         public bool TryGetWorldAspect(int blockIndex, out float aspect)
@@ -95,7 +119,10 @@ namespace CrowdGuard.Climbing.Tools.Map
             return TryCalculateAspect(_worldMin, _worldMax, out aspect);
         }
 
-        private bool TryGetBlockIndex(Vector3 worldPosition, out int blockIndex)
+        /// <summary>
+        /// 월드 위치를 포함하는 지도 블록 인덱스를 반환합니다.
+        /// </summary>
+        public bool TryGetBlockIndex(Vector3 worldPosition, out int blockIndex)
         {
             if (_blocks == null)
             {
@@ -103,7 +130,7 @@ namespace CrowdGuard.Climbing.Tools.Map
                 return false;
             }
 
-            for (int i = 0; i < _blocks.Length; i++)
+            for (int i = _blocks.Length - 1; i >= 0; i--)
             {
                 MapBlock candidate = _blocks[i];
                 if (candidate != null && candidate.Contains(worldPosition))

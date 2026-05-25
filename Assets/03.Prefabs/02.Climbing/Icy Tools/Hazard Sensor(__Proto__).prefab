@@ -1141,6 +1141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousModeAction: {fileID: 0}
   nextModeAction: {fileID: 0}
+  trackingDuration: 15
   beepIntervalMax: 2
   beepIntervalMin: 0.07
   beepThreshold: 0.05
