@@ -49,10 +49,14 @@ public class RoleManager : NetworkBehaviour
     /// 퇴장한 플레이어의 역할 제거
     /// </summary>
     /// <param name="player"></param>
-    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_RemovePlayer(PlayerRef player)
     {
-        Roles.Remove(player);
+        if (Roles.ContainsKey(player))
+        {
+            Roles.Remove(player);
+        }
+        
     }
 
     private bool _despawnRequested = false;
