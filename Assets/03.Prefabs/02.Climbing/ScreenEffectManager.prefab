@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2597011683299196368}
   - component: {fileID: 5368649698371578126}
+  - component: {fileID: 3931456280846983310}
   m_Layer: 0
   m_Name: ScreenEffectManager
   m_TagString: Untagged
@@ -46,5 +47,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeQuad: {fileID: 0}
   vignetteQuad: {fileID: 0}
+  dangerVignetteQuad: {fileID: 0}
   quadDistance: 0.15
   quadScale: 0.5
+  dangerVignetteSmoothSpeed: 8
+  vignetteInnerRadius: 0.35
+  vignetteOuterRadius: 0.8
+--- !u!114 &3931456280846983310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7659949539667129767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1169a015bbc2f4e409e2d92c64e891ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  previewIntensity: 0
+  toggleKey: 118
+  toggleTargetIntensity: 1
+  cyclePresets: 0
+  presets:
+  - 0
+  - 0.3
+  - 0.6
+  - 1

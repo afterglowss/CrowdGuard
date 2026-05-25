@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Capstone.Photon.Game;
 using CrowdGuard.Climbing.Tools.Common;
@@ -16,6 +17,17 @@ using CrowdGuard.Climbing.Tools.Common;
 /// </summary>
 public class PlayerHazardReceiver : MonoBehaviour
 {
+    [Header("피격 비네트")]
+    [Tooltip("피격 시 붉은 테두리 강도 (0~1)")]
+    [Range(0f, 1f)]
+    public float hitVignetteIntensity = 1.0f;
+
+    [Tooltip("비네트가 유지되는 시간(초). 이후 서서히 사라짐.")]
+    public float hitVignetteDuration = 2.0f;
+
+    private const string HazardSourceId = "hazard_hit";
+    private Coroutine _vignetteCoroutine;
+
     private void OnTriggerEnter(Collider other)
     {
         // 로컬 플레이어 오브젝트에 붙은 인스턴스만 처리
@@ -28,7 +40,25 @@ public class PlayerHazardReceiver : MonoBehaviour
         if (!isAvalanche && !isRock) return;
 
         Debug.Log($"[PlayerHazardReceiver] {(isAvalanche ? "눈사태" : "낙석")} 피격 — 추락 시작");
+        ShowHitVignette();
         TriggerFall(model);
+    }
+
+    private void ShowHitVignette()
+    {
+        var mgr = ScreenEffectManager.Instance;
+        if (mgr == null) return;
+
+        if (_vignetteCoroutine != null) StopCoroutine(_vignetteCoroutine);
+        _vignetteCoroutine = StartCoroutine(HitVignetteRoutine(mgr));
+    }
+
+    private IEnumerator HitVignetteRoutine(ScreenEffectManager mgr)
+    {
+        mgr.SetDangerVignette(HazardSourceId, hitVignetteIntensity);
+        yield return new WaitForSeconds(hitVignetteDuration);
+        mgr.ClearDangerVignette(HazardSourceId);
+        _vignetteCoroutine = null;
     }
 
     private void TriggerFall(GamePlayerModel model)
