@@ -95,7 +95,10 @@ namespace CrowdGuard.Climbing.Tools.Map
             return TryCalculateAspect(_worldMin, _worldMax, out aspect);
         }
 
-        private bool TryGetBlockIndex(Vector3 worldPosition, out int blockIndex)
+        /// <summary>
+        /// 월드 위치를 포함하는 지도 블록 인덱스를 반환합니다.
+        /// </summary>
+        public bool TryGetBlockIndex(Vector3 worldPosition, out int blockIndex)
         {
             if (_blocks == null)
             {

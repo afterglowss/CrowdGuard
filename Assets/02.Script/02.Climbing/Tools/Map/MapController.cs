@@ -54,7 +54,12 @@ namespace CrowdGuard.Climbing.Tools.Map
                 return;
             }
 
-            _view.Render(_dataProvider.GetMarkers());
+            var markers = _dataProvider.GetMarkers();
+            bool hasLocalNavigatorPose = _dataProvider.TryGetLocalNavigatorPose(
+                out Vector3 localNavigatorPosition,
+                out _);
+
+            _view.Render(markers, localNavigatorPosition, hasLocalNavigatorPose);
         }
     }
 }

@@ -16,6 +16,7 @@ namespace CrowdGuard.Climbing.Tools.Map
         [SerializeField] private MapBounds _mapBounds;
         [SerializeField] private RectTransform _markerPrefab;
         [SerializeField] private GameObject _terrainLayer;
+        [SerializeField] private GameObject _fallbackRoot;
         [SerializeField] private Sprite _playerSprite;
         [SerializeField] private Sprite _directionSprite;
         [SerializeField] private Sprite _savePointSprite;
@@ -30,6 +31,7 @@ namespace CrowdGuard.Climbing.Tools.Map
         private readonly List<RectTransform> _markerPool = new List<RectTransform>();
         private readonly HashSet<int> _aspectWarningBlocks = new HashSet<int>();
         private readonly HashSet<string> _outsideMapBlockPlayerWarnings = new HashSet<string>();
+        private bool _activeBlockWarningLogged;
 
         private void Awake()
         {
@@ -46,6 +48,17 @@ namespace CrowdGuard.Climbing.Tools.Map
         /// </summary>
         public void Render(IReadOnlyList<MapMarkerData> markers)
         {
+            Render(markers, Vector3.zero, false);
+        }
+
+        /// <summary>
+        /// 로컬 Navigator 위치가 속한 지도 블록만 활성화하고 해당 블록의 마커만 표시합니다.
+        /// </summary>
+        public void Render(
+            IReadOnlyList<MapMarkerData> markers,
+            Vector3 activeBlockWorldPosition,
+            bool hasActiveBlockWorldPosition)
+        {
             ResolveMapBounds();
 
             if (_mapRect == null || _mapBounds == null || _markerPrefab == null || markers == null)
@@ -53,6 +66,18 @@ namespace CrowdGuard.Climbing.Tools.Map
                 return;
             }
 
+            int activeBlockIndex = ResolveActiveBlockIndex(
+                activeBlockWorldPosition,
+                hasActiveBlockWorldPosition);
+            SetActiveBlock(activeBlockIndex);
+
+            if (activeBlockIndex < 0)
+            {
+                RenderFallback(activeBlockWorldPosition, hasActiveBlockWorldPosition);
+                return;
+            }
+
+            _activeBlockWarningLogged = false;
             EnsurePoolSize(markers.Count);
 
             int visibleIndex = 0;
@@ -70,6 +95,11 @@ namespace CrowdGuard.Climbing.Tools.Map
                         out Vector2 normalized))
                 {
                     WarnIfPlayerOutsideMapBlocks(marker);
+                    continue;
+                }
+
+                if (blockIndex != activeBlockIndex)
+                {
                     continue;
                 }
 
@@ -110,10 +140,7 @@ namespace CrowdGuard.Climbing.Tools.Map
                 visibleIndex++;
             }
 
-            for (int i = visibleIndex; i < _markerPool.Count; i++)
-            {
-                _markerPool[i].gameObject.SetActive(false);
-            }
+            DeactivateMarkers(visibleIndex);
         }
 
         internal Sprite GetSprite(MapMarkerType type)
@@ -134,6 +161,75 @@ namespace CrowdGuard.Climbing.Tools.Map
                 default:
                     return _landmarkSprite;
             }
+        }
+
+        private int ResolveActiveBlockIndex(Vector3 worldPosition, bool hasWorldPosition)
+        {
+            if (!hasWorldPosition ||
+                _mapBounds == null ||
+                !_mapBounds.TryGetBlockIndex(worldPosition, out int blockIndex))
+            {
+                return -1;
+            }
+
+            return blockIndex;
+        }
+
+        private void SetActiveBlock(int activeBlockIndex)
+        {
+            bool hasActiveBlock = activeBlockIndex >= 0;
+
+            if (_terrainLayer != null)
+            {
+                _terrainLayer.SetActive(hasActiveBlock);
+            }
+
+            if (_fallbackRoot != null)
+            {
+                _fallbackRoot.SetActive(!hasActiveBlock);
+            }
+
+            if (_blockRects == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < _blockRects.Length; i++)
+            {
+                if (_blockRects[i] != null)
+                {
+                    _blockRects[i].gameObject.SetActive(i == activeBlockIndex);
+                }
+            }
+        }
+
+        private void DeactivateMarkers(int startIndex = 0)
+        {
+            for (int i = startIndex; i < _markerPool.Count; i++)
+            {
+                _markerPool[i].gameObject.SetActive(false);
+            }
+        }
+
+        private void RenderFallback(Vector3 worldPosition, bool hasWorldPosition)
+        {
+            WarnIfActiveBlockUnavailable(worldPosition, hasWorldPosition);
+            DeactivateMarkers();
+        }
+
+        private void WarnIfActiveBlockUnavailable(Vector3 worldPosition, bool hasWorldPosition)
+        {
+            if (_activeBlockWarningLogged)
+            {
+                return;
+            }
+
+            _activeBlockWarningLogged = true;
+            string message = hasWorldPosition
+                ? $"Local Navigator position has no matching map block. worldPosition={worldPosition}"
+                : "Local Navigator pose is unavailable. Map fallback is active.";
+
+            Debug.LogWarning(message, this);
         }
 
         private Color GetMarkerColor(MapMarkerData marker)
