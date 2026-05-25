@@ -12,15 +12,11 @@ namespace Capstone.Photon
         }
 
 
-        [Rpc(RpcSources.All,RpcTargets.All)]
+        [Rpc(RpcSources.All,RpcTargets.StateAuthority)]
         public void RPC_ChangeLevel(int sceneIndex)
         {
             Debug.Log($"Changing level to {sceneIndex}");
-            if (Runner.IsSharedModeMasterClient)
-            {
-                Debug.Log("Im master");
-                Runner.LoadScene(SceneRef.FromIndex(sceneIndex));
-            }
+            Runner.LoadScene(SceneRef.FromIndex(sceneIndex));
         }
     }
 }
