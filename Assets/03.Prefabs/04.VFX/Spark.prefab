@@ -751,7 +751,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.28
+      value: 0.1
       mode: 0
       spread: 0
       speed:
@@ -1053,13 +1053,22 @@ ParticleSystem:
           inWeight: 0
           outWeight: 0.18413855
         - serializedVersion: 3
-          time: 1
-          value: 0
-          inSlope: -1.1363854
-          outSlope: -1.1363854
+          time: 0.78132
+          value: 0.05692239
+          inSlope: -1.0840603
+          outSlope: -1.0840603
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.11030084
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -0.009727907
+          outSlope: -0.009727907
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.64745307
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
