@@ -13,8 +13,10 @@ namespace CrowdGuard.Climbing.Tools.Map
     {
         [SerializeField] private Transform _playerTransform;
         [SerializeField] private MapMarker[] _staticMarkers;
+        [SerializeField] private MapLandmarkDatabase _landmarkDatabase;
         [SerializeField] private bool _includeAnchors = true;
         [SerializeField] private bool _includeSavePoint = true;
+        [SerializeField] private bool _includeBakedLandmarks = true;
 
         private readonly List<MapMarkerData> _markers = new List<MapMarkerData>();
 
@@ -28,6 +30,7 @@ namespace CrowdGuard.Climbing.Tools.Map
             AddPlayerMarkers();
             AddSavePointMarkers();
             AddStaticMarkers();
+            AddBakedLandmarkMarkers();
 
             return _markers;
         }
@@ -187,6 +190,21 @@ namespace CrowdGuard.Climbing.Tools.Map
                 {
                     _markers.Add(marker.ToData());
                 }
+            }
+        }
+
+        private void AddBakedLandmarkMarkers()
+        {
+            if (!_includeBakedLandmarks ||
+                _landmarkDatabase == null ||
+                _landmarkDatabase.Entries == null)
+            {
+                return;
+            }
+
+            foreach (MapLandmarkRecord record in _landmarkDatabase.Entries)
+            {
+                _markers.Add(record.ToMarkerData());
             }
         }
     }
