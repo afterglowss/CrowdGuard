@@ -7,10 +7,10 @@ public class PlayerClimbingState : PlayerState
     // ── 벽 충돌 캡슐 파라미터 ──────────────────────────────────────────
     // pivot(발)에서 이 높이부터 캡슐 시작 — 발/무릎은 벽 감지에서 제외
     private const float _capsuleBottomOffset = 0.8f;
-    // pivot에서 이 높이까지 캡슐 끝 — 대략 머리 높이
-    private const float _capsuleTopOffset    = 1.7f;
+    // HMD를 읽지 못할 때 쓰는 폴백 높이
+    private const float _capsuleTopFallback  = 1.7f;
     // 몸통 반경 — 좁은 틈새에서 막히면 줄이고, 관통이 생기면 키움
-    private const float _bodyRadius          = 0.15f;
+    private const float _bodyRadius          = 0.05f;
     // 벽과 유지할 최소 여백
     private const float _wallMargin          = 0.05f;
 
@@ -124,7 +124,7 @@ public class PlayerClimbingState : PlayerState
     ///
     /// [기존 SphereCast 대비 개선점]
     ///   - Sphere → Capsule: 실제 사람 몸 형태에 맞는 충돌 검사
-    ///   - 캡슐을 허리~머리(_capsuleBottomOffset~_capsuleTopOffset)에만 배치:
+    ///   - 캡슐을 허리~머리(HMD 높이)에만 배치:
     ///     발/무릎 높이는 제외해 경사면 오르막에서 불필요하게 막히지 않음
     ///   - 완전 정지 대신 슬라이드: 벽 법선에 수직인 성분만 남겨
     ///     기울어진 벽·오버행에서 몸이 표면을 따라 자연스럽게 이동
@@ -136,8 +136,11 @@ public class PlayerClimbingState : PlayerState
         if (deltaWorld.sqrMagnitude < 0.000001f) return deltaWorld;
 
         Vector3 origin = player.xrRigPivot.position;
+        float topOffset = Camera.main != null
+            ? Camera.main.transform.position.y - origin.y
+            : _capsuleTopFallback;
         Vector3 capsuleBottom = origin + Vector3.up * _capsuleBottomOffset;
-        Vector3 capsuleTop    = origin + Vector3.up * _capsuleTopOffset;
+        Vector3 capsuleTop    = origin + Vector3.up * topOffset;
 
         float   moveDist = deltaWorld.magnitude;
         Vector3 moveDir  = -deltaWorld / moveDist; // rig 실제 이동 방향
