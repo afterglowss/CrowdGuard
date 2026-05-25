@@ -98,7 +98,7 @@ public class SurvivalManager : NetworkBehaviour
         // 비선형 커브: 초반 게이지도 셰이더에 충분히 큰 값을 전달해 VR FOV 안쪽까지 서리가 표시되도록 함
         // 지수를 낮출수록 초반에 더 강하게 표시 (0.5=sqrt, 0.3=현재, 0.2=매우 강함)
         // 선형 대비 예시 → Gauge 200: 0.17 → 0.60 / Gauge 300: 0.38 → 0.72
-        float freezeRatio = Mathf.Pow(Mathf.Clamp01(currentEffectValue / effectRange), 0.25f);
+        float freezeRatio = Mathf.Pow(Mathf.Clamp01(currentEffectValue / effectRange), 0.3f);
         
         // 글로벌 셰이더 변수 쏘기
         Shader.SetGlobalFloat("_FreezingAmount", freezeRatio);
