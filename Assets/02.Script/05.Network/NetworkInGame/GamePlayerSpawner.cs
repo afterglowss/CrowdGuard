@@ -31,7 +31,7 @@ namespace Capstone.Photon.Game
 
         public void OnSceneLoadDone(NetworkRunner runner)
         {
-            if (runner.IsServer)
+            if (runner.IsSharedModeMasterClient)
             {
                 runner.SessionInfo.IsOpen = false;
             }

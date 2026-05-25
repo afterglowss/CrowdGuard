@@ -119,6 +119,7 @@ namespace Capstone.Photon
                 GameMode = GameMode.Shared,
                 PlayerCount = 4,
                 Scene = networkSceneInfo,
+                SceneManager = GetComponentInChildren<INetworkSceneManager>() 
             };
 
             return await StartGame(startGameArgs);

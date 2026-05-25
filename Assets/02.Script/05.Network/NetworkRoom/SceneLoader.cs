@@ -16,8 +16,9 @@ namespace Capstone.Photon
         public void RPC_ChangeLevel(int sceneIndex)
         {
             Debug.Log($"Changing level to {sceneIndex}");
-            if (Runner.IsServer)
+            if (Runner.IsSharedModeMasterClient)
             {
+                Debug.Log("Im master");
                 Runner.LoadScene(SceneRef.FromIndex(sceneIndex));
             }
         }

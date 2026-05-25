@@ -46,7 +46,7 @@ namespace Capstone.Photon.Room
         
         public void OnSceneLoadDone(NetworkRunner runner)
         {
-            if (runner.IsServer)
+            if (runner.IsSharedModeMasterClient)
             {
                 runner.SessionInfo.IsOpen = true;
             }
