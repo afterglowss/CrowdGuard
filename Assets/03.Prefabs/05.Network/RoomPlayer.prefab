@@ -857,6 +857,7 @@ MonoBehaviour:
   head: {fileID: 6541718680843044166}
   leftHand: {fileID: 2086337974734485034}
   rightHand: {fileID: 1589984886440324504}
+  headTrackers: []
 --- !u!1 &6557171700918249754
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,7 +919,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 6694420648699382859, guid: 1538647c1f8bbe8468d010b80e8b934c, type: 3}
+  - {fileID: 2100000, guid: f1ad922be3b9b8546808c0bbbbff0f53, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
