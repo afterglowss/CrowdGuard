@@ -65,7 +65,7 @@ public class ScreenEffectManager : MonoBehaviour
         else { Destroy(gameObject); return; }
     }
 
-    private void Start()
+    public void Init()
     {
         InitQuads();
 

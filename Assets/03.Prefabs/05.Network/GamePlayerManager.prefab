@@ -113,7 +113,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 5379304984727071042, guid: 0bb6c91ca0c2e0b42a309bc4d8be0ac4, type: 3}
-  localController: {fileID: 7229220600614218450, guid: 60346070c3df30e41b0cd212f61d328b, type: 3}
+  controllerObject: {fileID: 3701239973524304136, guid: 60346070c3df30e41b0cd212f61d328b, type: 3}
+  spectatorObject: {fileID: 4594801660317911699, guid: 30d9e55fb24945446b094024430919f0, type: 3}
 --- !u!1001 &8670919960859000061
 PrefabInstance:
   m_ObjectHideFlags: 0
