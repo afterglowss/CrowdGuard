@@ -4,7 +4,7 @@ using CrowdGuard.Climbing.Tools.Common;
 using Fusion;
 using UnityEngine;
 
-public class RoleManager : NetworkBehaviour, IStateAuthorityChanged
+public class RoleManager : NetworkBehaviour, IStateAuthorityChanged, IPlayerLeft
 {
     public static RoleManager Instance{ get; private set;} 
 
@@ -90,10 +90,17 @@ public class RoleManager : NetworkBehaviour, IStateAuthorityChanged
 
     public void StateAuthorityChanged()
     {
-        // 내가 방금 새로운 방장이 되었다면?
         if (HasStateAuthority)
         {
             Debug.Log("[서버] 새로운 방장으로 임명되었습니다. 데이터를 청소합니다.");
+            CleanUpDisconnectedPlayers();
+        }
+    }
+    
+    public void PlayerLeft(PlayerRef player)
+    {
+        if (HasStateAuthority)
+        {
             CleanUpDisconnectedPlayers();
         }
     }
@@ -133,6 +140,8 @@ public class RoleManager : NetworkBehaviour, IStateAuthorityChanged
             //Debug.Log($"[서버 청소] 나간 플레이어({ghost})의 찌꺼기 데이터를 삭제했습니다.");
         }
     }
+
+    
 }
 
 

@@ -17,7 +17,6 @@ namespace Capstone.Photon
         {
             isLoading = true;
             await PhotonManager.Instance.StartMatchGame();
-            isLoading = false;
         }
     }
 }
