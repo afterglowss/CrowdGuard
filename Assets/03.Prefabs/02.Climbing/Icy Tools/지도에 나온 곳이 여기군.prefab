@@ -62,8 +62,8 @@ MonoBehaviour:
   _directionSprite: {fileID: 21300000, guid: 63326cc56ebfaea4381f544c07b32772, type: 3}
   _savePointSprite: {fileID: 21300000, guid: 17c73c22617bedc448ded71ad79a217d, type: 3}
   _anchorSprite: {fileID: 21300000, guid: e48c4100de25f9b479cafc34bb3bcb78, type: 3}
-  _tentSprite: {fileID: 21300000, guid: 268751455f43f874595012eb989d0216, type: 3}
-  _landmarkSprite: {fileID: 21300000, guid: e48c4100de25f9b479cafc34bb3bcb78, type: 3}
+  _tentSprite: {fileID: 21300000, guid: 6ef77073292604444aea7f22ce658cdd, type: 3}
+  _landmarkSprite: {fileID: 21300000, guid: baaa626df703fcf44867814fc7bf7be3, type: 3}
   _defaultMarkerColor: {r: 1, g: 1, b: 1, a: 1}
   _leaderMarkerColor: {r: 0.2, g: 0.75, b: 1, a: 1}
   _navigatorMarkerColor: {r: 1, g: 0.78, b: 0.2, a: 1}
@@ -459,8 +459,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerTransform: {fileID: 0}
   _staticMarkers: []
+  _landmarkDatabase: {fileID: 11400000, guid: 6899aec303127724d8b4d99e0aca60a7, type: 2}
   _includeAnchors: 1
   _includeSavePoint: 1
+  _includeBakedLandmarks: 1
 --- !u!54 &6858360438987341652
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -864,7 +866,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &673576114421046004
 RectTransform:
   m_ObjectHideFlags: 0

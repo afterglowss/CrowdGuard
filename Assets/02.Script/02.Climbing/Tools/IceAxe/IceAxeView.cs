@@ -63,15 +63,6 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
                 _rb.isKinematic = false;
                 // 잡았으므로 복구 타이머 취소 (RetractableObject가 자체적으로 처리)
             }
-            else
-            {
-                if (!_model.IsAttachedToWall)
-                {
-                    //Debug.Log($"[IceAxeView - {_model.Side}] 허공에서 바일을 놓았습니다! (낙하 및 자동 복구 대기)");
-                    _rb.useGravity = true;
-                    _rb.isKinematic = false;
-                }
-            }
         }
 
         private void HandleAttachedState(bool isAttached)

@@ -60,6 +60,9 @@ namespace CrowdGuard.Climbing.Tools.Common
 
         private void OnDropped(SelectExitEventArgs args)
         {
+            _rb.isKinematic = false;
+            _rb.useGravity = true;
+
             // 놓을 때 복귀 요청
             RequestReturn();
         }
