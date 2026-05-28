@@ -28,6 +28,7 @@ namespace SimpleAudioManager
             SensorBeep = 12,
             SensorSwitch =13,
             TautRope = 14,
+            GetCoin = 15,
             
             Confirm = 90,
             Cancel = 91,
