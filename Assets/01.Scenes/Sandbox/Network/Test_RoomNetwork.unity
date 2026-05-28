@@ -1062,9 +1062,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 852376228789268681, guid: 06cafd6f8bd332e408c663221a97d4ea, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2322839651422561580, guid: 06cafd6f8bd332e408c663221a97d4ea, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3006039918623044158, guid: 06cafd6f8bd332e408c663221a97d4ea, type: 3}
+      propertyPath: m_PhysicsLayerMask.m_Bits
+      value: 16385
+      objectReference: {fileID: 0}
+    - target: {fileID: 3006039918623044158, guid: 06cafd6f8bd332e408c663221a97d4ea, type: 3}
+      propertyPath: m_PhysicsTriggerInteraction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5235180411456892065, guid: 06cafd6f8bd332e408c663221a97d4ea, type: 3}
+      propertyPath: m_PhysicsLayerMask.m_Bits
+      value: 16385
+      objectReference: {fileID: 0}
+    - target: {fileID: 5235180411456892065, guid: 06cafd6f8bd332e408c663221a97d4ea, type: 3}
+      propertyPath: m_PhysicsTriggerInteraction
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7435807389273440304, guid: 06cafd6f8bd332e408c663221a97d4ea, type: 3}
       propertyPath: m_Name
@@ -1109,6 +1129,10 @@ PrefabInstance:
     - target: {fileID: 7435807389273440307, guid: 06cafd6f8bd332e408c663221a97d4ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693483040293236310, guid: 06cafd6f8bd332e408c663221a97d4ea, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
