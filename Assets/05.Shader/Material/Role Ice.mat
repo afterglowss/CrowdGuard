@@ -71,7 +71,7 @@ Material:
     - _isLeader: 1
     m_Colors:
     - _IceColor_Leader: {r: 0.39999998, g: 0.6, b: 0.8509804, a: 0}
-    - _IceColor_Navigator: {r: 0.7888928, g: 0.8861085, b: 0.9056604, a: 0}
+    - _IceColor_Navigator: {r: 1, g: 1, b: 1, a: 0}
     - _IceEdgeColor: {r: 0.050980367, g: 0.01960784, b: 0.5019608, a: 0}
     - _IceSpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SnowColor: {r: 0.95, g: 0.96999997, b: 1, a: 1}
