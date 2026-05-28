@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8d28438d15e497abc7e81732e259a51, type: 3}
+  m_Name: 01_Mountain 1 Landmark Data
+  m_EditorClassIdentifier: 
+  _entries:
+  - _type: 4
+    _worldPosition: {x: 12.737434, y: 5.934696, z: 7.1521797}
+    _forward: {x: -0.990611, y: -0.13312122, z: 0.031119972}
+    _label: TentSavePoint (1)
+    _category: Tent
+    _isVisible: 1
+  - _type: 4
+    _worldPosition: {x: 25.48249, y: 13.47278, z: 6.188835}
+    _forward: {x: -0.90200055, y: 0.25748298, z: 0.34655076}
+    _label: TentSavePoint (2)
+    _category: Tent
+    _isVisible: 1
+  - _type: 4
+    _worldPosition: {x: 9.798056, y: 19.157509, z: 12.023464}
+    _forward: {x: -0.6413936, y: 0.012632602, z: 0.767108}
+    _label: TentSavePoint (3)
+    _category: Tent
+    _isVisible: 1
+  - _type: 4
+    _worldPosition: {x: 11.156513, y: 36.995213, z: 16.136082}
+    _forward: {x: -0.94060695, y: 0.012632599, z: 0.3392625}
+    _label: TentSavePoint (4)
+    _category: Tent
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 10.431196, y: 4.398659, z: 7.065113}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Avalanche: HazardTriggerZone_Avalanche_00'
+    _category: Hazard/Avalanche
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 23.412022, y: 7.8735538, z: 8.100906}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Rockfall: HazardTriggerZone_RockFall_00'
+    _category: Hazard/Rockfall
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 19.920021, y: 15.853556, z: 8.100906}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Avalanche: HazardTriggerZone_RockFall_00 (1)'
+    _category: Hazard/Avalanche
+    _isVisible: 1
