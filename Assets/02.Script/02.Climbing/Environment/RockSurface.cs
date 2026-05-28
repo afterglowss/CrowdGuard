@@ -6,12 +6,28 @@ namespace CrowdGuard.Environment
 {
     public class RockSurface : BaseSurface
     {
+        [Header("VFX")]
+        [SerializeField] private GameObject _rockImpactFX1Prefab;
+        [SerializeField] private GameObject _rockImpactFX2Prefab;
+        [SerializeField] private GameObject _rockImpactLightPrefab;
+
         public override bool OnHitByIceAxe(Vector3 contactPoint = default)
         {
             AudioManager.instance.PlaySFX(AudioManager.SFXType.PickRock, transform);
+            SpawnImpactVFX(contactPoint);
             // 바위는 무조건 튕겨 나감
             Debug.Log("[RockSurface] 바위 표면입니다. 바일이 튕겨 나갑니다!");
             return false;
+        }
+
+        private void SpawnImpactVFX(Vector3 point)
+        {
+            if (_rockImpactFX1Prefab != null)
+                Destroy(Instantiate(_rockImpactFX1Prefab, point, Quaternion.identity), 3f);
+            if (_rockImpactFX2Prefab != null)
+                Destroy(Instantiate(_rockImpactFX2Prefab, point, Quaternion.identity), 3f);
+            if (_rockImpactLightPrefab != null)
+                Destroy(Instantiate(_rockImpactLightPrefab, point, Quaternion.identity), 3f);
         }
 
         public override bool CanInstallAnchor(Vector3 contactPoint = default)

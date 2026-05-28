@@ -19,6 +19,9 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
         [Tooltip("아이스 바일이 벽에 박히기 위해 필요한 최소 속도")]
         [SerializeField] private float _minAttachVelocity = 1.5f;
 
+        [Header("VFX")]
+        [SerializeField] private GameObject _iceImpactFXPrefab;
+
         private Rigidbody _rb;
 
         private bool _isTriggerHeld = false;
@@ -207,6 +210,11 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
             if (allowAttachment)
             {
                 AudioManager.instance.PlaySFX(AudioManager.SFXType.PickIce, transform);
+                if (_iceImpactFXPrefab != null)
+                {
+                    GameObject fx = Instantiate(_iceImpactFXPrefab, _contactPoint, Quaternion.identity);
+                    Destroy(fx, 3f);
+                }
 
                 //Debug.Log("[IceAxeController] 검사 통과! Model에 벽면 부착 완료를 지시합니다.");
                 // IsAttachedToWall = true를 먼저 세팅합니다.
