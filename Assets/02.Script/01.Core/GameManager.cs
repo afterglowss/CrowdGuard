@@ -1,5 +1,6 @@
 using Fusion;
 using UnityEngine;
+using CrowdGuard.Climbing.Tools.Common;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,7 +29,15 @@ public class GameManager : MonoBehaviour
     {
         _spawnedPlayerCount++;
 
-        if (_spawnedPlayerCount < RoleManager.Instance.Roles.Count) return;
+        // None(관전자)을 제외한 실제 플레이어 수로 비교
+        // Roles에 관전자(None)가 포함돼 있어도 게임 플레이어는 항상 2명
+        int actualPlayerCount = 0;
+        foreach (var kv in RoleManager.Instance.Roles)
+        {
+            if (kv.Value != PlayerRole.None) actualPlayerCount++;
+        }
+
+        if (_spawnedPlayerCount < actualPlayerCount) return;
         if (_roleManagerDestroyRequested) return;
         if (RoleManager.Instance == null) return;
 

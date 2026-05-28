@@ -36,6 +36,14 @@ namespace Capstone.Photon.Game
             }
 
             CurrentRole = role;
+
+            // None(관전자)은 게임 시스템(로프·도구 등)에 영향을 주지 않음
+            if (CurrentRole == PlayerRole.None)
+            {
+                Debug.Log("[GamePlayerModel] 관전자(None) 역할 → 게임 시스템 초기화 건너뜀");
+                return;
+            }
+
             PlayerManager.Instance.SetPlayer(CurrentRole, Object);
 
             bool isLeader = CurrentRole == PlayerRole.Leader;
@@ -48,7 +56,7 @@ namespace Capstone.Photon.Game
                 toolBelt.SetRole(CurrentRole);
                 Debug.Log($"[GamePlayerModel] ToolBeltManager 역할 적용: {CurrentRole}");
             }
-            
+
             // 이 오브젝트를 소유한 로컬 머신에서만 클라이언트 측 역할 반영 처리
             if (Object.HasStateAuthority)
             {
