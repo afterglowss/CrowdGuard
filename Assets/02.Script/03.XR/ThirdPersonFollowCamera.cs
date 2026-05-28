@@ -106,12 +106,12 @@ namespace CrowdGuard.XR
                 TryFindTarget();
 
             // Quest X 버튼 또는 에디터 키보드로 지터 트리거
-            if (_jitterQuestAction.WasPressedThisFrame() || Input.GetKeyDown(editorJitterKey))
+            /*if (_jitterQuestAction.WasPressedThisFrame() || Input.GetKeyDown(editorJitterKey))
                 TriggerJitter();
 
             // 지터 타이머 감소
             if (_jitterTimer > 0f)
-                _jitterTimer -= Time.deltaTime;
+                _jitterTimer -= Time.deltaTime;*/
         }
 
         private void LateUpdate()
