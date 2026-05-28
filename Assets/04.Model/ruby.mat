@@ -8,16 +8,18 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ruby
-  m_Shader: {fileID: -6465566751694194690, guid: 9beaaa4ab48493a47924066b7a737cc9, type: 3}
-  m_Parent: {fileID: 2100000, guid: 105d3ba7095e90f4eb6de22dc84e104e, type: 2}
+  m_Shader: {fileID: -6465566751694194690, guid: 25b105c3e48789541885327084213d4f, type: 3}
+  m_Parent: {fileID: 2100000, guid: 2cbaa48178e55cb4eac94c5d98f90121, type: 2}
   m_ModifiedSerializedProperties: 2
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _SPECULAR_SETUP
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
