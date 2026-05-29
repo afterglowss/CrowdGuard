@@ -42,7 +42,8 @@ public class GameManager : MonoBehaviour
         if (RoleManager.Instance == null) return;
 
         _roleManagerDestroyRequested = true;
-        RoleManager.Instance.RPC_DestroyAfterRoleDistributed();
+        Destroy(RoleManager.Instance.gameObject);
+        //RoleManager.Instance.RPC_DestroyAfterRoleDistributed();
         Debug.Log("[GameManager] 양쪽 플레이어 스폰 완료 → RoleManager 파괴 요청");
     }
 
