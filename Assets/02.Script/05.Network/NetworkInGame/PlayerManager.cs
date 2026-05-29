@@ -59,6 +59,11 @@ namespace Capstone.Photon.Game
             // ── 파트너 로프 (두 플레이어 연결) ──────────────────────────
             if (ropeSystem != null)
             {
+                if (PlayerController.LocalInstance)
+                {
+                    PlayerController.LocalInstance.ropeSystem = ropeSystem;
+                }
+                
                 // 로컬 플레이어가 Leader인지 Supporter인지 판별
                 bool isLeader = leader.HasInputAuthority;
 
