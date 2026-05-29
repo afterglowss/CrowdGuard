@@ -34,10 +34,44 @@ public class TentInteriorController : NetworkBehaviour
     // 랜턴 현재 상태
     private bool _isLanternOn = false;
 
+    /// <summary>
+    /// 텐트 입장 시퀀스가 시작될 때 발행됩니다. (관전자 포함 전 클라이언트)
+    /// ThirdPersonFollowCamera가 구독하여 추적을 일시 정지합니다.
+    /// 관전자 가드보다 먼저 발행되므로 관전자 카메라에도 반드시 도달합니다.
+    /// </summary>
+    public static event System.Action OnTentEnter;
+
+    /// <summary>
+    /// 텐트 퇴장 시퀀스가 시작될 때 발행됩니다. (관전자 포함 전 클라이언트)
+    /// ThirdPersonFollowCamera가 구독하여 추적을 재개합니다.
+    /// </summary>
+    public static event System.Action OnTentExit;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// 이 클라이언트가 관전자(Spectator)인지 판별합니다.
+    /// RPC_TentEnter / RPC_TentExit는 RpcTargets.All이라 관전자 클라이언트에도 도달하는데,
+    /// 관전자는 텐트 입·퇴장 연출(화면 페이드 + 텔레포트)의 영향을 받으면 안 됩니다.
+    ///   - GamePlayerSpawner의 spectatorObject 경로: GamePlayerModel이 없음 → LocalPlayerModel == null
+    ///   - None 역할로 스폰된 경우: GamePlayerModel.IsSpectator == true
+    /// 솔로 테스트(네트워크 미작동)에서는 관전자 개념이 없으므로 false를 반환해
+    /// 기존 단독 플레이 동작(?? true 폴백)을 그대로 유지합니다.
+    /// </summary>
+    public bool IsLocalSpectator()
+    {
+        bool networkActive = PlayerManager.Instance != null &&
+                             PlayerManager.Instance.Runner != null &&
+                             PlayerManager.Instance.Runner.IsRunning;
+        if (!networkActive) return false;
+
+        var model = GamePlayerModel.LocalPlayerModel;
+        if (model == null) return true;   // spectatorObject 경로: 플레이어 모델 자체가 없음
+        return model.IsSpectator;          // None 역할로 스폰된 관전자
     }
 
     // ── 입장 ────────────────────────────────────────────────────────
@@ -50,6 +84,16 @@ public class TentInteriorController : NetworkBehaviour
     /// </summary>
     public void ExecuteTentEnterLocal(Vector3 leaderPos, Vector3 navigatorPos, Vector3 exitPos)
     {
+        // 추적 카메라에 입장 알림 → 추적 일시정지. (관전자 가드보다 먼저 발행)
+        OnTentEnter?.Invoke();
+
+        // 관전자는 텐트 입장 연출(페이드/텔레포트)에서 제외 — 촬영 화면 보호
+        if (IsLocalSpectator())
+        {
+            Debug.Log("[TentInteriorController] 관전자 → 텐트 입장 연출 건너뜀");
+            return;
+        }
+
         _cachedExitPos = exitPos;
         _isExiting = false; // 재입장 시 초기화
 
@@ -129,6 +173,15 @@ public class TentInteriorController : NetworkBehaviour
     {
         Debug.Log("[TentInteriorController] ExitTent() 호출됨");
 
+        // 관전자가 텐트 문 트리거를 건드려도 퇴장을 발동시키지 못하도록 차단.
+        // (관전자는 LocalPlayerModel == null이라 아래 리더 체크의 ?? true 폴백에 걸려
+        //  실수로 RPC_TentExit를 보낼 수 있음)
+        if (IsLocalSpectator())
+        {
+            Debug.Log("[TentInteriorController] 관전자는 텐트 퇴장을 트리거할 수 없습니다.");
+            return;
+        }
+
         // 네트워크 세션 중일 때만 리더 체크 (솔로 테스트에서는 항상 허용)
         bool networkActive = PlayerManager.Instance != null &&
                              PlayerManager.Instance.Runner != null &&
@@ -164,6 +217,18 @@ public class TentInteriorController : NetworkBehaviour
     /// </summary>
     public void ExecuteTentExitLocal(Vector3 exitPos)
     {
+        // 추적 카메라에 퇴장 알림 → 추적 재개. (관전자 가드보다 먼저 발행)
+        OnTentExit?.Invoke();
+
+        // 관전자는 텐트 퇴장 연출(페이드/텔레포트)에서 제외 — 촬영 화면 보호.
+        // 세이브 포인트/랜턴은 실제 플레이어 클라이언트의 RpcTargets.All 호출로
+        // 관전자에게도 자동 동기화되므로 여기서 건너뛰어도 문제 없습니다.
+        if (IsLocalSpectator())
+        {
+            Debug.Log("[TentInteriorController] 관전자 → 텐트 퇴장 연출 건너뜀");
+            return;
+        }
+
         RPC_SetLantern(false);
 
         // 세이브 포인트 갱신 (양쪽 클라이언트 모두 실행)

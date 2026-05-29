@@ -24,6 +24,10 @@ namespace CrowdGuard.XR
         [SerializeField] private Vector3 positionOffset = new Vector3(0f, 1.5f, -3f);
         [Tooltip("카메라가 바라볼 높이 (body 위 n미터)")]
         [SerializeField] private float lookAtHeightOffset = 1.2f;
+        [Tooltip("카메라의 수평 고정 각도 (월드 기준). 플레이어의 시야 turn에는 영향받지 않음. 0이면 월드 -Z(뒤)에서 촬영")]
+        [SerializeField] private float cameraYaw = 0f;
+        [Tooltip("이 키를 누르면 카메라를 현재 플레이어가 바라보는 방향의 뒤로 재정렬 (에디터 녹화용). 입력 트리거 사용 시 Active Input Handling=Both 필요")]
+        [SerializeField] private KeyCode recenterKey = KeyCode.R;
 
         [Header("스무딩")]
         [Tooltip("위치 스무딩 시간 (클수록 느리게 따라감, 권장: 0.25 ~ 0.4)")]
@@ -52,6 +56,9 @@ namespace CrowdGuard.XR
         private PlayerRole _lastRole;
         private float _jitterTimer = 0f;
 
+        // 텐트 진입 중에는 추적을 멈추고 진입 직전 위치에 머뭅니다.
+        private bool _isTracking = true;
+
         // ── Perlin 노이즈 시드 (축별로 다른 패턴) ─────────────────────────
         private const float SeedX = 0f;
         private const float SeedY = 31.7f;
@@ -71,11 +78,34 @@ namespace CrowdGuard.XR
         private void OnEnable()
         {
             _jitterQuestAction.Enable();
+
+            // 텐트 입·퇴장 시 추적 일시정지/재개
+            TentInteriorController.OnTentEnter += PauseTracking;
+            TentInteriorController.OnTentExit  += ResumeTracking;
         }
 
         private void OnDisable()
         {
             _jitterQuestAction.Disable();
+
+            TentInteriorController.OnTentEnter -= PauseTracking;
+            TentInteriorController.OnTentExit  -= ResumeTracking;
+        }
+
+        /// <summary>텐트 진입 — 현재 위치에 그대로 머물며 추적을 멈춥니다.</summary>
+        private void PauseTracking()
+        {
+            _isTracking = false;
+            Debug.Log("[ThirdPersonFollowCamera] 텐트 진입 → 추적 일시정지");
+        }
+
+        /// <summary>텐트 퇴장 — 추적을 재개합니다. SmoothDamp 속도를 초기화해 부드럽게 다시 따라잡습니다.</summary>
+        private void ResumeTracking()
+        {
+            _isTracking = true;
+            _posVelocity = Vector3.zero;
+            _yawVelocity = 0f;
+            Debug.Log("[ThirdPersonFollowCamera] 텐트 퇴장 → 추적 재개");
         }
 
         private void OnDestroy()
@@ -86,10 +116,9 @@ namespace CrowdGuard.XR
         private void Start()
         {
             _lastRole = targetRole;
+            // 시야 turn을 따라가지 않으므로 초기 각도는 고정값(cameraYaw)으로 시작
+            _currentYaw = cameraYaw;
             TryFindTarget();
-
-            if (target != null)
-                _currentYaw = target.eulerAngles.y;
         }
 
         private void Update()
@@ -105,6 +134,10 @@ namespace CrowdGuard.XR
             if (!_targetFound)
                 TryFindTarget();
 
+            // 카메라를 플레이어 뒤로 재정렬 (Active Input Handling=Both 설정 후 주석 해제)
+            //if (Input.GetKeyDown(recenterKey))
+            //    RecenterBehindPlayer();
+
             // Quest X 버튼 또는 에디터 키보드로 지터 트리거
             /*if (_jitterQuestAction.WasPressedThisFrame() || Input.GetKeyDown(editorJitterKey))
                 TriggerJitter();
@@ -118,10 +151,20 @@ namespace CrowdGuard.XR
         {
             if (target == null) return;
 
-            // ── 수평 회전(Y)만 추적 ──────────────────────────────────────
-            float targetYaw = target.eulerAngles.y;
+            // 텐트 진입 중에는 추적을 멈추고 진입 직전 위치를 유지합니다.
+            // (지터가 진행 중이면 떨림은 계속 적용되도록 아래 분기는 통과)
+            if (!_isTracking)
+            {
+                if (_jitterTimer > 0f)
+                    ApplyJitter();
+                return;
+            }
+
+            // ── 수평 각도: 플레이어 시야 turn은 무시하고 고정값(cameraYaw)으로만 공전 ──
+            // body의 yaw를 쓰지 않으므로 오른쪽 스틱 turn에 카메라가 휩쓸리지 않음.
+            // 재정렬(RecenterBehindPlayer) 시 부드럽게 회전하도록 SmoothDampAngle은 유지.
             _currentYaw = Mathf.SmoothDampAngle(
-                _currentYaw, targetYaw, ref _yawVelocity, rotationSmoothTime);
+                _currentYaw, cameraYaw, ref _yawVelocity, rotationSmoothTime);
 
             // ── 목표 위치: 플레이어 뒤쪽 + 위쪽 ─────────────────────────
             Quaternion yawRotation = Quaternion.Euler(0f, _currentYaw, 0f);
@@ -137,23 +180,27 @@ namespace CrowdGuard.XR
 
             // ── 지터 적용 ────────────────────────────────────────────────
             if (_jitterTimer > 0f)
-            {
-                // 시간이 지날수록 약해지는 감쇠 곡선 (제곱으로 빠르게 감쇠)
-                float progress = _jitterTimer / jitterDuration;
-                float currentIntensity = jitterIntensity * (progress * progress);
+                ApplyJitter();
+        }
 
-                float t = Time.time * jitterFrequency;
+        /// <summary>Perlin 노이즈 기반 카메라 떨림을 현재 위치에 더합니다.</summary>
+        private void ApplyJitter()
+        {
+            // 시간이 지날수록 약해지는 감쇠 곡선 (제곱으로 빠르게 감쇠)
+            float progress = _jitterTimer / jitterDuration;
+            float currentIntensity = jitterIntensity * (progress * progress);
 
-                // 축별 다른 시드로 각각 독립적인 노이즈 생성
-                // 좌우(X)와 앞뒤(Z)를 세게, 위아래(Y)는 절반으로 → 지진/눈사태 느낌
-                Vector3 jitterOffset = new Vector3(
-                    (Mathf.PerlinNoise(t, SeedX) - 0.5f) * 2f,
-                    (Mathf.PerlinNoise(t, SeedY) - 0.5f) * 1f,
-                    (Mathf.PerlinNoise(t, SeedZ) - 0.5f) * 2f
-                ) * currentIntensity;
+            float t = Time.time * jitterFrequency;
 
-                transform.position += jitterOffset;
-            }
+            // 축별 다른 시드로 각각 독립적인 노이즈 생성
+            // 좌우(X)와 앞뒤(Z)를 세게, 위아래(Y)는 절반으로 → 지진/눈사태 느낌
+            Vector3 jitterOffset = new Vector3(
+                (Mathf.PerlinNoise(t, SeedX) - 0.5f) * 2f,
+                (Mathf.PerlinNoise(t, SeedY) - 0.5f) * 1f,
+                (Mathf.PerlinNoise(t, SeedZ) - 0.5f) * 2f
+            ) * currentIntensity;
+
+            transform.position += jitterOffset;
         }
 
         private void TriggerJitter()
@@ -171,10 +218,20 @@ namespace CrowdGuard.XR
             if (!networkObj.TryGetComponent<GamePlayerModel>(out GamePlayerModel model)) return;
 
             target = model.body.transform;
-            _currentYaw = target.eulerAngles.y;
             _targetFound = true;
 
             Debug.Log($"[ThirdPersonFollowCamera] 타겟 찾음: {targetRole} → {target.name}");
+        }
+
+        /// <summary>
+        /// 카메라 고정 각도를 현재 플레이어가 바라보는 방향의 뒤로 맞춥니다. (에디터 녹화용)
+        /// 호출 후에는 다시 그 각도로 고정되어 시야 turn을 따라가지 않습니다.
+        /// </summary>
+        private void RecenterBehindPlayer()
+        {
+            if (target == null) return;
+            cameraYaw = target.eulerAngles.y;
+            Debug.Log("[ThirdPersonFollowCamera] 카메라를 플레이어 뒤로 재정렬");
         }
     }
 }
