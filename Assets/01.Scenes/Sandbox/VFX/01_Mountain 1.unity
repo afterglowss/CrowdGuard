@@ -2712,6 +2712,86 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136148983}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &139208317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!114 &146893448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &155183226
 GameObject:
   m_ObjectHideFlags: 0
@@ -25666,6 +25746,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514132920}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &517450869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &520654822
 GameObject:
   m_ObjectHideFlags: 0
@@ -31779,6 +31899,73 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578261583}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &580336784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 40
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 1
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!54 &580336785
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571699}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &581631908
 GameObject:
   m_ObjectHideFlags: 0
@@ -43975,6 +44162,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689424313}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &690407443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &690917722
 GameObject:
   m_ObjectHideFlags: 0
@@ -45900,6 +46127,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770250502}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &776930429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &787078525
 GameObject:
   m_ObjectHideFlags: 0
@@ -51942,6 +52209,73 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1779345181}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &834395612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 40
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 1
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!54 &834395613
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571700}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &835085497
 GameObject:
   m_ObjectHideFlags: 0
@@ -52152,6 +52486,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 836969209}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &843977078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &846219338
 GameObject:
   m_ObjectHideFlags: 0
@@ -57600,6 +57974,46 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &859314801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &860011769
 GameObject:
   m_ObjectHideFlags: 0
@@ -58513,6 +58927,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 880862408}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &884769951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &896528154
 GameObject:
   m_ObjectHideFlags: 0
@@ -64631,6 +65085,73 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946840205}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &947815347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 40
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 1
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!54 &947815348
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571698}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &969331926
 GameObject:
   m_ObjectHideFlags: 0
@@ -71035,6 +71556,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1039917370}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1045367527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1055912669
 GameObject:
   m_ObjectHideFlags: 0
@@ -82947,6 +83508,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1146877211}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1147180296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1154584087
 GameObject:
   m_ObjectHideFlags: 0
@@ -83705,6 +84306,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1180982922}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1184675286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1185130643
 GameObject:
   m_ObjectHideFlags: 0
@@ -84261,6 +84902,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1694900787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1204992443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1205111080
 GameObject:
   m_ObjectHideFlags: 0
@@ -89780,6 +90461,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1230787958}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1232003717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1232559142
 GameObject:
   m_ObjectHideFlags: 0
@@ -95015,6 +95736,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1243756434}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1249399912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1251067546
 GameObject:
   m_ObjectHideFlags: 0
@@ -96153,6 +96914,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1770475934}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1297574574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1308195194
 GameObject:
   m_ObjectHideFlags: 0
@@ -96258,6 +97059,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308195194}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1310520350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1318404117
 GameObject:
   m_ObjectHideFlags: 0
@@ -99177,6 +100018,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1459099009}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1461285386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1463151496
 GameObject:
   m_ObjectHideFlags: 0
@@ -104259,6 +105140,46 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &1485407610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1486240739
 GameObject:
   m_ObjectHideFlags: 0
@@ -104679,6 +105600,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489148645}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1492460862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1497036974
 GameObject:
   m_ObjectHideFlags: 0
@@ -111409,6 +112370,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1579721434}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1584838629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1586303261
 GameObject:
   m_ObjectHideFlags: 0
@@ -111619,6 +112620,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1587918836}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1590601886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1593980986
 GameObject:
   m_ObjectHideFlags: 0
@@ -111829,6 +112870,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597523065}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1598728085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1602040775
 GameObject:
   m_ObjectHideFlags: 0
@@ -112049,6 +113130,46 @@ MonoBehaviour:
   _rockImpactFX1Prefab: {fileID: 0}
   _rockImpactFX2Prefab: {fileID: 0}
   _rockImpactLightPrefab: {fileID: 0}
+--- !u!114 &1608648298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1608844987
 GameObject:
   m_ObjectHideFlags: 0
@@ -112847,6 +113968,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1770475934}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1636703283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1638819929
 GameObject:
   m_ObjectHideFlags: 0
@@ -121816,6 +122977,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1751757041}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1755560405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1755824108
 GameObject:
   m_ObjectHideFlags: 0
@@ -124149,6 +125350,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1846864501}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1850154089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1001 &1850967370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -124311,6 +125552,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1851966337}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1858490533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1866377257
 GameObject:
   m_ObjectHideFlags: 0
@@ -135412,6 +136693,46 @@ CapsuleCollider:
   m_Height: 8.01
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1899985089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1902410392
 GameObject:
   m_ObjectHideFlags: 0
@@ -135760,6 +137081,73 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913918996}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1914150977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 40
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 1
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!54 &1914150978
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571697}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1914969421
 GameObject:
   m_ObjectHideFlags: 0
@@ -159510,6 +160898,153 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085672749}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2092482395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!114 &2095966804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 40
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 1
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!54 &2095966805
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571696}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &2111375188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1001 &2111449276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -159580,6 +161115,73 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 976997250734348988, guid: 1cdfa9de06e83414dbf61c4bd7c20881, type: 3}
   m_PrefabInstance: {fileID: 2111449276}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2112680935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 40
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 1
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!54 &2112680936
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571695}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2115301749
 GameObject:
   m_ObjectHideFlags: 0
@@ -160282,6 +161884,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2125372584}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2128700930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &2129938543
 GameObject:
   m_ObjectHideFlags: 0
@@ -161230,6 +162872,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 170447818871623213, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 170447818871623213, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 403956242655400173, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 4222469567
@@ -161241,6 +162891,30 @@ PrefabInstance:
     - target: {fileID: 653575273901232098, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 2869992634
+      objectReference: {fileID: 0}
+    - target: {fileID: 707917230010359785, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 707917230010359785, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 952511920593489092, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 952511920593489092, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 963747419972427000, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 963747419972427000, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1113730678480919964, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
@@ -161254,14 +162928,46 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -35.9125
       objectReference: {fileID: 0}
+    - target: {fileID: 1562425226505072437, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1562425226505072437, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1701327743538236097, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1701327743538236097, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 1912274225890092027, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
+    - target: {fileID: 2217322196845590560, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2217322196845590560, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 2227309949082001360, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
+    - target: {fileID: 2507137359019621500, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2507137359019621500, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 2541853693254567566, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -161274,14 +162980,46 @@ PrefabInstance:
       propertyPath: SortKey
       value: 1037900106
       objectReference: {fileID: 0}
+    - target: {fileID: 3270798888905741808, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3270798888905741808, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 3303145791909039387, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 2509673240
+      objectReference: {fileID: 0}
+    - target: {fileID: 3403514957004035517, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3403514957004035517, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3483010503438073359, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
+    - target: {fileID: 3542113894958008026, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3542113894958008026, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3555583409504124042, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3555583409504124042, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 3662625635178569125, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 1185064623
@@ -161334,10 +163072,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3760127028182560027, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3760127028182560027, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3948604531757741422, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3948604531757741422, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 4062903490667259306, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
+    - target: {fileID: 4156296737521763930, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156296737521763930, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 4226524794994594890, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -161354,18 +163116,94 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -52.69167
       objectReference: {fileID: 0}
+    - target: {fileID: 4479203437063180849, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4479203437063180849, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536431264507037311, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536431264507037311, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004112614781215993, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004112614781215993, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5042990193221303946, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 1994774457
       objectReference: {fileID: 0}
+    - target: {fileID: 5101775513760544630, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5101775513760544630, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5249377976203109340, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: _rockImpactFX1Prefab
+      value: 
+      objectReference: {fileID: 4505889149605313289, guid: da97df1c0e05ad94f8e3021706a92270, type: 3}
+    - target: {fileID: 5249377976203109340, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: _rockImpactFX2Prefab
+      value: 
+      objectReference: {fileID: 2731144549613650553, guid: 3a96f1fc5e84d9e40a04a2f40cbe8058, type: 3}
+    - target: {fileID: 5249377976203109340, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: _rockImpactLightPrefab
+      value: 
+      objectReference: {fileID: 95955657225050358, guid: 0690144dfd2a2c348926efc02e4dae36, type: 3}
     - target: {fileID: 5277929643171476330, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 1902630918
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319144576208091632, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319144576208091632, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338115241247457723, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338115241247457723, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469721428025661112, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469721428025661112, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5489828835177409579, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
+    - target: {fileID: 5734033813498254270, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5734033813498254270, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5744483658448363137, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -161373,6 +163211,22 @@ PrefabInstance:
     - target: {fileID: 6196317634808932975, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 1613144213
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489243716118548311, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489243716118548311, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585428358933105027, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585428358933105027, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7041064110808049818, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -161386,6 +163240,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
+    - target: {fileID: 7158805688172068034, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7158805688172068034, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 7330916797944225323, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 1189107751
@@ -161394,14 +163256,62 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
+    - target: {fileID: 7529683906955567057, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7529683906955567057, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 7630020567257215235, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
+    - target: {fileID: 7645889436167096326, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7645889436167096326, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 7759009363231746243, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
+    - target: {fileID: 7766849117760847035, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766849117760847035, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790585884490197684, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790585884490197684, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8165128864477336742, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8165128864477336742, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8245795239412059410, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8245795239412059410, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 8276204196869516401, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -161410,14 +163320,38 @@ PrefabInstance:
       propertyPath: SortKey
       value: 3635091123
       objectReference: {fileID: 0}
+    - target: {fileID: 8750767209555753246, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8750767209555753246, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 8777243050114162369, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 3731371413
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834898431408632472, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834898431408632472, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8879360304142300075, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
+    - target: {fileID: 9144095574043568511, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.asynchronous
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9144095574043568511, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: fractureOptions.fragmentCount
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 9164502114739594969, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Name
       value: HazardTriggerZone_Avalanche_01
@@ -161515,7 +163449,154 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3384433235939380282, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1914969422}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2156266487022670627, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8415646167869571742}
+    - targetCorrespondingSourceObject: {fileID: 2156266487022670627, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8415646167869571741}
+    - targetCorrespondingSourceObject: {fileID: 6081200012601833401, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8415646167869571740}
+    - targetCorrespondingSourceObject: {fileID: 2339073837530945376, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8415646167869571739}
+    - targetCorrespondingSourceObject: {fileID: 5287144488517052896, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8415646167869571738}
+    - targetCorrespondingSourceObject: {fileID: 1030349185225573468, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8415646167869571737}
+    - targetCorrespondingSourceObject: {fileID: 1562905917757772294, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1584838629}
+    - targetCorrespondingSourceObject: {fileID: 2083689395838037009, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 139208317}
+    - targetCorrespondingSourceObject: {fileID: 3200164209368570987, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1204992443}
+    - targetCorrespondingSourceObject: {fileID: 7574468675041825811, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1850154089}
+    - targetCorrespondingSourceObject: {fileID: 3485649319986150141, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 776930429}
+    - targetCorrespondingSourceObject: {fileID: 4459625422548067903, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1608648298}
+    - targetCorrespondingSourceObject: {fileID: 1280360588699146873, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1310520350}
+    - targetCorrespondingSourceObject: {fileID: 4245836054356947780, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1147180296}
+    - targetCorrespondingSourceObject: {fileID: 2196818067674523132, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1492460862}
+    - targetCorrespondingSourceObject: {fileID: 5988380471770992281, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1636703283}
+    - targetCorrespondingSourceObject: {fileID: 395847722319973553, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1598728085}
+    - targetCorrespondingSourceObject: {fileID: 9031382616953445710, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1461285386}
+    - targetCorrespondingSourceObject: {fileID: 8813091283897768909, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2092482395}
+    - targetCorrespondingSourceObject: {fileID: 206157681226243542, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1232003717}
+    - targetCorrespondingSourceObject: {fileID: 4974461867139608301, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1249399912}
+    - targetCorrespondingSourceObject: {fileID: 4474760291971203437, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1590601886}
+    - targetCorrespondingSourceObject: {fileID: 7403037730863503743, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2111375188}
+    - targetCorrespondingSourceObject: {fileID: 8361657345346809353, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 146893448}
+    - targetCorrespondingSourceObject: {fileID: 9177860737211047256, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1485407610}
+    - targetCorrespondingSourceObject: {fileID: 3661608587685296756, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 517450869}
+    - targetCorrespondingSourceObject: {fileID: 1609298118464860614, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1755560405}
+    - targetCorrespondingSourceObject: {fileID: 2573327703438551870, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 884769951}
+    - targetCorrespondingSourceObject: {fileID: 7478083291429499462, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1045367527}
+    - targetCorrespondingSourceObject: {fileID: 2269466088681721991, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1297574574}
+    - targetCorrespondingSourceObject: {fileID: 642539946250078607, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1858490533}
+    - targetCorrespondingSourceObject: {fileID: 5949401823207541692, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1899985089}
+    - targetCorrespondingSourceObject: {fileID: 8605963670197282400, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 859314801}
+    - targetCorrespondingSourceObject: {fileID: 3624447141317321889, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1184675286}
+    - targetCorrespondingSourceObject: {fileID: 6062877968579742066, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 690407443}
+    - targetCorrespondingSourceObject: {fileID: 6520520218221261381, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 843977078}
+    - targetCorrespondingSourceObject: {fileID: 1236289889330549645, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2128700930}
+    - targetCorrespondingSourceObject: {fileID: 1028638293259615745, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 834395613}
+    - targetCorrespondingSourceObject: {fileID: 1028638293259615745, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 834395612}
+    - targetCorrespondingSourceObject: {fileID: 5333929077574958892, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 580336785}
+    - targetCorrespondingSourceObject: {fileID: 5333929077574958892, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 580336784}
+    - targetCorrespondingSourceObject: {fileID: 5510002477069673532, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 947815348}
+    - targetCorrespondingSourceObject: {fileID: 5510002477069673532, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 947815347}
+    - targetCorrespondingSourceObject: {fileID: 3358345775242986632, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1914150978}
+    - targetCorrespondingSourceObject: {fileID: 3358345775242986632, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1914150977}
+    - targetCorrespondingSourceObject: {fileID: 185985696362797705, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2095966805}
+    - targetCorrespondingSourceObject: {fileID: 185985696362797705, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2095966804}
+    - targetCorrespondingSourceObject: {fileID: 7738505713804963976, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2112680936}
+    - targetCorrespondingSourceObject: {fileID: 7738505713804963976, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2112680935}
   m_SourcePrefab: {fileID: 100100000, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
 --- !u!4 &8415646167869571691 stripped
 Transform:
@@ -161537,6 +163618,443 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5402372656548247630, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
   m_PrefabInstance: {fileID: 8415646167869571690}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571695 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7738505713804963976, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571696 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 185985696362797705, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571697 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3358345775242986632, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571698 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5510002477069673532, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571699 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5333929077574958892, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571700 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1028638293259615745, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571701 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1236289889330549645, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571702 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6520520218221261381, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571703 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6062877968579742066, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571704 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3624447141317321889, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571705 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8605963670197282400, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571706 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5949401823207541692, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571707 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 642539946250078607, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571708 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2269466088681721991, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571709 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7478083291429499462, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2573327703438551870, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571711 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1609298118464860614, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571712 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3661608587685296756, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571713 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9177860737211047256, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571714 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8361657345346809353, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571715 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7403037730863503743, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571716 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4474760291971203437, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571717 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4974461867139608301, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571718 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 206157681226243542, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571719 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8813091283897768909, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571720 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9031382616953445710, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571721 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 395847722319973553, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571722 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5988380471770992281, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571723 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2196818067674523132, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571724 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4245836054356947780, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571725 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1280360588699146873, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571726 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4459625422548067903, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571727 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3485649319986150141, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571728 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7574468675041825811, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571729 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3200164209368570987, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571730 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2083689395838037009, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571731 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1562905917757772294, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571732 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1030349185225573468, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571733 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5287144488517052896, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571734 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2339073837530945376, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571735 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6081200012601833401, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8415646167869571736 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2156266487022670627, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8415646167869571737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!114 &8415646167869571738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!114 &8415646167869571739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!114 &8415646167869571740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 0
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 10
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 0}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!114 &8415646167869571741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 40
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 1
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!54 &8415646167869571742
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415646167869571736}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -21,13 +21,16 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
 
         [Header("VFX")]
         [SerializeField] private GameObject _iceImpactFXPrefab;
+        [Tooltip("파티클을 벽 표면에서 바깥쪽으로 띄울 거리 (m). 벽 안으로 파묻히는 것 방지")]
+        [SerializeField] private float _vfxSurfaceOffset = 0.02f;
 
         private Rigidbody _rb;
 
         private bool _isTriggerHeld = false;
         private bool _isTouchingIce = false;
         private BaseSurface _currentSurface = null;
-        private Vector3 _contactPoint; // 실제 접촉 위치
+        private Vector3 _contactPoint;  // 실제 접촉 위치
+        private Vector3 _contactNormal; // 접촉 표면의 법선 (파티클 방향 결정)
 
         // 컨트롤러 속도 직접 추적 (Velocity Damping 영향 없음)
         private Transform _interactorTransform;
@@ -184,6 +187,35 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
             }
         }
 
+        /// <summary>
+        /// 스윙 방향으로 Raycast를 쏴 실제 벽 표면점과 법선을 계산합니다.
+        /// 깊게 박힌 팁 위치(_contactPoint)가 아니라 벽 표면 지점을 돌려주므로
+        /// 파티클이 벽 안에 파묻히지 않습니다.
+        /// Raycast가 빗나가면 _contactPoint를 스윙 반대 방향으로 띄운 위치로 폴백합니다.
+        /// </summary>
+        private void ComputeSurfaceContact(out Vector3 point, out Vector3 normal)
+        {
+            Vector3 swingDir = _controllerVelocity.sqrMagnitude > 0.0001f
+                ? _controllerVelocity.normalized
+                : Vector3.zero;
+
+            // 폴백 기본값: 스윙 반대 방향으로 살짝 띄움
+            normal = swingDir != Vector3.zero ? -swingDir : Vector3.up;
+            point  = _contactPoint + normal * _vfxSurfaceOffset;
+
+            if (_currentSurface == null || swingDir == Vector3.zero) return;
+
+            int     layerMask  = 1 << _currentSurface.gameObject.layer;
+            // 접촉 지점에서 스윙 방향 반대로 0.3m 물러난 위치에서 다시 캐스트
+            Vector3 castOrigin = _contactPoint - swingDir * 0.3f;
+
+            if (Physics.Raycast(castOrigin, swingDir, out RaycastHit hit, 0.6f, layerMask))
+            {
+                normal = hit.normal;
+                point  = hit.point + normal * _vfxSurfaceOffset;
+            }
+        }
+
         private void TryAttachToWall()
         {
             if (!_isTriggerHeld) return;
@@ -205,15 +237,19 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
 
             //Debug.Log("[IceAxeController] 충돌 + 입력 조건 만족. 지형의 파괴 검사를 시작합니다.");
 
-            bool allowAttachment = _currentSurface.OnHitByIceAxe(_contactPoint);
+            ComputeSurfaceContact(out Vector3 surfacePoint, out _contactNormal);
+            bool allowAttachment = _currentSurface.OnHitByIceAxe(surfacePoint, _contactNormal);
 
             if (allowAttachment)
             {
                 AudioManager.instance.PlaySFX(AudioManager.SFXType.PickIce, transform);
                 if (_iceImpactFXPrefab != null)
                 {
-                    GameObject fx = Instantiate(_iceImpactFXPrefab, _contactPoint, Quaternion.identity);
-                    Destroy(fx, 3f);
+                    Quaternion rot = _contactNormal.sqrMagnitude > 0.0001f
+                        ? Quaternion.LookRotation(_contactNormal)
+                        : Quaternion.identity;
+                    GameObject fx = Instantiate(_iceImpactFXPrefab, surfacePoint, rot);
+                    Destroy(fx, 1f);
                 }
 
                 //Debug.Log("[IceAxeController] 검사 통과! Model에 벽면 부착 완료를 지시합니다.");
