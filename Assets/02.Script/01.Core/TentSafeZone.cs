@@ -23,7 +23,7 @@ public class TentSafeZone : MonoBehaviour
     [SerializeField] private Transform exteriorPos;
 
     [Tooltip("텐트 세이브 포인트와 exteriorPos의 허용 오차 거리 (m). 이 범위 안에서만 등록됩니다.")]
-    [SerializeField] private float matchTolerance = 1f;
+    [SerializeField] private float matchTolerance = 2f;
 
     private bool _isActivated = false;
 

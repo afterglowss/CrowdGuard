@@ -114325,6 +114325,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 462542255083414177, guid: 1382a23c2244cb643a98dc9ed4ec3868, type: 3}
+      propertyPath: chestHeightOffset
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 4587342727840047270, guid: 1382a23c2244cb643a98dc9ed4ec3868, type: 3}
       propertyPath: SortKey
       value: 2132718483
@@ -124425,11 +124429,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableRopeForTesting: 0
-  localTieOffset: {x: 0, y: 1.2, z: 0}
-  maxRopeLength: 3
+  localTieOffset: {x: 0, y: 0.6, z: 0}
+  maxRopeLength: 4
   ropePhysicsBuffer: 0.3
   assetRope: {fileID: 849710963}
-  _tensionHapticProfile: {fileID: 0}
+  _tensionHapticProfile: {fileID: 11400000, guid: 8653979f8dc546f3a00e02dbda271d1f, type: 2}
   _tensionThreshold: 0.85
 --- !u!1 &1797361266
 GameObject:

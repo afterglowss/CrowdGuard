@@ -5,6 +5,7 @@ using System.Linq;
 using Fusion;
 using Fusion.Sockets;
 using UnityEngine;
+using Unity.VisualScripting;
 
 namespace Capstone.Photon.Game
 {
@@ -48,6 +49,7 @@ namespace Capstone.Photon.Game
             if (RoleManager.Instance && RoleManager.Instance.Roles.ContainsKey(runner.LocalPlayer))
             {
                 var obj = Instantiate(controllerObject);
+                TentInteriorController.Instance.localXRRig = obj.transform;
                 var playerModel = runner.Spawn(playerPrefab, Vector3.zero, Quaternion.identity, runner.LocalPlayer);
                 if (playerModel.TryGetComponent(out GamePlayerModel model))
                 {
