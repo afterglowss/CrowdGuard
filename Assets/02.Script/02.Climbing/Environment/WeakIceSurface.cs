@@ -22,9 +22,18 @@ namespace CrowdGuard.Environment
         [Tooltip("파편이 위로 솟아오르는 정도 (0=수평, 1=위로)")]
         [SerializeField, Range(0f, 2f)] private float explosionUpward = 0.5f;
 
-        // 파괴된 자식의 sibling index 추적 (RPC로 양쪽 클라이언트 동기화)
+        // 파괴된 자식의 sibling index 추적 (RPC로 접속 중인 클라이언트끼리 즉시 동기화)
         // index = -1 은 자식 없이 본체가 파괴된 경우
         private readonly HashSet<int> _brokenChildren = new HashSet<int>();
+
+        // 재접속/늦은 입장 클라이언트가 파괴 상태를 복원할 수 있도록 깨진 자식을 비트마스크로 동기화.
+        // bit i = 자식 i 파괴, 최상위 비트(1<<31) = 자식 없는 본체(idx -1) 파괴.
+        // (자식이 31개를 넘으면 마스크가 부족하므로 그 이상은 지원하지 않음)
+        [Networked, OnChangedRender(nameof(OnBrokenMaskChanged))]
+        public int BrokenMask { get; set; }
+
+        private const int SelfBit = unchecked((int)(1u << 31));
+        private static int BitFor(int idx) => idx < 0 ? SelfBit : (1 << idx);
 
         public override bool OnHitByIceAxe(Vector3 contactPoint = default, Vector3 contactNormal = default)
         {
@@ -108,9 +117,10 @@ namespace CrowdGuard.Environment
 
             AudioManager.instance.PlaySFX(AudioManager.SFXType.IceBreak, transform);
 
-            // Fusion 네트워크 상태 갱신: 재접속 클라이언트가 파괴 상태를 수신할 수 있도록
+            // Fusion 네트워크 상태 갱신: 재접속 클라이언트가 "어떤 자식이" 깨졌는지 복원할 수 있도록
+            // 깨진 자식 비트만 켠다. (부모 전체를 Despawn하지 않으므로 나머지 자식은 그대로 유지)
             if (Object.HasStateAuthority)
-                IsBroken = true;
+                BrokenMask |= BitFor(childIndex);
 
             Fracture fracture = target.GetComponent<Fracture>();
             if (fracture != null)
@@ -165,15 +175,40 @@ namespace CrowdGuard.Environment
             }
         }
 
-        protected override void OnBrokenChanged()
+        // 늦게 입장한 클라이언트는 초기 네트워크 상태(BrokenMask)를 받지만 OnChangedRender는
+        // "변경" 시에만 호출되므로, Spawned 시점에 한 번 명시적으로 동기화한다.
+        public override void Spawned()
         {
-            if (!IsBroken) return;
+            if (BrokenMask != 0)
+                ReconcileBrokenMask();
+        }
 
-            // SetActive(false)는 Fusion 레지스트리에 오브젝트가 살아있는 상태로 남아
-            // 재동기화 시 부활할 수 있음. Runner.Despawn()으로 Fusion 라이프사이클에서
-            // 완전히 제거해야 재접속 클라이언트에도 사라진 상태가 유지됨.
-            if (Object.HasStateAuthority)
-                Runner.Despawn(Object);
+        private void OnBrokenMaskChanged()
+        {
+            ReconcileBrokenMask();
+        }
+
+        // 네트워크 마스크와 로컬 상태를 비교해, 아직 로컬에서 깨지지 않은 자식만 조용히 파괴 상태로 맞춘다.
+        // 재접속 클라이언트는 원래의 RPC_BreakChild를 받지 못했으므로 파편 연출 없이 숨김 처리한다.
+        // (RPC를 이미 처리한 클라이언트는 _brokenChildren에 들어있어 중복 처리되지 않음)
+        private void ReconcileBrokenMask()
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                if ((BrokenMask & (1 << i)) != 0 && _brokenChildren.Add(i))
+                    HideChildSilently(i);
+            }
+
+            if ((BrokenMask & SelfBit) != 0 && _brokenChildren.Add(-1))
+                HideChildSilently(-1);
+        }
+
+        private void HideChildSilently(int childIndex)
+        {
+            GameObject target = (childIndex >= 0 && childIndex < transform.childCount)
+                ? transform.GetChild(childIndex).gameObject
+                : gameObject;
+            target.SetActive(false);
         }
     }
 }
