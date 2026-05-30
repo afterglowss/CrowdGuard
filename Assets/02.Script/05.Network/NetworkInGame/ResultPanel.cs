@@ -36,7 +36,8 @@ public class ResultPanel : NetworkBehaviour
             var time = dataManager.timer.GetTime();
             var anchorCount = dataManager.AnchorCount;
             var fallCount =  dataManager.FallCount;
-            text = $"Time : {Timer.ConvertTimeToString(time)} \nAnchor : {anchorCount} \nFall : {fallCount}";
+            var jewelCount = dataManager.CoinCount;
+            text = $"Time : {Timer.ConvertTimeToString(time)} \nAnchor : {anchorCount} \nFall : {fallCount} \nJewel : {jewelCount}";
         }
         else Debug.LogWarning("DataManager가 존재하지 않습니다.");
         
