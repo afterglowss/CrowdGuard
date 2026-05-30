@@ -163751,6 +163751,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
+    - target: {fileID: 2196903825679227870, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -33.580654
+      objectReference: {fileID: 0}
     - target: {fileID: 2217322196845590560, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: fractureOptions.asynchronous
       value: 1
@@ -163999,6 +164003,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
+    - target: {fileID: 5641052493602076862, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 20.914356
+      objectReference: {fileID: 0}
     - target: {fileID: 5734033813498254270, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: fractureOptions.asynchronous
       value: 1
