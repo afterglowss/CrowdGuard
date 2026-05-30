@@ -9971,8 +9971,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.121361, y: 29.81213, z: -4.9984818}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 9090309074380035801}
   - {fileID: 2510114146609232036}
@@ -10006,7 +10006,7 @@ MonoBehaviour:
   loop: 0
   avalancheParticles: {fileID: 9105987249712231512}
   snowParticles: {fileID: 6470613164751374860}
-  capsuleRadius: 4
+  capsuleRadius: 2
   collidersAreTriggers: 1
   colliderMaterial: {fileID: 0}
   colliderCleanupDelay: 2

@@ -45798,6 +45798,10 @@ PrefabInstance:
       value: 4.88
       objectReference: {fileID: 0}
     - target: {fileID: 3725673956795435674, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725673956795435674, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
       propertyPath: moveWithTransform
       value: 1
       objectReference: {fileID: 0}
@@ -163950,7 +163954,7 @@ PrefabInstance:
     - target: {fileID: 5249377976203109340, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: _rockImpactFX1Prefab
       value: 
-      objectReference: {fileID: 4505889149605313289, guid: da97df1c0e05ad94f8e3021706a92270, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5249377976203109340, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: _rockImpactFX2Prefab
       value: 
@@ -163958,7 +163962,7 @@ PrefabInstance:
     - target: {fileID: 5249377976203109340, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: _rockImpactLightPrefab
       value: 
-      objectReference: {fileID: 95955657225050358, guid: 0690144dfd2a2c348926efc02e4dae36, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5277929643171476330, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 1902630918
