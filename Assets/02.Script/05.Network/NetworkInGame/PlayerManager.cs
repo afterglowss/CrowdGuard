@@ -36,7 +36,9 @@ namespace Capstone.Photon.Game
                 Debug.Log($"{players.Count} ---- {player.Key} : {player.Value}");
             }
 
-            if (players.Count >= 2)
+            // Leader와 Navigator가 모두 등록됐을 때만 게임 시스템 초기화
+            // None(관전자)이 먼저 들어와 Count>=2가 되더라도 키 없으면 KeyNotFoundException 방지
+            if (players.ContainsKey(PlayerRole.Leader) && players.ContainsKey(PlayerRole.Navigator))
             {
                 SetGameSystem(players[PlayerRole.Leader], players[PlayerRole.Navigator]);
             }
@@ -57,6 +59,11 @@ namespace Capstone.Photon.Game
             // ── 파트너 로프 (두 플레이어 연결) ──────────────────────────
             if (ropeSystem != null)
             {
+                if (PlayerController.LocalInstance)
+                {
+                    PlayerController.LocalInstance.ropeSystem = ropeSystem;
+                }
+                
                 // 로컬 플레이어가 Leader인지 Supporter인지 판별
                 bool isLeader = leader.HasInputAuthority;
 

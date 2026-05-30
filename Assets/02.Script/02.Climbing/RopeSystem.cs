@@ -8,8 +8,9 @@ public class RopeSystem : MonoBehaviour
     public bool disableRopeForTesting = false;
 
     [Header("Rope Settings")]
-    [Tooltip("body 트랜스폼 기준 로프 묶음 위치 로컬 오프셋. body가 발 기준이면 Y=1.2~1.4 정도가 가슴 높이.")]
-    public Vector3 localTieOffset = new Vector3(0, 1.2f, 0);
+    [Tooltip("body(=XR Rig 루트, 바닥 기준 Y≈0) 기준 로프 묶음 위치 로컬 오프셋.\n" +
+             "머리 높이의 약 절반이 허리. 머리가 1.1m면 Y=0.6 내외가 허리 높이.")]
+    public Vector3 localTieOffset = new Vector3(0, 0.6f, 0);
     public float maxRopeLength = 3.0f;
     [Tooltip("파트너 위치 네트워크 지연 보정값(m). 실효 물리 한계 = maxRopeLength - ropePhysicsBuffer.\n" +
              "집-집 간 테스트에서 장력이 늦게 걸린다면 값을 키우세요. 권장 범위: 0.2~0.5")]
@@ -41,8 +42,8 @@ public class RopeSystem : MonoBehaviour
 
     /// <summary>
     /// PlayerManager에서 두 플레이어가 모두 접속한 뒤 호출합니다.
-    /// myBody / partner 모두 카메라(머리) 트랜스폼이므로
-    /// localTieOffset으로 가슴 위치를 잡아 자식 앵커를 생성합니다.
+    /// myBody / partner 모두 XR Rig 루트(바닥 기준 Y≈0) 트랜스폼이므로
+    /// localTieOffset(Y≈0.6)으로 허리 위치를 잡아 자식 앵커를 생성합니다.
     /// myRigPivot은 로컬 플레이어의 xrRigPivot으로, LimitMovement에서
     /// ObjectTracker 지연 없이 실시간 위치를 계산하는 데 사용합니다.
     /// </summary>

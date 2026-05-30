@@ -17,10 +17,12 @@ public class BlizzardSystem : MonoBehaviour
         _spawnOrigin != null ? _spawnOrigin.position : transform.position;
 
     /// <summary>
-    /// 파티클을 재생하고 duration 초 후 자동으로 멈춥니다.
+    /// 파티클을 재생합니다.
+    /// duration &gt; 0이면 해당 시간 후 자동으로 멈춥니다 (HazardTriggerZone 등 이벤트형).
+    /// duration &lt;= 0이면 Stop()을 호출할 때까지 계속 재생합니다 (BlizzardZone 구역형).
     /// 이미 재생 중이면 처음부터 다시 시작합니다.
     /// </summary>
-    public void Activate(float duration)
+    public void Activate(float duration = 0f)
     {
         if (_stopCoroutine != null)
         {
@@ -34,7 +36,9 @@ public class BlizzardSystem : MonoBehaviour
             blizzardParticles.Play();
         }
 
-        _stopCoroutine = StartCoroutine(StopAfterDuration(duration));
+        if (duration > 0f)
+            _stopCoroutine = StartCoroutine(StopAfterDuration(duration));
+        // duration <= 0 : Stop()을 호출할 때까지 유지
     }
 
     /// <summary>

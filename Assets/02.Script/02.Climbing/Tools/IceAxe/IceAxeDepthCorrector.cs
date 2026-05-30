@@ -126,7 +126,7 @@ namespace CrowdGuard.Climbing.Tools.IceAxe
                         Vector3 tipAtContact = _contactTimePrevTip + sweepDir * hit.distance;
                         Vector3 snapOffset   = (tipAtContact - tipPos) + hit.normal * _surfaceMargin;
 
-                        Debug.Log($"[DepthCorrector] SphereCast 성공 — offset={snapOffset.magnitude:F4}m");
+                        // Debug.Log($"[DepthCorrector] SphereCast 성공 — offset={snapOffset.magnitude:F4}m");
                         _pendingSnapOffset = snapOffset;
                         _hasPendingSnap    = true;
                         return;

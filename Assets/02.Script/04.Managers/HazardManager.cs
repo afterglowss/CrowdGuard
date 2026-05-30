@@ -142,6 +142,42 @@ public class HazardManager : NetworkBehaviour
         TriggerHazardExternal(data);
     }
 
+    /// <summary>
+    /// 구역형 눈보라를 즉시 활성화합니다 (BlizzardZone 진입 시 호출).
+    /// 파티클은 모든 클라이언트에서 무기한 재생, 동결 패널티는 StateAuthority에서만 적용.
+    /// </summary>
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_ActivateBlizzardZone(int index)
+    {
+        if (index < 0 || index >= blizzardSystems.Count)
+        {
+            Debug.LogWarning($"[HazardManager] blizzardSystems[{index}] 없음.");
+            return;
+        }
+        blizzardSystems[index].Activate(); // duration=0 → Stop() 호출 전까지 유지
+        if (HasStateAuthority && SurvivalManager.Instance != null)
+            SurvivalManager.Instance.SetRapidFreezing(true);
+        AudioManager.instance.PlaySFX(AudioManager.SFXType.Blizzard, transform);
+        Debug.Log($"[HazardManager] BlizzardZone {index} 활성화");
+    }
+
+    /// <summary>
+    /// 구역형 눈보라를 즉시 비활성화합니다 (BlizzardZone 퇴장 시 호출).
+    /// </summary>
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_DeactivateBlizzardZone(int index)
+    {
+        if (index < 0 || index >= blizzardSystems.Count)
+        {
+            Debug.LogWarning($"[HazardManager] blizzardSystems[{index}] 없음.");
+            return;
+        }
+        blizzardSystems[index].Stop();
+        if (HasStateAuthority && SurvivalManager.Instance != null)
+            SurvivalManager.Instance.SetRapidFreezing(false);
+        Debug.Log($"[HazardManager] BlizzardZone {index} 비활성화");
+    }
+
     // ===================== 공통 시퀀스 =====================
 
     /// <summary>

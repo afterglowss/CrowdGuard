@@ -26,7 +26,7 @@ namespace CrowdGuard.Environment
         // index = -1 은 자식 없이 본체가 파괴된 경우
         private readonly HashSet<int> _brokenChildren = new HashSet<int>();
 
-        public override bool OnHitByIceAxe(Vector3 contactPoint = default)
+        public override bool OnHitByIceAxe(Vector3 contactPoint = default, Vector3 contactNormal = default)
         {
             int idx = FindChildIndexAtPoint(contactPoint);
 

@@ -5,7 +5,7 @@ namespace CrowdGuard.Environment
 {
     public class BlueIceSurface : BaseSurface
     {
-        public override bool OnHitByIceAxe(Vector3 contactPoint = default)
+        public override bool OnHitByIceAxe(Vector3 contactPoint = default, Vector3 contactNormal = default)
         {
             if (GetIsBrokenSafe()) return false;
             // 튼튼하므로 무사히 박힘 허용

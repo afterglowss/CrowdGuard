@@ -93,8 +93,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3339561360473648660, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339561360473648660, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: disableRopeForTesting
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4021007200345132909, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
+      propertyPath: ropeSystem
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4444567088017680376, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_PhysicsTriggerInteraction

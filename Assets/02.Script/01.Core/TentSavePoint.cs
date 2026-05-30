@@ -18,6 +18,14 @@ public class TentSavePoint : MonoBehaviour
         TentInteriorController ctrl = TentInteriorController.Instance;
         if (ctrl == null) return;
 
+        // 관전자가 텐트 존 트리거를 건드려도 입장 시퀀스를 발동시키지 못하도록 차단.
+        // (RPC_TentEnter는 RpcTargets.All이라 실제 플레이어 2명까지 강제로 텐트에 들어가게 됨)
+        if (ctrl.IsLocalSpectator())
+        {
+            Debug.Log("[TentSavePoint] 관전자는 텐트 입장을 트리거할 수 없습니다.");
+            return;
+        }
+
         // 내부 배치 위치와 퇴장 위치를 RPC 파라미터로 전달합니다.
         // 각 클라이언트는 수신 후 자신의 역할에 맞는 위치로 이동합니다.
         Vector3 leaderPos    = ctrl.player1InteriorPos != null ? ctrl.player1InteriorPos.position : transform.position;

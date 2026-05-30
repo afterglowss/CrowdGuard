@@ -36,7 +36,7 @@ namespace CrowdGuard.Environment
             }
         }
 
-        public abstract bool OnHitByIceAxe(Vector3 contactPoint = default);
+        public abstract bool OnHitByIceAxe(Vector3 contactPoint = default, Vector3 contactNormal = default);
         public abstract bool CanInstallAnchor(Vector3 contactPoint = default);
 
         /// <summary>
