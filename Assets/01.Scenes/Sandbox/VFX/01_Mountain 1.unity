@@ -3243,6 +3243,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 173814878}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &174738156 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &175651385
 GameObject:
   m_ObjectHideFlags: 0
@@ -24998,6 +25003,73 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 467291891}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &478377166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 478377167}
+  - component: {fileID: 478377169}
+  - component: {fileID: 478377168}
+  m_Layer: 0
+  m_Name: BlizzardZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &478377167
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478377166}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 25.36, y: 61.529987, z: -39.79}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 174738156}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &478377168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478377166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8de6ec75ea6604a88bfba28e1c485e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blizzardIndex: 0
+--- !u!65 &478377169
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478377166}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.4023256, y: 4.110978, z: 3.083008}
+  m_Center: {x: 0.5140439, y: 0.5750624, z: -1.0415037}
 --- !u!1001 &482325233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38791,6 +38863,73 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 655245766}
   m_Mesh: {fileID: 4300000, guid: 1b42e1ea17f777e40a9cc81fd51ca397, type: 3}
+--- !u!1 &658950966
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 658950967}
+  - component: {fileID: 658950969}
+  - component: {fileID: 658950968}
+  m_Layer: 0
+  m_Name: BlizzardZone (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &658950967
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658950966}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 33.02, y: 75.19, z: -38.95}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 174738156}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &658950968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658950966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8de6ec75ea6604a88bfba28e1c485e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blizzardIndex: 0
+--- !u!65 &658950969
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658950966}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.807157, y: 4.9646764, z: 3.083008}
+  m_Center: {x: 0.88684756, y: 0.6117125, z: -1.0415037}
 --- !u!1 &661593231
 GameObject:
   m_ObjectHideFlags: 0
@@ -45568,6 +45707,132 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 731799932}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &733183063
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 174738156}
+    m_Modifications:
+    - target: {fileID: 3104266176105302217, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104266176105302217, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104266176105302217, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725673956795435674, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006953523347056263, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 28.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006953523347056263, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 78.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006953523347056263, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -45.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006953523347056263, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9908188
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006953523347056263, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.041029513
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006953523347056263, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.1279765
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006953523347056263, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.014724633
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006953523347056263, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -4.447
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006953523347056263, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 14.808
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006953523347056263, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -2.281
+      objectReference: {fileID: 0}
+    - target: {fileID: 6404639657937169483, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_Name
+      value: Fog & Snow
+      objectReference: {fileID: 0}
+    - target: {fileID: 7753157382865505667, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8749983405628304376, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 8749983405628304376, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8749983405628304376, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.78
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8989909825992207118, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 733183068}
+  m_SourcePrefab: {fileID: 100100000, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+--- !u!4 &733183064 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6006953523347056263, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+  m_PrefabInstance: {fileID: 733183063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &733183065 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3104266176105302217, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+  m_PrefabInstance: {fileID: 733183063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &733183066 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8989909825992207118, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+  m_PrefabInstance: {fileID: 733183063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &733183067 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3725673956795435674, guid: 2646fa191b451064e97c6df25c0e4899, type: 3}
+  m_PrefabInstance: {fileID: 733183063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &733183068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733183066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3cee096d0d3a90429899642c6f9bdfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blizzardParticles: {fileID: 733183067}
+  _spawnOrigin: {fileID: 733183065}
 --- !u!1 &736397024
 GameObject:
   m_ObjectHideFlags: 0
@@ -65167,6 +65432,73 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &961028477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 961028478}
+  - component: {fileID: 961028480}
+  - component: {fileID: 961028479}
+  m_Layer: 0
+  m_Name: BlizzardZone (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &961028478
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961028477}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 25.8, y: 77.33, z: -37.74}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 174738156}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &961028479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961028477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8de6ec75ea6604a88bfba28e1c485e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blizzardIndex: 0
+--- !u!65 &961028480
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961028477}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.4227242, y: 3.0759943, z: 3.083008}
+  m_Center: {x: 1.8424296, y: 0.36438602, z: -1.0415037}
 --- !u!1 &969331926
 GameObject:
   m_ObjectHideFlags: 0
@@ -65494,6 +65826,73 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1327741268}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &991565031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 991565032}
+  - component: {fileID: 991565034}
+  - component: {fileID: 991565033}
+  m_Layer: 0
+  m_Name: BlizzardZone (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &991565032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991565031}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 30.57, y: 65.43, z: -39.34}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 174738156}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &991565033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991565031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8de6ec75ea6604a88bfba28e1c485e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blizzardIndex: 0
+--- !u!65 &991565034
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991565031}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.7257063, y: 3.9978535, z: 3.083008}
+  m_Center: {x: 0.5046159, y: 0.44308344, z: -1.0415037}
 --- !u!1 &991803008
 GameObject:
   m_ObjectHideFlags: 0
@@ -78250,6 +78649,73 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123573435}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1126275376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1126275377}
+  - component: {fileID: 1126275379}
+  - component: {fileID: 1126275378}
+  m_Layer: 0
+  m_Name: BlizzardZone (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1126275377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126275376}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 27.36, y: 67.82, z: -38.87}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 174738156}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1126275378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126275376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8de6ec75ea6604a88bfba28e1c485e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blizzardIndex: 0
+--- !u!65 &1126275379
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126275376}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.3283367, y: 1.6599019, z: 3.083008}
+  m_Center: {x: 0.60831624, y: 0.6504822, z: -1.0415037}
 --- !u!1 &1126656051
 GameObject:
   m_ObjectHideFlags: 0
@@ -98900,6 +99366,73 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391222099}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1396910138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1396910139}
+  - component: {fileID: 1396910141}
+  - component: {fileID: 1396910140}
+  m_Layer: 0
+  m_Name: BlizzardZone (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1396910139
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396910138}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 26.51, y: 65.4, z: -39.79}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 174738156}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1396910140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396910138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8de6ec75ea6604a88bfba28e1c485e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blizzardIndex: 0
+--- !u!65 &1396910141
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396910138}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.2927682, y: 3.6396217, z: 3.083008}
+  m_Center: {x: 0.5046165, y: 0.33938408, z: -1.0415037}
 --- !u!1 &1399675167
 GameObject:
   m_ObjectHideFlags: 0
@@ -125878,6 +126411,73 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1868491332}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1869603749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1869603750}
+  - component: {fileID: 1869603752}
+  - component: {fileID: 1869603751}
+  m_Layer: 0
+  m_Name: BlizzardZone (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1869603750
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869603749}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 28.68, y: 73.98, z: -38.67}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 174738156}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1869603751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869603749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8de6ec75ea6604a88bfba28e1c485e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blizzardIndex: 0
+--- !u!65 &1869603752
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869603749}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.3092017, y: 4.2226915, z: 3.083008}
+  m_Center: {x: 1.7524929, y: 0.24072011, z: -1.0415037}
 --- !u!1 &1871367711
 GameObject:
   m_ObjectHideFlags: 0
@@ -126195,6 +126795,73 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875526873}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1880984482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1880984483}
+  - component: {fileID: 1880984485}
+  - component: {fileID: 1880984484}
+  m_Layer: 0
+  m_Name: BlizzardZone (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1880984483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880984482}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 29.55, y: 79.56, z: -38.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 174738156}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1880984484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880984482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8de6ec75ea6604a88bfba28e1c485e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blizzardIndex: 0
+--- !u!65 &1880984485
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880984482}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.479486, y: 2.8061872, z: 3.083008}
+  m_Center: {x: 1.5613754, y: 0.22948235, z: -1.0415037}
 --- !u!1 &1881250451
 GameObject:
   m_ObjectHideFlags: 0
@@ -161487,6 +162154,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2069344465}
     - target: {fileID: 3146543120187937759, guid: ec0f43f8141a9c348a89ac15f42440ba, type: 3}
+      propertyPath: blizzardSystems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146543120187937759, guid: ec0f43f8141a9c348a89ac15f42440ba, type: 3}
       propertyPath: rockfallPrefabs.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -161494,6 +162165,10 @@ PrefabInstance:
       propertyPath: avalancheSystems.Array.size
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3146543120187937759, guid: ec0f43f8141a9c348a89ac15f42440ba, type: 3}
+      propertyPath: blizzardSystems.Array.data[0]
+      value: 
+      objectReference: {fileID: 733183068}
     - target: {fileID: 3146543120187937759, guid: ec0f43f8141a9c348a89ac15f42440ba, type: 3}
       propertyPath: rockfallPrefabs.Array.data[0]
       value: 
@@ -163467,6 +164142,33 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3081933677967061575, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2069344463}
+    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 733183064}
+    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 478377167}
+    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1396910139}
+    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1126275377}
+    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 991565032}
+    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 658950967}
+    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1869603750}
+    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 961028478}
+    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1880984483}
     - targetCorrespondingSourceObject: {fileID: 3384433235939380282, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       insertIndex: -1
       addedObject: {fileID: 701427083}
