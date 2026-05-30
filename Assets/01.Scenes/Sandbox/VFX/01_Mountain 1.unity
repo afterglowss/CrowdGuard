@@ -693,7 +693,7 @@ Transform:
   m_GameObject: {fileID: 20704452}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.563557, y: 15.89, z: -51.24}
+  m_LocalPosition: {x: 25.26, y: 15.89, z: -47.64}
   m_LocalScale: {x: 0.90909094, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -725,7 +725,7 @@ MonoBehaviour:
   loop: 0
   avalancheParticles: {fileID: 1927103817}
   snowParticles: {fileID: 939555430}
-  capsuleRadius: 4
+  capsuleRadius: 2
   collidersAreTriggers: 1
   colliderMaterial: {fileID: 0}
   colliderCleanupDelay: 2
@@ -740,6 +740,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 86304544349606364, guid: a8ec8333fb313944e8a153a27582b46e, type: 3}
+      propertyPath: waypoints.Array.data[7]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1138258060068081643, guid: a8ec8333fb313944e8a153a27582b46e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.6
@@ -2040,7 +2044,7 @@ Transform:
   m_GameObject: {fileID: 90263464}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33.19, y: 61.59, z: -38.83}
+  m_LocalPosition: {x: 33.19, y: 61.59, z: -40.21}
   m_LocalScale: {x: 0.90909094, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2075,7 +2079,7 @@ MonoBehaviour:
   loop: 0
   avalancheParticles: {fileID: 674023096}
   snowParticles: {fileID: 175651388}
-  capsuleRadius: 4
+  capsuleRadius: 2
   collidersAreTriggers: 1
   colliderMaterial: {fileID: 0}
   colliderCleanupDelay: 2
@@ -21527,7 +21531,7 @@ MonoBehaviour:
   loop: 0
   avalancheParticles: {fileID: 992041926}
   snowParticles: {fileID: 1208861846}
-  capsuleRadius: 4
+  capsuleRadius: 2
   collidersAreTriggers: 1
   colliderMaterial: {fileID: 0}
   colliderCleanupDelay: 2
@@ -23043,7 +23047,7 @@ Transform:
   m_GameObject: {fileID: 402568050}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.563557, y: 15.89, z: -51.24}
+  m_LocalPosition: {x: 25.45, y: 15.89, z: -47.25}
   m_LocalScale: {x: 0.90909094, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -23075,7 +23079,7 @@ MonoBehaviour:
   loop: 0
   avalancheParticles: {fileID: 2006253219}
   snowParticles: {fileID: 1483356902}
-  capsuleRadius: 4
+  capsuleRadius: 2
   collidersAreTriggers: 1
   colliderMaterial: {fileID: 0}
   colliderCleanupDelay: 2
@@ -32274,7 +32278,7 @@ Transform:
   m_GameObject: {fileID: 588538573}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.563557, y: 15.89, z: -51.24}
+  m_LocalPosition: {x: 33.56, y: 15.89, z: -47.12}
   m_LocalScale: {x: 0.90909094, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -32306,7 +32310,7 @@ MonoBehaviour:
   loop: 0
   avalancheParticles: {fileID: 1243148040}
   snowParticles: {fileID: 255396127}
-  capsuleRadius: 4
+  capsuleRadius: 2
   collidersAreTriggers: 1
   colliderMaterial: {fileID: 0}
   colliderCleanupDelay: 2
@@ -32989,8 +32993,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 8
-      minScalar: 5
+      scalar: 6
+      minScalar: 4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -33374,7 +33378,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 10, y: 10, z: 1}
+    m_Scale: {x: 5, y: 5, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -44787,7 +44791,7 @@ Transform:
   m_GameObject: {fileID: 701427082}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.563557, y: 15.89, z: -51.24}
+  m_LocalPosition: {x: 33.03, y: 15.89, z: -48.09}
   m_LocalScale: {x: 0.90909094, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -44819,7 +44823,7 @@ MonoBehaviour:
   loop: 0
   avalancheParticles: {fileID: 604077689}
   snowParticles: {fileID: 320029441}
-  capsuleRadius: 4
+  capsuleRadius: 2
   collidersAreTriggers: 1
   colliderMaterial: {fileID: 0}
   colliderCleanupDelay: 2
@@ -45564,7 +45568,7 @@ MonoBehaviour:
   loop: 0
   avalancheParticles: {fileID: 858719844}
   snowParticles: {fileID: 1936372974}
-  capsuleRadius: 4
+  capsuleRadius: 2
   collidersAreTriggers: 1
   colliderMaterial: {fileID: 0}
   colliderCleanupDelay: 2
@@ -137915,7 +137919,7 @@ MonoBehaviour:
   loop: 0
   avalancheParticles: {fileID: 1658466095}
   snowParticles: {fileID: 1069385396}
-  capsuleRadius: 4
+  capsuleRadius: 2
   collidersAreTriggers: 1
   colliderMaterial: {fileID: 0}
   colliderCleanupDelay: 2
@@ -163597,9 +163601,17 @@ PrefabInstance:
       propertyPath: fractureOptions.fragmentCount
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 254994067272249048, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: capsuleRadius
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 403956242655400173, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 4222469567
+      objectReference: {fileID: 0}
+    - target: {fileID: 514064741527508331, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: capsuleRadius
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 552085747450101091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
