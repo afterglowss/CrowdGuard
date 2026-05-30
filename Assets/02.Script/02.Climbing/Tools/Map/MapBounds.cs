@@ -14,6 +14,16 @@ namespace CrowdGuard.Climbing.Tools.Map
         [SerializeField] private MapBlock[] _blocks;
 
         /// <summary>
+        /// 등록된 지도 블록 수입니다.
+        /// </summary>
+        public int BlockCount => _blocks == null ? 0 : _blocks.Length;
+
+        /// <summary>
+        /// 하나 이상의 유효한 지도 블록 bounds가 있는지 확인합니다.
+        /// </summary>
+        public bool HasUsableBlockBounds => HasUsableBlocks();
+
+        /// <summary>
         /// 월드 위치를 단일 지도 기준 0~1 정규화 좌표로 변환합니다.
         /// </summary>
         public Vector2 WorldToNormalized(Vector3 worldPosition)
@@ -144,6 +154,56 @@ namespace CrowdGuard.Climbing.Tools.Map
             return false;
         }
 
+        /// <summary>
+        /// 지정한 지도 블록의 월드 X/Y bounds를 반환합니다.
+        /// </summary>
+        public bool TryGetBlockWorldBounds(int blockIndex, out Vector2 worldMin, out Vector2 worldMax)
+        {
+            if (_blocks == null ||
+                blockIndex < 0 ||
+                blockIndex >= _blocks.Length ||
+                _blocks[blockIndex] == null)
+            {
+                worldMin = Vector2.zero;
+                worldMax = Vector2.zero;
+                return false;
+            }
+
+            return _blocks[blockIndex].TryGetWorldBounds(out worldMin, out worldMax);
+        }
+
+        /// <summary>
+        /// 지정한 지도 블록의 표시 이름을 반환합니다.
+        /// </summary>
+        public string GetBlockLabel(int blockIndex)
+        {
+            if (_blocks == null ||
+                blockIndex < 0 ||
+                blockIndex >= _blocks.Length ||
+                _blocks[blockIndex] == null)
+            {
+                return string.Empty;
+            }
+
+            return _blocks[blockIndex].Label;
+        }
+
+        /// <summary>
+        /// 블록이 없을 때 사용하는 전체 지도 월드 X/Y bounds를 반환합니다.
+        /// </summary>
+        public bool TryGetFallbackWorldBounds(out Vector2 worldMin, out Vector2 worldMax)
+        {
+            worldMin = new Vector2(
+                Mathf.Min(_worldMin.x, _worldMax.x),
+                Mathf.Min(_worldMin.y, _worldMax.y));
+            worldMax = new Vector2(
+                Mathf.Max(_worldMin.x, _worldMax.x),
+                Mathf.Max(_worldMin.y, _worldMax.y));
+
+            return !Mathf.Approximately(worldMin.x, worldMax.x) &&
+                   !Mathf.Approximately(worldMin.y, worldMax.y);
+        }
+
         private bool TryCalculateAspect(Vector2 worldMin, Vector2 worldMax, out float aspect)
         {
             float width = Mathf.Abs(worldMax.x - worldMin.x);
@@ -177,49 +237,5 @@ namespace CrowdGuard.Climbing.Tools.Map
             return false;
         }
 
-        private void OnDrawGizmosSelected()
-        {
-            if (HasUsableBlocks())
-            {
-                Gizmos.color = Color.yellow;
-                for (int i = 0; i < _blocks.Length; i++)
-                {
-                    DrawBlockGizmo(_blocks[i]);
-                }
-
-                return;
-            }
-
-            Vector3 center = new Vector3(
-                (_worldMin.x + _worldMax.x) * 0.5f,
-                (_worldMin.y + _worldMax.y) * 0.5f,
-                transform.position.z);
-            Vector3 size = new Vector3(
-                Mathf.Abs(_worldMax.x - _worldMin.x),
-                Mathf.Abs(_worldMax.y - _worldMin.y),
-                0.1f);
-
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireCube(center, size);
-        }
-
-        private void DrawBlockGizmo(MapBlock block)
-        {
-            if (block == null || !block.TryGetWorldBounds(out Vector2 worldMin, out Vector2 worldMax))
-            {
-                return;
-            }
-
-            Vector3 center = new Vector3(
-                (worldMin.x + worldMax.x) * 0.5f,
-                (worldMin.y + worldMax.y) * 0.5f,
-                transform.position.z);
-            Vector3 size = new Vector3(
-                Mathf.Abs(worldMax.x - worldMin.x),
-                Mathf.Abs(worldMax.y - worldMin.y),
-                0.1f);
-
-            Gizmos.DrawWireCube(center, size);
-        }
     }
 }
