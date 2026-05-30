@@ -14,44 +14,152 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entries:
   - _type: 4
-    _worldPosition: {x: 12.737434, y: 5.934696, z: 7.1521797}
+    _worldPosition: {x: 12.737434, y: 5.934696, z: 2.9752693}
     _forward: {x: -0.990611, y: -0.13312122, z: 0.031119972}
     _label: TentSavePoint (1)
     _category: Tent
     _isVisible: 1
   - _type: 4
-    _worldPosition: {x: 25.48249, y: 13.47278, z: 6.188835}
+    _worldPosition: {x: 25.48249, y: 13.47278, z: 2.0119247}
     _forward: {x: -0.90200055, y: 0.25748298, z: 0.34655076}
     _label: TentSavePoint (2)
     _category: Tent
     _isVisible: 1
   - _type: 4
-    _worldPosition: {x: 9.798056, y: 19.157509, z: 12.023464}
+    _worldPosition: {x: 9.798056, y: 19.157509, z: 7.846554}
     _forward: {x: -0.6413936, y: 0.012632602, z: 0.767108}
     _label: TentSavePoint (3)
     _category: Tent
     _isVisible: 1
   - _type: 4
-    _worldPosition: {x: 11.156513, y: 36.995213, z: 16.136082}
+    _worldPosition: {x: 10.802513, y: 36.995213, z: 12.975567}
     _forward: {x: -0.94060695, y: 0.012632599, z: 0.3392625}
     _label: TentSavePoint (4)
     _category: Tent
     _isVisible: 1
-  - _type: 5
-    _worldPosition: {x: 10.431196, y: 4.398659, z: 7.065113}
-    _forward: {x: 0, y: 0, z: 1}
-    _label: 'Avalanche: HazardTriggerZone_Avalanche_00'
-    _category: Hazard/Avalanche
+  - _type: 4
+    _worldPosition: {x: 13.9017105, y: 54.236538, z: 15.108501}
+    _forward: {x: -0.99897486, y: 0.011924382, z: 0.043670606}
+    _label: TentSavePoint (5)
+    _category: Tent
+    _isVisible: 1
+  - _type: 4
+    _worldPosition: {x: 14.652912, y: 68.49248, z: 18.239304}
+    _forward: {x: -0.99897486, y: 0.011924382, z: 0.043670606}
+    _label: TentSavePoint (6)
+    _category: Tent
+    _isVisible: 1
+  - _type: 4
+    _worldPosition: {x: 8.348597, y: 77.13248, z: 18.107895}
+    _forward: {x: -0.98077965, y: 0.011924365, z: -0.19475396}
+    _label: TentSavePoint (7)
+    _category: Tent
     _isVisible: 1
   - _type: 5
-    _worldPosition: {x: 23.412022, y: 7.8735538, z: 8.100906}
+    _worldPosition: {x: 23.412022, y: 7.8735538, z: 3.923996}
     _forward: {x: 0, y: 0, z: 1}
     _label: 'Rockfall: HazardTriggerZone_RockFall_00'
     _category: Hazard/Rockfall
     _isVisible: 1
   - _type: 5
-    _worldPosition: {x: 19.920021, y: 15.853556, z: 8.100906}
+    _worldPosition: {x: 19.920021, y: 15.853556, z: 3.923996}
     _forward: {x: 0, y: 0, z: 1}
-    _label: 'Avalanche: HazardTriggerZone_RockFall_00 (1)'
+    _label: 'Avalanche: HazardTriggerZone_Avalanche_01'
+    _category: Hazard/Avalanche
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 14.040024, y: 36.397556, z: 10.848}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Rockfall: HazardTriggerZone_RockFall_01'
+    _category: Hazard/Rockfall
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 20.12402, y: 40.105556, z: 10.584003}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Rockfall: HazardTriggerZone_RockFall_02'
+    _category: Hazard/Rockfall
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 15.2160225, y: 46.813557, z: 11.461197}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Rockfall: HazardTriggerZone_RockFall_03'
+    _category: Hazard/Rockfall
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 15.2160225, y: 46.813557, z: 11.461197}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Rockfall: HazardTriggerZone_RockFall_04'
+    _category: Hazard/Rockfall
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 22.224026, y: 52.74155, z: 13.271996}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Rockfall: HazardTriggerZone_RockFall_05'
+    _category: Hazard/Rockfall
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 25.38242, y: 55.23636, z: 14.214001}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Rockfall: HazardTriggerZone_RockFall_06'
+    _category: Hazard/Rockfall
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 23.04002, y: 58.453552, z: 14.818802}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Rockfall: HazardTriggerZone_RockFall_07'
+    _category: Hazard/Rockfall
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 10.431194, y: 4.3986588, z: 2.8882027}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Avalanche: HazardTriggerZone_Avalanche_00'
+    _category: Hazard/Avalanche
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 8.160021, y: 15.943556, z: 7.4280014}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Avalanche: HazardTriggerZone_Avalanche_02'
+    _category: Hazard/Avalanche
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 8.160021, y: 18.721552, z: 7.7003975}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Avalanche: HazardTriggerZone_Avalanche_03'
+    _category: Hazard/Avalanche
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 8.160021, y: 24.229553, z: 7.945202}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Avalanche: HazardTriggerZone_Avalanche_04'
+    _category: Hazard/Avalanche
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 8.160021, y: 33.473156, z: 8.263195}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Avalanche: HazardTriggerZone_Avalanche_05'
+    _category: Hazard/Avalanche
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 20.568024, y: 64.661156, z: 15.829201}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Avalanche: HazardTriggerZone_Avalanche_06'
+    _category: Hazard/Avalanche
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 17.604023, y: 78.62556, z: 17.855995}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Avalanche: HazardTriggerZone_Avalanche_07'
+    _category: Hazard/Avalanche
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 22.728024, y: 82.70556, z: 17.996403}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Avalanche: HazardTriggerZone_Avalanche_08'
+    _category: Hazard/Avalanche
+    _isVisible: 1
+  - _type: 5
+    _worldPosition: {x: 18.744022, y: 88.02156, z: 19.236004}
+    _forward: {x: 0, y: 0, z: 1}
+    _label: 'Avalanche: HazardTriggerZone_Avalanche_09'
     _category: Hazard/Avalanche
     _isVisible: 1
