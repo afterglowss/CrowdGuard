@@ -37,6 +37,18 @@ public class PlayerClimbingState : PlayerState
     {
         Debug.Log("[FSM] Entered Climbing State: 벽에 매달렸습니다.");
 
+        // 벽에 매달리는 순간 평지 구역 멤버십을 무효화합니다.
+        // 등반 중에는 CharacterController가 꺼져 WalkableZone.OnTriggerExit가
+        // 누락될 수 있어 CurrentWalkableZone이 stale로 남고, 이후 세이프존에서
+        // 바일을 모두 놓을 때 IdleState 대신 GroundState로 빠져 옛 지면 높이로
+        // 가라앉는 버그가 발생합니다. 진입 시 한 번 끊어 그 경로를 차단합니다.
+        //
+        // [정상 케이스 안전성] 정상에서 "ClimbingState 중 WalkableZone 진입"은
+        // WalkableZone.OnTriggerEnter가 CurrentWalkableZone을 다시 세팅하며
+        // Climbing→Ground로 전환합니다. 그 전환은 Enter()가 아닌 Exit() 경로라
+        // 이 클리어와 충돌하지 않습니다.
+        player.CurrentWalkableZone = null;
+
         // 상태 진입 시 모든 추적 변수 초기화
         prevLeftPos = null;
         prevRightPos = null;
