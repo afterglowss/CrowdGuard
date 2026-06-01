@@ -142,59 +142,59 @@ public class HazardManager : NetworkBehaviour
         TriggerHazardExternal(data);
     }
 
-    // ── 구역형 눈보라: 로컬 시각/청각 (네트워크 X) ────────────────
-    // 파티클·소리는 "그 공간에 실제로 있는 로컬 플레이어"에게만 보이고 들려야 한다.
-    // 따라서 RPC가 아니라 각 클라이언트에서 로컬로만 호출한다.
-    // 같은 index를 여러 Zone이 공유할 수 있으므로 로컬 참조 카운트로 관리.
-    private readonly Dictionary<int, int> _localBlizzardRefCount = new Dictionary<int, int>();
-    private readonly Dictionary<int, AudioSource> _localBlizzardSfx = new Dictionary<int, AudioSource>();
+    // ── 눈보라 시각/청각: XR Rig의 PlayerBlizzardVisual에 위임 (네트워크 X) ──
+    // 시각효과는 "그 공간에 실제로 있는 로컬 플레이어"에게만 보여야 한다.
+    // XR Rig 카메라는 로컬 플레이어에게만 생성되므로, 로컬 Rig 하나만 토글하면 됨.
+    // (구역형/이벤트형 공통. 참조 카운트는 PlayerBlizzardVisual 내부에서 관리)
 
-    // ── 구역형 눈보라: 동결 집계 (네트워크 O, StateAuthority 전용) ──
+    // ── 눈보라 동결 집계 (네트워크 O, StateAuthority 전용) ──
     // 어느 클라이언트의 플레이어든 눈보라 존에 들어가 있으면 공유 동결게이지를 가속.
     // 플레이어별 점유 카운트를 두어 겹치는 Zone에도 안전.
     private readonly Dictionary<PlayerRef, int> _blizzardOccupancy = new Dictionary<PlayerRef, int>();
 
+    // 구역형 눈보라 센서 신호 (로컬 전용). 센서가 구독해 상시 100% WARNING을 표시.
+    public static event Action OnBlizzardZoneSensorOn;
+    public static event Action OnBlizzardZoneSensorOff;
+    private int _blizzardZoneSensorCount = 0;
+
     /// <summary>
-    /// 로컬 플레이어가 눈보라 존에 들어갔을 때 호출 (BlizzardZone에서 직접 호출, RPC 아님).
-    /// 해당 클라이언트에서만 파티클·소리를 켭니다.
+    /// 로컬 플레이어가 눈보라에 진입했을 때 호출. 로컬 Rig의 눈보라 연출 ON (Snow OFF).
+    /// 시각/청각 전용 — 이벤트형(HazardSequenceRoutine)이 사용.
     /// </summary>
-    public void LocalEnterBlizzard(int index)
+    public void LocalBlizzardEnter()
     {
-        if (index < 0 || index >= blizzardSystems.Count) return;
-
-        _localBlizzardRefCount.TryGetValue(index, out int count);
-        count++;
-        _localBlizzardRefCount[index] = count;
-
-        if (count == 1)
-        {
-            blizzardSystems[index].Activate(); // duration=0 → Stop() 호출 전까지 유지
-            AudioSource sfx = AudioManager.instance.PlaySFXLooping(
-                AudioManager.SFXType.Blizzard, blizzardSystems[index].transform);
-            if (sfx != null) _localBlizzardSfx[index] = sfx;
-            Debug.Log($"[HazardManager] (로컬) BlizzardZone {index} 시각/청각 ON");
-        }
+        if (PlayerBlizzardVisual.LocalInstance != null)
+            PlayerBlizzardVisual.LocalInstance.Enter();
     }
 
     /// <summary>
-    /// 로컬 플레이어가 눈보라 존에서 나갔을 때 호출 (BlizzardZone에서 직접 호출, RPC 아님).
+    /// 로컬 플레이어가 눈보라에서 이탈했을 때 호출. 마지막 이탈 시 평상시(Snow ON)로 복귀.
     /// </summary>
-    public void LocalExitBlizzard(int index)
+    public void LocalBlizzardExit()
     {
-        if (index < 0 || index >= blizzardSystems.Count) return;
+        if (PlayerBlizzardVisual.LocalInstance != null)
+            PlayerBlizzardVisual.LocalInstance.Exit();
+    }
 
-        _localBlizzardRefCount.TryGetValue(index, out int count);
-        count = Mathf.Max(0, count - 1);
-        _localBlizzardRefCount[index] = count;
+    /// <summary>
+    /// 구역형 눈보라 진입(BlizzardZone). 시각/청각(Rig)에 더해 센서 신호도 발생.
+    /// 여러 존이 겹쳐도 첫 진입에만 센서 신호 ON.
+    /// </summary>
+    public void LocalBlizzardZoneEnter()
+    {
+        LocalBlizzardEnter();
+        _blizzardZoneSensorCount++;
+        if (_blizzardZoneSensorCount == 1) OnBlizzardZoneSensorOn?.Invoke();
+    }
 
-        if (count == 0)
-        {
-            blizzardSystems[index].Stop();
-            if (_localBlizzardSfx.TryGetValue(index, out AudioSource sfx) && sfx != null)
-                AudioManager.instance.StopSFXWithFade(sfx, 0.5f);
-            _localBlizzardSfx.Remove(index);
-            Debug.Log($"[HazardManager] (로컬) BlizzardZone {index} 시각/청각 OFF");
-        }
+    /// <summary>
+    /// 구역형 눈보라 이탈(BlizzardZone). 마지막 이탈에만 센서 신호 OFF.
+    /// </summary>
+    public void LocalBlizzardZoneExit()
+    {
+        LocalBlizzardExit();
+        _blizzardZoneSensorCount = Mathf.Max(0, _blizzardZoneSensorCount - 1);
+        if (_blizzardZoneSensorCount == 0) OnBlizzardZoneSensorOff?.Invoke();
     }
 
     /// <summary>
@@ -253,11 +253,11 @@ public class HazardManager : NetworkBehaviour
         switch (data)
         {
             case BlizzardData blizzard:
-                if (blizzard.Index >= 0 && blizzard.Index < blizzardSystems.Count)
-                    blizzardSystems[blizzard.Index].Activate(blizzardDuration);
+                // 시각/청각: 각 클라이언트의 로컬 Rig를 blizzardDuration 동안 켰다 끔
+                StartCoroutine(EventBlizzardVisualRoutine(blizzardDuration));
+                // 동결: StateAuthority만 공유 게이지 가속
                 if (HasStateAuthority)
                     StartCoroutine(ApplyBlizzardPenaltyRoutine());
-                AudioManager.instance.PlaySFX(AudioManager.SFXType.Blizzard, transform);
                 break;
             case AvalancheData avalanche:
                 // PlayAvalanche는 HazardVFXController가 OnHazardTriggered를 받아 처리
@@ -270,6 +270,17 @@ public class HazardManager : NetworkBehaviour
     }
 
     // ===================== 재난별 로직 =====================
+
+    /// <summary>
+    /// 이벤트형 눈보라의 로컬 시각/청각을 duration 동안 유지합니다.
+    /// 각 클라이언트에서 자기 Rig를 토글하므로 로컬 처리.
+    /// </summary>
+    private IEnumerator EventBlizzardVisualRoutine(float duration)
+    {
+        LocalBlizzardEnter();
+        yield return new WaitForSeconds(duration);
+        LocalBlizzardExit();
+    }
 
     private IEnumerator ApplyBlizzardPenaltyRoutine()
     {

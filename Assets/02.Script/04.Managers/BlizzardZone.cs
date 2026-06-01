@@ -4,26 +4,23 @@ using Capstone.Photon.Game;
 /// <summary>
 /// 눈보라 구역형 — 상시 구간.
 /// 로컬 플레이어가 이 존 안에 있는 동안:
-///  - 파티클/소리 : 그 플레이어의 클라이언트에서만 재생 (로컬 처리)
-///  - 동결게이지   : 공유 상태이므로 StateAuthority가 집계해 가속 (네트워크 처리)
+///  - 시각/청각 : XR Rig의 PlayerBlizzardVisual로 1인칭 눈보라 연출 (그 플레이어 화면에만)
+///  - 동결게이지 : 공유 상태이므로 StateAuthority가 집계해 가속 (네트워크 처리)
 /// 존을 벗어나면 둘 다 즉시 해제됩니다.
 ///
 /// [씬 세팅]
 /// 1. 빈 오브젝트에 이 컴포넌트 + Collider 추가 (Is Trigger / Kinematic Rigidbody 자동 설정)
 /// 2. 구간 크기에 맞게 Collider 조정
-/// 3. 인스펙터에서 blizzardIndex 설정 (HazardManager.blizzardSystems 인덱스)
+///    (별도 인덱스 설정 불필요 — 시각은 플레이어 Rig 하나가 담당)
 ///
 /// [로컬/네트워크 분리]
 /// - OnTriggerEnter/Exit는 "내 로컬 플레이어"일 때만 처리 (GamePlayerModel.LocalPlayerModel 비교)
-/// - 시각/청각은 HazardManager.LocalEnter/ExitBlizzard() 로컬 호출
+/// - 시각/청각은 HazardManager.LocalBlizzardEnter/Exit() → 로컬 Rig
 /// - 동결은 HazardManager.NotifyBlizzardOccupancy() → StateAuthority 집계
 /// </summary>
 [RequireComponent(typeof(Collider))]
 public class BlizzardZone : MonoBehaviour
 {
-    [Tooltip("HazardManager.blizzardSystems 리스트의 인덱스.")]
-    public int blizzardIndex = 0;
-
     // 로컬 플레이어가 현재 이 존 안에 있는지 (이 클라이언트 기준)
     private bool _localInside = false;
 
@@ -62,10 +59,10 @@ public class BlizzardZone : MonoBehaviour
         var hm = HazardManager.Instance;
         if (hm == null) return;
 
-        hm.LocalEnterBlizzard(blizzardIndex);   // 시각/청각: 이 클라이언트만
-        hm.NotifyBlizzardOccupancy(true);        // 동결: StateAuthority 집계
+        hm.LocalBlizzardZoneEnter();      // 시각/청각(Rig) + 센서 신호
+        hm.NotifyBlizzardOccupancy(true);  // 동결: StateAuthority 집계
 
-        Debug.Log($"[BlizzardZone] '{name}' 로컬 플레이어 진입 (index={blizzardIndex})");
+        Debug.Log($"[BlizzardZone] '{name}' 로컬 플레이어 진입");
     }
 
     private void ApplyExit()
@@ -73,10 +70,10 @@ public class BlizzardZone : MonoBehaviour
         var hm = HazardManager.Instance;
         if (hm == null) return;
 
-        hm.LocalExitBlizzard(blizzardIndex);
+        hm.LocalBlizzardZoneExit();
         hm.NotifyBlizzardOccupancy(false);
 
-        Debug.Log($"[BlizzardZone] '{name}' 로컬 플레이어 퇴장 (index={blizzardIndex})");
+        Debug.Log($"[BlizzardZone] '{name}' 로컬 플레이어 퇴장");
     }
 
     private static bool IsLocalPlayer(Collider other)
@@ -111,7 +108,7 @@ public class BlizzardZone : MonoBehaviour
         if (col == null) return;
         UnityEditor.Handles.Label(
             col.bounds.center + Vector3.up * (col.bounds.extents.y + 0.3f),
-            $"BlizzardZone  index={blizzardIndex}  (구역형 상시 · 로컬)"
+            "BlizzardZone (구역형 상시 · 로컬 Rig)"
         );
 #endif
     }

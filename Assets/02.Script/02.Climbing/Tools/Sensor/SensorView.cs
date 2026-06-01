@@ -29,12 +29,14 @@ namespace MSEX.Climbing.Tools
         {
             controller.OnModeChanged    += OnModeChangedHandler;
             controller.OnHazardDetected += TriggerWarningFeedback;
+            controller.OnHazardCleared  += OnHazardClearedHandler;
         }
 
         private void OnDisable()
         {
             controller.OnModeChanged    -= OnModeChangedHandler;
             controller.OnHazardDetected -= TriggerWarningFeedback;
+            controller.OnHazardCleared  -= OnHazardClearedHandler;
         }
 
         private void Start()
@@ -49,6 +51,15 @@ namespace MSEX.Climbing.Tools
         {
             StopAllCoroutines();
             RefreshUI(newMode);
+        }
+
+        /// <summary>
+        /// 추적이 즉시 종료될 때(구역형 눈보라 이탈 등) WARNING을 멈추고 UI를 복귀.
+        /// </summary>
+        private void OnHazardClearedHandler()
+        {
+            StopAllCoroutines();
+            RefreshUI(controller.CurrentMode);
         }
 
         private void RefreshUI(SensorMode newMode)
@@ -73,7 +84,8 @@ namespace MSEX.Climbing.Tools
         private IEnumerator WarningTextRoutine(string hazardName)
         {
             float elapsed = 0f;
-            while (elapsed < controller.TrackingDuration)
+            // 구역형 눈보라(상시)면 이탈할 때까지 WARNING 유지, 그 외엔 추적 시간만큼
+            while (elapsed < controller.TrackingDuration || controller.IsConstantWarningActive)
             {
                 elapsed += Time.deltaTime;
 

@@ -22,8 +22,16 @@ namespace MSEX.Climbing.Tools
 
         public event Action<SensorMode> OnModeChanged;
         public event Action<HazardData> OnHazardDetected;
+        // 추적을 즉시 종료해야 할 때(구역형 눈보라 이탈 등) UI를 바로 복귀시키기 위한 신호
+        public event Action OnHazardCleared;
 
         public float CurrentIntensity { get; private set; }
+
+        // 구역형 눈보라: 방향성 없는 상시 100% 추적 상태
+        private bool _blizzardZoneActive = false; // 로컬 플레이어가 눈보라 존 안에 있음
+        private bool _isConstantBlizzard = false; // 현재 상시 눈보라를 추적 중
+        private readonly BlizzardData _constantBlizzardData = new BlizzardData();
+        public bool IsConstantWarningActive => _isConstantBlizzard;
 
         [Header("Tracking Settings")]
         [SerializeField, Tooltip("재난 감지 후 추적 지속 시간(초).")]
@@ -74,6 +82,8 @@ namespace MSEX.Climbing.Tools
             interactable.selectEntered.AddListener(OnSelectEntered);
             interactable.selectExited.AddListener(OnSelectExited);
             try { HazardManager.OnHazardWarning += HandleHazardWarning; } catch { }
+            try { HazardManager.OnBlizzardZoneSensorOn  += HandleBlizzardZoneOn;  } catch { }
+            try { HazardManager.OnBlizzardZoneSensorOff += HandleBlizzardZoneOff; } catch { }
         }
 
         private void OnDisable()
@@ -82,6 +92,8 @@ namespace MSEX.Climbing.Tools
             interactable.selectExited.RemoveListener(OnSelectExited);
             DisableModeActions();
             try { HazardManager.OnHazardWarning -= HandleHazardWarning; } catch { }
+            try { HazardManager.OnBlizzardZoneSensorOn  -= HandleBlizzardZoneOn;  } catch { }
+            try { HazardManager.OnBlizzardZoneSensorOff -= HandleBlizzardZoneOff; } catch { }
         }
 
         private void OnDestroy()
@@ -119,7 +131,12 @@ namespace MSEX.Climbing.Tools
                 if (WasModeButtonPressed(nextModeAction,     defaultNextModeAction))     CycleMode(1);
             }
 
-            if (activeHazard != null)
+            if (_isConstantBlizzard)
+            {
+                // 구역형 눈보라는 방향성이 없으므로 항상 100%
+                CurrentIntensity = 1f;
+            }
+            else if (activeHazard != null)
             {
                 Vector3 targetPos = (activeHazard is AvalancheData av && av.PathSystem != null)
                     ? av.PathSystem.GetHeadPosition()
@@ -152,12 +169,59 @@ namespace MSEX.Climbing.Tools
             // OnModeChanged 먼저 → SensorView가 RefreshUI 실행
             OnModeChanged?.Invoke(CurrentMode);
 
+            // 구역형 눈보라 존 안에서 블리자드 모드로 바꾸면 즉시 상시 100% 표시
+            if (_blizzardZoneActive && CurrentMode == SensorMode.Blizzard)
+            {
+                ActivateConstantBlizzard();
+                return;
+            }
+
             // 새 모드에 유효한 대기 재난이 있으면 즉시 전체 추적 시작
             if (_pendingHazards.TryGetValue(CurrentMode, out HazardData pending)
                 && Time.time < _pendingExpiry[CurrentMode])
             {
                 ActivateFullTracking(pending);
             }
+        }
+
+        // ── 구역형 눈보라 (상시 100%, 방향성·beep 루프 없음) ─────────
+
+        private void HandleBlizzardZoneOn()
+        {
+            _blizzardZoneActive = true;
+
+            // 진입 시 단발 경고음 1회 (모드 불문)
+            AudioManager.instance.PlaySFXNoRand(AudioManager.SFXType.SensorBeep, transform);
+
+            if (CurrentMode == SensorMode.Blizzard)
+                ActivateConstantBlizzard();
+        }
+
+        private void HandleBlizzardZoneOff()
+        {
+            _blizzardZoneActive = false;
+
+            if (_isConstantBlizzard)
+            {
+                StopActiveTracking();    // _isConstantBlizzard = false 로 정리
+                OnHazardCleared?.Invoke(); // UI 즉시 복귀
+            }
+        }
+
+        private void ActivateConstantBlizzard()
+        {
+            StopActiveTracking();        // 이전 추적/beep 루프 정리
+            _isConstantBlizzard = true;
+            activeHazard = _constantBlizzardData;
+            CurrentIntensity = 1f;
+
+            // 단발 햅틱 (루핑 X)
+            if (_heldHapticProvider != null && blizzardWarningProfile != null)
+                _heldHapticProvider.PlayHaptic(blizzardWarningProfile);
+
+            // beep 루프는 시작하지 않음 (퍼센티지 기반 삐삐삐 제거)
+            OnHazardDetected?.Invoke(_constantBlizzardData);
+            Debug.Log("[SensorController] 구역형 눈보라 상시 추적 시작 (100%)");
         }
 
         public void HandleHazardWarning(HazardData data)
@@ -217,6 +281,7 @@ namespace MSEX.Climbing.Tools
         {
             activeHazard = null;
             CurrentIntensity = 0f;
+            _isConstantBlizzard = false;
 
             _heldHapticProvider?.StopHaptic();
 
