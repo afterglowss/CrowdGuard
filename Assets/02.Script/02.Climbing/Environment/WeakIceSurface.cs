@@ -87,7 +87,14 @@ namespace CrowdGuard.Environment
                 Transform child = transform.GetChild(i);
                 Collider col = child.GetComponent<Collider>();
 
-                float dist = col != null
+                // 주의: Collider.ClosestPoint는 "비활성 콜라이더/비활성 오브젝트"에 호출하면
+                // 입력 좌표를 그대로 돌려줘 거리 0이 된다. 파괴된 자식(CauseFracture가
+                // SetActive(false) 처리)이 이 때문에 항상 "가장 가까운 자식"으로 잘못 선택되어
+                // 이후 모든 타격이 깨진 자식으로 매핑되는 버그가 생긴다.
+                // → 콜라이더가 실제로 유효할 때만 ClosestPoint를 쓰고, 아니면 중심 좌표로 거리 계산.
+                bool colliderUsable = col != null && col.enabled && child.gameObject.activeInHierarchy;
+
+                float dist = colliderUsable
                     ? Vector3.Distance(col.ClosestPoint(worldPoint), worldPoint)
                     : Vector3.Distance(child.position, worldPoint);
 
@@ -166,8 +173,12 @@ namespace CrowdGuard.Environment
                     if (rb == null) continue;
                     rb.useGravity = true;
                     rb.isKinematic = false;
+                    // ForceMode.Impulse는 "힘 ÷ 질량"이라, 작게 쪼개진 파편(질량이 작음)이
+                    // 같은 explosionForce에도 엄청난 속도를 받아 하늘로 솟구친다.
+                    // ForceMode.VelocityChange는 질량과 무관하게 동일한 속도 변화를 주므로
+                    // 파편 크기에 상관없이 일정하게 흩어진다. (explosionForce는 이제 m/s 단위로 해석)
                     rb.AddExplosionForce(explosionForce, blastCenter, explosionRadius,
-                                         explosionUpward, ForceMode.Impulse);
+                                         explosionUpward, ForceMode.VelocityChange);
                 }
 
                 Destroy(child.gameObject, 2f);

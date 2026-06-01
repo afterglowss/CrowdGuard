@@ -7063,12 +7063,14 @@ GameObject:
   - component: {fileID: 6582681805243678089}
   - component: {fileID: 5570257635694963754}
   - component: {fileID: 3117223052773305485}
+  - component: {fileID: 185276989716324756}
+  - component: {fileID: 1447884450172636838}
   m_Layer: 10
   m_Name: Rock_Round_m_2C_15 (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &8255723331062474765
 Transform:
@@ -7157,6 +7159,73 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: d7bba1fe040a6ea4ab91b0546b210778, type: 3}
+--- !u!54 &185276989716324756
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185985696362797705}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1447884450172636838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185985696362797705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 50
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 1
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &187276980009823250
 GameObject:
   m_ObjectHideFlags: 0
@@ -7777,7 +7846,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &7961555814522231129
 Transform:
@@ -7912,12 +7981,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -19228,7 +19297,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &3996653446327773156
 Transform:
@@ -19363,12 +19432,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -31199,7 +31268,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1599807407491153521
 Transform:
@@ -31334,12 +31403,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -38683,12 +38752,14 @@ GameObject:
   - component: {fileID: 2601091106909808224}
   - component: {fileID: 1731492352313795371}
   - component: {fileID: 4465066342207820182}
+  - component: {fileID: 7551976287066715763}
+  - component: {fileID: 5092088131176399434}
   m_Layer: 10
   m_Name: Rock_Square_l_2C_06 (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &4348053661294526035
 Transform:
@@ -38777,6 +38848,73 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 765ebbb7df4b5644ea2a15c4cdb96112, type: 3}
+--- !u!54 &7551976287066715763
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028638293259615745}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5092088131176399434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028638293259615745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 50
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 1
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &1030349185225573468
 GameObject:
   m_ObjectHideFlags: 0
@@ -38796,7 +38934,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1024075709067130731
 Transform:
@@ -38931,12 +39069,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -41238,7 +41376,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &4670511434533492319
 Transform:
@@ -41373,12 +41511,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -41731,7 +41869,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &8135368933924655171
 Transform:
@@ -41866,12 +42004,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -59562,7 +59700,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &371171702200915738
 Transform:
@@ -59697,12 +59835,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -59843,7 +59981,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &5519048897282986572
 Transform:
@@ -59978,12 +60116,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -82100,7 +82238,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &8430737882097505950
 Transform:
@@ -82235,12 +82373,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -87310,12 +87448,14 @@ GameObject:
   - component: {fileID: 2156266487023865635}
   - component: {fileID: 2156266487024864739}
   - component: {fileID: 6009433143242905949}
+  - component: {fileID: 330035668365787584}
+  - component: {fileID: 3662503487093587917}
   m_Layer: 10
   m_Name: Rock_Block_m_2C_10 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &2156266487023095555
 Transform:
@@ -87404,6 +87544,73 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: f61b0a48db6e2ce4d820929361900870, type: 3}
+--- !u!54 &330035668365787584
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2156266487022670627}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &3662503487093587917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2156266487022670627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 50
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 1
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &2176024772577851785
 GameObject:
   m_ObjectHideFlags: 0
@@ -87635,7 +87842,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &6742730490122386161
 Transform:
@@ -87770,12 +87977,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -88128,7 +88335,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &5633247925683210195
 Transform:
@@ -88263,12 +88470,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -88789,7 +88996,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &3164436641185978368
 Transform:
@@ -88924,12 +89131,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -90566,7 +90773,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &2156822856570939337
 Transform:
@@ -90701,12 +90908,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -106369,7 +106576,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &257890118226171552
 Transform:
@@ -106504,12 +106711,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -107703,12 +107910,14 @@ GameObject:
   - component: {fileID: 1023401118693929519}
   - component: {fileID: 1952178642874448480}
   - component: {fileID: 7119814018606629660}
+  - component: {fileID: 3946621158444264419}
+  - component: {fileID: 4429007583042388963}
   m_Layer: 10
   m_Name: Rock_Round_m_2C_15 (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &7393336783170309598
 Transform:
@@ -107797,6 +108006,73 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: d7bba1fe040a6ea4ab91b0546b210778, type: 3}
+--- !u!54 &3946621158444264419
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3358345775242986632}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &4429007583042388963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3358345775242986632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 50
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 1
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &3380078494884182210
 GameObject:
   m_ObjectHideFlags: 0
@@ -113817,7 +114093,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &8476498144386453692
 Transform:
@@ -113952,12 +114228,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -114812,7 +115088,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &3723138600589417910
 Transform:
@@ -114947,12 +115223,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -115301,7 +115577,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &6229974420099995530
 Transform:
@@ -115436,12 +115712,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -134210,6 +134486,181 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7464532043086751822, guid: ede913b672d3f554e9bf81bdfa472abe, type: 3}
+--- !u!1 &4194680292505964853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6693196145106786440}
+  - component: {fileID: 1790531960207669891}
+  - component: {fileID: 260611171370333785}
+  - component: {fileID: 1690066272764944221}
+  - component: {fileID: 8644503867447506670}
+  - component: {fileID: 3702454397744913582}
+  m_Layer: 10
+  m_Name: Rock_Square_m_2C_13 (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 123
+  m_IsActive: 1
+--- !u!4 &6693196145106786440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194680292505964853}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 15.529, y: 1.53, z: -56.381}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3437806576838950021}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1790531960207669891
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194680292505964853}
+  m_Mesh: {fileID: 4300000, guid: 693df9cb009c9f34088a4a82bbfbf970, type: 3}
+--- !u!23 &260611171370333785
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194680292505964853}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1690066272764944221
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194680292505964853}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 693df9cb009c9f34088a4a82bbfbf970, type: 3}
+--- !u!54 &8644503867447506670
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194680292505964853}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &3702454397744913582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194680292505964853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 50
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &4216421242464054642
 GameObject:
   m_ObjectHideFlags: 0
@@ -134593,7 +135044,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &2323890227122776984
 Transform:
@@ -134728,12 +135179,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -136092,7 +136543,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &2604899107809974707
 Transform:
@@ -136227,12 +136678,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -136267,7 +136718,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &3260297027974069677
 Transform:
@@ -136402,7 +136853,182 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 1
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
+--- !u!1 &4480097509288329826
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3591345955615734483}
+  - component: {fileID: 3815618649043281247}
+  - component: {fileID: 8645410885211722539}
+  - component: {fileID: 2659870723103532491}
+  - component: {fileID: 6705588044247307789}
+  - component: {fileID: 136799403311259103}
+  m_Layer: 10
+  m_Name: Rock_Square_m_2C_13 (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 123
+  m_IsActive: 1
+--- !u!4 &3591345955615734483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4480097509288329826}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 17.499998, y: 2.0407054, z: -52.600002}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3437806576838950021}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &3815618649043281247
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4480097509288329826}
+  m_Mesh: {fileID: 4300000, guid: 693df9cb009c9f34088a4a82bbfbf970, type: 3}
+--- !u!23 &8645410885211722539
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4480097509288329826}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2659870723103532491
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4480097509288329826}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 693df9cb009c9f34088a4a82bbfbf970, type: 3}
+--- !u!54 &6705588044247307789
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4480097509288329826}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &136799403311259103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4480097509288329826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
@@ -145138,7 +145764,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &2307184099503374742
 Transform:
@@ -145273,12 +145899,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -153324,7 +153950,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &3102533708005043733
 Transform:
@@ -153459,12 +154085,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -153962,6 +154588,181 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 21f17e7e327c10c488dc17d19e2c7f81, type: 3}
+--- !u!1 &5333285356552268014
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7412596946584398783}
+  - component: {fileID: 8001889258715377333}
+  - component: {fileID: 2152132665866844758}
+  - component: {fileID: 6836121872311770679}
+  - component: {fileID: 5948899527665696727}
+  - component: {fileID: 2860371360056011839}
+  m_Layer: 10
+  m_Name: Rock_Square_m_2C_13 (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 123
+  m_IsActive: 1
+--- !u!4 &7412596946584398783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5333285356552268014}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 15.529, y: 1.53, z: -55.549}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3437806576838950021}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8001889258715377333
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5333285356552268014}
+  m_Mesh: {fileID: 4300000, guid: 693df9cb009c9f34088a4a82bbfbf970, type: 3}
+--- !u!23 &2152132665866844758
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5333285356552268014}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6836121872311770679
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5333285356552268014}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 693df9cb009c9f34088a4a82bbfbf970, type: 3}
+--- !u!54 &5948899527665696727
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5333285356552268014}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &2860371360056011839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5333285356552268014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 50
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &5333929077574958892
 GameObject:
   m_ObjectHideFlags: 0
@@ -153974,12 +154775,14 @@ GameObject:
   - component: {fileID: 1164516877438107352}
   - component: {fileID: 1090621364249179994}
   - component: {fileID: 7059911273028085500}
+  - component: {fileID: 7650299503843975554}
+  - component: {fileID: 5163804564947638313}
   m_Layer: 10
   m_Name: Rock_Square_l_2C_06 (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &5825469717697546107
 Transform:
@@ -154068,6 +154871,73 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 765ebbb7df4b5644ea2a15c4cdb96112, type: 3}
+--- !u!54 &7650299503843975554
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5333929077574958892}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5163804564947638313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5333929077574958892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 50
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 1
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &5377350014539366465
 GameObject:
   m_ObjectHideFlags: 0
@@ -159961,12 +160831,14 @@ GameObject:
   - component: {fileID: 2345521394307023918}
   - component: {fileID: 4758678432821642654}
   - component: {fileID: 3698707099833093746}
+  - component: {fileID: 554564311201620134}
+  - component: {fileID: 7324417654131954208}
   m_Layer: 10
   m_Name: Rock_Square_m_2C_05 (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &7650232093120410801
 Transform:
@@ -160055,6 +160927,73 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 7a8b391eff855b446b2d82d451f8aca1, type: 3}
+--- !u!54 &554564311201620134
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5510002477069673532}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &7324417654131954208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5510002477069673532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 50
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 1
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &5521666351922844240
 GameObject:
   m_ObjectHideFlags: 0
@@ -165480,6 +166419,181 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 21f17e7e327c10c488dc17d19e2c7f81, type: 3}
+--- !u!1 &5584376317060376692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2287128871018702610}
+  - component: {fileID: 1789627235716590683}
+  - component: {fileID: 4797161396020177704}
+  - component: {fileID: 2540751239974620493}
+  - component: {fileID: 4941297271414261409}
+  - component: {fileID: 561511502418521709}
+  m_Layer: 10
+  m_Name: Rock_Square_m_2C_13 (11)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 123
+  m_IsActive: 1
+--- !u!4 &2287128871018702610
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584376317060376692}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 18.59, y: 1.53, z: -54.58}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3437806576838950021}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1789627235716590683
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584376317060376692}
+  m_Mesh: {fileID: 4300000, guid: 693df9cb009c9f34088a4a82bbfbf970, type: 3}
+--- !u!23 &4797161396020177704
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584376317060376692}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2540751239974620493
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584376317060376692}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 693df9cb009c9f34088a4a82bbfbf970, type: 3}
+--- !u!54 &4941297271414261409
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584376317060376692}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &561511502418521709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584376317060376692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 50
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &5599195517034280227
 GameObject:
   m_ObjectHideFlags: 0
@@ -168293,7 +169407,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &8472527084897218493
 Transform:
@@ -168428,12 +169542,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -168574,7 +169688,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &3078340286171973046
 Transform:
@@ -168709,12 +169823,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -169143,7 +170257,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &6062877968579646802
 Transform:
@@ -169278,12 +170392,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -169424,7 +170538,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1269471808514964173
 Transform:
@@ -169559,12 +170673,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -182603,7 +183717,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &8636058864431382365
 Transform:
@@ -182738,12 +183852,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -182865,6 +183979,181 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 21f17e7e327c10c488dc17d19e2c7f81, type: 3}
+--- !u!1 &6530698298660864635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3668774093721782895}
+  - component: {fileID: 9087086964781951696}
+  - component: {fileID: 1168078024146733725}
+  - component: {fileID: 1406281731304065730}
+  - component: {fileID: 1642974921639871642}
+  - component: {fileID: 3486176885293955516}
+  m_Layer: 10
+  m_Name: Rock_Square_m_2C_13 (12)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 123
+  m_IsActive: 1
+--- !u!4 &3668774093721782895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6530698298660864635}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 18.59, y: 1.53, z: -55.357}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3437806576838950021}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &9087086964781951696
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6530698298660864635}
+  m_Mesh: {fileID: 4300000, guid: 693df9cb009c9f34088a4a82bbfbf970, type: 3}
+--- !u!23 &1168078024146733725
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6530698298660864635}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1406281731304065730
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6530698298660864635}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 693df9cb009c9f34088a4a82bbfbf970, type: 3}
+--- !u!54 &1642974921639871642
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6530698298660864635}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &3486176885293955516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6530698298660864635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 50
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &6547664955410450573
 GameObject:
   m_ObjectHideFlags: 0
@@ -193711,6 +195000,181 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 680520d2141b5fd418fc00f779d3a159, type: 3}
+--- !u!1 &7389198243652317304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2024207269614384558}
+  - component: {fileID: 4770816832354841967}
+  - component: {fileID: 8334108049956119875}
+  - component: {fileID: 7296697918985979987}
+  - component: {fileID: 3529594893445527867}
+  - component: {fileID: 2108910467082823246}
+  m_Layer: 10
+  m_Name: Rock_Square_m_2C_13 (13)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 123
+  m_IsActive: 1
+--- !u!4 &2024207269614384558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7389198243652317304}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 18.59, y: 1.53, z: -56.022}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3437806576838950021}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4770816832354841967
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7389198243652317304}
+  m_Mesh: {fileID: 4300000, guid: 693df9cb009c9f34088a4a82bbfbf970, type: 3}
+--- !u!23 &8334108049956119875
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7389198243652317304}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7296697918985979987
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7389198243652317304}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 693df9cb009c9f34088a4a82bbfbf970, type: 3}
+--- !u!54 &3529594893445527867
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7389198243652317304}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &2108910467082823246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7389198243652317304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 50
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &7389914482654149702
 GameObject:
   m_ObjectHideFlags: 0
@@ -193905,7 +195369,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &9090435726192236922
 Transform:
@@ -194040,12 +195504,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -194577,7 +196041,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &7217248195121127024
 Transform:
@@ -194712,12 +196176,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -194964,7 +196428,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &580669523596313225
 Transform:
@@ -195099,12 +196563,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -195985,12 +197449,14 @@ GameObject:
   - component: {fileID: 5301851710994474752}
   - component: {fileID: 7507029212051529013}
   - component: {fileID: 592877835799724576}
+  - component: {fileID: 6555678961434511495}
+  - component: {fileID: 1737191354288246732}
   m_Layer: 10
   m_Name: Rock_Round_m_2C_15 (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &8979937368718322735
 Transform:
@@ -196079,6 +197545,73 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: d7bba1fe040a6ea4ab91b0546b210778, type: 3}
+--- !u!54 &6555678961434511495
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7738505713804963976}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1737191354288246732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7738505713804963976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 50
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 1
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &7748456530631969635
 GameObject:
   m_ObjectHideFlags: 0
@@ -225292,7 +226825,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &5669193642905885674
 Transform:
@@ -225427,12 +226960,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -232095,7 +233628,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &7672197064823797723
 Transform:
@@ -232230,12 +233763,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -238838,7 +240371,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &3120256590223233849
 Transform:
@@ -238973,12 +240506,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -241690,7 +243223,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &7958115661201610723
 Transform:
@@ -241825,12 +243358,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
@@ -246888,7 +248421,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &3437806576838950021
 Transform:
@@ -246945,6 +248478,13 @@ Transform:
   - {fileID: 7393336783170309598}
   - {fileID: 8255723331062474765}
   - {fileID: 8979937368718322735}
+  - {fileID: 3591345955615734483}
+  - {fileID: 6693196145106786440}
+  - {fileID: 7412596946584398783}
+  - {fileID: 4850037262950822003}
+  - {fileID: 2287128871018702610}
+  - {fileID: 3668774093721782895}
+  - {fileID: 2024207269614384558}
   m_Father: {fileID: 3759748346259984655}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6839268860736724801
@@ -246965,9 +248505,10 @@ MonoBehaviour:
     _value: 0
   breakProbability: 0.8
   _rockfallIndex: -1
-  explosionForce: 400
-  explosionRadius: 3
-  explosionUpward: 0.5
+  explosionForce: 3
+  explosionRadius: 2
+  explosionUpward: 0.3
+  _BrokenMask: 0
 --- !u!114 &8429287244179528344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246987,6 +248528,181 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 6839268860736724801}
   ForceRemoteRenderTimeframe: 0
+--- !u!1 &9087122701091276768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4850037262950822003}
+  - component: {fileID: 910457591299984936}
+  - component: {fileID: 3881005934010364021}
+  - component: {fileID: 4298338490075828807}
+  - component: {fileID: 2017726480968671526}
+  - component: {fileID: 4972680280190794067}
+  m_Layer: 10
+  m_Name: Rock_Square_m_2C_13 (10)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 123
+  m_IsActive: 1
+--- !u!4 &4850037262950822003
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9087122701091276768}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 16.06, y: 1.53, z: -54.58}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3437806576838950021}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &910457591299984936
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9087122701091276768}
+  m_Mesh: {fileID: 4300000, guid: 693df9cb009c9f34088a4a82bbfbf970, type: 3}
+--- !u!23 &3881005934010364021
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9087122701091276768}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4298338490075828807
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9087122701091276768}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 693df9cb009c9f34088a4a82bbfbf970, type: 3}
+--- !u!54 &2017726480968671526
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9087122701091276768}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &4972680280190794067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9087122701091276768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerOptions:
+    triggerType: 1
+    minimumCollisionForce: 0
+    filterCollisionsByTag: 0
+    triggerAllowedTags: []
+    triggerKey: 0
+  fractureOptions:
+    fragmentCount: 50
+    xAxis: 1
+    yAxis: 1
+    zAxis: 1
+    detectFloatingFragments: 0
+    asynchronous: 0
+    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
+    textureScale: {x: 1, y: 1}
+    textureOffset: {x: 0, y: 0}
+  refractureOptions:
+    enableRefracturing: 0
+    maxRefractureCount: 1
+    invokeCallbacks: 0
+  callbackOptions:
+    onFracture:
+      m_PersistentCalls:
+        m_Calls: []
+    onCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+  currentRefractureCount: 0
 --- !u!1 &9116144382744241359
 GameObject:
   m_ObjectHideFlags: 0
@@ -247807,7 +249523,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &5665753948221537816
 Transform:
@@ -247942,12 +249658,12 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
     detectFloatingFragments: 0
-    asynchronous: 0
+    asynchronous: 1
     insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}

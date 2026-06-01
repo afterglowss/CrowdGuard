@@ -142,40 +142,92 @@ public class HazardManager : NetworkBehaviour
         TriggerHazardExternal(data);
     }
 
+    // ── 구역형 눈보라: 로컬 시각/청각 (네트워크 X) ────────────────
+    // 파티클·소리는 "그 공간에 실제로 있는 로컬 플레이어"에게만 보이고 들려야 한다.
+    // 따라서 RPC가 아니라 각 클라이언트에서 로컬로만 호출한다.
+    // 같은 index를 여러 Zone이 공유할 수 있으므로 로컬 참조 카운트로 관리.
+    private readonly Dictionary<int, int> _localBlizzardRefCount = new Dictionary<int, int>();
+    private readonly Dictionary<int, AudioSource> _localBlizzardSfx = new Dictionary<int, AudioSource>();
+
+    // ── 구역형 눈보라: 동결 집계 (네트워크 O, StateAuthority 전용) ──
+    // 어느 클라이언트의 플레이어든 눈보라 존에 들어가 있으면 공유 동결게이지를 가속.
+    // 플레이어별 점유 카운트를 두어 겹치는 Zone에도 안전.
+    private readonly Dictionary<PlayerRef, int> _blizzardOccupancy = new Dictionary<PlayerRef, int>();
+
     /// <summary>
-    /// 구역형 눈보라를 즉시 활성화합니다 (BlizzardZone 진입 시 호출).
-    /// 파티클은 모든 클라이언트에서 무기한 재생, 동결 패널티는 StateAuthority에서만 적용.
+    /// 로컬 플레이어가 눈보라 존에 들어갔을 때 호출 (BlizzardZone에서 직접 호출, RPC 아님).
+    /// 해당 클라이언트에서만 파티클·소리를 켭니다.
     /// </summary>
-    [Rpc(RpcSources.All, RpcTargets.All)]
-    public void RPC_ActivateBlizzardZone(int index)
+    public void LocalEnterBlizzard(int index)
     {
-        if (index < 0 || index >= blizzardSystems.Count)
+        if (index < 0 || index >= blizzardSystems.Count) return;
+
+        _localBlizzardRefCount.TryGetValue(index, out int count);
+        count++;
+        _localBlizzardRefCount[index] = count;
+
+        if (count == 1)
         {
-            Debug.LogWarning($"[HazardManager] blizzardSystems[{index}] 없음.");
-            return;
+            blizzardSystems[index].Activate(); // duration=0 → Stop() 호출 전까지 유지
+            AudioSource sfx = AudioManager.instance.PlaySFXLooping(
+                AudioManager.SFXType.Blizzard, blizzardSystems[index].transform);
+            if (sfx != null) _localBlizzardSfx[index] = sfx;
+            Debug.Log($"[HazardManager] (로컬) BlizzardZone {index} 시각/청각 ON");
         }
-        blizzardSystems[index].Activate(); // duration=0 → Stop() 호출 전까지 유지
-        if (HasStateAuthority && SurvivalManager.Instance != null)
-            SurvivalManager.Instance.SetRapidFreezing(true);
-        AudioManager.instance.PlaySFX(AudioManager.SFXType.Blizzard, transform);
-        Debug.Log($"[HazardManager] BlizzardZone {index} 활성화");
     }
 
     /// <summary>
-    /// 구역형 눈보라를 즉시 비활성화합니다 (BlizzardZone 퇴장 시 호출).
+    /// 로컬 플레이어가 눈보라 존에서 나갔을 때 호출 (BlizzardZone에서 직접 호출, RPC 아님).
     /// </summary>
-    [Rpc(RpcSources.All, RpcTargets.All)]
-    public void RPC_DeactivateBlizzardZone(int index)
+    public void LocalExitBlizzard(int index)
     {
-        if (index < 0 || index >= blizzardSystems.Count)
+        if (index < 0 || index >= blizzardSystems.Count) return;
+
+        _localBlizzardRefCount.TryGetValue(index, out int count);
+        count = Mathf.Max(0, count - 1);
+        _localBlizzardRefCount[index] = count;
+
+        if (count == 0)
         {
-            Debug.LogWarning($"[HazardManager] blizzardSystems[{index}] 없음.");
-            return;
+            blizzardSystems[index].Stop();
+            if (_localBlizzardSfx.TryGetValue(index, out AudioSource sfx) && sfx != null)
+                AudioManager.instance.StopSFXWithFade(sfx, 0.5f);
+            _localBlizzardSfx.Remove(index);
+            Debug.Log($"[HazardManager] (로컬) BlizzardZone {index} 시각/청각 OFF");
         }
-        blizzardSystems[index].Stop();
-        if (HasStateAuthority && SurvivalManager.Instance != null)
-            SurvivalManager.Instance.SetRapidFreezing(false);
-        Debug.Log($"[HazardManager] BlizzardZone {index} 비활성화");
+    }
+
+    /// <summary>
+    /// 눈보라 존 점유 상태를 알립니다. 네트워크 세션이면 StateAuthority가 집계,
+    /// 아니면(에디터 단독 등) 로컬에서 바로 동결 토글.
+    /// </summary>
+    public void NotifyBlizzardOccupancy(bool inside)
+    {
+        if (Runner != null && Runner.IsRunning)
+            RPC_SetBlizzardOccupancy(inside);
+        else
+            SurvivalManager.Instance?.SetRapidFreezing(inside);
+    }
+
+    /// <summary>
+    /// 플레이어별 눈보라 존 점유를 StateAuthority가 집계해 공유 동결게이지에 반영.
+    /// 한 명이라도 존 안에 있으면 RapidFreezing ON.
+    /// </summary>
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_SetBlizzardOccupancy(bool inside, RpcInfo info = default)
+    {
+        PlayerRef player = info.Source;
+
+        _blizzardOccupancy.TryGetValue(player, out int count);
+        count = Mathf.Max(0, count + (inside ? 1 : -1));
+        if (count == 0) _blizzardOccupancy.Remove(player);
+        else            _blizzardOccupancy[player] = count;
+
+        bool anyInside = _blizzardOccupancy.Count > 0;
+        if (SurvivalManager.Instance != null)
+            SurvivalManager.Instance.SetRapidFreezing(anyInside);
+
+        Debug.Log($"[HazardManager] 눈보라 점유자 {_blizzardOccupancy.Count}명 → RapidFreeze={anyInside}");
     }
 
     // ===================== 공통 시퀀스 =====================

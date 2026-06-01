@@ -2224,8 +2224,8 @@
     "m_ObjectId": "2a1144917afd492092d1ae0564b7d802",
     "m_Title": "Snow Mask",
     "m_Position": {
-        "x": -1061.333251953125,
-        "y": 1196.0001220703125
+        "x": -1061.0,
+        "y": 1196.0
     }
 }
 
@@ -6738,7 +6738,7 @@
     "m_RefNameGeneratedByDisplayName": "_isLeader",
     "m_DefaultReferenceName": "_isLeader",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
@@ -7619,8 +7619,8 @@
     "m_ObjectId": "e289d52b93914a84a5d143a41491ae43",
     "m_Title": "IceAlbedo",
     "m_Position": {
-        "x": -1528.6666259765625,
-        "y": -908.666748046875
+        "x": -1528.0001220703125,
+        "y": -909.0
     }
 }
 

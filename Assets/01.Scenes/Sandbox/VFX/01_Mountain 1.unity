@@ -15234,6 +15234,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7642014524839500114, guid: 43f8524be19352547b8893a8d1290b2f, type: 3}
+      propertyPath: isLeader
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24932,6 +24936,101 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 467291891}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &467361075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 467361076}
+  - component: {fileID: 467361078}
+  - component: {fileID: 467361077}
+  - component: {fileID: 467361079}
+  m_Layer: 0
+  m_Name: BlizzardZone (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &467361076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467361075}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 17.63, y: 7.81, z: -51.39}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 491075684}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &467361077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467361075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8de6ec75ea6604a88bfba28e1c485e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blizzardIndex: 0
+--- !u!65 &467361078
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467361075}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.4023256, y: 4.110978, z: 3.083008}
+  m_Center: {x: 0.5140439, y: 0.5750624, z: -1.0415037}
+--- !u!54 &467361079
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467361075}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &478377166
 GameObject:
   m_ObjectHideFlags: 0
@@ -24943,6 +25042,7 @@ GameObject:
   - component: {fileID: 478377167}
   - component: {fileID: 478377169}
   - component: {fileID: 478377168}
+  - component: {fileID: 478377170}
   m_Layer: 0
   m_Name: BlizzardZone
   m_TagString: Untagged
@@ -24958,12 +25058,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 478377166}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.36, y: 61.529987, z: -39.79}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 25.359999, y: 61.529987, z: -39.789997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 174738156}
+  m_Father: {fileID: 491075684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &478377168
 MonoBehaviour:
@@ -24993,12 +25093,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 6.4023256, y: 4.110978, z: 3.083008}
   m_Center: {x: 0.5140439, y: 0.5750624, z: -1.0415037}
+--- !u!54 &478377170
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478377166}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &482325233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25251,6 +25378,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 483463542}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &491075684 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 970400686356919896, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+  m_PrefabInstance: {fileID: 8415646167869571690}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &494548137
 GameObject:
   m_ObjectHideFlags: 0
@@ -31921,73 +32053,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578261583}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &580336784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8415646167869571699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerOptions:
-    triggerType: 1
-    minimumCollisionForce: 0
-    filterCollisionsByTag: 0
-    triggerAllowedTags: []
-    triggerKey: 0
-  fractureOptions:
-    fragmentCount: 40
-    xAxis: 1
-    yAxis: 1
-    zAxis: 1
-    detectFloatingFragments: 0
-    asynchronous: 1
-    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
-    textureScale: {x: 1, y: 1}
-    textureOffset: {x: 0, y: 0}
-  refractureOptions:
-    enableRefracturing: 0
-    maxRefractureCount: 1
-    invokeCallbacks: 0
-  callbackOptions:
-    onFracture:
-      m_PersistentCalls:
-        m_Calls: []
-    onCompleted:
-      m_PersistentCalls:
-        m_Calls: []
-  currentRefractureCount: 0
---- !u!54 &580336785
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8415646167869571699}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &581631908
 GameObject:
   m_ObjectHideFlags: 0
@@ -38824,6 +38889,7 @@ GameObject:
   - component: {fileID: 658950967}
   - component: {fileID: 658950969}
   - component: {fileID: 658950968}
+  - component: {fileID: 658950970}
   m_Layer: 0
   m_Name: BlizzardZone (4)
   m_TagString: Untagged
@@ -38839,12 +38905,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 658950966}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.02, y: 75.19, z: -38.95}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 33.019997, y: 75.189995, z: -38.949997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 174738156}
+  m_Father: {fileID: 491075684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &658950968
 MonoBehaviour:
@@ -38874,12 +38940,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 7.807157, y: 4.9646764, z: 3.083008}
   m_Center: {x: 0.88684756, y: 0.6117125, z: -1.0415037}
+--- !u!54 &658950970
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658950966}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &661593231
 GameObject:
   m_ObjectHideFlags: 0
@@ -45747,6 +45840,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blizzardParticles: {fileID: 733183067}
   _spawnOrigin: {fileID: 733183065}
+  _followCameraPosition: 1
+  _followOffset: {x: -2, y: 7, z: 0}
 --- !u!1 &736397024
 GameObject:
   m_ObjectHideFlags: 0
@@ -52348,73 +52443,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1779345181}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &834395612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8415646167869571700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerOptions:
-    triggerType: 1
-    minimumCollisionForce: 0
-    filterCollisionsByTag: 0
-    triggerAllowedTags: []
-    triggerKey: 0
-  fractureOptions:
-    fragmentCount: 40
-    xAxis: 1
-    yAxis: 1
-    zAxis: 1
-    detectFloatingFragments: 0
-    asynchronous: 1
-    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
-    textureScale: {x: 1, y: 1}
-    textureOffset: {x: 0, y: 0}
-  refractureOptions:
-    enableRefracturing: 0
-    maxRefractureCount: 1
-    invokeCallbacks: 0
-  callbackOptions:
-    onFracture:
-      m_PersistentCalls:
-        m_Calls: []
-    onCompleted:
-      m_PersistentCalls:
-        m_Calls: []
-  currentRefractureCount: 0
---- !u!54 &834395613
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8415646167869571700}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &835085497
 GameObject:
   m_ObjectHideFlags: 0
@@ -65119,73 +65147,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946840205}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &947815347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8415646167869571698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerOptions:
-    triggerType: 1
-    minimumCollisionForce: 0
-    filterCollisionsByTag: 0
-    triggerAllowedTags: []
-    triggerKey: 0
-  fractureOptions:
-    fragmentCount: 40
-    xAxis: 1
-    yAxis: 1
-    zAxis: 1
-    detectFloatingFragments: 0
-    asynchronous: 1
-    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
-    textureScale: {x: 1, y: 1}
-    textureOffset: {x: 0, y: 0}
-  refractureOptions:
-    enableRefracturing: 0
-    maxRefractureCount: 1
-    invokeCallbacks: 0
-  callbackOptions:
-    onFracture:
-      m_PersistentCalls:
-        m_Calls: []
-    onCompleted:
-      m_PersistentCalls:
-        m_Calls: []
-  currentRefractureCount: 0
---- !u!54 &947815348
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8415646167869571698}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &961028477
 GameObject:
   m_ObjectHideFlags: 0
@@ -65197,6 +65158,7 @@ GameObject:
   - component: {fileID: 961028478}
   - component: {fileID: 961028480}
   - component: {fileID: 961028479}
+  - component: {fileID: 961028481}
   m_Layer: 0
   m_Name: BlizzardZone (6)
   m_TagString: Untagged
@@ -65212,12 +65174,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961028477}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.8, y: 77.33, z: -37.74}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 25.8, y: 77.329994, z: -37.739998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 174738156}
+  m_Father: {fileID: 491075684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &961028479
 MonoBehaviour:
@@ -65247,12 +65209,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 3.4227242, y: 3.0759943, z: 3.083008}
   m_Center: {x: 1.8424296, y: 0.36438602, z: -1.0415037}
+--- !u!54 &961028481
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961028477}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &969331926
 GameObject:
   m_ObjectHideFlags: 0
@@ -65591,6 +65580,7 @@ GameObject:
   - component: {fileID: 991565032}
   - component: {fileID: 991565034}
   - component: {fileID: 991565033}
+  - component: {fileID: 991565035}
   m_Layer: 0
   m_Name: BlizzardZone (3)
   m_TagString: Untagged
@@ -65606,12 +65596,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 991565031}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30.57, y: 65.43, z: -39.34}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 30.569998, y: 65.43, z: -39.339996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 174738156}
+  m_Father: {fileID: 491075684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &991565033
 MonoBehaviour:
@@ -65641,12 +65631,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 2.7257063, y: 3.9978535, z: 3.083008}
   m_Center: {x: 0.5046159, y: 0.44308344, z: -1.0415037}
+--- !u!54 &991565035
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991565031}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &991803008
 GameObject:
   m_ObjectHideFlags: 0
@@ -78374,6 +78391,7 @@ GameObject:
   - component: {fileID: 1126275377}
   - component: {fileID: 1126275379}
   - component: {fileID: 1126275378}
+  - component: {fileID: 1126275380}
   m_Layer: 0
   m_Name: BlizzardZone (2)
   m_TagString: Untagged
@@ -78389,12 +78407,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126275376}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.36, y: 67.82, z: -38.87}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 27.359999, y: 67.81999, z: -38.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 174738156}
+  m_Father: {fileID: 491075684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1126275378
 MonoBehaviour:
@@ -78424,12 +78442,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 4.3283367, y: 1.6599019, z: 3.083008}
   m_Center: {x: 0.60831624, y: 0.6504822, z: -1.0415037}
+--- !u!54 &1126275380
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126275376}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1126656051
 GameObject:
   m_ObjectHideFlags: 0
@@ -98811,6 +98856,7 @@ GameObject:
   - component: {fileID: 1396910139}
   - component: {fileID: 1396910141}
   - component: {fileID: 1396910140}
+  - component: {fileID: 1396910142}
   m_Layer: 0
   m_Name: BlizzardZone (1)
   m_TagString: Untagged
@@ -98826,12 +98872,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1396910138}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.51, y: 65.4, z: -39.79}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 26.51, y: 65.399994, z: -39.789997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 174738156}
+  m_Father: {fileID: 491075684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1396910140
 MonoBehaviour:
@@ -98861,12 +98907,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.2927682, y: 3.6396217, z: 3.083008}
   m_Center: {x: 0.5046165, y: 0.33938408, z: -1.0415037}
+--- !u!54 &1396910142
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396910138}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1399675167
 GameObject:
   m_ObjectHideFlags: 0
@@ -125421,6 +125494,7 @@ GameObject:
   - component: {fileID: 1869603750}
   - component: {fileID: 1869603752}
   - component: {fileID: 1869603751}
+  - component: {fileID: 1869603753}
   m_Layer: 0
   m_Name: BlizzardZone (5)
   m_TagString: Untagged
@@ -125436,12 +125510,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1869603749}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28.68, y: 73.98, z: -38.67}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 28.679998, y: 73.98, z: -38.669994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 174738156}
+  m_Father: {fileID: 491075684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1869603751
 MonoBehaviour:
@@ -125471,12 +125545,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.3092017, y: 4.2226915, z: 3.083008}
   m_Center: {x: 1.7524929, y: 0.24072011, z: -1.0415037}
+--- !u!54 &1869603753
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869603749}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1871367711
 GameObject:
   m_ObjectHideFlags: 0
@@ -125805,6 +125906,7 @@ GameObject:
   - component: {fileID: 1880984483}
   - component: {fileID: 1880984485}
   - component: {fileID: 1880984484}
+  - component: {fileID: 1880984486}
   m_Layer: 0
   m_Name: BlizzardZone (7)
   m_TagString: Untagged
@@ -125820,12 +125922,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1880984482}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.55, y: 79.56, z: -38.01}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 29.549997, y: 79.55999, z: -38.009995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 174738156}
+  m_Father: {fileID: 491075684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1880984484
 MonoBehaviour:
@@ -125855,12 +125957,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 4.479486, y: 2.8061872, z: 3.083008}
   m_Center: {x: 1.5613754, y: 0.22948235, z: -1.0415037}
+--- !u!54 &1880984486
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880984482}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1881250451
 GameObject:
   m_ObjectHideFlags: 0
@@ -136749,73 +136878,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913918996}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1914150977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8415646167869571697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerOptions:
-    triggerType: 1
-    minimumCollisionForce: 0
-    filterCollisionsByTag: 0
-    triggerAllowedTags: []
-    triggerKey: 0
-  fractureOptions:
-    fragmentCount: 40
-    xAxis: 1
-    yAxis: 1
-    zAxis: 1
-    detectFloatingFragments: 0
-    asynchronous: 1
-    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
-    textureScale: {x: 1, y: 1}
-    textureOffset: {x: 0, y: 0}
-  refractureOptions:
-    enableRefracturing: 0
-    maxRefractureCount: 1
-    invokeCallbacks: 0
-  callbackOptions:
-    onFracture:
-      m_PersistentCalls:
-        m_Calls: []
-    onCompleted:
-      m_PersistentCalls:
-        m_Calls: []
-  currentRefractureCount: 0
---- !u!54 &1914150978
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8415646167869571697}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &1914969421
 GameObject:
   m_ObjectHideFlags: 0
@@ -160566,73 +160628,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085672749}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2095966804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8415646167869571696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerOptions:
-    triggerType: 1
-    minimumCollisionForce: 0
-    filterCollisionsByTag: 0
-    triggerAllowedTags: []
-    triggerKey: 0
-  fractureOptions:
-    fragmentCount: 40
-    xAxis: 1
-    yAxis: 1
-    zAxis: 1
-    detectFloatingFragments: 0
-    asynchronous: 1
-    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
-    textureScale: {x: 1, y: 1}
-    textureOffset: {x: 0, y: 0}
-  refractureOptions:
-    enableRefracturing: 0
-    maxRefractureCount: 1
-    invokeCallbacks: 0
-  callbackOptions:
-    onFracture:
-      m_PersistentCalls:
-        m_Calls: []
-    onCompleted:
-      m_PersistentCalls:
-        m_Calls: []
-  currentRefractureCount: 0
---- !u!54 &2095966805
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8415646167869571696}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1001 &2111449276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -160703,73 +160698,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 976997250734348988, guid: 1cdfa9de06e83414dbf61c4bd7c20881, type: 3}
   m_PrefabInstance: {fileID: 2111449276}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2112680935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8415646167869571695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerOptions:
-    triggerType: 1
-    minimumCollisionForce: 0
-    filterCollisionsByTag: 0
-    triggerAllowedTags: []
-    triggerKey: 0
-  fractureOptions:
-    fragmentCount: 40
-    xAxis: 1
-    yAxis: 1
-    zAxis: 1
-    detectFloatingFragments: 0
-    asynchronous: 1
-    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
-    textureScale: {x: 1, y: 1}
-    textureOffset: {x: 0, y: 0}
-  refractureOptions:
-    enableRefracturing: 0
-    maxRefractureCount: 1
-    invokeCallbacks: 0
-  callbackOptions:
-    onFracture:
-      m_PersistentCalls:
-        m_Calls: []
-    onCompleted:
-      m_PersistentCalls:
-        m_Calls: []
-  currentRefractureCount: 0
---- !u!54 &2112680936
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8415646167869571695}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &2115301749
 GameObject:
   m_ObjectHideFlags: 0
@@ -162428,14 +162356,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 170447818871623213, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 170447818871623213, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 254994067272249048, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: capsuleRadius
       value: 2
@@ -162456,30 +162376,6 @@ PrefabInstance:
       propertyPath: SortKey
       value: 2869992634
       objectReference: {fileID: 0}
-    - target: {fileID: 707917230010359785, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 707917230010359785, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 952511920593489092, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 952511920593489092, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 963747419972427000, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 963747419972427000, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 1113730678480919964, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 89910988
@@ -162491,22 +162387,6 @@ PrefabInstance:
     - target: {fileID: 1358213349059904447, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_LocalPosition.z
       value: -35.9125
-      objectReference: {fileID: 0}
-    - target: {fileID: 1562425226505072437, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1562425226505072437, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 1701327743538236097, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1701327743538236097, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1912274225890092027, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -162520,26 +162400,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -33.580654
       objectReference: {fileID: 0}
-    - target: {fileID: 2217322196845590560, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2217322196845590560, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 2227309949082001360, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
-    - target: {fileID: 2507137359019621500, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2507137359019621500, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 2541853693254567566, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -162552,46 +162416,14 @@ PrefabInstance:
       propertyPath: SortKey
       value: 1037900106
       objectReference: {fileID: 0}
-    - target: {fileID: 3270798888905741808, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3270798888905741808, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 3303145791909039387, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 2509673240
-      objectReference: {fileID: 0}
-    - target: {fileID: 3403514957004035517, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3403514957004035517, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3483010503438073359, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
-    - target: {fileID: 3542113894958008026, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3542113894958008026, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 3555583409504124042, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3555583409504124042, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 3662625635178569125, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 1185064623
@@ -162644,34 +162476,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3760127028182560027, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3760127028182560027, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 3948604531757741422, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3948604531757741422, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 4062903490667259306, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
-    - target: {fileID: 4156296737521763930, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4156296737521763930, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 4226524794994594890, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -162688,41 +162496,9 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -52.69167
       objectReference: {fileID: 0}
-    - target: {fileID: 4479203437063180849, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4479203437063180849, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 4536431264507037311, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4536431264507037311, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 5004112614781215993, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5004112614781215993, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 5042990193221303946, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 1994774457
-      objectReference: {fileID: 0}
-    - target: {fileID: 5101775513760544630, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5101775513760544630, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5249377976203109340, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: _rockImpactFX1Prefab
@@ -162739,30 +162515,6 @@ PrefabInstance:
     - target: {fileID: 5277929643171476330, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 1902630918
-      objectReference: {fileID: 0}
-    - target: {fileID: 5319144576208091632, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5319144576208091632, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 5338115241247457723, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5338115241247457723, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 5469721428025661112, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5469721428025661112, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5489828835177409579, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -162784,14 +162536,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 20.914356
       objectReference: {fileID: 0}
-    - target: {fileID: 5734033813498254270, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5734033813498254270, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 5744483658448363137, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -162800,21 +162544,13 @@ PrefabInstance:
       propertyPath: SortKey
       value: 1613144213
       objectReference: {fileID: 0}
-    - target: {fileID: 6489243716118548311, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6489243716118548311, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 6585428358933105027, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6585428358933105027, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
+    - target: {fileID: 6429203443769700816, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 52d97e9a3178ce74488e859bba421653, type: 2}
+    - target: {fileID: 6429203443771961104, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7041064110808049818, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -162828,14 +162564,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
-    - target: {fileID: 7158805688172068034, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7158805688172068034, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 7330916797944225323, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 1189107751
@@ -162844,46 +162572,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
-    - target: {fileID: 7529683906955567057, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7529683906955567057, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 7630020567257215235, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
-    - target: {fileID: 7645889436167096326, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7645889436167096326, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 7759009363231746243, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
-    - target: {fileID: 7766849117760847035, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7766849117760847035, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 7790585884490197684, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7790585884490197684, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 7832544752545102295, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.9439666
@@ -162908,62 +162604,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -26.695
       objectReference: {fileID: 0}
-    - target: {fileID: 8165128864477336742, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8165128864477336742, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 8245795239412059410, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8245795239412059410, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 8276204196869516401, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
-    - target: {fileID: 8429287244179528344, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: SortKey
-      value: 3635091123
-      objectReference: {fileID: 0}
-    - target: {fileID: 8750767209555753246, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8750767209555753246, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 8777243050114162369, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: SortKey
       value: 3731371413
-      objectReference: {fileID: 0}
-    - target: {fileID: 8834898431408632472, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8834898431408632472, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8879360304142300075, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4af908ac4daefff478c61cd5143b8960, type: 2}
-    - target: {fileID: 9144095574043568511, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.asynchronous
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9144095574043568511, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      propertyPath: fractureOptions.fragmentCount
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 9164502114739594969, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       propertyPath: m_Name
       value: HazardTriggerZone_Avalanche_01
@@ -162993,6 +162645,33 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5402372656548247630, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1919223028}
+    - targetCorrespondingSourceObject: {fileID: 970400686356919896, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 478377167}
+    - targetCorrespondingSourceObject: {fileID: 970400686356919896, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1396910139}
+    - targetCorrespondingSourceObject: {fileID: 970400686356919896, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1126275377}
+    - targetCorrespondingSourceObject: {fileID: 970400686356919896, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 991565032}
+    - targetCorrespondingSourceObject: {fileID: 970400686356919896, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 658950967}
+    - targetCorrespondingSourceObject: {fileID: 970400686356919896, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1869603750}
+    - targetCorrespondingSourceObject: {fileID: 970400686356919896, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 961028478}
+    - targetCorrespondingSourceObject: {fileID: 970400686356919896, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1880984483}
+    - targetCorrespondingSourceObject: {fileID: 970400686356919896, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 467361076}
     - targetCorrespondingSourceObject: {fileID: 3408018470401719993, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1911031049}
@@ -163041,30 +162720,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       insertIndex: -1
       addedObject: {fileID: 733183064}
-    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 478377167}
-    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1396910139}
-    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1126275377}
-    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 991565032}
-    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 658950967}
-    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1869603750}
-    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 961028478}
-    - targetCorrespondingSourceObject: {fileID: 4654388594959368091, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1880984483}
     - targetCorrespondingSourceObject: {fileID: 3384433235939380282, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       insertIndex: -1
       addedObject: {fileID: 701427083}
@@ -163089,49 +162744,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3384433235939380282, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1914969422}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2156266487022670627, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8415646167869571742}
-    - targetCorrespondingSourceObject: {fileID: 2156266487022670627, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8415646167869571741}
-    - targetCorrespondingSourceObject: {fileID: 1028638293259615745, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 834395613}
-    - targetCorrespondingSourceObject: {fileID: 1028638293259615745, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 834395612}
-    - targetCorrespondingSourceObject: {fileID: 5333929077574958892, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 580336785}
-    - targetCorrespondingSourceObject: {fileID: 5333929077574958892, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 580336784}
-    - targetCorrespondingSourceObject: {fileID: 5510002477069673532, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 947815348}
-    - targetCorrespondingSourceObject: {fileID: 5510002477069673532, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 947815347}
-    - targetCorrespondingSourceObject: {fileID: 3358345775242986632, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1914150978}
-    - targetCorrespondingSourceObject: {fileID: 3358345775242986632, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1914150977}
-    - targetCorrespondingSourceObject: {fileID: 185985696362797705, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2095966805}
-    - targetCorrespondingSourceObject: {fileID: 185985696362797705, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2095966804}
-    - targetCorrespondingSourceObject: {fileID: 7738505713804963976, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2112680936}
-    - targetCorrespondingSourceObject: {fileID: 7738505713804963976, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2112680935}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
 --- !u!4 &8415646167869571691 stripped
 Transform:
@@ -163153,108 +162766,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5402372656548247630, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
   m_PrefabInstance: {fileID: 8415646167869571690}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8415646167869571695 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7738505713804963976, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-  m_PrefabInstance: {fileID: 8415646167869571690}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8415646167869571696 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 185985696362797705, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-  m_PrefabInstance: {fileID: 8415646167869571690}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8415646167869571697 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3358345775242986632, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-  m_PrefabInstance: {fileID: 8415646167869571690}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8415646167869571698 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5510002477069673532, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-  m_PrefabInstance: {fileID: 8415646167869571690}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8415646167869571699 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5333929077574958892, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-  m_PrefabInstance: {fileID: 8415646167869571690}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8415646167869571700 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1028638293259615745, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-  m_PrefabInstance: {fileID: 8415646167869571690}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8415646167869571736 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2156266487022670627, guid: d28bc0b7eb98ab743ae5fba520681166, type: 3}
-  m_PrefabInstance: {fileID: 8415646167869571690}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8415646167869571741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8415646167869571736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0755ae67cca744f8ab873aef7cedd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerOptions:
-    triggerType: 1
-    minimumCollisionForce: 0
-    filterCollisionsByTag: 0
-    triggerAllowedTags: []
-    triggerKey: 0
-  fractureOptions:
-    fragmentCount: 40
-    xAxis: 1
-    yAxis: 1
-    zAxis: 1
-    detectFloatingFragments: 0
-    asynchronous: 1
-    insideMaterial: {fileID: 2100000, guid: f355bbbb9d7ace14e8af70fe90b3ad14, type: 2}
-    textureScale: {x: 1, y: 1}
-    textureOffset: {x: 0, y: 0}
-  refractureOptions:
-    enableRefracturing: 0
-    maxRefractureCount: 1
-    invokeCallbacks: 0
-  callbackOptions:
-    onFracture:
-      m_PersistentCalls:
-        m_Calls: []
-    onCompleted:
-      m_PersistentCalls:
-        m_Calls: []
-  currentRefractureCount: 0
---- !u!54 &8415646167869571742
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8415646167869571736}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
