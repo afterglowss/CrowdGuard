@@ -59,6 +59,14 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public bool IsClimbingBlocked { get; set; }
 
+    /// <summary>
+    /// 텐트 입·퇴장 등 텔레포트 연출 중일 때 true.
+    /// 이 동안에는 바일(IceAxe) 상태 변화가 Climbing/Falling 전환을 일으키지 못하도록 막습니다.
+    /// (양손 바일을 하나씩 ForceRelease할 때, 아직 놓지 않은 다른 손이 ClimbingState를 다시
+    ///  깨우고 → 이어서 FallingState로 빠지는 버그를 차단합니다.)
+    /// </summary>
+    public bool IsTeleporting { get; set; }
+
     /// <summary>로컬 머신의 PlayerController. 네트워크 RPC에서 추락 동기화에 사용됩니다.</summary>
     public static PlayerController LocalInstance { get; private set; }
 
@@ -115,6 +123,16 @@ public class PlayerController : MonoBehaviour
         // (네트워크 강제 추락 시 바일이 아직 IsAttachedToWall=true인 채로
         //  이벤트가 발생하면 FallingState가 즉시 취소되는 버그 방지)
         if (CurrentState == FallingState) return;
+
+        // 텐트 텔레포트 연출 중: 양손 바일을 하나씩 놓는 사이에 아직 박혀있는 쪽이
+        // ClimbingState를 다시 깨우고 → 안전구역 밖이라 FallingState로 빠지는 것을 차단.
+        // 남아있는 부착 상태를 즉시 모두 해제하고 상태 전환은 일으키지 않는다.
+        if (IsTeleporting)
+        {
+            if (leftAxe  != null) leftAxe.IsAttachedToWall  = false;
+            if (rightAxe != null) rightAxe.IsAttachedToWall = false;
+            return;
+        }
 
         // "벽에 박혀있고(Attached) AND 내 손에 쥐고있는(Held)" 바일만 유효한 등반 도구로 인정합니다.
         bool isLeftValid = leftAxe != null && leftAxe.IsAttachedToWall && leftAxe.IsHeld;

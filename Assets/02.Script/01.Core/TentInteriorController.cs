@@ -99,6 +99,9 @@ public class TentInteriorController : NetworkBehaviour
 
         RPC_SetLantern(false);
 
+        // 텐트 안에서는 동결 게이지 증가를 멈춥니다. (랜턴을 켜면 회복은 별도로 진행)
+        SurvivalManager.Instance?.RPC_SetSheltered(true);
+
         AnchorBag.LocalInstance?.RefillToMinimum(_minAnchorSupply);
 
         // 텐트 안에서는 세이프티 로프 숨기기
@@ -118,6 +121,12 @@ public class TentInteriorController : NetworkBehaviour
         var pc = PlayerController.LocalInstance;
         if (pc != null)
         {
+            // IsTeleporting 동안에는 바일 상태 변화가 ClimbingState/FallingState 전환을
+            // 일으키지 못합니다. 양손 바일이 둘 다 벽에 박힌 채로 진입할 때, 한 손을 놓는
+            // 사이에 다른 손이 ClimbingState를 다시 깨우고 → 안전구역 밖이라 FallingState로
+            // 빠지면서 "텐트 진입 즉시 추락"하던 버그를 막습니다.
+            pc.IsTeleporting = true;
+
             // 순서 중요: IdleState로 먼저 전환해야 ForceRelease() 시 OnStateChangedHandler가
             // ClimbingState 분기를 타지 않아 FallingState(→ 비네팅)로 빠지는 것을 방지합니다.
             pc.ChangeState(pc.IdleState);
@@ -133,6 +142,9 @@ public class TentInteriorController : NetworkBehaviour
 
         if (ScreenEffectManager.Instance != null)
             yield return StartCoroutine(ScreenEffectManager.Instance.FadeScreenRoutine(0.5f, true));
+
+        // 텔레포트·페이드인 완료 후 가드 해제 (XRI SelectExit가 지연 처리되는 경우까지 안전하게 커버).
+        if (pc != null) pc.IsTeleporting = false;
     }
 
     // ── 랜턴 ────────────────────────────────────────────────────────
@@ -230,6 +242,9 @@ public class TentInteriorController : NetworkBehaviour
         }
 
         RPC_SetLantern(false);
+
+        // 텐트 밖으로 나가므로 동결 게이지 증가를 다시 진행시킵니다.
+        SurvivalManager.Instance?.RPC_SetSheltered(false);
 
         // 세이브 포인트 갱신 (양쪽 클라이언트 모두 실행)
         if (SavePointManager.Instance != null)

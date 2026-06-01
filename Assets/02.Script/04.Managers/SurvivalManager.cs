@@ -21,6 +21,9 @@ public class SurvivalManager : NetworkBehaviour
     [Networked, Tooltip("텐트 랜턴 켤 때 회복 중 여부")]
     public bool isRestoring { get; set; }
 
+    [Networked, Tooltip("텐트 안(쉘터)에 있어 동결 게이지 증가를 멈출지 여부")]
+    public bool isSheltered { get; set; }
+
     private bool isPlayerFrozen = false;
     public bool IsPlayerFrozen => isPlayerFrozen;
 
@@ -68,7 +71,12 @@ public class SurvivalManager : NetworkBehaviour
 
         if (isRestoring)
         {
+            // 랜턴 회복은 쉘터 여부와 무관하게 우선 적용
             currentFreezeGauge -= restoreRate * deltaTime;
+        }
+        else if (isSheltered)
+        {
+            // 텐트 안: 게이지를 그대로 고정 (증가도 회복도 없음)
         }
         else
         {
@@ -122,6 +130,7 @@ public class SurvivalManager : NetworkBehaviour
             currentFreezeGauge = 0f;
             isRapidFreezing    = false;
             isRestoring        = false;
+            isSheltered        = false;
         }
 
         // Render()를 기다리지 않고 즉시 셰이더 초기화
@@ -140,6 +149,16 @@ public class SurvivalManager : NetworkBehaviour
         isPlayerFrozen = false; 
         
         OnFreezeGaugeChanged?.Invoke(currentFreezeGauge);
+    }
+
+    /// <summary>
+    /// 텐트 입장/퇴장 시 호출. 텐트 안에서는 동결 게이지 증가를 멈춥니다.
+    /// </summary>
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_SetSheltered(bool state)
+    {
+        isSheltered = state;
+        Debug.Log(state ? "[SurvivalManager] 텐트 진입 — 동결 게이지 정지" : "[SurvivalManager] 텐트 퇴장 — 동결 게이지 재개");
     }
 
     private void TriggerFreezeDeath()
