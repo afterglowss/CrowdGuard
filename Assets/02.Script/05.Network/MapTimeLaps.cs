@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 public class MapTimeLaps : MonoBehaviour
@@ -12,6 +13,9 @@ public class MapTimeLaps : MonoBehaviour
     public Vector3 startPos;
     public Vector3 endPos;
     public AnimationCurve curve;
+    public bool isOnce;
+
+    public List<GameObject> objects;
     [ContextMenu("SortTransfoms")]
     public void SortTransforms()
     {
@@ -42,10 +46,25 @@ public class MapTimeLaps : MonoBehaviour
         {
             if (!renderers[i]) continue;
             Debug.Log($" { i} : {renderers[i].name}");
+            renderers[i].transform.position -= Vector3.up*30;
             renderers[i].enabled = false;
+            
         }
+        
+    }
 
-        StartCoroutine(TimeLaps());
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!isOnce)
+            {
+                isOnce = true;
+                StartCoroutine(TimeLaps());
+                StartCoroutine(CameraMove());
+            }
+            
+        }
     }
 
     IEnumerator TimeLaps()
@@ -58,14 +77,21 @@ public class MapTimeLaps : MonoBehaviour
         {
             if (!renderer) continue;
             renderer.enabled = true;
-
-            progress = t / time;
-            var s = curve.Evaluate(progress);
-            cam.transform.position = Vector3.Lerp(startPos, endPos, s);
+            renderer.transform.DOMove(renderer.transform.position + Vector3.up * 30, 1f);
+            
+            
             
             if (renderers.Last() == renderer) break;
             yield return new WaitForSeconds(delay);
             t += delay;
         }
+    }
+
+    IEnumerator CameraMove()
+    {
+        cam.transform.position = startPos;
+        yield return null;
+        cam.transform.DOMove(endPos, time + 3f).SetEase(curve);
+        
     }
 }
